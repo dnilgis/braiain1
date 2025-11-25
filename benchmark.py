@@ -26,9 +26,10 @@ def test_openai(api_key):
         # Calculate cost (Approximate based on input/output)
         return {"provider": "OpenAI", "model": OPENAI_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
-        print(f"OpenAI Error: {e}")
-        return {"provider": "OpenAI", "model": OPENAI_MODEL, "time": 0, "status": "Error"}
-
+        print(f"OpenAI API Failure: {e}")
+        # Return a high time to push it to the bottom of the list
+        return {"provider": "OpenAI", "model": OPENAI_MODEL, "time": 99.9999, "status": "API FAILURE"}
+        
 def test_anthropic(api_key):
     if not api_key: return None
     headers = {"x-api-key": api_key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
@@ -44,9 +45,9 @@ def test_anthropic(api_key):
         duration = round(time.time() - start, 2)
         return {"provider": "Anthropic", "model": ANTHROPIC_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
-        print(f"Anthropic Error: {e}")
-        return {"provider": "Anthropic", "model": ANTHROPIC_MODEL, "time": 0, "status": "Error"}
-
+        print(f"Anthropic API Failure: {e}")
+        return {"provider": "Anthropic", "model": ANTHROPIC_MODEL, "time": 99.9999, "status": "API FAILURE"}
+        
 def test_gemini(api_key):
     if not api_key: return None
     # Google uses a URL parameter for the key
@@ -59,8 +60,8 @@ def test_gemini(api_key):
         duration = round(time.time() - start, 2)
         return {"provider": "Google", "model": GEMINI_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
-        print(f"Gemini Error: {e}")
-        return {"provider": "Google", "model": GEMINI_MODEL, "time": 0, "status": "Error"}
+        print(f"Gemini API Failure: {e}")
+        return {"provider": "Google", "model": GEMINI_MODEL, "time": 99.9999, "status": "API FAILURE"}
 
 def update_json():
     results = []
