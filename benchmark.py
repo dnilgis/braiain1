@@ -1,5 +1,5 @@
 import os
-import time # UNIVERSAL FIX: Allows access to time.monotonic()
+import time # Universal fix for time.monotonic()
 import json
 import requests
 from datetime import datetime
@@ -9,7 +9,7 @@ OPENAI_MODEL = "gpt-4o-mini"
 ANTHROPIC_MODEL = "claude-3-5-sonnet-20240620" 
 GEMINI_MODEL = "gemini-2.5-flash"
 
-# Increase the complexity to guarantee a measurable response time
+# Prompt Complexity set high to ensure measurable time delay
 PROMPT = "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030." 
 MAX_TOKENS = 300 
 
@@ -28,11 +28,11 @@ def test_openai(api_key):
         "max_tokens": MAX_TOKENS
     }
     
-    start = time.monotonic() # FIX: Using time.monotonic()
+    start = time.monotonic()
     try:
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
         response.raise_for_status() 
-        duration = round(time.monotonic() - start, 4) # FIX: Using time.monotonic()
+        duration = round(time.monotonic() - start, 4)
         return {"provider": "OpenAI", "model": OPENAI_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
         print(f"OpenAI API Failure: {e}")
@@ -50,7 +50,7 @@ def test_anthropic(api_key):
     data = {
         "model": ANTHROPIC_MODEL,
         "max_tokens": MAX_TOKENS,
-        # *** CRITICAL FIX: Explicitly wrap the prompt in a content array ***
+        # FIX: Robust Anthropic content array structure
         "messages": [
             {
                 "role": "user",
@@ -76,11 +76,11 @@ def test_gemini(api_key):
     url = f"https://generativelanguage.googleapis.com/v1/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     data = {"contents": [{"parts": [{"text": PROMPT}]}]}
     
-    start = time.monotonic() # FIX: Using time.monotonic()
+    start = time.monotonic()
     try:
         response = requests.post(url, headers={"Content-Type": "application/json"}, json=data)
         response.raise_for_status()
-        duration = round(time.monotonic() - start, 4) # FIX: Using time.monotonic()
+        duration = round(time.monotonic() - start, 4)
         return {"provider": "Google", "model": GEMINI_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
         print(f"Gemini API Failure: {e}")
@@ -97,12 +97,15 @@ def update_json():
     results = []
 
     # Run tests
+    print("Testing OpenAI...")
     res = test_openai(openai_key)
     if res: results.append(res)
     
+    print("Testing Anthropic...")
     res = test_anthropic(anthropic_key)
     if res: results.append(res)
     
+    print("Testing Google...")
     res = test_gemini(gemini_key)
     if res: results.append(res)
 
