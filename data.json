@@ -1,23 +1,23 @@
 {
-  "last_updated": "2025-11-25 21:55:07 UTC",
-  "results": [
-    {
-      "provider": "OpenAI",
-      "model": "gpt-4o",
-      "time": 99.9999,
-      "status": "API FAILURE"
-    },
-    {
-      "provider": "Anthropic",
-      "model": "claude-3-5-sonnet-20240620",
-      "time": 99.9999,
-      "status": "API FAILURE"
-    },
-    {
-      "provider": "Google",
-      "model": "gemini-1.5-flash",
-      "time": 99.9999,
-      "status": "API FAILURE"
-    }
-  ]
+    "last_updated": "2025-11-25 22:49:13 UTC",
+    "results": [
+        {
+            "provider": "Google",
+            "model": "gemini-2.5-flash",
+            "time": 7.7692,
+            "status": "Online"
+        },
+        {
+            "provider": "OpenAI",
+            "model": "gpt-4o-mini",
+            "time": 8.5063,
+            "status": "Online"
+        },
+        {
+            "provider": "Anthropic",
+            "model": "claude-3-5-sonnet-20240620",
+            "time": 99.9999,
+            "status": "API FAILURE"
+        }
+    ]
 }
