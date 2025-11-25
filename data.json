@@ -1,16 +1,16 @@
 {
-    "last_updated": "2025-11-25 22:57:26 UTC",
+    "last_updated": "2025-11-25 23:02:30 UTC",
     "results": [
         {
             "provider": "OpenAI",
             "model": "gpt-4o-mini",
-            "time": 6.2068,
+            "time": 7.9406,
             "status": "Online"
         },
         {
             "provider": "Google",
             "model": "gemini-2.5-flash",
-            "time": 7.1567,
+            "time": 10.1392,
             "status": "Online"
         },
         {
