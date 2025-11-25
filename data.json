@@ -1,0 +1,23 @@
+{
+  "last_updated": "2025-11-25 21:35:29 UTC",
+  "results": [
+    {
+      "provider": "OpenAI",
+      "model": "gpt-4o",
+      "time": 0,
+      "status": "Error"
+    },
+    {
+      "provider": "Anthropic",
+      "model": "claude-3-5-sonnet-20240620",
+      "time": 0,
+      "status": "Error"
+    },
+    {
+      "provider": "Google",
+      "model": "gemini-1.5-flash",
+      "time": 0,
+      "status": "Error"
+    }
+  ]
+}
