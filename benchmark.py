@@ -41,7 +41,7 @@ def test_openai(api_key):
 def test_anthropic(api_key):
     if not api_key: return None
     
-    # FIX: Correct headers and endpoint for the Messages API
+    # Correct headers and endpoint for the Messages API
     headers = {
         "x-api-key": api_key,
         "anthropic-version": "2023-06-01", # Required header for Messages API
@@ -50,14 +50,20 @@ def test_anthropic(api_key):
     data = {
         "model": ANTHROPIC_MODEL,
         "max_tokens": MAX_TOKENS,
-        "messages": [{"role": "user", "content": PROMPT}]
+        # *** CRITICAL FIX: Explicitly wrap the prompt in a content array ***
+        "messages": [
+            {
+                "role": "user",
+                "content": [{"type": "text", "text": PROMPT}]
+            }
+        ]
     }
     
-    start = time.monotonic() # FIX: Using time.monotonic()
+    start = time.monotonic()
     try:
         response = requests.post("https://api.anthropic.com/v1/messages", headers=headers, json=data)
         response.raise_for_status()
-        duration = round(time.monotonic() - start, 4) # FIX: Using time.monotonic()
+        duration = round(time.monotonic() - start, 4)
         return {"provider": "Anthropic", "model": ANTHROPIC_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
         print(f"Anthropic API Failure: {e}")
