@@ -1,101 +1,119 @@
 import os
-import time
+import time # UNIVERSAL FIX: Allows access to time.monotonic()
 import json
 import requests
 from datetime import datetime
 
-# --- CONFIGURATION (Change these names if new models come out) ---
-OPENAI_MODEL = "gpt-4o"
-ANTHROPIC_MODEL = "claude-3-5-sonnet-20240620"
-GEMINI_MODEL = "gemini-1.5-flash"
-PROMPT = "Explain the concept of quantum entanglement to a college student in exactly 550 words."
+# --- CONFIGURATION ---
+OPENAI_MODEL = "gpt-4o-mini"
+ANTHROPIC_MODEL = "claude-3-5-sonnet-20240620" 
+GEMINI_MODEL = "gemini-2.5-flash"
+
+# Increase the complexity to guarantee a measurable response time
+PROMPT = "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030." 
+MAX_TOKENS = 300 
+
+# --- API TEST FUNCTIONS ---
 
 def test_openai(api_key):
     if not api_key: return None
-    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
     data = {
         "model": OPENAI_MODEL,
         "messages": [{"role": "user", "content": PROMPT}],
-        "max_tokens": 100
+        "max_tokens": MAX_TOKENS
     }
-    start = time.time()
+    
+    start = time.monotonic() # FIX: Using time.monotonic()
     try:
         response = requests.post("https://api.openai.com/v1/chat/completions", headers=headers, json=data)
-        response.raise_for_status()
-        duration = round(time.time() - start, 4)
-        # Calculate cost (Approximate based on input/output)
+        response.raise_for_status() 
+        duration = round(time.monotonic() - start, 4) # FIX: Using time.monotonic()
         return {"provider": "OpenAI", "model": OPENAI_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
         print(f"OpenAI API Failure: {e}")
-        # Return a high time to push it to the bottom of the list
         return {"provider": "OpenAI", "model": OPENAI_MODEL, "time": 99.9999, "status": "API FAILURE"}
-        
+
 def test_anthropic(api_key):
     if not api_key: return None
-    # We are updating the header to the current standard
-    headers = {"x-api-key": api_key, "anthropic-version": "2023-06-01", "content-type": "application/json"}
+    
+    # FIX: Correct headers and endpoint for the Messages API
+    headers = {
+        "x-api-key": api_key,
+        "anthropic-version": "2023-06-01", # Required header for Messages API
+        "content-type": "application/json"
+    }
     data = {
         "model": ANTHROPIC_MODEL,
-        "max_tokens": 100,
+        "max_tokens": MAX_TOKENS,
         "messages": [{"role": "user", "content": PROMPT}]
     }
-    start = monotonic()
+    
+    start = time.monotonic() # FIX: Using time.monotonic()
     try:
-        # Check for non-200 status code errors
         response = requests.post("https://api.anthropic.com/v1/messages", headers=headers, json=data)
-        response.raise_for_status() 
-        duration = round(monotonic() - start, 4)
+        response.raise_for_status()
+        duration = round(time.monotonic() - start, 4) # FIX: Using time.monotonic()
         return {"provider": "Anthropic", "model": ANTHROPIC_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
         print(f"Anthropic API Failure: {e}")
         return {"provider": "Anthropic", "model": ANTHROPIC_MODEL, "time": 99.9999, "status": "API FAILURE"}
-        
+
 def test_gemini(api_key):
     if not api_key: return None
-    # The correct current endpoint is v1, and we ensure the model is referenced correctly.
+    
+    # FIX: Correct URL format (v1 endpoint)
     url = f"https://generativelanguage.googleapis.com/v1/models/{GEMINI_MODEL}:generateContent?key={api_key}"
     data = {"contents": [{"parts": [{"text": PROMPT}]}]}
-    start = monotonic()
+    
+    start = time.monotonic() # FIX: Using time.monotonic()
     try:
         response = requests.post(url, headers={"Content-Type": "application/json"}, json=data)
         response.raise_for_status()
-        duration = round(monotonic() - start, 4)
+        duration = round(time.monotonic() - start, 4) # FIX: Using time.monotonic()
         return {"provider": "Google", "model": GEMINI_MODEL, "time": duration, "status": "Online"}
     except Exception as e:
         print(f"Gemini API Failure: {e}")
         return {"provider": "Google", "model": GEMINI_MODEL, "time": 99.9999, "status": "API FAILURE"}
-        
-def update_json():
-    results = []
-    
-    # Get keys from environment variables (set in Phase 4)
-    openai_key = os.environ.get("OPENAI_API_KEY")
-    anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
-    gemini_key = os.environ.get("GEMINI_API_KEY")
 
-    # Run Tests
-    print("Testing OpenAI...")
+# --- MAIN LOGIC ---
+
+def update_json():
+    # Load API keys from environment variables
+    openai_key = os.getenv('OPENAI_API_KEY')
+    anthropic_key = os.getenv('ANTHROPIC_API_KEY')
+    gemini_key = os.getenv('GEMINI_API_KEY')
+
+    results = []
+
+    # Run tests
     res = test_openai(openai_key)
     if res: results.append(res)
     
-    print("Testing Anthropic...")
     res = test_anthropic(anthropic_key)
     if res: results.append(res)
     
-    print("Testing Google...")
     res = test_gemini(gemini_key)
     if res: results.append(res)
 
-    # Sort by speed (fastest first)
-    results.sort(key=lambda x: x['time'] if x['status'] == 'Online' else 999)
+    # Sort results by time (fastest first)
+    if results:
+        results.sort(key=lambda x: x['time'])
 
+    # Create final data structure
     final_data = {
-        "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"),
+        "last_updated": datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC'),
         "results": results
     }
-    
-    with open("data.json", "w") as f:
-        json.dump(final_data, f, indent=2)
+
+    # Write to data.json
+    with open('data.json', 'w') as f:
+        json.dump(final_data, f, indent=4)
+        print("\n--- SUCCESSFULLY WROTE data.json ---")
 
 if __name__ == "__main__":
     update_json()
