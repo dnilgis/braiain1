@@ -66,7 +66,7 @@
             transition: transform 0.2s;
             height: auto; 
             
-            /* CRITICAL FIX 3: Overrides internal Flexbox height calculation for column layouts */
+            /* CRITICAL FIX 2: Overrides internal Flexbox height calculation for column layouts */
             min-height: 0;
             overflow: visible;
         }
@@ -99,6 +99,7 @@
             display: flex;
             flex-direction: column;
             line-height: 1.1;
+            overflow: hidden; 
         }
         .card-provider {
             font-size: 1.3em;
@@ -108,6 +109,7 @@
             font-size: 0.9em;
             color: #555;
             font-weight: normal;
+            word-break: break-all;
         }
 
         /* STATS AND BUTTON */
@@ -120,16 +122,24 @@
         .stat-group {
             text-align: center;
         }
+        
+        /* PREV TIME FIX: Ensure stat-value is a flex container for its content and the nested last-speed */
+        .stat-value {
+            font-size: 1.4em;
+            font-weight: bold;
+            /* CRITICAL FIX 4: Explicitly display as a column flex container */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center;
+            line-height: 1.1;
+        }
         .stat-label {
             font-size: 0.8em;
             color: #777;
             text-transform: uppercase;
             margin-bottom: 3px;
         }
-        .stat-value {
-            font-size: 1.4em;
-            font-weight: bold;
-        }
+
         .speed-fast {
             color: #2e7d32;
         }
@@ -142,6 +152,7 @@
         
         /* LAST RECORDED SPEED STYLING */
         .last-speed {
+            /* Now the value is inside a flex column, this style will apply correctly */
             font-size: 0.8em;
             color: #999;
             margin-top: 5px;
@@ -164,12 +175,12 @@
             background-color: #1976d2;
         }
 
-        /* FULL RESPONSE SECTION - CRITICAL FIX APPLIED HERE */
-        .full-response-section {
+        /* RESPONSE CONTENT WRAPPER */
+        .response-content-wrapper {
             margin-top: 20px;
             padding-top: 15px;
             border-top: 1px dashed #e0e0e0;
-            /* CRITICAL FIX 2: Prevents this section from shrinking its contents */
+            /* CRITICAL FIX 5: Prevents this section from shrinking its contents */
             flex-shrink: 0; 
             height: auto;
         }
@@ -335,7 +346,7 @@
                         
                         ${affiliateButtonHTML}
 
-                        <div class="full-response-section">
+                        <div class="response-content-wrapper">
                             <div class="full-response-text">${item.full_response || item.response_preview}</div>
                         </div>
                     </div>
