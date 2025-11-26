@@ -40,19 +40,19 @@
             border-radius: 6px;
             overflow: hidden;
         }
-        /* Styles for the linkable row */
+        /* FIX: Anchor wrapper must be a block element */
         .result-link {
-            text-decoration: none; /* Remove underline from the anchor tag */
-            color: inherit; /* Inherit text color */
-            display: block;
+            text-decoration: none; 
+            color: inherit; 
+            display: block; /* Ensures the link takes up the full width of the row */
         }
         .result-link:hover .result-row {
-            background-color: #f0f8ff; /* Light blue hover effect */
+            background-color: #f0f8ff; 
             cursor: pointer;
         }
 
         .header-row, .result-row {
-            /* Adjusted grid layout */
+            /* Grid definition applied directly to the row */
             display: grid;
             grid-template-columns: 0.3fr 1fr 3fr 0.8fr 0.8fr 1.5fr; 
             padding: 12px 15px;
@@ -161,7 +161,6 @@
         function formatResults(results) {
             let html = '';
             results.forEach((item, index) => {
-                // Creates a URL-friendly slug, e.g., "openai-gpt-4o-mini"
                 const modelSlug = (item.provider + '-' + item.model).toLowerCase().replace(/[^a-z0-9-]+/g, '-');
                 
                 let statusClass = item.status === 'Online' ? 'status-online' : 'status-error';
@@ -182,7 +181,7 @@
                     <div style="font-size: 0.85em; color: #777;">${item.model}</div>
                 `;
 
-                // --- NEW LINKABLE ROW STRUCTURE ---
+                // The row structure with the anchor wrapper
                 html += `
                     <a href="#${modelSlug}" class="result-link">
                         <div class="result-row" id="${modelSlug}">
@@ -195,7 +194,6 @@
                         </div>
                     </a>
                 `;
-                // ---------------------------------
             });
             return html;
         }
