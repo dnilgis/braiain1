@@ -163,14 +163,14 @@
             margin-top: 20px;
             padding-top: 15px;
             border-top: 1px dashed #e0e0e0;
-            /* Simple structure now that <pre> is gone */
         }
         
-        /* RESPONSE TEXT - Now a <div> */
+        /* RESPONSE TEXT - Clipping Fix Applied */
         .full-response-text {
-            height: auto !important; 
+            /* Aggressive overrides for full display */
+            height: unset !important; 
+            max-height: fit-content; 
             
-            /* Preserve formatting like the <pre> tag used to, but as a div */
             white-space: pre-wrap;
             font-family: monospace;
             font-size: 0.85em;
@@ -179,8 +179,7 @@
             background-color: #fafafa;
             padding: 10px;
             border-radius: 4px;
-            overflow-x: auto;
-            /* Ensuring it's a block element and takes the space it needs */
+            overflow: auto; /* Allow scrolling if text is too wide/long */
             display: block; 
         }
         
@@ -280,8 +279,8 @@
 
                 const isWinner = (index === 0 && item.status === 'Online'); 
                 
-                // Get previous time, default to N/A if not present
-                const previousTime = item.previous_time ? item.previous_time + 's' : 'N/A';
+                // FIXED LOGIC: Get previous time, formatted correctly
+                const previousTime = item.previous_time ? `Prev: ${item.previous_time}s` : 'Prev: N/A';
 
                 let affiliateButtonHTML = '';
                 if (item.status === 'Online') {
@@ -309,7 +308,7 @@
                                 <div class="stat-label">Current Speed</div>
                                 <div class="stat-value ${speedClass}">
                                     ${item.time}s
-                                    <div class="last-speed">Prev: ${previousTime}</div>
+                                    <div class="last-speed">${previousTime}</div>
                                 </div>
                             </div>
                             <div class="stat-group">
