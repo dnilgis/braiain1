@@ -452,4 +452,271 @@
                         datasets[provider] = {
                             label: provider,
                             data: [],
-                            borderColor: PROVIDER_COLORS[provi
+                            borderColor: PROVIDER_COLORS[provider] || '#999',
+                            backgroundColor: PROVIDER_COLORS[provider] || '#999',
+                            tension: 0.3
+                        };
+                    }
+                    const time = entry.results[provider].time;
+                    datasets[provider].data.push(time < 99 ? time : null);
+                });
+            });
+
+            // Destroy existing chart
+            if (trendChart) {
+                trendChart.destroy();
+            }
+
+            // Create new chart
+            trendChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: Object.values(datasets)
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top',
+                        },
+                        title: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + 's';
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: 'Response Time (seconds)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // === BADGE LOGIC ===
+        function calculateBadges(results) {
+            if (results.length === 0) return {};
+
+            const online = results.filter(r => r.status === 'Online');
+            if (online.length === 0) return {};
+
+            const badges = {};
+
+            // Fastest (lowest time)
+            const fastest = online.reduce((min, r) => r.time < min.time ? r : min);
+            badges[fastest.provider] = badges[fastest.provider] || [];
+            badges[fastest.provider].push('fastest');
+
+            // Highest TPS
+            const highestTps = online.reduce((max, r) => r.tokens_per_second > max.tokens_per_second ? r : max);
+            badges[highestTps.provider] = badges[highestTps.provider] || [];
+            badges[highestTps.provider].push('highest-tps');
+
+            // Best Value (considering free options, then cost/performance)
+            const paid = online.filter(r => r.cost_per_request > 0);
+            if (paid.length > 0) {
+                const bestValue = paid.reduce((best, r) => {
+                    const value = r.tokens_per_second / r.cost_per_request;
+                    const bestVal = best.tokens_per_second / best.cost_per_request;
+                    return value > bestVal ? r : best;
+                });
+                badges[bestValue.provider] = badges[bestValue.provider] || [];
+                badges[bestValue.provider].push('best-value');
+            }
+
+            return badges;
+        }
+
+        // === CARD CREATION ===
+        function createModelCard(result, rank, badges) {
+            const card = document.createElement('div');
+            card.className = 'model-card';
+            
+            const isOnline = result.status === 'Online';
+            const speedClass = getSpeedClass(result.time, isOnline);
+            const tpsClass = getTpsClass(result.tokens_per_second);
+            const costClass = getCostClass(result.cost_per_request);
+            
+            const timeDisplay = isOnline ? `${result.time.toFixed(2)}s` : 'N/A';
+            const tpsDisplay = isOnline ? result.tokens_per_second.toFixed(0) : 'N/A';
+            
+            // Badges
+            const providerBadges = badges[result.provider] || [];
+            let badgesHTML = '';
+            if (providerBadges.length > 0) {
+                badgesHTML = '<div class="badge-container">';
+                providerBadges.forEach(badge => {
+                    const text = badge === 'fastest' ? '⚡ Fastest' :
+                                badge === 'highest-tps' ? '🚀 Highest TPS' :
+                                badge === 'best-value' ? '💰 Best Value' : '';
+                    badgesHTML += `<span class="badge badge-${badge}">${text}</span>`;
+                });
+                badgesHTML += '</div>';
+            }
+            
+            // Affiliate button
+            let affiliateButtonHTML = '';
+            if (isOnline) {
+                const link = AFFILIATE_LINKS[result.provider];
+                affiliateButtonHTML = `<a href="${link}" target="_blank" rel="noopener" class="affiliate-btn">Try ${result.provider}</a>`;
+            } else {
+                affiliateButtonHTML = `<div class="affiliate-btn" style="background-color: #c62828; cursor: not-allowed;">API Failure</div>`;
+            }
+            
+            const responseText = result.response_preview || 'No response available';
+            const hasResponse = responseText && responseText !== 'No response available';
+            
+            card.innerHTML = `
+                <div class="card-header">
+                    <span class="rank-badge rank-${rank}">#${rank}</span>
+                    <div class="provider-model-wrapper">
+                        <div class="card-provider">${escapeHtml(result.provider)}</div>
+                        <div class="card-model">${escapeHtml(result.model)}</div>
+                    </div>
+                </div>
+                
+                ${badgesHTML}
+                
+                <div class="stats-wrapper">
+                    <div class="stat-group">
+                        <div class="stat-label">Speed</div>
+                        <div class="stat-value ${speedClass}">${timeDisplay}</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">TPS</div>
+                        <div class="stat-value ${tpsClass}">${tpsDisplay}</div>
+                    </div>
+                    <div class="stat-group">
+                        <div class="stat-label">Status</div>
+                        <div class="stat-value ${isOnline ? 'status-online' : 'status-error'}">
+                            ${escapeHtml(result.status)}
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div class="stat-label">Cost Per Request</div>
+                    <div class="cost-badge ${costClass}">${formatCost(result.cost_per_request)}</div>
+                </div>
+                
+                ${affiliateButtonHTML}
+                
+                ${hasResponse ? `
+                    <button class="toggle-response-btn" onclick="toggleResponse(this)">
+                        📄 Show Response Preview
+                    </button>
+                    <div class="response-content-wrapper">
+                        <div class="full-response-text">${escapeHtml(responseText)}</div>
+                    </div>
+                ` : ''}
+            `;
+            
+            return card;
+        }
+
+        // === TOGGLE RESPONSE ===
+        function toggleResponse(button) {
+            const wrapper = button.nextElementSibling;
+            const isVisible = wrapper.classList.contains('visible');
+            
+            if (isVisible) {
+                wrapper.classList.remove('visible');
+                button.textContent = '📄 Show Response Preview';
+            } else {
+                wrapper.classList.add('visible');
+                button.textContent = '📄 Hide Response';
+            }
+        }
+
+        // === DISPLAY RESULTS ===
+        function displayResults(data) {
+            const container = document.getElementById('results-container');
+            const lastUpdated = document.getElementById('last-updated');
+            
+            if (data.last_updated) {
+                lastUpdated.textContent = `Last Updated: ${data.last_updated}`;
+            }
+            
+            if (!data.results || data.results.length === 0) {
+                container.innerHTML = `
+                    <div class="error-message">
+                        <strong>⚠️ No Results Available</strong>
+                        <p>Benchmark data has not been generated yet.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            // Create trend chart
+            if (data.history && data.history.length > 0) {
+                createTrendChart(data.history);
+            }
+            
+            // Calculate badges
+            const badges = calculateBadges(data.results);
+            
+            // Clear and populate
+            container.innerHTML = '';
+            
+            data.results.forEach((result, index) => {
+                const rank = index + 1;
+                const card = createModelCard(result, rank, badges);
+                container.appendChild(card);
+            });
+        }
+
+        // === FETCH DATA ===
+        async function fetchData() {
+            const paths = ['data.json', '/data.json'];
+            const cacheBuster = `?t=${Date.now()}`;
+            
+            for (const path of paths) {
+                try {
+                    const response = await fetch(path + cacheBuster);
+                    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                    
+                    const data = await response.json();
+                    displayResults(data);
+                    return;
+                    
+                } catch (error) {
+                    console.warn(`Failed to load from ${path}:`, error);
+                }
+            }
+            
+            document.getElementById('results-container').innerHTML = `
+                <div class="error-message">
+                    <strong>🔴 Error Loading Data</strong>
+                    <p>Unable to load benchmark data. Please refresh.</p>
+                </div>
+            `;
+        }
+
+        // === INITIALIZE ===
+        try {
+            fetchData();
+            setInterval(fetchData, 300000); // Refresh every 5 minutes
+        } catch (criticalError) {
+            console.error('Critical error:', criticalError);
+            document.body.innerHTML = `
+                <div style="max-width: 600px; margin: 50px auto; padding: 20px; text-align: center;">
+                    <h1 style="color: #c62828;">⚠️ Critical Error</h1>
+                    <p>${criticalError.message}</p>
+                </div>
+            `;
+        }
+    </script>
+</body>
+</html>
