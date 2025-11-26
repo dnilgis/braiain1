@@ -5,24 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Braiain AI Speed Index | Daily LLM Benchmarks</title>
     <style>
+        /* BASE STYLES */
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 20px;
-            background-color: #ffffff;
+            padding: 0;
+            background-color: #f5f5f7; /* Light grey background */
             color: #1c1c1c;
         }
         header {
+            background-color: #1c1c1c; /* Dark header */
+            color: white;
             text-align: center;
-            padding-bottom: 20px;
+            padding: 30px 0 20px 0;
+            margin-bottom: 20px;
         }
         h1 {
-            color: #000000;
-            font-size: 2.2em;
-            margin-bottom: 5px;
+            font-size: 2.4em;
+            margin-bottom: 8px;
+        }
+        .tagline {
+            font-size: 1.1em;
+            color: #c0c0c0;
         }
         .about-section {
-            max-width: 1000px; /* Matched to leaderboard width */
+            max-width: 1000px;
             margin: 20px auto;
             padding: 0 15px;
         }
@@ -30,34 +37,35 @@
             color: #333333;
             font-size: 1.5em;
             margin-top: 30px;
-            border-bottom: 2px solid #eeeeee;
+            border-bottom: 2px solid #e0e0e0;
             padding-bottom: 5px;
         }
+        
+        /* LEADERBOARD CONTAINER */
         .leaderboard {
             max-width: 1000px; 
             margin: 40px auto;
             border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            border-radius: 8px;
             overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); /* Subtle shadow */
         }
         
+        /* GRID STYLES (ROWS) */
         .header-row, .result-link {
-            /* Final Grid Sizing for Left-to-Right Flow */
             display: grid;
-            /* Column sizing: Rank, Provider (more room), Preview (more room), Speed, Status, Action (sweet spot) */
+            /* Columns: Rank, Provider, Preview, Speed, Status, Action */
             grid-template-columns: 0.3fr 1.2fr 3.1fr 0.8fr 0.8fr 1.7fr; 
-            padding: 12px 15px;
+            padding: 15px 15px; 
             border-bottom: 1px solid #eeeeee;
-            
-            /* Align content to the top */
-            align-items: start; 
+            align-items: center; /* Vertically center items in the row */
             font-size: 14px;
             text-decoration: none; 
             color: inherit; 
         }
 
         .header-row {
-            background-color: #f7f7f7;
+            background-color: #e0e0e0; /* Light grey header background */
             font-weight: bold;
             color: #333;
             text-transform: uppercase;
@@ -67,36 +75,48 @@
             border-bottom: none;
         }
         .result-link:hover {
-            background-color: #f0f8ff; 
+            background-color: #ebebeb; /* Slight hover effect */
             cursor: pointer;
         }
         
-        /* Apply small top padding to all content */
-        .rank, .provider, .preview-text, .speed, .status, .action-button {
-            padding-top: 4px; 
-        }
-
+        /* CELL STYLES */
         .rank {
-            font-weight: 600;
+            font-weight: 700;
         }
+        /* Use Flexbox for Provider/Model cell content for vertical stability */
+        .provider {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .provider div {
+            line-height: 1.2;
+        }
+        .provider-model {
+            font-size: 0.85em; 
+            color: #777;
+        }
+        
+        /* TRUNCATED PREVIEW TEXT */
         .preview-text {
             font-style: italic;
             color: #555;
             font-size: 0.9em;
-            
-            /* FIX: Truncate text to 2 lines */
+            /* Text truncation to 2 lines */
             overflow: hidden;
             display: -webkit-box;
             -webkit-line-clamp: 2;
             -webkit-box-orient: vertical;
         }
+        
+        /* SPEED & STATUS EMPHASIS */
         .speed, .status {
             text-align: center;
             font-size: 1.1em;
+            font-weight: 600;
         }
         .speed-fast {
             color: #2e7d32;
-            font-weight: bold;
         }
         .status-online {
             color: #2e7d32;
@@ -105,46 +125,50 @@
             color: #c62828;
         }
         
+        /* ACTION BUTTON */
         .action-button {
             text-align: right; 
             grid-column: 6; 
         }
         .affiliate-btn {
-            background-color: #2196f3;
+            background-color: #007bff; /* Blue button */
             color: white;
-            padding: 6px 12px;
+            padding: 8px 14px;
             border-radius: 4px;
             text-decoration: none;
             font-weight: bold;
             font-size: 0.85em;
-            transition: background-color 0.3s;
+            transition: background-color 0.2s;
             display: inline-block; 
             white-space: nowrap; 
-            margin-top: 10px; 
         }
         .affiliate-btn:hover {
-            background-color: #1976d2;
+            background-color: #0056b3;
         }
 
-        /* Full Response Section */
+        /* FULL RESPONSE SECTION */
         #full-response-container {
             max-width: 1000px;
             margin: 40px auto;
             border: 1px solid #e0e0e0;
-            border-radius: 6px;
+            border-radius: 8px;
             padding: 20px;
-            background-color: #f9f9f9;
+            background-color: #ffffff;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         }
         #full-response-container h3 {
             margin-top: 0;
-            color: #2196f3;
+            color: #007bff;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 10px;
         }
         #full-response-text {
             white-space: pre-wrap;
             font-family: monospace;
             font-size: 0.9em;
-            line-height: 1.5;
+            line-height: 1.6;
             color: #333;
+            margin-top: 15px;
         }
         #last-updated {
             text-align: center;
@@ -157,6 +181,7 @@
 <body>
     <header>
         <h1>🤖 Braiain AI Speed Index</h1>
+        <p class="tagline">The definitive ranking for **Real-World LLM API Latency**</p>
     </header>
 
     <section class="about-section">
@@ -166,16 +191,15 @@
     </section>
 
     <div class="leaderboard">
-        <div class="header-row">
-            <div class="rank">#</div>
-            <div class="provider">Provider / Model</div>
-            <div class="preview-text-header">Response Preview</div>
-            <div class="speed">Speed (s)</div>
-            <div class="status">Status</div>
-            <div class="action-button-header">Action</div>
-        </div>
-        
         <div id="results-container">
+            <div class="header-row">
+                <div class="rank">#</div>
+                <div class="provider">Provider / Model</div>
+                <div class="preview-text-header">Response Preview</div>
+                <div class="speed">Speed (s)</div>
+                <div class="status">Status</div>
+                <div class="action-button-header">Action</div>
+            </div>
             <p style="text-align: center; padding: 20px;">Loading live data...</p>
         </div>
     </div>
@@ -214,7 +238,7 @@
             const textElement = document.getElementById('full-response-text');
 
             if (container && textElement && response) {
-                header.innerHTML = `🥇 Complete Response from the Current Winner (${modelName})`;
+                header.innerHTML = `🥇 Complete Response from the Current Winner: **${modelName}**`;
                 textElement.textContent = response;
                 container.style.display = 'block';
             }
@@ -224,6 +248,9 @@
             let html = '';
             let winnerModelName = '';
             let winnerFullResponse = '';
+
+            // Start with the header row HTML
+            html += document.querySelector('.header-row').outerHTML;
 
             results.forEach((item, index) => {
                 const modelSlug = (item.provider + '-' + item.model).toLowerCase().replace(/[^a-z0-9-]+/g, '-');
@@ -239,14 +266,13 @@
                     if (link && link !== '#') {
                          affiliateButtonHTML = `<a href="${link}" target="_blank" class="affiliate-btn">🥇 RUN THIS MODEL NOW</a>`;
                     }
-                    // Capture winner's data
                     winnerFullResponse = item.full_response;
                     winnerModelName = `${item.provider} ${item.model}`;
                 }
                 
                 const providerModelContent = `
                     <div style="font-weight: 600;">${item.provider}</div>
-                    <div style="font-size: 0.85em; color: #777;">${item.model}</div>
+                    <div class="provider-model">${item.model}</div>
                 `;
 
                 html += `
@@ -261,7 +287,6 @@
                 `;
             });
 
-            // Display the full response of the winner below the table
             if (winnerFullResponse) {
                 displayFullResponse(winnerFullResponse, winnerModelName);
             }
@@ -270,7 +295,7 @@
         }
 
         async function fetchData() {
-            const paths = ['data.json', '/data.json']; // Dual-path fallback
+            const paths = ['data.json', '/data.json']; 
             const cacheBuster = `?t=${new Date().getTime()}`;
             
             for (const path of paths) {
@@ -292,18 +317,26 @@
                     if (lastUpdatedElement && data.last_updated) {
                         lastUpdatedElement.textContent = `Last Updated: ${data.last_updated}`;
                     }
-                    // Data loaded successfully, stop trying paths
                     return; 
 
                 } catch (error) {
-                    console.warn(`Data load attempt failed for ${path}. Trying next path.`);
+                    console.error('Data load attempt failed:', error);
                 }
             }
 
             // If we reach here, both paths failed
-            document.getElementById('results-container').innerHTML = `<p class="error-message" style="text-align: center; color: #c62828; padding: 20px;">
-                🔴 ERROR: Data loading failed from all paths. Please ensure the data.json file exists in the correct directory.
-            </p>`;
+            document.getElementById('results-container').innerHTML = `
+                <div class="header-row">
+                    <div class="rank">#</div>
+                    <div class="provider">Provider / Model</div>
+                    <div class="preview-text-header">Response Preview</div>
+                    <div class="speed">Speed (s)</div>
+                    <div class="status">Status</div>
+                    <div class="action-button-header">Action</div>
+                </div>
+                <p class="error-message" style="text-align: center; color: #c62828; padding: 20px; font-weight: bold; background: #fff;">
+                    🔴 ERROR: Live data failed to load. Please check the data.json file path.
+                </p>`;
         }
 
         fetchData(); 
