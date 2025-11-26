@@ -42,9 +42,9 @@
         }
         
         .header-row, .result-link {
-            /* Grid definition: 6 columns */
+            /* FIX 1: INCREASED LAST COLUMN TO 1.8fr */
             display: grid;
-            grid-template-columns: 0.3fr 1fr 3fr 0.8fr 0.8fr 1.5fr; 
+            grid-template-columns: 0.3fr 1fr 3fr 0.8fr 0.8fr 1.8fr; 
             padding: 12px 15px;
             border-bottom: 1px solid #eeeeee;
             align-items: center;
@@ -86,10 +86,9 @@
         .status-error {
             color: #c62828;
         }
-        /* FIX: Ensures the action button is aligned to the 6th column */
         .action-button {
             text-align: right; 
-            grid-column: 6; /* LOCKS THE BUTTON TO THE LAST COLUMN */
+            grid-column: 6; 
         }
         .affiliate-btn {
             background-color: #2196f3;
@@ -101,7 +100,8 @@
             font-size: 0.85em;
             transition: background-color 0.3s;
             display: inline-block; 
-            white-space: nowrap; /* Prevents button text from wrapping */
+            /* FIX 2: Prevents the button text from wrapping and breaking alignment */
+            white-space: nowrap; 
         }
         .affiliate-btn:hover {
             background-color: #1976d2;
@@ -181,7 +181,6 @@
                     }
                 }
                 
-                // Content for the Provider/Model cell
                 const providerModelContent = `
                     <div style="font-weight: 600;">${item.provider}</div>
                     <div style="font-size: 0.85em; color: #777;">${item.model}</div>
@@ -203,7 +202,6 @@
 
         async function fetchData() {
             try {
-                // Using the simple relative path
                 const cacheBuster = `?t=${new Date().getTime()}`;
                 const response = await fetch('data.json' + cacheBuster); 
                 
