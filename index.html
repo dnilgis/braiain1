@@ -161,11 +161,7 @@
             return AFFILIATE_LINKS[provider] || '#';
         }
 
-        function getBasePath() {
-            const pathname = window.location.pathname;
-            const basePath = pathname.substring(0, pathname.lastIndexOf('/') + 1);
-            return basePath;
-        }
+        // Removed getBasePath function
 
         function formatResults(results) {
             let html = '';
@@ -175,4 +171,66 @@
                 let statusClass = item.status === 'Online' ? 'status-online' : 'status-error';
                 let speedClass = item.time < 1.0 ? 'speed-fast' : (item.time < 5.0 ? 'speed-medium' : '');
 
-                const isWinner = (index === 0 && item.status ===
+                const isWinner = (index === 0 && item.status === 'Online');
+
+                let affiliateButtonHTML = '';
+                if (isWinner) {
+                    const link = getAffiliateLink(item.provider);
+                    if (link && link !== '#') {
+                         affiliateButtonHTML = `<a href="${link}" target="_blank" class="affiliate-btn">🥇 RUN THIS MODEL NOW</a>`;
+                    }
+                }
+                
+                const providerModel = `
+                    <div style="font-weight: 600;">${item.provider}</div>
+                    <div style="font-size: 0.85em; color: #777;">${item.model}</div>
+                `;
+
+                html += `
+                    <a href="#${modelSlug}" class="result-link" id="${modelSlug}">
+                        <div class="rank">${index + 1}</div>
+                        <div class="provider">${providerModel}</div>
+                        <div class="preview-text">${item.response_preview}</div>
+                        <div class="speed ${speedClass}">${item.time}s</div>
+                        <div class="status ${statusClass}">${item.status}</div>
+                        <div class="action-button">${affiliateButtonHTML}</div>
+                    </a>
+                `;
+            });
+            return html;
+        }
+
+        async function fetchData() {
+            try {
+                // *** FIX: Reverted to simple relative path 'data.json' ***
+                const cacheBuster = `?t=${new Date().getTime()}`;
+                const response = await fetch('data.json' + cacheBuster); 
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                
+                const data = await response.json();
+                
+                const resultsContainer = document.getElementById('results-container');
+                const lastUpdatedElement = document.getElementById('last-updated');
+
+                if (resultsContainer && data.results) {
+                    resultsContainer.innerHTML = formatResults(data.results);
+                }
+                if (lastUpdatedElement && data.last_updated) {
+                    lastUpdatedElement.textContent = `Last Updated: ${data.last_updated}`;
+                }
+
+            } catch (error) {
+                console.error('Data loading failed:', error);
+                document.getElementById('results-container').innerHTML = `<p class="error-message" style="text-align: center; color: #c62828; padding: 20px;">
+                    🔴 ERROR: Data loading failed (${error.message}). Please ensure the data.json file exists in the root directory.
+                </p>`;
+            }
+        }
+
+        fetchData(); 
+    </script>
+</body>
+</html>
