@@ -1,19 +1,19 @@
 {
-    "last_updated": "2025-11-26 00:48:02 UTC",
+    "last_updated": "2025-11-26 00:53:01 UTC",
     "results": [
         {
             "provider": "OpenAI",
             "model": "gpt-4o-mini",
-            "time": 5.6821,
+            "time": 6.5924,
             "status": "Online",
-            "response_preview": "The history of the internet dates back to the late 1960s when the U.S. Department of Defense initiated the ARPANET project, designed to enable communi..."
+            "response_preview": "The history of the internet began in the late 1960s with ARPANET, a project funded by the U.S. Department of Defense to enable communication between v..."
         },
         {
             "provider": "Google",
             "model": "gemini-2.5-flash",
-            "time": 6.5884,
+            "time": 10.8211,
             "status": "Online",
-            "response_preview": "The internet's origins trace back to the Cold War era, specifically with the U.S. Department of Defense's Advanced Research Projects Agency (ARPA) in ..."
+            "response_preview": "The internet's origins trace back to the Cold War era of the 1960s, driven by the U.S. Department of Defense's Advanced Research Projects Agency (ARPA..."
         },
         {
             "provider": "Anthropic",
