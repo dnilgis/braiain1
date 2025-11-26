@@ -22,9 +22,9 @@
             margin-bottom: 5px;
         }
         .about-section {
-            max-width: 800px;
+            max-width: 1000px; /* Matched to leaderboard width */
             margin: 20px auto;
-            padding: 0 20px;
+            padding: 0 15px;
         }
         h2 {
             color: #333333;
@@ -42,13 +42,14 @@
         }
         
         .header-row, .result-link {
-            /* Final Grid Sizing */
+            /* Final Grid Sizing for Left-to-Right Flow */
             display: grid;
+            /* Column sizing: Rank, Provider (more room), Preview (more room), Speed, Status, Action (sweet spot) */
             grid-template-columns: 0.3fr 1.2fr 3.1fr 0.8fr 0.8fr 1.7fr; 
-            padding: 12px 15px; /* Sets overall row padding */
+            padding: 12px 15px;
             border-bottom: 1px solid #eeeeee;
             
-            /* FIX 1: Align all content to the top of the grid row */
+            /* Align content to the top */
             align-items: start; 
             font-size: 14px;
             text-decoration: none; 
@@ -70,7 +71,7 @@
             cursor: pointer;
         }
         
-        /* Apply small top padding to all content to align with first line of Provider/Model */
+        /* Apply small top padding to all content */
         .rank, .provider, .preview-text, .speed, .status, .action-button {
             padding-top: 4px; 
         }
@@ -82,10 +83,16 @@
             font-style: italic;
             color: #555;
             font-size: 0.9em;
+            
+            /* FIX: Truncate text to 2 lines */
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
         }
         .speed, .status {
             text-align: center;
-            font-size: 1.1em; /* Response time pronunciation */
+            font-size: 1.1em;
         }
         .speed-fast {
             color: #2e7d32;
@@ -98,7 +105,6 @@
             color: #c62828;
         }
         
-        /* FIX 2: Button Placement Adjustment */
         .action-button {
             text-align: right; 
             grid-column: 6; 
@@ -114,11 +120,31 @@
             transition: background-color 0.3s;
             display: inline-block; 
             white-space: nowrap; 
-            /* VISUAL HACK: Push the button down manually to align its center with the row content */
             margin-top: 10px; 
         }
         .affiliate-btn:hover {
             background-color: #1976d2;
+        }
+
+        /* Full Response Section */
+        #full-response-container {
+            max-width: 1000px;
+            margin: 40px auto;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        #full-response-container h3 {
+            margin-top: 0;
+            color: #2196f3;
+        }
+        #full-response-text {
+            white-space: pre-wrap;
+            font-family: monospace;
+            font-size: 0.9em;
+            line-height: 1.5;
+            color: #333;
         }
         #last-updated {
             text-align: center;
@@ -156,6 +182,11 @@
     
     <div id="last-updated"></div>
 
+    <div id="full-response-container" class="about-section" style="display: none;">
+        <h3>🥇 Complete Response from the Current Winner</h3>
+        <pre id="full-response-text"></pre>
+    </div>
+
     <section class="about-section">
         <h2>🔬 Methodology and Transparency</h2>
         <p>
@@ -170,4 +201,112 @@
         const AFFILIATE_LINKS = {
             'OpenAI': 'https://link.openai.com/signup?ref=your-openai-affiliate-id', 
             'Google': 'https://cloud.google.com/gemini/signup?ref=your-google-affiliate-id', 
-            'Anthropic': '
+            'Anthropic': 'https://www.anthropic.com/signup?ref=your-anthropic-affiliate-id'
+        };
+
+        function getAffiliateLink(provider) {
+            return AFFILIATE_LINKS[provider] || '#';
+        }
+
+        function displayFullResponse(response, modelName) {
+            const container = document.getElementById('full-response-container');
+            const header = container.querySelector('h3');
+            const textElement = document.getElementById('full-response-text');
+
+            if (container && textElement && response) {
+                header.innerHTML = `🥇 Complete Response from the Current Winner (${modelName})`;
+                textElement.textContent = response;
+                container.style.display = 'block';
+            }
+        }
+
+        function formatResults(results) {
+            let html = '';
+            let winnerModelName = '';
+            let winnerFullResponse = '';
+
+            results.forEach((item, index) => {
+                const modelSlug = (item.provider + '-' + item.model).toLowerCase().replace(/[^a-z0-9-]+/g, '-');
+                
+                let statusClass = item.status === 'Online' ? 'status-online' : 'status-error';
+                let speedClass = item.time < 1.0 ? 'speed-fast' : (item.time < 5.0 ? 'speed-medium' : '');
+
+                const isWinner = (index === 0 && item.status === 'Online'); 
+
+                let affiliateButtonHTML = '';
+                if (isWinner) {
+                    const link = getAffiliateLink(item.provider);
+                    if (link && link !== '#') {
+                         affiliateButtonHTML = `<a href="${link}" target="_blank" class="affiliate-btn">🥇 RUN THIS MODEL NOW</a>`;
+                    }
+                    // Capture winner's data
+                    winnerFullResponse = item.full_response;
+                    winnerModelName = `${item.provider} ${item.model}`;
+                }
+                
+                const providerModelContent = `
+                    <div style="font-weight: 600;">${item.provider}</div>
+                    <div style="font-size: 0.85em; color: #777;">${item.model}</div>
+                `;
+
+                html += `
+                    <a href="#${modelSlug}" class="result-link" id="${modelSlug}">
+                        <div class="rank">${index + 1}</div>
+                        <div class="provider">${providerModelContent}</div>
+                        <div class="preview-text">${item.response_preview}</div>
+                        <div class="speed ${speedClass}">${item.time}s</div>
+                        <div class="status ${statusClass}">${item.status}</div>
+                        <div class="action-button">${affiliateButtonHTML}</div>
+                    </a>
+                `;
+            });
+
+            // Display the full response of the winner below the table
+            if (winnerFullResponse) {
+                displayFullResponse(winnerFullResponse, winnerModelName);
+            }
+
+            return html;
+        }
+
+        async function fetchData() {
+            const paths = ['data.json', '/data.json']; // Dual-path fallback
+            const cacheBuster = `?t=${new Date().getTime()}`;
+            
+            for (const path of paths) {
+                try {
+                    const response = await fetch(path + cacheBuster); 
+                    
+                    if (!response.ok) {
+                        throw new Error(`Path ${path} failed with status: ${response.status}`);
+                    }
+                    
+                    const data = await response.json();
+                    
+                    const resultsContainer = document.getElementById('results-container');
+                    const lastUpdatedElement = document.getElementById('last-updated');
+
+                    if (resultsContainer && data.results) {
+                        resultsContainer.innerHTML = formatResults(data.results);
+                    }
+                    if (lastUpdatedElement && data.last_updated) {
+                        lastUpdatedElement.textContent = `Last Updated: ${data.last_updated}`;
+                    }
+                    // Data loaded successfully, stop trying paths
+                    return; 
+
+                } catch (error) {
+                    console.warn(`Data load attempt failed for ${path}. Trying next path.`);
+                }
+            }
+
+            // If we reach here, both paths failed
+            document.getElementById('results-container').innerHTML = `<p class="error-message" style="text-align: center; color: #c62828; padding: 20px;">
+                🔴 ERROR: Data loading failed from all paths. Please ensure the data.json file exists in the correct directory.
+            </p>`;
+        }
+
+        fetchData(); 
+    </script>
+</body>
+</html>
