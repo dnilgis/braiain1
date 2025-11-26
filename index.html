@@ -33,7 +33,6 @@
             flex-wrap: wrap;
             gap: 20px; 
             justify-content: center;
-            /* CRITICAL: Aligns cards to top so they can grow individually */
             align-items: flex-start; 
         }
 
@@ -49,10 +48,9 @@
             flex-direction: column;
             transition: transform 0.2s;
             
-            /* CRITICAL: Allows card to grow with text */
+            /* Ensure the card has no internal height limits */
             height: auto; 
             min-height: 0;
-            overflow: visible; 
         }
         .model-card:hover {
             transform: translateY(-5px);
@@ -133,14 +131,16 @@
             width: 100%;
         }
         
-        /* This ensures the text expands fully */
+        /* THE SCROLL FIX */
         .full-response-text {
             display: block;
             width: 100%;
-            height: auto;
-            overflow: visible; /* No scrollbars */
-            white-space: pre-wrap; /* Keep line breaks */
-            word-wrap: break-word; /* Break long words */
+            /* Set a max-height: if content is taller, scrollbar appears */
+            max-height: 300px; 
+            overflow-y: auto; /* Enable vertical scrolling */
+            
+            white-space: pre-wrap; 
+            word-wrap: break-word; 
             font-family: monospace;
             font-size: 0.85em;
             line-height: 1.5;
@@ -149,6 +149,7 @@
             padding: 10px;
             border-radius: 4px;
             box-sizing: border-box;
+            border: 1px solid #eee; /* Subtle border to define the scroll area */
         }
         
         /* --- FOOTER --- */
@@ -196,7 +197,6 @@
     </footer>
 
     <script>
-    // Wrap everything in a try-catch to catch syntax errors immediately
     try {
         const AFFILIATE_LINKS = {
             'OpenAI': 'https://link.openai.com/signup?ref=your-openai-affiliate-id', 
@@ -237,88 +237,9 @@
                     affiliateButtonHTML = `<a class="affiliate-btn" style="background-color: #c62828;">API FAILURE</a>`;
                 }
 
-                // Determine response text to show (Full response priority)
+                // Use full_response if available, otherwise fallback to preview
                 const responseText = item.full_response || item.response_preview || "No response text available.";
 
                 html += `
                     <div class="model-card" id="${modelSlug}">
-                        <div class="card-header">
-                            <span class="rank-badge">#${rank}</span>
-                            <div class="provider-model-wrapper">
-                                <div class="card-provider">${item.provider}</div>
-                                <div class="card-model">${item.model}</div>
-                            </div>
-                        </div>
-                        
-                        <div class="stats-wrapper">
-                            <div class="stat-group">
-                                <div class="stat-label">Current Speed</div>
-                                <div class="stat-value ${speedClass}">
-                                    ${item.time}s
-                                    <div class="last-speed">${previousTime}</div>
-                                </div>
-                            </div>
-                            <div class="stat-group">
-                                <div class="stat-label">Status</div>
-                                <div class="stat-value ${statusClass}">${item.status}</div>
-                            </div>
-                        </div>
-                        
-                        ${affiliateButtonHTML}
-
-                        <div class="response-content-wrapper">
-                            <div class="full-response-text">${responseText}</div>
-                        </div>
-                    </div>
-                `;
-            });
-
-            return html;
-        }
-
-        async function fetchData() {
-            const paths = ['data.json', '/data.json']; 
-            const cacheBuster = `?t=${new Date().getTime()}`;
-            
-            for (const path of paths) {
-                try {
-                    const response = await fetch(path + cacheBuster); 
-                    
-                    if (!response.ok) {
-                        throw new Error(`Path ${path} failed with status: ${response.status}`);
-                    }
-                    
-                    const data = await response.json();
-                    
-                    const resultsContainer = document.getElementById('results-container');
-                    const lastUpdatedElement = document.getElementById('last-updated');
-
-                    if (resultsContainer && data.results) {
-                        resultsContainer.innerHTML = formatResults(data.results);
-                    }
-                    if (lastUpdatedElement && data.last_updated) {
-                        lastUpdatedElement.textContent = `Last Updated: ${data.last_updated}`;
-                    }
-                    return; // Success!
-
-                } catch (error) {
-                    console.warn('Data load attempt failed:', error);
-                }
-            }
-
-            // If code reaches here, everything failed.
-            document.getElementById('results-container').innerHTML = `<p class="error-message" style="text-align: center; color: #c62828; padding: 20px; font-weight: bold; background: #fff; width: 100%;">
-                🔴 FATAL ERROR: Live data failed to load. Check console for details.
-            </p>`;
-        }
-
-        // Execute
-        fetchData(); 
-
-    } catch (criticalError) {
-        // Catch syntax errors or script crashes
-        document.body.innerHTML = `<h1 style="color:red; text-align:center; margin-top:50px;">CRITICAL SITE ERROR</h1><p style="text-align:center;">${criticalError.message}</p>`;
-    }
-    </script>
-</body>
-</html>
+                        <div class
