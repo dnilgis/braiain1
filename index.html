@@ -48,21 +48,13 @@
             padding: 12px 15px; /* Sets overall row padding */
             border-bottom: 1px solid #eeeeee;
             
-            /* Keep align-items: center for overall clean look, but rely on align-self for content */
-            align-items: center; 
+            /* FIX 1: Align all content to the top of the grid row */
+            align-items: start; 
             font-size: 14px;
             text-decoration: none; 
             color: inherit; 
         }
 
-        /* --- THE CRITICAL FIX --- */
-        /* Force every cell's content to start at the top, preventing the blank row issue. */
-        .rank, .provider, .preview-text, .speed, .status, .action-button {
-            align-self: start; 
-            padding-top: 5px; /* Adds consistent top spacing to all content */
-        }
-        /* End of Critical Fix */
-        
         .header-row {
             background-color: #f7f7f7;
             font-weight: bold;
@@ -78,6 +70,11 @@
             cursor: pointer;
         }
         
+        /* Apply small top padding to all content to align with first line of Provider/Model */
+        .rank, .provider, .preview-text, .speed, .status, .action-button {
+            padding-top: 4px; 
+        }
+
         .rank {
             font-weight: 600;
         }
@@ -100,6 +97,8 @@
         .status-error {
             color: #c62828;
         }
+        
+        /* FIX 2: Button Placement Adjustment */
         .action-button {
             text-align: right; 
             grid-column: 6; 
@@ -115,6 +114,8 @@
             transition: background-color 0.3s;
             display: inline-block; 
             white-space: nowrap; 
+            /* VISUAL HACK: Push the button down manually to align its center with the row content */
+            margin-top: 10px; 
         }
         .affiliate-btn:hover {
             background-color: #1976d2;
@@ -134,7 +135,7 @@
 
     <section class="about-section">
         <p>
-            Welcome to the **Braiain Speed Index**, the internet's only fully automated, daily-updated leaderboard for large language model (LLM) performance. We provide objective, real-world speed data, not just theoretical scores.
+            Welcome to the **Braiain Speed Index**, the internet's only fully automated, daily-updated leaderboard focused exclusively on **Real-World API Latency** (End-to-End Speed). **We tell you which model is fastest, not just which model is smartest.**
         </p>
     </section>
 
@@ -169,80 +170,4 @@
         const AFFILIATE_LINKS = {
             'OpenAI': 'https://link.openai.com/signup?ref=your-openai-affiliate-id', 
             'Google': 'https://cloud.google.com/gemini/signup?ref=your-google-affiliate-id', 
-            'Anthropic': 'https://www.anthropic.com/signup?ref=your-anthropic-affiliate-id'
-        };
-
-        function getAffiliateLink(provider) {
-            return AFFILIATE_LINKS[provider] || '#';
-        }
-
-        function formatResults(results) {
-            let html = '';
-            results.forEach((item, index) => {
-                const modelSlug = (item.provider + '-' + item.model).toLowerCase().replace(/[^a-z0-9-]+/g, '-');
-                
-                let statusClass = item.status === 'Online' ? 'status-online' : 'status-error';
-                let speedClass = item.time < 1.0 ? 'speed-fast' : (item.time < 5.0 ? 'speed-medium' : '');
-
-                const isWinner = (index === 0 && item.status === 'Online');
-
-                let affiliateButtonHTML = '';
-                if (isWinner) {
-                    const link = getAffiliateLink(item.provider);
-                    if (link && link !== '#') {
-                         affiliateButtonHTML = `<a href="${link}" target="_blank" class="affiliate-btn">🥇 RUN THIS MODEL NOW</a>`;
-                    }
-                }
-                
-                const providerModelContent = `
-                    <div style="font-weight: 600;">${item.provider}</div>
-                    <div style="font-size: 0.85em; color: #777;">${item.model}</div>
-                `;
-
-                html += `
-                    <a href="#${modelSlug}" class="result-link" id="${modelSlug}">
-                        <div class="rank">${index + 1}</div>
-                        <div class="provider">${providerModelContent}</div>
-                        <div class="preview-text">${item.response_preview}</div>
-                        <div class="speed ${speedClass}">${item.time}s</div>
-                        <div class="status ${statusClass}">${item.status}</div>
-                        <div class="action-button">${affiliateButtonHTML}</div>
-                    </a>
-                `;
-            });
-            return html;
-        }
-
-        async function fetchData() {
-            try {
-                const cacheBuster = `?t=${new Date().getTime()}`;
-                const response = await fetch('data.json' + cacheBuster); 
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
-                }
-                
-                const data = await response.json();
-                
-                const resultsContainer = document.getElementById('results-container');
-                const lastUpdatedElement = document.getElementById('last-updated');
-
-                if (resultsContainer && data.results) {
-                    resultsContainer.innerHTML = formatResults(data.results);
-                }
-                if (lastUpdatedElement && data.last_updated) {
-                    lastUpdatedElement.textContent = `Last Updated: ${data.last_updated}`;
-                }
-
-            } catch (error) {
-                console.error('Data loading failed:', error);
-                document.getElementById('results-container').innerHTML = `<p class="error-message" style="text-align: center; color: #c62828; padding: 20px;">
-                    🔴 ERROR: Data loading failed (${error.message}). Please ensure the data.json file exists in the root directory.
-                </p>`;
-            }
-        }
-
-        fetchData(); 
-    </script>
-</body>
-</html>
+            'Anthropic': '
