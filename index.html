@@ -42,6 +42,7 @@
         }
         
         .header-row, .result-link {
+            /* Grid definition: 6 columns */
             display: grid;
             grid-template-columns: 0.3fr 1fr 3fr 0.8fr 0.8fr 1.5fr; 
             padding: 12px 15px;
@@ -88,7 +89,7 @@
         /* FIX: Ensures the action button is aligned to the 6th column */
         .action-button {
             text-align: right; 
-            grid-column: 6; 
+            grid-column: 6; /* LOCKS THE BUTTON TO THE LAST COLUMN */
         }
         .affiliate-btn {
             background-color: #2196f3;
@@ -100,6 +101,7 @@
             font-size: 0.85em;
             transition: background-color 0.3s;
             display: inline-block; 
+            white-space: nowrap; /* Prevents button text from wrapping */
         }
         .affiliate-btn:hover {
             background-color: #1976d2;
@@ -161,8 +163,6 @@
             return AFFILIATE_LINKS[provider] || '#';
         }
 
-        // Removed getBasePath function
-
         function formatResults(results) {
             let html = '';
             results.forEach((item, index) => {
@@ -181,7 +181,8 @@
                     }
                 }
                 
-                const providerModel = `
+                // Content for the Provider/Model cell
+                const providerModelContent = `
                     <div style="font-weight: 600;">${item.provider}</div>
                     <div style="font-size: 0.85em; color: #777;">${item.model}</div>
                 `;
@@ -189,7 +190,7 @@
                 html += `
                     <a href="#${modelSlug}" class="result-link" id="${modelSlug}">
                         <div class="rank">${index + 1}</div>
-                        <div class="provider">${providerModel}</div>
+                        <div class="provider">${providerModelContent}</div>
                         <div class="preview-text">${item.response_preview}</div>
                         <div class="speed ${speedClass}">${item.time}s</div>
                         <div class="status ${statusClass}">${item.status}</div>
@@ -202,7 +203,7 @@
 
         async function fetchData() {
             try {
-                // *** FIX: Reverted to simple relative path 'data.json' ***
+                // Using the simple relative path
                 const cacheBuster = `?t=${new Date().getTime()}`;
                 const response = await fetch('data.json' + cacheBuster); 
                 
