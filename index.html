@@ -9,8 +9,8 @@
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #ffffff; /* White background */
-            color: #1c1c1c; /* Dark text */
+            background-color: #ffffff;
+            color: #1c1c1c;
         }
         header {
             text-align: center;
@@ -34,22 +34,23 @@
             padding-bottom: 5px;
         }
         .leaderboard {
-            max-width: 800px;
+            max-width: 1000px; /* Increased width to accommodate the preview */
             margin: 40px auto;
-            border: 1px solid #e0e0e0; /* Subtle border */
+            border: 1px solid #e0e0e0;
             border-radius: 6px;
             overflow: hidden;
         }
         .header-row, .result-row {
+            /* Adjusted grid layout to make room for the preview */
             display: grid;
-            grid-template-columns: 0.5fr 1.5fr 1.5fr 1fr 1fr 2fr;
+            grid-template-columns: 0.3fr 1fr 3fr 0.8fr 0.8fr 1.5fr; 
             padding: 12px 15px;
             border-bottom: 1px solid #eeeeee;
             align-items: center;
             font-size: 14px;
         }
         .header-row {
-            background-color: #f7f7f7; /* Light header background */
+            background-color: #f7f7f7;
             font-weight: bold;
             color: #333;
             text-transform: uppercase;
@@ -60,12 +61,14 @@
         .rank {
             font-weight: 600;
         }
-        .speed-fast {
-            color: #2e7d32; /* Dark green */
-            font-weight: bold;
+        .preview-text {
+            font-style: italic;
+            color: #555;
+            font-size: 0.9em;
         }
-        .speed-medium {
-            color: #f9a825; /* Amber */
+        .speed-fast {
+            color: #2e7d32;
+            font-weight: bold;
         }
         .status-online {
             color: #2e7d32;
@@ -74,7 +77,7 @@
             color: #c62828;
         }
         .affiliate-btn {
-            background-color: #2196f3; /* Blue primary color */
+            background-color: #2196f3;
             color: white;
             padding: 6px 12px;
             border-radius: 4px;
@@ -109,9 +112,8 @@
     <div class="leaderboard">
         <div class="header-row">
             <div class="rank">#</div>
-            <div class="provider">Provider</div>
-            <div class="model">Model</div>
-            <div class="speed">Speed (s)</div>
+            <div class="provider">Provider / Model</div>
+            <div class="preview-text-header">Response Preview</div> <div class="speed">Speed (s)</div>
             <div class="status">Status</div>
             <div class="action-button">Action</div>
         </div>
@@ -134,7 +136,6 @@
     </section>
 
     <script>
-        // Define Affiliate Links (Must be updated by you!)
         const AFFILIATE_LINKS = {
             'OpenAI': 'https://link.openai.com/signup?ref=your-openai-affiliate-id', 
             'Google': 'https://cloud.google.com/gemini/signup?ref=your-google-affiliate-id', 
@@ -160,13 +161,18 @@
                          affiliateButton = `<a href="${link}" target="_blank" class="affiliate-btn">🥇 RUN THIS MODEL NOW</a>`;
                     }
                 }
+                
+                // Combining Provider and Model into one cell
+                const providerModel = `
+                    <div style="font-weight: 600;">${item.provider}</div>
+                    <div style="font-size: 0.85em; color: #777;">${item.model}</div>
+                `;
 
                 html += `
                     <div class="result-row">
                         <div class="rank">${index + 1}</div>
-                        <div class="provider">${item.provider}</div>
-                        <div class="model">${item.model}</div>
-                        <div class="speed ${speedClass}">${item.time}s</div>
+                        <div class="provider">${providerModel}</div>
+                        <div class="preview-text">${item.response_preview}</div> <div class="speed ${speedClass}">${item.time}s</div>
                         <div class="status ${statusClass}">${item.status}</div>
                         <div class="action-button">${affiliateButton}</div>
                     </div>
@@ -177,7 +183,6 @@
 
         async function fetchData() {
             try {
-                // FIX: Append a unique query parameter to bust any local/server cache
                 const cacheBuster = `?t=${new Date().getTime()}`;
                 const response = await fetch('data.json' + cacheBuster);
                 
@@ -205,7 +210,6 @@
             }
         }
 
-        // Call the function to load data when the page loads
         fetchData(); 
     </script>
 </body>
