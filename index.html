@@ -158,7 +158,7 @@
             background-color: #1976d2;
         }
 
-        /* FULL RESPONSE SECTION - FIX APPLIED HERE */
+        /* FULL RESPONSE SECTION */
         .full-response-section {
             margin-top: 20px;
             padding-top: 15px;
@@ -166,8 +166,16 @@
             /* CRITICAL FIX: Forces Flexbox to allow children to dictate minimum size */
             min-height: 0; 
         }
+
+        /* NEW WRAPPER FOR CLIPPING FIX */
+        .response-content-wrapper {
+            height: auto;
+            /* CRITICAL FIX: Tells the browser how to handle overflow, resolving the Flexbox conflict */
+            overflow: auto; 
+        }
+
         .full-response-text {
-            /* FORCE HEIGHT TO AUTOFIT CONTENT */
+            /* Now contained within a wrapper that handles overflow correctly */
             height: auto !important; 
             
             white-space: pre-wrap;
@@ -318,7 +326,9 @@
                         ${affiliateButtonHTML}
 
                         <div class="full-response-section">
-                            <pre class="full-response-text">${item.full_response || item.response_preview}</pre>
+                            <div class="response-content-wrapper">
+                                <pre class="full-response-text">${item.full_response || item.response_preview}</pre>
+                            </div>
                         </div>
                     </div>
                 `;
