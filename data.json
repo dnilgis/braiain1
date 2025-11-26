@@ -1,23 +1,26 @@
 {
-    "last_updated": "2025-11-26 00:17:58 UTC",
+    "last_updated": "2025-11-26 00:20:46 UTC",
     "results": [
         {
             "provider": "OpenAI",
             "model": "gpt-4o-mini",
-            "time": 5.571,
-            "status": "Online"
+            "time": 4.6737,
+            "status": "Online",
+            "response_preview": "The history of the internet can be traced back to the late 1960s with the development of ARPANET, a project funded by the United States Department of ..."
         },
         {
             "provider": "Google",
             "model": "gemini-2.5-flash",
-            "time": 8.8186,
-            "status": "Online"
+            "time": 6.4186,
+            "status": "Online",
+            "response_preview": "The history of the internet began in the midst of the Cold War, driven by the U.S. government's desire for a robust, decentralized communication syste..."
         },
         {
             "provider": "Anthropic",
             "model": "claude-3-5-sonnet-20240620",
             "time": 99.9999,
-            "status": "API FAILURE"
+            "status": "API FAILURE",
+            "response_preview": "Error: 404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages"
         }
     ]
 }
