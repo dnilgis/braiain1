@@ -31,9 +31,15 @@ jobs:
           pip install requests
       - name: Run Benchmark Script
         env:
+          # Original 3 providers
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # New providers
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          MISTRAL_API_KEY: ${{ secrets.MISTRAL_API_KEY }}
+          COHERE_API_KEY: ${{ secrets.COHERE_API_KEY }}
+          TOGETHER_API_KEY: ${{ secrets.TOGETHER_API_KEY }}
         run: |
           # The Python script creates the data.json file
           python benchmark.py
@@ -44,3 +50,48 @@ jobs:
         with:
           commit_message: Update benchmark stats
           file_pattern: data.json
+```
+
+---
+
+## 📄 **File 2: `benchmark.py`**
+
+(See the artifact titled "benchmark.py (7 Major LLM Providers)" above)
+
+---
+
+## 📄 **File 3: `index.html`**
+
+(The current artifact "index.html (with Charts, TPS & Cost)" is already updated with all 7 provider colors)
+
+---
+
+## 🔑 **API Key Setup Guide**
+
+### **Get Your API Keys:**
+
+| Provider | Signup Link | Cost | Speed | Notes |
+|----------|-------------|------|-------|-------|
+| **Groq** 🆓 | https://console.groq.com/ | FREE | ⚡⚡⚡ Ultra-fast | No credit card needed! |
+| **Mistral AI** | https://console.mistral.ai/ | Paid | ⚡⚡ Fast | €5 free credit |
+| **Cohere** | https://dashboard.cohere.com/ | Paid | ⚡⚡ Fast | Trial available |
+| **Together AI** | https://api.together.xyz/ | Paid | ⚡⚡ Fast | $25 free credit |
+
+### **Add to GitHub Secrets:**
+
+1. Go to your repo on GitHub
+2. Click **Settings** → **Secrets and variables** → **Actions**
+3. Click **New repository secret**
+4. Add each key:
+```
+Name: GROQ_API_KEY
+Value: [paste your Groq API key]
+
+Name: MISTRAL_API_KEY
+Value: [paste your Mistral API key]
+
+Name: COHERE_API_KEY
+Value: [paste your Cohere API key]
+
+Name: TOGETHER_API_KEY
+Value: [paste your Together API key]
