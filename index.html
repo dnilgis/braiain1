@@ -47,8 +47,6 @@
             display: flex;
             flex-direction: column;
             transition: transform 0.2s;
-            
-            /* Ensure the card has no internal height limits */
             height: auto; 
             min-height: 0;
         }
@@ -131,13 +129,12 @@
             width: 100%;
         }
         
-        /* THE SCROLL FIX */
+        /* SCROLL FIX */
         .full-response-text {
             display: block;
             width: 100%;
-            /* Set a max-height: if content is taller, scrollbar appears */
-            max-height: 300px; 
-            overflow-y: auto; /* Enable vertical scrolling */
+            max-height: 300px; /* Limit height */
+            overflow-y: auto; /* Enable vertical scrolling if content exceeds max-height */
             
             white-space: pre-wrap; 
             word-wrap: break-word; 
@@ -149,7 +146,7 @@
             padding: 10px;
             border-radius: 4px;
             box-sizing: border-box;
-            border: 1px solid #eee; /* Subtle border to define the scroll area */
+            border: 1px solid #eee;
         }
         
         /* --- FOOTER --- */
@@ -197,6 +194,7 @@
     </footer>
 
     <script>
+    // CRASH PROTECTION WRAPPER
     try {
         const AFFILIATE_LINKS = {
             'OpenAI': 'https://link.openai.com/signup?ref=your-openai-affiliate-id', 
@@ -237,9 +235,80 @@
                     affiliateButtonHTML = `<a class="affiliate-btn" style="background-color: #c62828;">API FAILURE</a>`;
                 }
 
-                // Use full_response if available, otherwise fallback to preview
                 const responseText = item.full_response || item.response_preview || "No response text available.";
 
                 html += `
                     <div class="model-card" id="${modelSlug}">
-                        <div class
+                        <div class="card-header">
+                            <span class="rank-badge">#${rank}</span>
+                            <div class="provider-model-wrapper">
+                                <div class="card-provider">${item.provider}</div>
+                                <div class="card-model">${item.model}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-wrapper">
+                            <div class="stat-group">
+                                <div class="stat-label">Current Speed</div>
+                                <div class="stat-value ${speedClass}">
+                                    ${item.time}s
+                                    <div class="last-speed">${previousTime}</div>
+                                </div>
+                            </div>
+                            <div class="stat-group">
+                                <div class="stat-label">Status</div>
+                                <div class="stat-value ${statusClass}">${item.status}</div>
+                            </div>
+                        </div>
+                        
+                        ${affiliateButtonHTML}
+
+                        <div class="response-content-wrapper">
+                            <div class="full-response-text">${responseText}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            return html;
+        }
+
+        async function fetchData() {
+            const paths = ['data.json', '/data.json']; 
+            const cacheBuster = `?t=${new Date().getTime()}`;
+            
+            for (const path of paths) {
+                try {
+                    const response = await fetch(path + cacheBuster); 
+                    if (!response.ok) throw new Error(`Status ${response.status}`);
+                    const data = await response.json();
+                    
+                    const resultsContainer = document.getElementById('results-container');
+                    const lastUpdatedElement = document.getElementById('last-updated');
+
+                    if (resultsContainer && data.results) {
+                        resultsContainer.innerHTML = formatResults(data.results);
+                    }
+                    if (lastUpdatedElement && data.last_updated) {
+                        lastUpdatedElement.textContent = `Last Updated: ${data.last_updated}`;
+                    }
+                    return; // Success!
+
+                } catch (error) {
+                    console.warn('Data load attempt failed:', error);
+                }
+            }
+            document.getElementById('results-container').innerHTML = `<p class="error-message" style="text-align: center; color: #c62828; padding: 20px; font-weight: bold; background: #fff; width: 100%;">
+                🔴 FATAL ERROR: Live data failed to load.
+            </p>`;
+        }
+
+        fetchData(); 
+
+    } catch (criticalError) {
+        // If JS crashes, this will display the error message instead of 'Loading...'
+        document.body.innerHTML = `<h1 style="color:red; text-align:center; margin-top:50px;">CRITICAL SCRIPT ERROR</h1><p style="text-align:center;">${criticalError.message}</p>`;
+    }
+    </script>
+</body>
+</html>
