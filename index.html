@@ -163,21 +163,14 @@
             margin-top: 20px;
             padding-top: 15px;
             border-top: 1px dashed #e0e0e0;
-            /* CRITICAL FIX: Forces Flexbox to allow children to dictate minimum size */
-            min-height: 0; 
+            /* Simple structure now that <pre> is gone */
         }
-
-        /* NEW WRAPPER FOR CLIPPING FIX */
-        .response-content-wrapper {
-            height: auto;
-            /* CRITICAL FIX: Tells the browser how to handle overflow, resolving the Flexbox conflict */
-            overflow: auto; 
-        }
-
+        
+        /* RESPONSE TEXT - Now a <div> */
         .full-response-text {
-            /* Now contained within a wrapper that handles overflow correctly */
             height: auto !important; 
             
+            /* Preserve formatting like the <pre> tag used to, but as a div */
             white-space: pre-wrap;
             font-family: monospace;
             font-size: 0.85em;
@@ -187,6 +180,8 @@
             padding: 10px;
             border-radius: 4px;
             overflow-x: auto;
+            /* Ensuring it's a block element and takes the space it needs */
+            display: block; 
         }
         
         /* LAST UPDATED STYLING */
@@ -326,9 +321,7 @@
                         ${affiliateButtonHTML}
 
                         <div class="full-response-section">
-                            <div class="response-content-wrapper">
-                                <pre class="full-response-text">${item.full_response || item.response_preview}</pre>
-                            </div>
+                            <div class="full-response-text">${item.full_response || item.response_preview}</div>
                         </div>
                     </div>
                 `;
