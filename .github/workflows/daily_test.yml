@@ -11,15 +11,18 @@ on:
 
 jobs:
   run-benchmark:
-    # IMPORTANT: Add permissions to allow the action to write/commit files
+    # Permissions are explicitly set here to allow file commit
     permissions:
       contents: write
       
     runs-on: ubuntu-latest
     
     steps:
-      - name: Checkout repository
+      - name: Checkout repository (Deep Clone Fix)
         uses: actions/checkout@v4
+        with:
+          # FIX: Prevents shallow clone issues that can break file commits
+          fetch-depth: 0 
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -41,9 +44,8 @@ jobs:
           python benchmark.py
           
       - name: Commit and Push Results
-        # This dedicated action is more robust than manual git commands
+        # This dedicated action handles the git commit and push logic
         uses: stefanzweifel/git-auto-commit-action@v5
         with:
           commit_message: Update benchmark stats
           files: data.json
-          # Note: The 'permissions: contents: write' block above is required for this step.
