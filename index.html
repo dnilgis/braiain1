@@ -87,18 +87,18 @@
             flex-shrink: 0;
         }
         
-        /* NEW: Provider/Model Wrapper */
+        /* Provider/Model Wrapper */
         .provider-model-wrapper {
             display: flex;
-            flex-direction: column; /* Stack provider and model vertically */
+            flex-direction: column;
             line-height: 1.1;
         }
         .card-provider {
             font-size: 1.3em;
-            font-weight: 700; /* BOLD PROVIDER NAME */
+            font-weight: 700;
         }
         .card-model {
-            font-size: 0.9em; /* Slightly smaller model name */
+            font-size: 0.9em;
             color: #555;
             font-weight: normal;
         }
@@ -166,13 +166,8 @@
             /* Ensures response section takes up full vertical space */
             min-height: 150px; 
         }
-        .full-response-section h4 {
-            color: #007bff;
-            margin: 0 0 10px 0;
-            font-size: 1.1em;
-        }
         .full-response-text {
-            /* FIX: Removed overflow-hidden and line-clamp to ensure full text displays */
+            /* FIX: Ensures full text displays */
             white-space: pre-wrap;
             font-family: monospace;
             font-size: 0.85em;
@@ -182,7 +177,6 @@
             padding: 10px;
             border-radius: 4px;
             overflow-x: auto;
-            /* Ensure this container can grow to fit content */
             height: auto; 
         }
         
@@ -194,6 +188,29 @@
             font-weight: bold; 
             color: #555;
             max-width: 1200px;
+        }
+
+        /* FOOTER STYLING */
+        #site-footer {
+            background-color: #1c1c1c;
+            color: #c0c0c0;
+            padding: 20px 15px;
+            text-align: center;
+            font-size: 0.85em;
+            margin-top: 40px;
+        }
+        #site-footer a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        #site-footer a:hover {
+            text-decoration: underline;
+        }
+        .legal-text {
+            margin-top: 10px;
+            font-size: 0.75em;
+            color: #777;
         }
     </style>
 </head>
@@ -226,6 +243,15 @@
             The test uses the same **complex, high-token prompt** for every model: "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030." All models are configured to generate a minimum of **300 output tokens**. The lowest recorded time determines the winner. Data is updated daily via a GitHub Actions workflow.
         </p>
     </section>
+
+    <footer id="site-footer">
+        <div>
+            A <a href="mailto:dnilgis@gmail.com">dnligis</a> X Gemini project.
+        </div>
+        <div class="legal-text">
+            *Legal Disclaimer Mumbo Jumbo:* This site provides benchmark data for informational purposes only. Speed metrics are based on testing conditions and may vary. All product names, logos, and brands are property of their respective owners.
+        </div>
+    </footer>
 
     <script>
         const AFFILIATE_LINKS = {
@@ -291,7 +317,6 @@
                         ${affiliateButtonHTML}
 
                         <div class="full-response-section">
-                            <h4>Full Response</h4>
                             <pre class="full-response-text">${item.full_response || item.response_preview}</pre>
                         </div>
                     </div>
