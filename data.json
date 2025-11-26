@@ -1,26 +1,62 @@
 {
-    "last_updated": "2025-11-26 23:37:20 UTC",
+    "last_updated": "2025-11-26 23:37:55 UTC",
+    "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.",
+    "max_tokens": 300,
     "results": [
         {
-            "provider": "OpenAI",
-            "model": "gpt-4o-mini",
-            "time": 6.0408,
-            "status": "Online",
-            "response_preview": "The history of the internet dates back to the late 1960s when the U.S. Department of Defense initiated a project called ARPANET to enable communicatio..."
-        },
-        {
             "provider": "Google",
-            "model": "gemini-2.5-flash",
-            "time": 6.3241,
-            "status": "Online",
-            "response_preview": "The internet began in the late 1960s with the U.S. Department of Defense's ARPANET, a groundbreaking project designed for resilient communication thro..."
+            "model": "gemini-2.0-flash-exp",
+            "time": 0.1099,
+            "status": "API FAILURE",
+            "response_preview": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-...",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "cost_per_request": null
         },
         {
             "provider": "Anthropic",
-            "model": "claude-3-5-sonnet-20240620",
-            "time": 99.9999,
+            "model": "claude-3-5-sonnet-20241022",
+            "time": 0.1619,
             "status": "API FAILURE",
-            "response_preview": "Error: 404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages"
+            "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "cost_per_request": null
+        },
+        {
+            "provider": "OpenAI",
+            "model": "gpt-4o-mini",
+            "time": 6.4517,
+            "status": "Online",
+            "response_preview": "The history of the internet dates back to the 1960s, when the U.S. Department of Defense initiated the ARPANET project, primarily aimed at creating a ...",
+            "tokens_per_second": 46.5,
+            "output_tokens": 300,
+            "cost_per_request": 0.000185
+        }
+    ],
+    "history": [
+        {
+            "timestamp": "2025-11-26 23:37:55 UTC",
+            "results": {
+                "Google": {
+                    "time": 0.1099,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Anthropic": {
+                    "time": 0.1619,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "OpenAI": {
+                    "time": 6.4517,
+                    "tps": 46.5,
+                    "status": "Online",
+                    "cost": 0.000185
+                }
+            }
         }
     ]
 }
