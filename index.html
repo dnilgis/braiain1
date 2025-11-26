@@ -40,35 +40,36 @@
             border-radius: 6px;
             overflow: hidden;
         }
-        /* FIX: Anchor wrapper must be a block element */
-        .result-link {
-            text-decoration: none; 
-            color: inherit; 
-            display: block; /* Ensures the link takes up the full width of the row */
-        }
-        .result-link:hover .result-row {
-            background-color: #f0f8ff; 
-            cursor: pointer;
-        }
-
-        .header-row, .result-row {
-            /* Grid definition applied directly to the row */
+        
+        /* FIX: Apply grid directly to the link/row element */
+        .header-row, .result-link {
+            /* Defines the column layout */
             display: grid;
             grid-template-columns: 0.3fr 1fr 3fr 0.8fr 0.8fr 1.5fr; 
             padding: 12px 15px;
             border-bottom: 1px solid #eeeeee;
             align-items: center;
             font-size: 14px;
+            text-decoration: none; /* Removes anchor underline */
+            color: inherit; /* Inherits text color */
         }
+        
         .header-row {
             background-color: #f7f7f7;
             font-weight: bold;
             color: #333;
             text-transform: uppercase;
         }
-        .result-row:last-child {
+        
+        /* Hover and cleanup on the rows */
+        .result-link:last-child {
             border-bottom: none;
         }
+        .result-link:hover {
+            background-color: #f0f8ff; 
+            cursor: pointer;
+        }
+        
         .rank {
             font-weight: 600;
         }
@@ -183,15 +184,13 @@
 
                 // The row structure with the anchor wrapper
                 html += `
-                    <a href="#${modelSlug}" class="result-link">
-                        <div class="result-row" id="${modelSlug}">
-                            <div class="rank">${index + 1}</div>
-                            <div class="provider">${providerModel}</div>
-                            <div class="preview-text">${item.response_preview}</div>
-                            <div class="speed ${speedClass}">${item.time}s</div>
-                            <div class="status ${statusClass}">${item.status}</div>
-                            <div class="action-button">${affiliateButton}</div>
-                        </div>
+                    <a href="#${modelSlug}" class="result-link" id="${modelSlug}">
+                        <div class="rank">${index + 1}</div>
+                        <div class="provider">${providerModel}</div>
+                        <div class="preview-text">${item.response_preview}</div>
+                        <div class="speed ${speedClass}">${item.time}s</div>
+                        <div class="status ${statusClass}">${item.status}</div>
+                        <div class="action-button">${affiliateButton}</div>
                     </a>
                 `;
             });
