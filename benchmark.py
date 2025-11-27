@@ -2,14 +2,14 @@ import os
 import time 
 import json
 import requests
-from datetime import datetime
+from datetime import datetime, timezone
 
 # --- CONFIGURATION ---
 MODELS = {
     "openai": "gpt-4o-mini",
     "anthropic": "claude-3-5-sonnet-20241022",
     "google": "gemini-2.0-flash-exp",
-    "groq": "llama-3.1-70b-versatile",
+    "groq": "llama-3.1-70b-versatile",  # Free & ultra-fast
     "mistral": "mistral-large-latest",
     "cohere": "command-r-plus",
     "together": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"
@@ -20,11 +20,12 @@ MAX_TOKENS = 300
 TIMEOUT = 30
 MAX_RETRIES = 2
 
+# PRICING (per million tokens - approximate as of late 2024)
 PRICING = {
     "gpt-4o-mini": {"input": 0.15, "output": 0.60},
     "claude-3-5-sonnet-20241022": {"input": 3.00, "output": 15.00},
-    "gemini-2.0-flash-exp": {"input": 0.00, "output": 0.00},
-    "llama-3.1-70b-versatile": {"input": 0.00, "output": 0.00},
+    "gemini-2.0-flash-exp": {"input": 0.00, "output": 0.00},  # Free preview
+    "llama-3.1-70b-versatile": {"input": 0.00, "output": 0.00},  # Groq is free
     "mistral-large-latest": {"input": 2.00, "output": 6.00},
     "command-r-plus": {"input": 3.00, "output": 15.00},
     "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo": {"input": 0.18, "output": 0.18}
@@ -32,6 +33,7 @@ PRICING = {
 
 PROMPT_TOKENS = 30
 
+# --- UTILITY ---
 def get_preview(text, max_chars=150):
     if not text:
         return ""
@@ -72,9 +74,10 @@ def update_history(history, new_entry):
         history = history[-30:]
     return history
 
+# --- API TEST FUNCTIONS ---
+
 def test_openai(api_key):
-    if not api_key: 
-        return None
+    if not api_key: return None
     
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -91,9 +94,7 @@ def test_openai(api_key):
         def make_request():
             return requests.post(
                 "https://api.openai.com/v1/chat/completions",
-                headers=headers, 
-                json=data, 
-                timeout=TIMEOUT
+                headers=headers, json=data, timeout=TIMEOUT
             )
         
         response = make_request_with_retry(make_request)
@@ -128,15 +129,13 @@ def test_openai(api_key):
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": None
         }
 
 def test_anthropic(api_key):
-    if not api_key: 
-        return None
+    if not api_key: return None
     
     headers = {
         "x-api-key": api_key,
@@ -154,9 +153,7 @@ def test_anthropic(api_key):
         def make_request():
             return requests.post(
                 "https://api.anthropic.com/v1/messages",
-                headers=headers, 
-                json=data, 
-                timeout=TIMEOUT
+                headers=headers, json=data, timeout=TIMEOUT
             )
         
         response = make_request_with_retry(make_request)
@@ -177,7 +174,6 @@ def test_anthropic(api_key):
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
-            "full_response": response_text,
             "tokens_per_second": tps,
             "output_tokens": output_tokens,
             "cost_per_request": cost
@@ -191,15 +187,13 @@ def test_anthropic(api_key):
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": None
         }
 
 def test_google(api_key):
-    if not api_key: 
-        return None
+    if not api_key: return None
     
     url = f"https://generativelanguage.googleapis.com/v1/models/{MODELS['google']}:generateContent?key={api_key}"
     data = {
@@ -210,12 +204,7 @@ def test_google(api_key):
     start = time.monotonic()
     try:
         def make_request():
-            return requests.post(
-                url, 
-                headers={"Content-Type": "application/json"}, 
-                json=data, 
-                timeout=TIMEOUT
-            )
+            return requests.post(url, headers={"Content-Type": "application/json"}, json=data, timeout=TIMEOUT)
         
         response = make_request_with_retry(make_request)
         response.raise_for_status()
@@ -235,7 +224,6 @@ def test_google(api_key):
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
-            "full_response": response_text,
             "tokens_per_second": tps,
             "output_tokens": output_tokens,
             "cost_per_request": cost
@@ -249,15 +237,13 @@ def test_google(api_key):
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": None
         }
 
 def test_groq(api_key):
-    if not api_key: 
-        return None
+    if not api_key: return None
     
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -274,9 +260,7 @@ def test_groq(api_key):
         def make_request():
             return requests.post(
                 "https://api.groq.com/openai/v1/chat/completions",
-                headers=headers, 
-                json=data, 
-                timeout=TIMEOUT
+                headers=headers, json=data, timeout=TIMEOUT
             )
         
         response = make_request_with_retry(make_request)
@@ -297,7 +281,6 @@ def test_groq(api_key):
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
-            "full_response": response_text,
             "tokens_per_second": tps,
             "output_tokens": output_tokens,
             "cost_per_request": cost
@@ -311,15 +294,13 @@ def test_groq(api_key):
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": None
         }
 
 def test_mistral(api_key):
-    if not api_key: 
-        return None
+    if not api_key: return None
     
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -336,9 +317,7 @@ def test_mistral(api_key):
         def make_request():
             return requests.post(
                 "https://api.mistral.ai/v1/chat/completions",
-                headers=headers, 
-                json=data, 
-                timeout=TIMEOUT
+                headers=headers, json=data, timeout=TIMEOUT
             )
         
         response = make_request_with_retry(make_request)
@@ -359,7 +338,6 @@ def test_mistral(api_key):
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
-            "full_response": response_text,
             "tokens_per_second": tps,
             "output_tokens": output_tokens,
             "cost_per_request": cost
@@ -373,15 +351,13 @@ def test_mistral(api_key):
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": None
         }
 
 def test_cohere(api_key):
-    if not api_key: 
-        return None
+    if not api_key: return None
     
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -398,9 +374,7 @@ def test_cohere(api_key):
         def make_request():
             return requests.post(
                 "https://api.cohere.com/v1/chat",
-                headers=headers, 
-                json=data, 
-                timeout=TIMEOUT
+                headers=headers, json=data, timeout=TIMEOUT
             )
         
         response = make_request_with_retry(make_request)
@@ -409,6 +383,7 @@ def test_cohere(api_key):
         
         response_data = response.json()
         response_text = response_data.get('text', '')
+        # Cohere uses different token field names
         usage = response_data.get('meta', {}).get('billed_units', {})
         input_tokens = usage.get('input_tokens', PROMPT_TOKENS)
         output_tokens = usage.get('output_tokens', MAX_TOKENS)
@@ -421,7 +396,6 @@ def test_cohere(api_key):
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
-            "full_response": response_text,
             "tokens_per_second": tps,
             "output_tokens": output_tokens,
             "cost_per_request": cost
@@ -435,15 +409,13 @@ def test_cohere(api_key):
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": None
         }
 
 def test_together(api_key):
-    if not api_key: 
-        return None
+    if not api_key: return None
     
     headers = {
         "Authorization": f"Bearer {api_key}",
@@ -460,9 +432,7 @@ def test_together(api_key):
         def make_request():
             return requests.post(
                 "https://api.together.xyz/v1/chat/completions",
-                headers=headers, 
-                json=data, 
-                timeout=TIMEOUT
+                headers=headers, json=data, timeout=TIMEOUT
             )
         
         response = make_request_with_retry(make_request)
@@ -483,7 +453,6 @@ def test_together(api_key):
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
-            "full_response": response_text,
             "tokens_per_second": tps,
             "output_tokens": output_tokens,
             "cost_per_request": cost
@@ -497,13 +466,15 @@ def test_together(api_key):
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": None
         }
 
+# --- MAIN LOGIC ---
+
 def update_json():
+    # Load API keys
     openai_key = os.getenv('OPENAI_API_KEY')
     anthropic_key = os.getenv('ANTHROPIC_API_KEY')
     google_key = os.getenv('GEMINI_API_KEY')
@@ -514,6 +485,7 @@ def update_json():
 
     results = []
 
+    # Test all providers
     tests = [
         ("OpenAI", lambda: test_openai(openai_key)),
         ("Anthropic", lambda: test_anthropic(anthropic_key)),
@@ -540,7 +512,10 @@ def update_json():
         print("WARNING: No successful API tests. Creating empty data file.")
         results = []
 
+    # Load existing history
     history = load_history()
+    
+    # Create new history entry
     timestamp = datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')
     history_entry = {
         "timestamp": timestamp,
@@ -556,6 +531,7 @@ def update_json():
             "cost": result['cost_per_request']
         }
     
+    # Update history
     history = update_history(history, history_entry)
 
     final_data = {
@@ -571,10 +547,4 @@ def update_json():
         print("\n--- SUCCESSFULLY WROTE data.json ---")
 
 if __name__ == "__main__":
-    try:
-        update_json()
-    except Exception as e:
-        print(f"FATAL ERROR: {e}")
-        import traceback
-        traceback.print_exc()
-        exit(1)
+    update_json()
