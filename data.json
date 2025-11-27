@@ -1,12 +1,23 @@
 {
-    "last_updated": "2025-11-27 00:35:06 UTC",
+    "last_updated": "2025-11-27 00:43:51 UTC",
     "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.",
     "max_tokens": 300,
     "results": [
         {
+            "provider": "Anthropic",
+            "model": "claude-3-5-sonnet-20241022",
+            "time": 0.0818,
+            "status": "API FAILURE",
+            "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
+            "full_response": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "cost_per_request": null
+        },
+        {
             "provider": "Google",
             "model": "gemini-2.0-flash-exp",
-            "time": 0.0919,
+            "time": 0.1025,
             "status": "API FAILURE",
             "response_preview": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-...",
             "full_response": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyCDWfvoF4QiRUDQ_9mL4IY4ocGRe24QGa8",
@@ -17,7 +28,7 @@
         {
             "provider": "Groq",
             "model": "llama-3.1-70b-versatile",
-            "time": 0.1088,
+            "time": 0.1526,
             "status": "API FAILURE",
             "response_preview": "400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
             "full_response": "400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
@@ -26,24 +37,13 @@
             "cost_per_request": null
         },
         {
-            "provider": "Anthropic",
-            "model": "claude-3-5-sonnet-20241022",
-            "time": 0.1178,
-            "status": "API FAILURE",
-            "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
-            "full_response": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
-            "tokens_per_second": 0,
-            "output_tokens": 0,
-            "cost_per_request": null
-        },
-        {
             "provider": "OpenAI",
             "model": "gpt-4o-mini",
-            "time": 5.812,
+            "time": 6.6141,
             "status": "Online",
-            "response_preview": "The history of the internet began in the late 1960s when the United States Department of Defense developed ARPANET, the first network to implement pac...",
-            "full_response": "The history of the internet began in the late 1960s when the United States Department of Defense developed ARPANET, the first network to implement packet-switching technology. This allowed multiple computers to communicate on a single network, paving the way for future developments. By the 1970s, key protocols like TCP/IP were established, enabling diverse networks to interconnect. The introduction of the World Wide Web in the early 1990s, developed by Tim Berners-Lee, revolutionized public access to the internet, facilitating not just academic and military communication but also commercial activities. This era marked the transition of the internet from a predominantly scientific tool to a mainstream global platform.\n\nIn the late 1990s and early 2000s, the internet experienced explosive growth, characterized by the proliferation of web browsers, e-commerce platforms, and social media. Companies like Amazon and eBay emerged, radically changing retail, while platforms such as Facebook and Twitter transformed social interactions and information dissemination. The introduction of broadband made internet access faster and more reliable, further fueling its adoption in households worldwide. Mobile technologies revolutionized access yet again, with smartphones allowing users to stay connected anytime and anywhere, leading to significant societal shifts in communication and entertainment.\n\nLooking ahead to 2030, the internet is expected to become even more integrated into daily life, driven by advancements in machine learning, artificial intelligence, and the Internet of Things (IoT). We may see a more decentralized web, utilizing blockchain technologies for enhanced",
-            "tokens_per_second": 51.62,
+            "response_preview": "The history of the internet dates back to the 1960s when the U.S. Department of Defense funded research into a robust communication network that could...",
+            "full_response": "The history of the internet dates back to the 1960s when the U.S. Department of Defense funded research into a robust communication network that could withstand failures. This endeavor led to the development of ARPANET, the first network to use packet switching, which allowed multiple computers to communicate over shared circuits. In the 1970s, key innovations such as the Transmission Control Protocol (TCP) and Internet Protocol (IP) were established, laying the groundwork for modern networking. By the 1980s, the growth of interconnected networks began in earnest, with the introduction of domain names and the establishment of the National Science Foundation Network (NSFNET), which connected various universities and research institutions.\n\nThe 1990s heralded the commercialization of the internet, marked by the creation of the World Wide Web by Tim Berners-Lee, which made online content more accessible to the general public through web browsers. This period saw explosive growth in internet users and the rise of major tech companies. Email, instant messaging, and e-commerce transformed how people communicated and conducted business. The dot-com boom of the late 1990s culminated in widespread adoption of the internet, although it was followed by a crash in 2000. Nevertheless, the ensuing years saw the emergence of social media platforms, mobile applications, and broadband access, further embedding the internet into everyday life.\n\nAs we look ahead to 2030, predictions suggest that the internet will continue to evolve dramatically. Advances in artificial intelligence,",
+            "tokens_per_second": 45.36,
             "output_tokens": 300,
             "cost_per_request": 0.000185
         }
@@ -234,6 +234,35 @@
                 "OpenAI": {
                     "time": 5.812,
                     "tps": 51.62,
+                    "status": "Online",
+                    "cost": 0.000185
+                }
+            }
+        },
+        {
+            "timestamp": "2025-11-27 00:43:51 UTC",
+            "results": {
+                "Anthropic": {
+                    "time": 0.0818,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Google": {
+                    "time": 0.1025,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Groq": {
+                    "time": 0.1526,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "OpenAI": {
+                    "time": 6.6141,
+                    "tps": 45.36,
                     "status": "Online",
                     "cost": 0.000185
                 }
