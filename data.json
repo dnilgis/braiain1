@@ -1,14 +1,15 @@
 {
-    "last_updated": "2025-11-27 00:17:51 UTC",
+    "last_updated": "2025-11-27 00:24:23 UTC",
     "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.",
     "max_tokens": 300,
     "results": [
         {
             "provider": "Google",
             "model": "gemini-2.0-flash-exp",
-            "time": 0.1348,
+            "time": 0.1472,
             "status": "API FAILURE",
             "response_preview": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-...",
+            "full_response": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyCDWfvoF4QiRUDQ_9mL4IY4ocGRe24QGa8",
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": null
@@ -16,9 +17,10 @@
         {
             "provider": "Anthropic",
             "model": "claude-3-5-sonnet-20241022",
-            "time": 0.1706,
+            "time": 0.2928,
             "status": "API FAILURE",
             "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
+            "full_response": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": null
@@ -26,10 +28,11 @@
         {
             "provider": "OpenAI",
             "model": "gpt-4o-mini",
-            "time": 6.4226,
+            "time": 6.8015,
             "status": "Online",
-            "response_preview": "The history of the internet traces back to the 1960s, initially as a military project under the ARPANET initiative by the U.S. Department of Defense. ...",
-            "tokens_per_second": 46.71,
+            "response_preview": "The history of the internet began in the 1960s with ARPANET, a project funded by the U.S. Department of Defense. Initially designed for military commu...",
+            "full_response": "The history of the internet began in the 1960s with ARPANET, a project funded by the U.S. Department of Defense. Initially designed for military communication, ARPANET utilized packet-switching technology to allow multiple computers to communicate as a network. By the 1970s, the introduction of protocols such as TCP/IP enabled different types of networks to interconnect, laying the foundational architecture for the internet we know today. The 1980s witnessed a significant expansion as other networks, such as Usenet and BITNET, began to emerge, providing new forums for communication and file sharing. The creation of the World Wide Web by Tim Berners-Lee in 1989 transformed the internet into a user-friendly platform, leading to the first popular web browsers in the mid-1990s, which ushered in a rapid commercialization of the internet.\n\nThe late 1990s and early 2000s marked the internet's transition into a global phenomenon, with widespread adoption across homes and businesses. Companies like Amazon and eBay revolutionized online commerce, while social media platforms such as Facebook and Twitter began to reshape how people interacted and shared information. The introduction of broadband further increased accessibility and speed, paving the way for the rich multimedia content that dominates today's internet experience. As mobile technology advanced, the internet became increasingly portable, resulting in a surge in internet usage through smartphones and tablets, transforming cultural consumption and communication patterns.\n\nLooking forward to 2030, the internet is expected to",
+            "tokens_per_second": 44.11,
             "output_tokens": 300,
             "cost_per_request": 0.000185
         }
@@ -145,6 +148,29 @@
                 "OpenAI": {
                     "time": 6.4226,
                     "tps": 46.71,
+                    "status": "Online",
+                    "cost": 0.000185
+                }
+            }
+        },
+        {
+            "timestamp": "2025-11-27 00:24:23 UTC",
+            "results": {
+                "Google": {
+                    "time": 0.1472,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Anthropic": {
+                    "time": 0.2928,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "OpenAI": {
+                    "time": 6.8015,
+                    "tps": 44.11,
                     "status": "Online",
                     "cost": 0.000185
                 }
