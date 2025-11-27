@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Braiain AI Speed Index | Daily LLM Benchmarks</title>
-    <meta name="description" content="Real-time AI model speed benchmarks. Compare OpenAI, Anthropic, and Google Gemini API latency performance updated daily.">
+    <meta name="description" content="Real-time AI model speed benchmarks. Compare OpenAI, Anthropic, Google Gemini, Groq, and more API latency performance updated daily.">
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         /* === BASE STYLES === */
@@ -318,6 +318,15 @@
             margin: 20px auto;
         }
 
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            h1 { font-size: 1.8em; }
+            .model-card { max-width: 100%; }
+            .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
+            .stat-group:last-child { grid-column: 1 / -1; }
+            .chart-container { height: 300px; }
+        }
+
         /* === INFO BOX === */
         .info-box {
             background-color: #e3f2fd;
@@ -329,15 +338,6 @@
         
         .info-box strong {
             color: #1976d2;
-        }
-
-        /* === RESPONSIVE === */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8em; }
-            .model-card { max-width: 100%; }
-            .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
-            .stat-group:last-child { grid-column: 1 / -1; }
-            .chart-container { height: 300px; }
         }
     </style>
 </head>
