@@ -1,26 +1,14 @@
 {
-    "last_updated": "2025-11-27 00:51:51 UTC",
+    "last_updated": "2025-11-27 00:58:30 UTC",
     "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.",
     "max_tokens": 300,
     "results": [
         {
             "provider": "Google",
             "model": "gemini-2.0-flash-exp",
-            "time": 0.0986,
+            "time": 0.0987,
             "status": "API FAILURE",
             "response_preview": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-...",
-            "full_response": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash-exp:generateContent?key=AIzaSyCDWfvoF4QiRUDQ_9mL4IY4ocGRe24QGa8",
-            "tokens_per_second": 0,
-            "output_tokens": 0,
-            "cost_per_request": null
-        },
-        {
-            "provider": "Anthropic",
-            "model": "claude-3-5-sonnet-20241022",
-            "time": 0.135,
-            "status": "API FAILURE",
-            "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
-            "full_response": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": null
@@ -28,10 +16,19 @@
         {
             "provider": "Groq",
             "model": "llama-3.1-70b-versatile",
-            "time": 0.1767,
+            "time": 0.1653,
             "status": "API FAILURE",
             "response_preview": "400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
-            "full_response": "400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "cost_per_request": null
+        },
+        {
+            "provider": "Anthropic",
+            "model": "claude-3-5-sonnet-20241022",
+            "time": 0.245,
+            "status": "API FAILURE",
+            "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": null
@@ -39,11 +36,11 @@
         {
             "provider": "OpenAI",
             "model": "gpt-4o-mini",
-            "time": 5.8129,
+            "time": 5.4268,
             "status": "Online",
-            "response_preview": "The history of the internet begins in the late 1960s when the United States Department of Defense developed ARPANET, a network designed to facilitate ...",
-            "full_response": "The history of the internet begins in the late 1960s when the United States Department of Defense developed ARPANET, a network designed to facilitate communication and resource sharing among various research institutions. By employing packet-switching technology, ARPANET demonstrated the feasibility of decentralized communication. Throughout the 1970s, key innovations such as the Transmission Control Protocol (TCP) and the Internet Protocol (IP) laid the groundwork for modern networking. These protocols enabled different networks to interconnect, leading to the formation of what we now recognize as the internet. The introduction of the World Wide Web in 1991 by Tim Berners-Lee marked a turning point, allowing users to access and share information through intuitive web browsers, rapidly accelerating the internet's growth into a global phenomenon.\n\nIn the following decades, the internet evolved dramatically, fueled by the commercial explosion of the late 1990s and early 2000s. The dot-com boom brought about a plethora of websites and e-commerce platforms, changing how people interact, shop, and conduct business. Social media platforms emerged in the mid-2000s, further reshaping the digital landscape by facilitating user-generated content and real-time communication. As mobile technology advanced, access to the internet became more pervasive, allowing billions of users to connect globally. The proliferation of smartphones, combined with high-speed internet infrastructure, rendered online engagement a vital aspect of daily life across diverse demographics.\n\nLooking ahead to 2030, the internet is expected to undergo significant transformations driven",
-            "tokens_per_second": 51.61,
+            "response_preview": "The history of the internet dates back to the late 1960s when ARPANET, a project funded by the U.S. Department of Defense, developed the first network...",
+            "full_response": "The history of the internet dates back to the late 1960s when ARPANET, a project funded by the U.S. Department of Defense, developed the first network that allowed multiple computers to communicate over a single network. This pioneering effort laid the foundation for modern networking protocols, enabling data transmission across different types of hardware. By the 1970s, key innovations such as the Transmission Control Protocol (TCP) and Internet Protocol (IP) were developed, which facilitated reliable data exchange and established a framework that remains integral to internet infrastructure today. The usage of the internet expanded significantly in the 1980s and 1990s, with the introduction of the World Wide Web by Tim Berners-Lee, making information accessible through user-friendly web browsers and laying the groundwork for the internet we recognize today.\n\nThe 1990s and early 2000s brought about an explosive growth in internet usage, transforming both personal and professional landscapes. The dot-com boom saw the rise of countless websites and online businesses, bringing with them issues of regulation, privacy, and digital commerce. Social media platforms emerged in the mid-2000s, altering communication and interaction paradigms. As internet access became more widespread and mobile technology advanced, the proliferation of smartphones and broadband connections broadened the reach and impact of the internet globally, creating an environment where information and services are instantly accessible to billions.\n\nAs we look towards 2030, the internet is poised to continue evolving in significant ways. Emerging technologies like",
+            "tokens_per_second": 55.28,
             "output_tokens": 300,
             "cost_per_request": 0.000185
         }
@@ -292,6 +289,35 @@
                 "OpenAI": {
                     "time": 5.8129,
                     "tps": 51.61,
+                    "status": "Online",
+                    "cost": 0.000185
+                }
+            }
+        },
+        {
+            "timestamp": "2025-11-27 00:58:30 UTC",
+            "results": {
+                "Google": {
+                    "time": 0.0987,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Groq": {
+                    "time": 0.1653,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Anthropic": {
+                    "time": 0.245,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "OpenAI": {
+                    "time": 5.4268,
+                    "tps": 55.28,
                     "status": "Online",
                     "cost": 0.000185
                 }
