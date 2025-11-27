@@ -318,6 +318,19 @@
             margin: 20px auto;
         }
 
+        /* === INFO BOX === */
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 4px solid #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .info-box strong {
+            color: #1976d2;
+        }
+
         /* === RESPONSIVE === */
         @media (max-width: 768px) {
             h1 { font-size: 1.8em; }
@@ -340,15 +353,6 @@
         </p>
     </section>
 
-    <!-- TREND CHART -->
-    <section class="chart-section">
-        <h2>📈 7-Day Performance Trends</h2>
-        <p style="color: #666; font-size: 0.9em;">Historical speed comparison - lower is better</p>
-        <div class="chart-container">
-            <canvas id="trendChart"></canvas>
-        </div>
-    </section>
-
     <!-- LEADERBOARD -->
     <div class="leaderboard-cards-wrapper" id="results-container">
         <div class="loading-container">
@@ -360,6 +364,15 @@
     <div id="last-updated-wrapper">
         <span id="last-updated"></span>
     </div>
+
+    <!-- TREND CHART (Appears after at least 2 data points) -->
+    <section class="chart-section" id="chart-section" style="display: none;">
+        <h2>📈 7-Day Performance Trends</h2>
+        <p style="color: #666; font-size: 0.9em;">Historical speed comparison - lower is better</p>
+        <div class="chart-container">
+            <canvas id="trendChart"></canvas>
+        </div>
+    </section>
 
     <section class="about-section">
         <h2>🔬 Methodology</h2>
@@ -387,13 +400,21 @@
         const AFFILIATE_LINKS = {
             'OpenAI': 'https://platform.openai.com/signup',
             'Google': 'https://ai.google.dev/', 
-            'Anthropic': 'https://console.anthropic.com/'
+            'Anthropic': 'https://console.anthropic.com/',
+            'Groq': 'https://console.groq.com/',
+            'Mistral AI': 'https://console.mistral.ai/',
+            'Cohere': 'https://dashboard.cohere.com/',
+            'Together AI': 'https://api.together.xyz/'
         };
 
         const PROVIDER_COLORS = {
             'OpenAI': '#10a37f',
             'Anthropic': '#d97757',
-            'Google': '#4285f4'
+            'Google': '#4285f4',
+            'Groq': '#f55036',
+            'Mistral AI': '#ff7000',
+            'Cohere': '#39594d',
+            'Together AI': '#6366f1'
         };
 
         let trendChart = null;
@@ -434,7 +455,16 @@
         // === TREND CHART ===
         function createTrendChart(history) {
             const ctx = document.getElementById('trendChart');
-            if (!ctx) return;
+            const chartSection = document.getElementById('chart-section');
+            
+            if (!ctx || !history || history.length < 2) {
+                // Hide chart section if not enough data
+                if (chartSection) chartSection.style.display = 'none';
+                return;
+            }
+
+            // Show chart section
+            if (chartSection) chartSection.style.display = 'block';
 
             // Prepare data
             const labels = [];
@@ -454,11 +484,13 @@
                             data: [],
                             borderColor: PROVIDER_COLORS[provider] || '#999',
                             backgroundColor: PROVIDER_COLORS[provider] || '#999',
-                            tension: 0.3
+                            tension: 0.3,
+                            spanGaps: true // Connect across missing data points
                         };
                     }
                     const time = entry.results[provider].time;
-                    datasets[provider].data.push(time < 99 ? time : null);
+                    // Only include successful API calls (time < 99 indicates success)
+                    datasets[provider].data.push(time < 99 && entry.results[provider].status === 'Online' ? time : null);
                 });
             });
 
@@ -487,6 +519,7 @@
                         tooltip: {
                             callbacks: {
                                 label: function(context) {
+                                    if (context.parsed.y === null) return null;
                                     return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + 's';
                                 }
                             }
@@ -659,7 +692,7 @@
                 return;
             }
             
-            // Create trend chart
+            // Create trend chart (only shows if 2+ data points)
             if (data.history && data.history.length > 0) {
                 createTrendChart(data.history);
             }
@@ -667,9 +700,28 @@
             // Calculate badges
             const badges = calculateBadges(data.results);
             
-            // Clear and populate
-            container.innerHTML = '';
+            // Check for API failures
+            const failures = data.results.filter(r => r.status !== 'Online');
+            let infoBoxHTML = '';
             
+            if (failures.length > 0) {
+                const failedProviders = failures.map(r => r.provider).join(', ');
+                infoBoxHTML = `
+                    <div class="info-box" style="width: 100%; max-width: 1200px; margin: 0 auto 20px;">
+                        <strong>ℹ️ API Status Notice:</strong> ${failedProviders} ${failures.length === 1 ? 'is' : 'are'} currently experiencing issues. 
+                        This may be due to rate limits, service outages, or outdated API keys. Rankings show only operational providers.
+                    </div>
+                `;
+            }
+            
+            // Add info box if needed
+            if (infoBoxHTML) {
+                container.innerHTML = infoBoxHTML;
+            } else {
+                container.innerHTML = '';
+            }
+            
+            // Create cards
             data.results.forEach((result, index) => {
                 const rank = index + 1;
                 const card = createModelCard(result, rank, badges);
