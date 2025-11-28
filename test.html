@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Data Loading Test</title>
+</head>
+<body>
+    <h1>Data Loading Test</h1>
+    <div id="status">Testing...</div>
+    <pre id="output"></pre>
+
+    <script>
+        const statusDiv = document.getElementById('status');
+        const outputDiv = document.getElementById('output');
+
+        async function testLoad() {
+            const paths = ['./data.json', 'data.json', '/data.json'];
+            
+            for (const path of paths) {
+                statusDiv.textContent = `Testing: ${path}`;
+                try {
+                    const response = await fetch(path + '?t=' + Date.now());
+                    statusDiv.textContent = `${path} - Status: ${response.status}`;
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        outputDiv.textContent = `SUCCESS with ${path}!\n\n` + JSON.stringify(data, null, 2);
+                        return;
+                    }
+                } catch (error) {
+                    outputDiv.textContent += `\n${path} failed: ${error.message}`;
+                }
+            }
+            
+            statusDiv.textContent = 'All paths failed!';
+        }
+
+        testLoad();
+    </script>
+</body>
+</html>
