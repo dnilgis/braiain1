@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Debug Data Loading</title>
+    <style>
+        body { 
+            font-family: monospace; 
+            padding: 20px; 
+            background: #f0f0f0;
+        }
+        .test { 
+            background: white; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 5px;
+            border-left: 4px solid #666;
+        }
+        .success { border-color: green; }
+        .error { border-color: red; }
+        .info { border-color: blue; }
+        pre { 
+            background: #f5f5f5; 
+            padding: 10px; 
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+        button {
+            background: #2196f3;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover { background: #1976d2; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Data Loading Debugger</h1>
+    <div id="output"></div>
+    
+    <div style="margin-top: 20px;">
+        <button onclick="testAllPaths()">Test All Paths</button>
+        <button onclick="testEmbedded()">Test With Embedded Data</button>
+        <button onclick="window.location.reload()">Reload Page</button>
+    </div>
+
+    <script>
+        const output = document.getElementById('output');
+
+        function log(message, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test ${type}`;
+            div.innerHTML = `<strong>${new Date().toLocaleTimeString()}</strong>: ${message}`;
+            output.appendChild(div);
+            console.log(message);
+        }
+
+        function logPre(title, content, type = 'info') {
+            const div = document.createElement('div');
+            div.className = `test ${type}`;
+            div.innerHTML = `<strong>${title}</strong><pre>${content}</pre>`;
+            output.appendChild(div);
+        }
+
+        async function testPath(path) {
+            log(`Testing path: <code>${path}</code>`, 'info');
+            
+            try {
+                const url = path + '?t=' + Date.now();
+                log(`Full URL: <code>${url}</code>`, 'info');
+                
+                const response = await fetch(url);
+                log(`Response status: ${response.status} ${response.statusText}`, 
+                    response.ok ? 'success' : 'error');
+                
+                if (!response.ok) {
+                    log(`HTTP Error: ${response.status}`, 'error');
+                    return false;
+                }
+                
+                const text = await response.text();
+                log(`Response length: ${text.length} characters`, 'success');
+                
+                // Try to parse as JSON
+                try {
+                    const json = JSON.parse(text);
+                    log(`✅ Valid JSON! Found ${json.results?.length || 0} results`, 'success');
+                    logPre('JSON Data Preview', JSON.stringify(json, null, 2).substring(0, 500) + '...', 'success');
+                    return true;
+                } catch (e) {
+                    log(`❌ Invalid JSON: ${e.message}`, 'error');
+                    logPre('Response Text (first 500 chars)', text.substring(0, 500), 'error');
+                    return false;
+                }
+                
+            } catch (error) {
+                log(`❌ Fetch failed: ${error.message}`, 'error');
+                log(`Error type: ${error.name}`, 'error');
+                log(`Error stack: ${error.stack}`, 'error');
+                return false;
+            }
+        }
+
+        async function testAllPaths() {
+            output.innerHTML = '';
+            log('🚀 Starting comprehensive path test...', 'info');
+            log(`Current URL: ${window.location.href}`, 'info');
+            log(`Origin: ${window.location.origin}`, 'info');
+            log(`Pathname: ${window.location.pathname}`, 'info');
+            
+            const paths = [
+                'data.json',
+                './data.json',
+                '/data.json',
+                '../data.json',
+                window.location.pathname.replace(/\/[^\/]*$/, '/data.json')
+            ];
+            
+            log(`Testing ${paths.length} different paths...`, 'info');
+            
+            for (const path of paths) {
+                await testPath(path);
+                log('---', 'info');
+            }
+            
+            log('✅ Path testing complete!', 'success');
+        }
+
+        function testEmbedded() {
+            output.innerHTML = '';
+            log('Testing with embedded data from your file...', 'info');
+            
+            // Using the actual data from your data.json
+            const embeddedData = {
+                "last_updated": "2025-11-28 21:56:17 UTC",
+                "results": [
+                    {
+                        "provider": "Groq",
+                        "model": "Llama 3.1 70B",
+                        "time": 1.1861,
+                        "status": "Online",
+                        "tokens_per_second": 403.84,
+                        "output_tokens": 479,
+                        "cost_per_request": 0.0
+                    },
+                    {
+                        "provider": "OpenAI",
+                        "model": "GPT-4o Mini",
+                        "time": 10.2888,
+                        "status": "Online",
+                        "tokens_per_second": 29.16,
+                        "output_tokens": 300,
+                        "cost_per_request": 0.000185
+                    }
+                ]
+            };
+            
+            try {
+                log(`✅ Data loaded successfully!`, 'success');
+                log(`Last updated: ${embeddedData.last_updated}`, 'success');
+                log(`Number of results: ${embeddedData.results.length}`, 'success');
+                
+                embeddedData.results.forEach((result, i) => {
+                    log(`${i+1}. ${result.provider} - ${result.status} - ${result.time}s`, 'success');
+                });
+                
+                logPre('Full Data', JSON.stringify(embeddedData, null, 2), 'success');
+                
+                log('✅ If you see this, the rendering logic works! The issue is with loading data.json', 'success');
+                
+            } catch (error) {
+                log(`❌ Error with embedded data: ${error.message}`, 'error');
+            }
+        }
+
+        // Auto-run on load
+        log('Page loaded. Click "Test All Paths" to begin.', 'info');
+        log('Or click "Test With Embedded Data" to verify rendering works.', 'info');
+    </script>
+</body>
+</html>
