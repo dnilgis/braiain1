@@ -1,1309 +1,832 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Braiain AI Speed Index | Daily LLM Benchmarks</title>
-    <meta name="description" content="Real-time AI model speed benchmarks. Compare OpenAI, Anthropic, Google Gemini, Groq, and more API latency performance updated daily.">
+import os
+import time 
+import json
+import requests
+from datetime import datetime, timezone
+
+# --- CONFIGURATION ---
+# Model names to try in order (fallback system)
+MODELS = {
+    "openai": ["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"],
+    "anthropic": [
+        "claude-3-5-sonnet-20241022",
+        "claude-3-5-sonnet-20240620", 
+        "claude-3-opus-20240229",
+        "claude-3-sonnet-20240229"
+    ],
+    "google": [
+        "gemini-1.5-pro-latest",
+        "gemini-1.5-flash-latest", 
+        "gemini-1.5-flash",
+        "gemini-pro"
+    ],
+    "groq": ["llama-3.3-70b-versatile", "llama-3.1-70b-versatile", "mixtral-8x7b-32768"],
+    "mistral": ["mistral-large-latest", "mistral-medium-latest"],
+    "cohere": ["command-r-plus", "command-r"],
+    "together": ["meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"]
+}
+
+PROMPT = "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030." 
+MAX_TOKENS = 300 
+TIMEOUT = 30
+MAX_RETRIES = 2
+
+PRICING = {
+    # OpenAI
+    "gpt-4o-mini": {"input": 0.15, "output": 0.60},
+    "gpt-4o": {"input": 2.50, "output": 10.00},
+    "gpt-3.5-turbo": {"input": 0.50, "output": 1.50},
+    # Anthropic
+    "claude-3-5-sonnet-20241022": {"input": 3.00, "output": 15.00},
+    "claude-3-5-sonnet-20240620": {"input": 3.00, "output": 15.00},
+    "claude-3-5-sonnet-latest": {"input": 3.00, "output": 15.00},
+    "claude-3-opus-20240229": {"input": 15.00, "output": 75.00},
+    "claude-3-sonnet-20240229": {"input": 3.00, "output": 15.00},
+    # Google (all free)
+    "gemini-1.5-pro-latest": {"input": 0.00, "output": 0.00},
+    "gemini-1.5-flash-latest": {"input": 0.00, "output": 0.00},
+    "gemini-1.5-flash": {"input": 0.00, "output": 0.00},
+    "gemini-pro": {"input": 0.00, "output": 0.00},
+    # Groq (all free)
+    "llama-3.1-70b-versatile": {"input": 0.00, "output": 0.00},
+    "llama-3.3-70b-versatile": {"input": 0.00, "output": 0.00},
+    "mixtral-8x7b-32768": {"input": 0.00, "output": 0.00},
+    # Others
+    "mistral-large-latest": {"input": 2.00, "output": 6.00},
+    "mistral-medium-latest": {"input": 2.70, "output": 8.10},
+    "command-r-plus": {"input": 3.00, "output": 15.00},
+    "command-r": {"input": 0.50, "output": 1.50},
+    "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo": {"input": 0.18, "output": 0.18}
+}
+
+PROMPT_TOKENS = 30
+
+def get_preview(text, max_chars=150):
+    if not text:
+        return ""
+    clean_text = text.replace('\n', ' ').replace('\t', ' ').strip()
+    if len(clean_text) > max_chars:
+        return clean_text[:max_chars] + "..."
+    return clean_text
+
+def calculate_cost(model_name, input_tokens, output_tokens):
+    if model_name not in PRICING:
+        return None
+    pricing = PRICING[model_name]
+    input_cost = (input_tokens / 1_000_000) * pricing["input"]
+    output_cost = (output_tokens / 1_000_000) * pricing["output"]
+    return round(input_cost + output_cost, 6)
+
+def make_request_with_retry(request_func, max_retries=MAX_RETRIES):
+    for attempt in range(max_retries):
+        try:
+            return request_func()
+        except requests.exceptions.RequestException as e:
+            if attempt == max_retries - 1:
+                raise
+            time.sleep(2 ** attempt)
+            print(f"  Retry {attempt + 1}/{max_retries}...")
+
+def load_history():
+    try:
+        with open('data.json', 'r') as f:
+            data = json.load(f)
+            return data.get('history', [])
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def update_history(history, new_entry):
+    history.append(new_entry)
+    if len(history) > 30:
+        history = history[-30:]
+    return history
+
+def test_openai(api_key):
+    if not api_key: 
+        return None
     
-    <!-- SEO Meta Tags -->
-    <meta name="keywords" content="AI benchmarks, LLM speed test, OpenAI GPT-4, Claude API, Gemini speed, Groq performance, AI API comparison">
-    <meta name="author" content="Braiain AI Speed Index">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourdomain.com/">
-    <meta property="og:title" content="Braiain AI Speed Index - Real-Time LLM Performance">
-    <meta property="og:description" content="Daily automated benchmarks of AI model speed, TPS, and cost across OpenAI, Anthropic, Google, and Groq.">
-    <meta property="og:image" content="https://yourdomain.com/og-image.png">
-    
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourdomain.com/">
-    <meta property="twitter:title" content="Braiain AI Speed Index - Real-Time LLM Performance">
-    <meta property="twitter:description" content="Daily automated benchmarks of AI model speed, TPS, and cost.">
-    <meta property="twitter:image" content="https://yourdomain.com/og-image.png">
-    
-    <!-- Google Analytics GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y5SESHWEE"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-1Y5SESHWEE');
-    </script>
-    
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
-    <style>
-        /* === BASE STYLES === */
-        * { box-sizing: border-box; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f5f5f7;
-            color: #1c1c1c;
-            line-height: 1.6;
-        }
-        
-        /* === HEADER === */
-        header {
-            background-color: #1c1c1c;
-            color: white;
-            text-align: center;
-            padding: 30px 20px 20px;
-            margin-bottom: 20px;
-        }
-        
-        h1 { font-size: 2.4em; margin: 0 0 8px 0; }
-        .tagline { font-size: 1.1em; color: #c0c0c0; margin: 0; }
-        
-        /* === CONTENT SECTIONS === */
-        .about-section { max-width: 1200px; margin: 20px auto; padding: 0 20px; }
-        h2 { color: #333; font-size: 1.5em; margin-top: 30px; border-bottom: 2px solid #e0e0e0; padding-bottom: 8px; }
-        
-        /* === TREND CHART SECTION === */
-        .chart-section {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin-top: 20px;
-        }
-        
-        /* === LEADERBOARD CARDS === */
-        .leaderboard-cards-wrapper {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px; 
-            justify-content: center;
-            align-items: flex-start; 
-        }
-
-        .model-card {
-            background-color: #ffffff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            padding: 20px;
-            width: 100%;
-            max-width: 360px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        
-        .model-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
-        }
-
-        /* === CARD HEADER === */
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 15px;
-            border-bottom: 2px solid #f0f0f0;
-            padding-bottom: 10px;
-        }
-        
-        .rank-badge {
-            background-color: #666;
-            color: white;
-            padding: 6px 12px;
-            border-radius: 5px;
-            font-weight: bold;
-            font-size: 1.2em;
-            margin-right: 15px;
-            flex-shrink: 0;
-            min-width: 45px;
-            text-align: center;
-        }
-        
-        .rank-badge.rank-1 { 
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); 
-            color: #1c1c1c;
-            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
-        }
-        .rank-badge.rank-2 { 
-            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%); 
-            color: #1c1c1c;
-            box-shadow: 0 2px 8px rgba(192, 192, 192, 0.4);
-        }
-        .rank-badge.rank-3 { 
-            background: linear-gradient(135deg, #cd7f32 0%, #e6a85c 100%); 
-            color: #1c1c1c;
-            box-shadow: 0 2px 8px rgba(205, 127, 50, 0.4);
-        }
-        
-        .provider-model-wrapper {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.2;
-            overflow: hidden; 
-            flex: 1;
-        }
-        
-        .card-provider { font-size: 1.3em; font-weight: 700; }
-        .card-model { font-size: 0.9em; color: #555; word-break: break-word; }
-
-        /* === STATS === */
-        .stats-wrapper {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 15px;
-            padding: 10px 0;
-        }
-        
-        .stat-group { text-align: center; }
-        
-        .stat-value {
-            font-size: 1.3em;
-            font-weight: bold;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.1;
-        }
-        
-        .stat-label { 
-            font-size: 0.75em; 
-            color: #777; 
-            text-transform: uppercase; 
-            margin-bottom: 5px;
-            font-weight: 600;
-        }
-        
-        /* Speed & TPS colors */
-        .speed-fast, .tps-fast { color: #2e7d32; }
-        .speed-medium, .tps-medium { color: #f57c00; }
-        .speed-slow, .tps-slow { color: #c62828; }
-        
-        .status-online { color: #2e7d32; }
-        .status-error { color: #c62828; }
-        
-        /* === COST BADGE === */
-        .cost-badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 0.85em;
-            font-weight: 600;
-            margin-top: 5px;
-        }
-        
-        .cost-free { background-color: #e8f5e9; color: #2e7d32; }
-        .cost-cheap { background-color: #fff3e0; color: #f57c00; }
-        .cost-expensive { background-color: #ffebee; color: #c62828; }
-
-        /* === BADGE SYSTEM === */
-        .badge-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin: 10px 0;
-        }
-        
-        .badge {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .badge-fastest { background-color: #ffd700; color: #1c1c1c; }
-        .badge-best-value { background-color: #4caf50; color: white; }
-        .badge-highest-tps { background-color: #2196f3; color: white; }
-
-        /* === AFFILIATE BUTTON === */
-        .affiliate-btn {
-            background-color: #2196f3;
-            color: white;
-            padding: 12px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95em;
-            transition: background-color 0.2s, transform 0.1s;
-            text-align: center;
-            margin-top: 10px;
-            display: block;
-            border: none;
-            cursor: pointer;
-        }
-        
-        .affiliate-btn:hover { 
-            background-color: #1976d2;
-            transform: translateY(-2px);
-        }
-
-        /* === TOGGLE BUTTON === */
-        .toggle-response-btn {
-            background-color: #f0f0f0;
-            color: #333;
-            padding: 10px 15px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.9em;
-            margin-top: 15px;
-            transition: background-color 0.2s;
-            width: 100%;
-            font-weight: 500;
-        }
-        
-        .toggle-response-btn:hover { background-color: #e0e0e0; }
-
-        /* === RESPONSE === */
-        .response-content-wrapper {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px dashed #e0e0e0;
-            width: 100%;
-            display: none;
-        }
-        
-        .response-content-wrapper.visible { display: block; }
-        
-        .full-response-text {
-            display: block;
-            width: 100%;
-            min-height: 60px; 
-            max-height: 300px; 
-            overflow-y: auto;
-            white-space: pre-wrap; 
-            word-wrap: break-word; 
-            font-family: 'Monaco', 'Menlo', monospace;
-            font-size: 0.85em;
-            line-height: 1.6;
-            color: #333;
-            background-color: #fafafa;
-            padding: 12px;
-            border-radius: 4px;
-            border: 1px solid #eee;
-        }
-
-        /* === FOOTER === */
-        #last-updated-wrapper { 
-            text-align: center; 
-            margin: 30px auto; 
-            font-size: 1em; 
-            color: #666; 
-            padding: 0 20px;
-        }
-        
-        #site-footer { 
-            background-color: #1c1c1c; 
-            color: #c0c0c0; 
-            padding: 30px 20px; 
-            text-align: center; 
-            font-size: 0.9em; 
-            margin-top: 60px; 
-        }
-        
-        #site-footer a { color: #007bff; text-decoration: none; font-weight: bold; }
-        #site-footer a:hover { text-decoration: underline; }
-        .legal-text { margin-top: 15px; font-size: 0.8em; color: #999; line-height: 1.5; }
-
-        /* === LOADING & ERROR === */
-        .loading-container { width: 100%; text-align: center; padding: 40px 20px; }
-        .loading-spinner {
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #007bff;
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .error-message {
-            background-color: #fff3cd;
-            border: 1px solid #ffc107;
-            padding: 20px;
-            border-radius: 6px;
-            text-align: center;
-            max-width: 600px;
-            margin: 20px auto;
-        }
-
-        /* === RESPONSIVE === */
-        @media (max-width: 768px) {
-            h1 { font-size: 1.8em; }
-            .model-card { max-width: 100%; }
-            .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
-            .stat-group:last-child { grid-column: 1 / -1; }
-            .chart-container { height: 300px; }
-        }
-
-        /* === INFO BOX === */
-        .info-box {
-            background-color: #e3f2fd;
-            border-left: 4px solid #2196f3;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 4px;
-        }
-        
-        .info-box strong {
-            color: #1976d2;
-        }
-        
-        /* === ADSENSE CONTAINER === */
-        .adsense-container {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 20px;
-            text-align: center;
-            background: #f9f9f9;
-            border-radius: 8px;
-            border: 1px solid #e0e0e0;
-        }
-        
-        .adsense-label {
-            font-size: 0.75em;
-            color: #999;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        /* === UTILITY BUTTONS === */
-        .utility-buttons {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 0 20px;
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        
-        .utility-btn {
-            padding: 10px 20px;
-            background: white;
-            border: 2px solid #2196f3;
-            color: #2196f3;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.9em;
-            transition: all 0.2s;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .utility-btn:hover {
-            background: #2196f3;
-            color: white;
-            transform: translateY(-2px);
-        }
-        
-        .utility-btn svg {
-            width: 18px;
-            height: 18px;
-        }
-        
-        /* === EMAIL SIGNUP === */
-        .email-signup {
-            max-width: 600px;
-            margin: 40px auto;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 12px;
-            text-align: center;
-            color: white;
-        }
-        
-        .email-signup h3 {
-            margin: 0 0 10px 0;
-            font-size: 1.5em;
-        }
-        
-        .email-signup p {
-            margin: 0 0 20px 0;
-            opacity: 0.9;
-        }
-        
-        .email-form {
-            display: flex;
-            gap: 10px;
-            max-width: 400px;
-            margin: 0 auto;
-        }
-        
-        .email-form input {
-            flex: 1;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 6px;
-            font-size: 1em;
-        }
-        
-        .email-form button {
-            padding: 12px 30px;
-            background: white;
-            color: #667eea;
-            border: none;
-            border-radius: 6px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: transform 0.2s;
-        }
-        
-        .email-form button:hover {
-            transform: scale(1.05);
-        }
-        
-        /* === THEME TOGGLE === */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: white;
-            border: 2px solid #e0e0e0;
-            border-radius: 25px;
-            padding: 5px;
-            display: flex;
-            gap: 5px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-        }
-        
-        .theme-btn {
-            padding: 8px 15px;
-            border: none;
-            background: transparent;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 0.85em;
-            font-weight: 600;
-            transition: all 0.2s;
-            color: #666;
-        }
-        
-        .theme-btn.active {
-            background: #2196f3;
-            color: white;
-        }
-        
-        .theme-btn:hover:not(.active) {
-            background: #f0f0f0;
-        }
-        
-        /* === DARK THEME === */
-        body.dark-theme {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-        }
-        
-        body.dark-theme header {
-            background-color: #0a0a0a;
-        }
-        
-        body.dark-theme .about-section,
-        body.dark-theme h2 {
-            color: #e0e0e0;
-        }
-        
-        body.dark-theme .model-card {
-            background-color: #2a2a2a;
-            border-color: #3a3a3a;
-        }
-        
-        body.dark-theme .model-card:hover {
-            background-color: #333;
-        }
-        
-        body.dark-theme .chart-section {
-            background-color: #2a2a2a;
-            border-color: #3a3a3a;
-        }
-        
-        body.dark-theme .info-box {
-            background-color: #1e3a5f;
-            border-color: #2196f3;
-        }
-        
-        body.dark-theme .affiliate-btn {
-            background-color: #1976d2;
-        }
-        
-        body.dark-theme .toggle-response-btn {
-            background-color: #3a3a3a;
-            color: #e0e0e0;
-            border-color: #4a4a4a;
-        }
-        
-        body.dark-theme .full-response-text {
-            background-color: #1a1a1a;
-            color: #e0e0e0;
-            border-color: #3a3a3a;
-        }
-        
-        body.dark-theme .utility-btn {
-            background: #2a2a2a;
-            border-color: #2196f3;
-        }
-        
-        body.dark-theme .utility-btn:hover {
-            background: #2196f3;
-            color: white;
-        }
-        
-        body.dark-theme .theme-toggle {
-            background: #2a2a2a;
-            border-color: #3a3a3a;
-        }
-        
-        /* === PERMALINK MODAL === */
-        .permalink-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0,0,0,0.7);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .permalink-modal.show {
-            display: flex;
-        }
-        
-        .permalink-content {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            width: 90%;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
-        }
-        
-        body.dark-theme .permalink-content {
-            background: #2a2a2a;
-            color: #e0e0e0;
-        }
-        
-        .permalink-content h3 {
-            margin: 0 0 15px 0;
-        }
-        
-        .permalink-input {
-            width: 100%;
-            padding: 12px;
-            border: 2px solid #e0e0e0;
-            border-radius: 6px;
-            font-size: 1em;
-            margin-bottom: 15px;
-        }
-        
-        body.dark-theme .permalink-input {
-            background: #1a1a1a;
-            color: #e0e0e0;
-            border-color: #3a3a3a;
-        }
-        
-        .permalink-buttons {
-            display: flex;
-            gap: 10px;
-        }
-        
-        .permalink-buttons button {
-            flex: 1;
-            padding: 12px;
-            border: none;
-            border-radius: 6px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        
-        .copy-btn {
-            background: #2196f3;
-            color: white;
-        }
-        
-        .copy-btn:hover {
-            background: #1976d2;
-        }
-        
-        .close-btn {
-            background: #e0e0e0;
-            color: #333;
-        }
-        
-        body.dark-theme .close-btn {
-            background: #3a3a3a;
-            color: #e0e0e0;
-        }
-        
-        .close-btn:hover {
-            background: #ccc;
-        }
-    </style>
-</head>
-<body>
-    <!-- Theme Toggle -->
-    <div class="theme-toggle">
-        <button class="theme-btn active" data-theme="light" onclick="setTheme('light')">☀️ Light</button>
-        <button class="theme-btn" data-theme="dark" onclick="setTheme('dark')">🌙 Dark</button>
-        <button class="theme-btn" data-theme="auto" onclick="setTheme('auto')">⚙️ Auto</button>
-    </div>
-
-    <header>
-        <h1>🤖 Braiain AI Speed Index</h1>
-        <p class="tagline">Real-World LLM Speed, Cost & Performance Tracking</p>
-    </header>
-
-    <section class="about-section">
-        <p>
-            Welcome to the <strong>Braiain Speed Index</strong>, featuring automated daily benchmarks of <strong>API speed, tokens-per-second, and cost efficiency</strong> across major AI providers. <strong>Make informed decisions with real data.</strong>
-        </p>
-    </section>
-
-    <!-- LEADERBOARD -->
-    <div class="leaderboard-cards-wrapper" id="results-container">
-        <div class="loading-container">
-            <div class="loading-spinner"></div>
-            <p>Loading live benchmark data...</p>
-        </div>
-    </div>
-    
-    <div id="last-updated-wrapper">
-        <span id="last-updated"></span>
-    </div>
-
-    <!-- Utility Buttons -->
-    <div class="utility-buttons">
-        <button class="utility-btn" onclick="exportCSV()">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-            </svg>
-            Download CSV
-        </button>
-        <button class="utility-btn" onclick="showPermalink()">
-            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-            </svg>
-            Share Link
-        </button>
-        <a class="utility-btn" href="https://twitter.com/intent/tweet?text=Check%20out%20the%20latest%20AI%20model%20speed%20rankings!&url=https://dnilgis.github.io/braiain-benchmark" target="_blank" rel="noopener">
-            <svg fill="currentColor" viewBox="0 0 24 24">
-                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
-            </svg>
-            Tweet
-        </a>
-    </div>
-
-    <!-- Email Signup -->
-    <div class="email-signup">
-        <h3>📧 Daily Updates Delivered</h3>
-        <p>Get the latest AI speed rankings delivered to your inbox every morning</p>
-        <form class="email-form" onsubmit="handleEmailSignup(event)">
-            <input type="email" placeholder="your@email.com" required id="email-input">
-            <button type="submit">Subscribe</button>
-        </form>
-        <p style="font-size: 0.85em; margin-top: 15px; opacity: 0.8;">
-            Free forever. Unsubscribe anytime. No spam.
-        </p>
-    </div>
-
-    <!-- Google AdSense (Least Annoying Position) -->
-    <div class="adsense-container">
-        <div class="adsense-label">Advertisement</div>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906493623732277"
-             crossorigin="anonymous"></script>
-        <!-- Braiain Speed Index Ad -->
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-2906493623732277"
-             data-ad-slot="5895952530"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
-    <!-- TREND CHART (Appears after at least 2 data points) -->
-    <section class="chart-section" id="chart-section" style="display: none;">
-        <h2>📈 7-Day Performance Trends</h2>
-        <p style="color: #666; font-size: 0.9em;">Historical speed comparison - lower is better</p>
-        <div class="chart-container">
-            <canvas id="trendChart"></canvas>
-        </div>
-    </section>
-
-    <section class="about-section">
-        <h2>🔬 Methodology</h2>
-        <p>
-            We measure <strong>end-to-end API latency</strong> using identical prompts across all models. Each test generates ~300 tokens and tracks speed, throughput (tokens/second), and cost per request.
-        </p>
-        
-        <h2>📊 Metrics Explained</h2>
-        <ul>
-            <li><strong>Speed (seconds):</strong> Total time from request to response - lower is better</li>
-            <li><strong>TPS (Tokens Per Second):</strong> Throughput metric - higher is better</li>
-            <li><strong>Cost Per Request:</strong> Approximate cost based on current API pricing</li>
-        </ul>
-    </section>
-
-    <!-- Permalink Modal -->
-    <div class="permalink-modal" id="permalinkModal">
-        <div class="permalink-content">
-            <h3>Share This Page</h3>
-            <input type="text" class="permalink-input" id="permalinkInput" readonly>
-            <div class="permalink-buttons">
-                <button class="copy-btn" onclick="copyPermalink()">Copy Link</button>
-                <button class="close-btn" onclick="closePermalink()">Close</button>
-            </div>
-        </div>
-    </div>
-
-    <footer id="site-footer">
-        <div>A <a href="mailto:dnilgis@gmail.com">dnilgis</a> project.</div>
-        <div class="legal-text">
-            <strong>Legal Disclaimer:</strong> Benchmark data provided for informational purposes only. Pricing and performance may vary. All product names and brands are property of their respective owners.
-        </div>
-    </footer>
-
-    <script>
-        // === CONFIGURATION ===
-        const AFFILIATE_LINKS = {
-            'OpenAI': 'https://platform.openai.com/signup',
-            'Google': 'https://ai.google.dev/', 
-            'Anthropic': 'https://console.anthropic.com/',
-            'Groq': 'https://console.groq.com/',
-            'Mistral AI': 'https://console.mistral.ai/',
-            'Cohere': 'https://dashboard.cohere.com/',
-            'Together AI': 'https://api.together.xyz/'
-        };
-
-        const PROVIDER_COLORS = {
-            'OpenAI': '#10a37f',
-            'Anthropic': '#d97757',
-            'Google': '#4285f4',
-            'Groq': '#f55036',
-            'Mistral AI': '#ff7000',
-            'Cohere': '#39594d',
-            'Together AI': '#6366f1'
-        };
-
-        let trendChart = null;
-        let currentData = null;
-
-        // === THEME MANAGEMENT ===
-        function setTheme(theme) {
-            // Update active button
-            document.querySelectorAll('.theme-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`[data-theme="${theme}"]`).classList.add('active');
-            
-            // Apply theme
-            if (theme === 'auto') {
-                const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-                document.body.classList.toggle('dark-theme', prefersDark);
-            } else {
-                document.body.classList.toggle('dark-theme', theme === 'dark');
-            }
-            
-            // Save preference
-            localStorage.setItem('theme', theme);
-        }
-
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        setTheme(savedTheme);
-
-        // === UTILITY FUNCTIONS ===
-        function escapeHtml(text) {
-            const div = document.createElement('div');
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function getSpeedClass(time, isOnline) {
-            if (!isOnline) return 'status-error';
-            if (time < 5) return 'speed-fast';
-            if (time < 10) return 'speed-medium';
-            return 'speed-slow';
-        }
-
-        function getTpsClass(tps) {
-            if (tps > 60) return 'tps-fast';
-            if (tps > 30) return 'tps-medium';
-            return 'tps-slow';
-        }
-
-        function getCostClass(cost) {
-            if (cost === null || cost === 0) return 'cost-free';
-            if (cost < 0.001) return 'cost-cheap';
-            return 'cost-expensive';
-        }
-
-        function formatCost(cost) {
-            if (cost === null) return 'N/A';
-            if (cost === 0) return 'FREE';
-            if (cost < 0.0001) return '<$0.0001';
-            return `$${cost.toFixed(4)}`;
-        }
-
-        // === TREND CHART ===
-        function createTrendChart(history) {
-            const ctx = document.getElementById('trendChart');
-            const chartSection = document.getElementById('chart-section');
-            
-            if (!ctx || !history || history.length < 2) {
-                if (chartSection) chartSection.style.display = 'none';
-                return;
-            }
-
-            if (chartSection) chartSection.style.display = 'block';
-
-            const labels = [];
-            const datasets = {};
-            const recentHistory = history.slice(-7);
-
-            recentHistory.forEach(entry => {
-                const date = new Date(entry.timestamp);
-                labels.push(date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
-
-                Object.keys(entry.results).forEach(provider => {
-                    if (!datasets[provider]) {
-                        datasets[provider] = {
-                            label: provider,
-                            data: [],
-                            borderColor: PROVIDER_COLORS[provider] || '#999',
-                            backgroundColor: PROVIDER_COLORS[provider] || '#999',
-                            tension: 0.3,
-                            spanGaps: true
-                        };
-                    }
-                    const time = entry.results[provider].time;
-                    datasets[provider].data.push(time < 99 && entry.results[provider].status === 'Online' ? time : null);
-                });
-            });
-
-            if (trendChart) {
-                trendChart.destroy();
-            }
-
-            trendChart = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: labels,
-                    datasets: Object.values(datasets)
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: 'top',
-                        },
-                        title: {
-                            display: false
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    if (context.parsed.y === null) return null;
-                                    return context.dataset.label + ': ' + context.parsed.y.toFixed(2) + 's';
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: 'Response Time (seconds)'
-                            }
-                        }
-                    }
-                }
-            });
-        }
-
-        // === BADGE LOGIC ===
-        function calculateBadges(results) {
-            if (results.length === 0) return {};
-
-            const online = results.filter(r => r.status === 'Online');
-            if (online.length === 0) return {};
-
-            const badges = {};
-
-            const fastest = online.reduce((min, r) => r.time < min.time ? r : min);
-            badges[fastest.provider] = badges[fastest.provider] || [];
-            badges[fastest.provider].push('fastest');
-
-            const highestTps = online.reduce((max, r) => r.tokens_per_second > max.tokens_per_second ? r : max);
-            badges[highestTps.provider] = badges[highestTps.provider] || [];
-            badges[highestTps.provider].push('highest-tps');
-
-            const paid = online.filter(r => r.cost_per_request > 0);
-            if (paid.length > 0) {
-                const bestValue = paid.reduce((best, r) => {
-                    const value = r.tokens_per_second / r.cost_per_request;
-                    const bestVal = best.tokens_per_second / best.cost_per_request;
-                    return value > bestVal ? r : best;
-                });
-                badges[bestValue.provider] = badges[bestValue.provider] || [];
-                badges[bestValue.provider].push('best-value');
-            }
-
-            return badges;
-        }
-
-        // === CARD CREATION ===
-        function createModelCard(result, rank, badges) {
-            const card = document.createElement('div');
-            card.className = 'model-card';
-            
-            const isOnline = result.status === 'Online';
-            const speedClass = getSpeedClass(result.time, isOnline);
-            const tpsClass = getTpsClass(result.tokens_per_second);
-            const costClass = getCostClass(result.cost_per_request);
-            
-            const timeDisplay = isOnline ? `${result.time.toFixed(2)}s` : 'N/A';
-            const tpsDisplay = isOnline ? result.tokens_per_second.toFixed(0) : 'N/A';
-            
-            const rankClass = (isOnline && rank <= 3) ? ` rank-${rank}` : '';
-            
-            const providerBadges = badges[result.provider] || [];
-            let badgesHTML = '';
-            if (providerBadges.length > 0) {
-                badgesHTML = '<div class="badge-container">';
-                providerBadges.forEach(badge => {
-                    const text = badge === 'fastest' ? '⚡ Fastest' :
-                                badge === 'highest-tps' ? '🚀 Highest TPS' :
-                                badge === 'best-value' ? '💰 Best Value' : '';
-                    badgesHTML += `<span class="badge badge-${badge}">${text}</span>`;
-                });
-                badgesHTML += '</div>';
-            }
-            
-            let affiliateButtonHTML = '';
-            if (isOnline) {
-                const link = AFFILIATE_LINKS[result.provider];
-                affiliateButtonHTML = `<a href="${link}" target="_blank" rel="noopener" class="affiliate-btn">Try ${result.provider}</a>`;
-            } else {
-                affiliateButtonHTML = `<div class="affiliate-btn" style="background-color: #c62828; cursor: not-allowed;">API Failure</div>`;
-            }
-            
-            const responseText = result.full_response || result.response_preview || 'No response available';
-            const hasResponse = responseText && responseText !== 'No response available';
-            
-            card.innerHTML = `
-                <div class="card-header">
-                    <span class="rank-badge${rankClass}">#${rank}</span>
-                    <div class="provider-model-wrapper">
-                        <div class="card-provider">${escapeHtml(result.provider)}</div>
-                        <div class="card-model">${escapeHtml(result.model)}</div>
-                    </div>
-                </div>
-                
-                ${badgesHTML}
-                
-                <div class="stats-wrapper">
-                    <div class="stat-group">
-                        <div class="stat-label">Speed</div>
-                        <div class="stat-value ${speedClass}">${timeDisplay}</div>
-                    </div>
-                    <div class="stat-group">
-                        <div class="stat-label">TPS</div>
-                        <div class="stat-value ${tpsClass}">${tpsDisplay}</div>
-                    </div>
-                    <div class="stat-group">
-                        <div class="stat-label">Status</div>
-                        <div class="stat-value ${isOnline ? 'status-online' : 'status-error'}">
-                            ${escapeHtml(result.status)}
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="text-align: center;">
-                    <div class="stat-label">Cost Per Request</div>
-                    <div class="cost-badge ${costClass}">${formatCost(result.cost_per_request)}</div>
-                </div>
-                
-                ${affiliateButtonHTML}
-                
-                ${hasResponse ? `
-                    <button class="toggle-response-btn" onclick="toggleResponse(this)">
-                        📄 Show Response Preview
-                    </button>
-                    <div class="response-content-wrapper">
-                        <div class="full-response-text">${escapeHtml(responseText)}</div>
-                    </div>
-                ` : ''}
-            `;
-            
-            return card;
-        }
-
-        // === TOGGLE RESPONSE ===
-        function toggleResponse(button) {
-            const wrapper = button.nextElementSibling;
-            const isVisible = wrapper.classList.contains('visible');
-            
-            if (isVisible) {
-                wrapper.classList.remove('visible');
-                button.textContent = '📄 Show Response Preview';
-            } else {
-                wrapper.classList.add('visible');
-                button.textContent = '📄 Hide Response';
-            }
-        }
-
-        // === DISPLAY RESULTS ===
-        function displayResults(data) {
-            const container = document.getElementById('results-container');
-            const lastUpdated = document.getElementById('last-updated');
-            
-            currentData = data; // Store for export
-            
-            if (data.last_updated) {
-                lastUpdated.textContent = `Last Updated: ${data.last_updated}`;
-            }
-            
-            if (!data.results || data.results.length === 0) {
-                container.innerHTML = `
-                    <div class="error-message">
-                        <strong>⚠️ No Results Available</strong>
-                        <p>Benchmark data has not been generated yet.</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            if (data.history && data.history.length > 0) {
-                createTrendChart(data.history);
-            }
-            
-            const badges = calculateBadges(data.results);
-            
-            const failures = data.results.filter(r => r.status !== 'Online');
-            let infoBoxHTML = '';
-            
-            if (failures.length > 0) {
-                const failedProviders = failures.map(r => r.provider).join(', ');
-                infoBoxHTML = `
-                    <div class="info-box" style="width: 100%; max-width: 1200px; margin: 0 auto 20px;">
-                        <strong>ℹ️ API Status Notice:</strong> ${failedProviders} ${failures.length === 1 ? 'is' : 'are'} currently offline. 
-                        Common causes: missing/invalid API keys, rate limits, or service outages. Failed providers are ranked below operational ones.
-                    </div>
-                `;
-            }
-            
-            if (infoBoxHTML) {
-                container.innerHTML = infoBoxHTML;
-            } else {
-                container.innerHTML = '';
-            }
-            
-            data.results.forEach((result, index) => {
-                const rank = index + 1;
-                const card = createModelCard(result, rank, badges);
-                container.appendChild(card);
-            });
-        }
-
-        // === FETCH DATA ===
-        async function fetchData() {
-            console.log('Attempting to fetch data.json...');
-            const paths = ['./data.json', 'data.json', '/data.json'];
-            const cacheBuster = `?t=${Date.now()}`;
-            
-            for (const path of paths) {
-                try {
-                    console.log(`Trying path: ${path}`);
-                    const response = await fetch(path + cacheBuster);
-                    console.log(`Response status for ${path}:`, response.status);
-                    
-                    if (!response.ok) {
-                        console.warn(`HTTP ${response.status} for ${path}`);
-                        continue;
-                    }
-                    
-                    const data = await response.json();
-                    console.log('Successfully loaded data:', data);
-                    displayResults(data);
-                    return;
-                    
-                } catch (error) {
-                    console.warn(`Failed to load from ${path}:`, error);
-                }
-            }
-            
-            console.error('All fetch attempts failed');
-            document.getElementById('results-container').innerHTML = `
-                <div class="error-message">
-                    <strong>🔴 Error Loading Data</strong>
-                    <p>Unable to load benchmark data. Please ensure data.json is in the same directory as index.html.</p>
-                    <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
-                        Check the browser console (F12) for detailed error information.
-                    </p>
-                </div>
-            `;
-        }
-
-        // === CSV EXPORT ===
-        function exportCSV() {
-            if (!currentData || !currentData.results) {
-                alert('No data available to export');
-                return;
-            }
-            
-            let csv = 'Rank,Provider,Model,Speed (s),TPS,Status,Cost Per Request\n';
-            
-            currentData.results.forEach((result, index) => {
-                const rank = index + 1;
-                const cost = result.cost_per_request === null ? 'N/A' : 
-                            result.cost_per_request === 0 ? 'FREE' : 
-                            '$' + result.cost_per_request.toFixed(4);
-                
-                csv += `${rank},"${result.provider}","${result.model}",${result.time},${result.tokens_per_second},"${result.status}","${cost}"\n`;
-            });
-            
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `braiain-speed-index-${new Date().toISOString().split('T')[0]}.csv`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'csv_export', {
-                    'event_category': 'engagement',
-                    'event_label': 'Download CSV'
-                });
-            }
-        }
-
-        // === PERMALINK FUNCTIONS ===
-        function showPermalink() {
-            const modal = document.getElementById('permalinkModal');
-            const input = document.getElementById('permalinkInput');
-            input.value = window.location.href;
-            modal.classList.add('show');
-        }
-
-        function closePermalink() {
-            const modal = document.getElementById('permalinkModal');
-            modal.classList.remove('show');
-        }
-
-        function copyPermalink() {
-            const input = document.getElementById('permalinkInput');
-            input.select();
-            document.execCommand('copy');
-            
-            const btn = event.target;
-            const originalText = btn.textContent;
-            btn.textContent = '✓ Copied!';
-            setTimeout(() => {
-                btn.textContent = originalText;
-            }, 2000);
-        }
-
-        // === EMAIL SIGNUP ===
-        function handleEmailSignup(event) {
-            event.preventDefault();
-            const email = document.getElementById('email-input').value;
-            
-            // TODO: Implement actual email signup (Mailchimp, SendGrid, etc.)
-            alert(`Thank you for subscribing! We'll send updates to ${email}`);
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'email_signup', {
-                    'event_category': 'engagement',
-                    'event_label': 'Email Subscription'
-                });
-            }
-            
-            document.getElementById('email-input').value = '';
-        }
-
-        // Close modal on outside click
-        document.getElementById('permalinkModal')?.addEventListener('click', function(e) {
-            if (e.target === this) {
-                closePermalink();
-            }
-        });
-
-        // === INITIALIZE ===
-        console.log('Initializing page...');
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, fetching data...');
-            fetchData();
-        });
-
-        // Also try to load immediately in case DOM is already loaded
-        if (document.readyState === 'loading') {
-            console.log('Document still loading, waiting for DOMContentLoaded...');
-        } else {
-            console.log('Document already loaded, fetching immediately...');
-            fetchData();
-        }
-
-        // Refresh every 5 minutes
-        setInterval(fetchData, 300000);
-    </script>
-    
-    <!-- Schema.org structured data for SEO -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "WebApplication",
-      "name": "Braiain AI Speed Index",
-      "description": "Daily automated benchmarks of AI model API speed, tokens-per-second, and cost efficiency",
-      "url": "https://yourdomain.com",
-      "applicationCategory": "TechnologyApplication",
-      "operatingSystem": "Any",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "dnilgis",
-        "email": "dnilgis@gmail.com"
-      }
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
     }
-    </script>
-</body>
-</html>
+    
+    # Try each model in order until one works
+    for model in MODELS["openai"]:
+        data = {
+            "model": model,
+            "messages": [{"role": "user", "content": PROMPT}],
+            "max_tokens": MAX_TOKENS
+        }
+        
+        start = time.monotonic()
+        try:
+            def make_request():
+                return requests.post(
+                    "https://api.openai.com/v1/chat/completions",
+                    headers=headers, 
+                    json=data, 
+                    timeout=TIMEOUT
+                )
+            
+            response = make_request_with_retry(make_request)
+            response.raise_for_status()
+            duration = round(time.monotonic() - start, 4)
+            
+            response_data = response.json()
+            response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
+            usage = response_data.get('usage', {})
+            input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
+            output_tokens = usage.get('completion_tokens', MAX_TOKENS)
+            tps = round(output_tokens / duration, 2) if duration > 0 else 0
+            cost = calculate_cost(model, input_tokens, output_tokens)
+            
+            print(f"  ✓ Successfully used model: {model}")
+            
+            return {
+                "provider": "OpenAI",
+                "model": "GPT-4o Mini",
+                "time": duration,
+                "status": "Online",
+                "response_preview": get_preview(response_text),
+                "full_response": response_text,
+                "tokens_per_second": tps,
+                "output_tokens": output_tokens,
+                "cost_per_request": cost
+            }
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                print(f"  ✗ Model {model} not found, trying next...")
+                continue
+            else:
+                duration = round(time.monotonic() - start, 4)
+                print(f"OpenAI API Failure: {e}")
+                return {
+                    "provider": "OpenAI",
+                    "model": "GPT-4o Mini",
+                    "time": duration,
+                    "status": "API FAILURE",
+                    "response_preview": get_preview(str(e), 100),
+                    "full_response": str(e),
+                    "tokens_per_second": 0,
+                    "output_tokens": 0,
+                    "cost_per_request": None
+                }
+        except Exception as e:
+            duration = round(time.monotonic() - start, 4)
+            print(f"OpenAI API Failure: {e}")
+            return {
+                "provider": "OpenAI",
+                "model": "GPT-4o Mini",
+                "time": duration,
+                "status": "API FAILURE",
+                "response_preview": get_preview(str(e), 100),
+                "full_response": str(e),
+                "tokens_per_second": 0,
+                "output_tokens": 0,
+                "cost_per_request": None
+            }
+    
+    # All models failed
+    return {
+        "provider": "OpenAI",
+        "model": "GPT-4o Mini",
+        "time": 99.9999,
+        "status": "API FAILURE",
+        "response_preview": "All model versions failed",
+        "full_response": "All model versions failed",
+        "tokens_per_second": 0,
+        "output_tokens": 0,
+        "cost_per_request": None
+    }
+
+def test_anthropic(api_key):
+    if not api_key: 
+        return None
+    
+    headers = {
+        "x-api-key": api_key,
+        "anthropic-version": "2023-06-01",
+        "content-type": "application/json"
+    }
+    
+    # Try each model in order until one works
+    for model in MODELS["anthropic"]:
+        data = {
+            "model": model,
+            "max_tokens": MAX_TOKENS,
+            "messages": [{"role": "user", "content": [{"type": "text", "text": PROMPT}]}]
+        }
+        
+        start = time.monotonic()
+        try:
+            def make_request():
+                return requests.post(
+                    "https://api.anthropic.com/v1/messages",
+                    headers=headers, 
+                    json=data, 
+                    timeout=TIMEOUT
+                )
+            
+            response = make_request_with_retry(make_request)
+            response.raise_for_status()
+            duration = round(time.monotonic() - start, 4)
+            
+            response_data = response.json()
+            response_text = response_data.get('content', [{}])[0].get('text', '')
+            usage = response_data.get('usage', {})
+            input_tokens = usage.get('input_tokens', PROMPT_TOKENS)
+            output_tokens = usage.get('output_tokens', MAX_TOKENS)
+            tps = round(output_tokens / duration, 2) if duration > 0 else 0
+            cost = calculate_cost(model, input_tokens, output_tokens)
+            
+            print(f"  ✓ Successfully used model: {model}")
+            
+            return {
+                "provider": "Anthropic",
+                "model": "Claude 3.5 Sonnet",
+                "time": duration,
+                "status": "Online",
+                "response_preview": get_preview(response_text),
+                "full_response": response_text,
+                "tokens_per_second": tps,
+                "output_tokens": output_tokens,
+                "cost_per_request": cost
+            }
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                print(f"  ✗ Model {model} not found, trying next...")
+                continue  # Try next model
+            else:
+                # Other error, stop trying
+                duration = round(time.monotonic() - start, 4)
+                print(f"Anthropic API Failure: {e}")
+                return {
+                    "provider": "Anthropic",
+                    "model": "Claude 3.5 Sonnet",
+                    "time": duration,
+                    "status": "API FAILURE",
+                    "response_preview": get_preview(str(e), 100),
+                    "full_response": str(e),
+                    "tokens_per_second": 0,
+                    "output_tokens": 0,
+                    "cost_per_request": None
+                }
+        except Exception as e:
+            duration = round(time.monotonic() - start, 4)
+            print(f"Anthropic API Failure: {e}")
+            return {
+                "provider": "Anthropic",
+                "model": "Claude 3.5 Sonnet",
+                "time": duration,
+                "status": "API FAILURE",
+                "response_preview": get_preview(str(e), 100),
+                "full_response": str(e),
+                "tokens_per_second": 0,
+                "output_tokens": 0,
+                "cost_per_request": None
+            }
+    
+    # All models failed
+    print(f"  ✗ All Anthropic models failed")
+    return {
+        "provider": "Anthropic",
+        "model": "Claude 3.5 Sonnet",
+        "time": 99.9999,
+        "status": "API FAILURE",
+        "response_preview": "All model versions failed",
+        "full_response": "All model versions failed",
+        "tokens_per_second": 0,
+        "output_tokens": 0,
+        "cost_per_request": None
+    }
+
+def test_google(api_key):
+    if not api_key: 
+        return None
+    
+    # Try each model in order until one works
+    for model_name in MODELS["google"]:
+        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
+        data = {
+            "contents": [{"parts": [{"text": PROMPT}]}],
+            "generationConfig": {"maxOutputTokens": MAX_TOKENS}
+        }
+        
+        start = time.monotonic()
+        try:
+            def make_request():
+                return requests.post(
+                    url, 
+                    headers={"Content-Type": "application/json"}, 
+                    json=data, 
+                    timeout=TIMEOUT
+                )
+            
+            response = make_request_with_retry(make_request)
+            response.raise_for_status()
+            duration = round(time.monotonic() - start, 4)
+            
+            response_data = response.json()
+            response_text = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
+            usage = response_data.get('usageMetadata', {})
+            input_tokens = usage.get('promptTokenCount', PROMPT_TOKENS)
+            output_tokens = usage.get('candidatesTokenCount', MAX_TOKENS)
+            tps = round(output_tokens / duration, 2) if duration > 0 else 0
+            cost = 0.0  # Google is free
+            
+            print(f"  ✓ Successfully used model: {model_name}")
+            
+            return {
+                "provider": "Google",
+                "model": "Gemini 1.5 Pro",
+                "time": duration,
+                "status": "Online",
+                "response_preview": get_preview(response_text),
+                "full_response": response_text,
+                "tokens_per_second": tps,
+                "output_tokens": output_tokens,
+                "cost_per_request": cost
+            }
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                print(f"  ✗ Model {model_name} not found, trying next...")
+                continue  # Try next model
+            else:
+                duration = round(time.monotonic() - start, 4)
+                print(f"Google API Failure: {e}")
+                return {
+                    "provider": "Google",
+                    "model": "Gemini 1.5 Pro",
+                    "time": duration,
+                    "status": "API FAILURE",
+                    "response_preview": get_preview(str(e), 100),
+                    "full_response": str(e),
+                    "tokens_per_second": 0,
+                    "output_tokens": 0,
+                    "cost_per_request": None
+                }
+        except Exception as e:
+            duration = round(time.monotonic() - start, 4)
+            print(f"Google API Failure: {e}")
+            return {
+                "provider": "Google",
+                "model": "Gemini 1.5 Pro",
+                "time": duration,
+                "status": "API FAILURE",
+                "response_preview": get_preview(str(e), 100),
+                "full_response": str(e),
+                "tokens_per_second": 0,
+                "output_tokens": 0,
+                "cost_per_request": None
+            }
+    
+    # All models failed
+    print(f"  ✗ All Google models failed")
+    return {
+        "provider": "Google",
+        "model": "Gemini 1.5 Pro",
+        "time": 99.9999,
+        "status": "API FAILURE",
+        "response_preview": "All model versions failed",
+        "full_response": "All model versions failed",
+        "tokens_per_second": 0,
+        "output_tokens": 0,
+        "cost_per_request": None
+    }
+
+def test_groq(api_key):
+    if not api_key: 
+        return None
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    # Try each model in order until one works
+    for model in MODELS["groq"]:
+        data = {
+            "model": model,
+            "messages": [{"role": "user", "content": PROMPT}],
+            "max_tokens": 500,
+            "temperature": 0.7
+        }
+        
+        start = time.monotonic()
+        try:
+            def make_request():
+                return requests.post(
+                    "https://api.groq.com/openai/v1/chat/completions",
+                    headers=headers, 
+                    json=data, 
+                    timeout=TIMEOUT
+                )
+            
+            response = make_request_with_retry(make_request)
+            response.raise_for_status()
+            duration = round(time.monotonic() - start, 4)
+            
+            response_data = response.json()
+            response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
+            usage = response_data.get('usage', {})
+            input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
+            output_tokens = usage.get('completion_tokens', MAX_TOKENS)
+            tps = round(output_tokens / duration, 2) if duration > 0 else 0
+            cost = 0.0  # Groq is free
+            
+            print(f"  ✓ Successfully used model: {model}")
+            
+            return {
+                "provider": "Groq",
+                "model": "Llama 3.1 70B",
+                "time": duration,
+                "status": "Online",
+                "response_preview": get_preview(response_text),
+                "full_response": response_text,
+                "tokens_per_second": tps,
+                "output_tokens": output_tokens,
+                "cost_per_request": cost
+            }
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code in [400, 404]:
+                print(f"  ✗ Model {model} not available, trying next...")
+                continue
+            else:
+                duration = round(time.monotonic() - start, 4)
+                print(f"Groq API Failure: {e}")
+                return {
+                    "provider": "Groq",
+                    "model": "Llama 3.1 70B",
+                    "time": duration,
+                    "status": "API FAILURE",
+                    "response_preview": get_preview(str(e), 100),
+                    "full_response": str(e),
+                    "tokens_per_second": 0,
+                    "output_tokens": 0,
+                    "cost_per_request": None
+                }
+        except Exception as e:
+            duration = round(time.monotonic() - start, 4)
+            print(f"Groq API Failure: {e}")
+            return {
+                "provider": "Groq",
+                "model": "Llama 3.1 70B",
+                "time": duration,
+                "status": "API FAILURE",
+                "response_preview": get_preview(str(e), 100),
+                "full_response": str(e),
+                "tokens_per_second": 0,
+                "output_tokens": 0,
+                "cost_per_request": None
+            }
+    
+    # All models failed
+    return {
+        "provider": "Groq",
+        "model": "Llama 3.1 70B",
+        "time": 99.9999,
+        "status": "API FAILURE",
+        "response_preview": "All model versions failed",
+        "full_response": "All model versions failed",
+        "tokens_per_second": 0,
+        "output_tokens": 0,
+        "cost_per_request": None
+    }
+
+def test_mistral(api_key):
+    if not api_key: 
+        return None
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    # FIXED: Try each model in order
+    for model in MODELS["mistral"]:
+        data = {
+            "model": model,
+            "messages": [{"role": "user", "content": PROMPT}],
+            "max_tokens": MAX_TOKENS
+        }
+        
+        start = time.monotonic()
+        try:
+            def make_request():
+                return requests.post(
+                    "https://api.mistral.ai/v1/chat/completions",
+                    headers=headers, 
+                    json=data, 
+                    timeout=TIMEOUT
+                )
+            
+            response = make_request_with_retry(make_request)
+            response.raise_for_status()
+            duration = round(time.monotonic() - start, 4)
+            
+            response_data = response.json()
+            response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
+            usage = response_data.get('usage', {})
+            input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
+            output_tokens = usage.get('completion_tokens', MAX_TOKENS)
+            tps = round(output_tokens / duration, 2) if duration > 0 else 0
+            cost = calculate_cost(model, input_tokens, output_tokens)
+            
+            print(f"  ✓ Successfully used model: {model}")
+            
+            return {
+                "provider": "Mistral AI",
+                "model": "Mistral Large",
+                "time": duration,
+                "status": "Online",
+                "response_preview": get_preview(response_text),
+                "full_response": response_text,
+                "tokens_per_second": tps,
+                "output_tokens": output_tokens,
+                "cost_per_request": cost
+            }
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                print(f"  ✗ Model {model} not found, trying next...")
+                continue
+            else:
+                duration = round(time.monotonic() - start, 4)
+                print(f"Mistral API Failure: {e}")
+                return {
+                    "provider": "Mistral AI",
+                    "model": "Mistral Large",
+                    "time": duration,
+                    "status": "API FAILURE",
+                    "response_preview": get_preview(str(e), 100),
+                    "full_response": str(e),
+                    "tokens_per_second": 0,
+                    "output_tokens": 0,
+                    "cost_per_request": None
+                }
+        except Exception as e:
+            duration = round(time.monotonic() - start, 4)
+            print(f"Mistral API Failure: {e}")
+            return {
+                "provider": "Mistral AI",
+                "model": "Mistral Large",
+                "time": duration,
+                "status": "API FAILURE",
+                "response_preview": get_preview(str(e), 100),
+                "full_response": str(e),
+                "tokens_per_second": 0,
+                "output_tokens": 0,
+                "cost_per_request": None
+            }
+    
+    return {
+        "provider": "Mistral AI",
+        "model": "Mistral Large",
+        "time": 99.9999,
+        "status": "API FAILURE",
+        "response_preview": "All model versions failed",
+        "full_response": "All model versions failed",
+        "tokens_per_second": 0,
+        "output_tokens": 0,
+        "cost_per_request": None
+    }
+
+def test_cohere(api_key):
+    if not api_key: 
+        return None
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    # FIXED: Try each model in order
+    for model in MODELS["cohere"]:
+        data = {
+            "model": model,
+            "message": PROMPT,
+            "max_tokens": MAX_TOKENS
+        }
+        
+        start = time.monotonic()
+        try:
+            def make_request():
+                return requests.post(
+                    "https://api.cohere.com/v1/chat",
+                    headers=headers, 
+                    json=data, 
+                    timeout=TIMEOUT
+                )
+            
+            response = make_request_with_retry(make_request)
+            response.raise_for_status()
+            duration = round(time.monotonic() - start, 4)
+            
+            response_data = response.json()
+            response_text = response_data.get('text', '')
+            usage = response_data.get('meta', {}).get('billed_units', {})
+            input_tokens = usage.get('input_tokens', PROMPT_TOKENS)
+            output_tokens = usage.get('output_tokens', MAX_TOKENS)
+            tps = round(output_tokens / duration, 2) if duration > 0 else 0
+            cost = calculate_cost(model, input_tokens, output_tokens)
+            
+            print(f"  ✓ Successfully used model: {model}")
+            
+            return {
+                "provider": "Cohere",
+                "model": "Command R+",
+                "time": duration,
+                "status": "Online",
+                "response_preview": get_preview(response_text),
+                "full_response": response_text,
+                "tokens_per_second": tps,
+                "output_tokens": output_tokens,
+                "cost_per_request": cost
+            }
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                print(f"  ✗ Model {model} not found, trying next...")
+                continue
+            else:
+                duration = round(time.monotonic() - start, 4)
+                print(f"Cohere API Failure: {e}")
+                return {
+                    "provider": "Cohere",
+                    "model": "Command R+",
+                    "time": duration,
+                    "status": "API FAILURE",
+                    "response_preview": get_preview(str(e), 100),
+                    "full_response": str(e),
+                    "tokens_per_second": 0,
+                    "output_tokens": 0,
+                    "cost_per_request": None
+                }
+        except Exception as e:
+            duration = round(time.monotonic() - start, 4)
+            print(f"Cohere API Failure: {e}")
+            return {
+                "provider": "Cohere",
+                "model": "Command R+",
+                "time": duration,
+                "status": "API FAILURE",
+                "response_preview": get_preview(str(e), 100),
+                "full_response": str(e),
+                "tokens_per_second": 0,
+                "output_tokens": 0,
+                "cost_per_request": None
+            }
+    
+    return {
+        "provider": "Cohere",
+        "model": "Command R+",
+        "time": 99.9999,
+        "status": "API FAILURE",
+        "response_preview": "All model versions failed",
+        "full_response": "All model versions failed",
+        "tokens_per_second": 0,
+        "output_tokens": 0,
+        "cost_per_request": None
+    }
+
+def test_together(api_key):
+    if not api_key: 
+        return None
+    
+    headers = {
+        "Authorization": f"Bearer {api_key}",
+        "Content-Type": "application/json"
+    }
+    
+    # FIXED: Use the model string directly from MODELS
+    model = MODELS["together"][0]
+    data = {
+        "model": model,
+        "messages": [{"role": "user", "content": PROMPT}],
+        "max_tokens": MAX_TOKENS
+    }
+    
+    start = time.monotonic()
+    try:
+        def make_request():
+            return requests.post(
+                "https://api.together.xyz/v1/chat/completions",
+                headers=headers, 
+                json=data, 
+                timeout=TIMEOUT
+            )
+        
+        response = make_request_with_retry(make_request)
+        response.raise_for_status()
+        duration = round(time.monotonic() - start, 4)
+        
+        response_data = response.json()
+        response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
+        usage = response_data.get('usage', {})
+        input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
+        output_tokens = usage.get('completion_tokens', MAX_TOKENS)
+        tps = round(output_tokens / duration, 2) if duration > 0 else 0
+        cost = calculate_cost(model, input_tokens, output_tokens)
+        
+        print(f"  ✓ Successfully used model: {model}")
+        
+        return {
+            "provider": "Together AI",
+            "model": "Llama 3.1 70B",
+            "time": duration,
+            "status": "Online",
+            "response_preview": get_preview(response_text),
+            "full_response": response_text,
+            "tokens_per_second": tps,
+            "output_tokens": output_tokens,
+            "cost_per_request": cost
+        }
+    except Exception as e:
+        duration = round(time.monotonic() - start, 4)
+        print(f"Together AI API Failure: {e}")
+        return {
+            "provider": "Together AI",
+            "model": "Llama 3.1 70B",
+            "time": duration,
+            "status": "API FAILURE",
+            "response_preview": get_preview(str(e), 100),
+            "full_response": str(e),
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "cost_per_request": None
+        }
+
+def update_json():
+    openai_key = os.getenv('OPENAI_API_KEY')
+    anthropic_key = os.getenv('ANTHROPIC_API_KEY')
+    google_key = os.getenv('GEMINI_API_KEY')
+    groq_key = os.getenv('GROQ_API_KEY')
+    mistral_key = os.getenv('MISTRAL_API_KEY')
+    cohere_key = os.getenv('COHERE_API_KEY')
+    together_key = os.getenv('TOGETHER_API_KEY')
+
+    results = []
+
+    tests = [
+        ("OpenAI", lambda: test_openai(openai_key)),
+        ("Anthropic", lambda: test_anthropic(anthropic_key)),
+        ("Google", lambda: test_google(google_key)),
+        ("Groq", lambda: test_groq(groq_key)),
+        ("Mistral AI", lambda: test_mistral(mistral_key)),
+        ("Cohere", lambda: test_cohere(cohere_key)),
+        ("Together AI", lambda: test_together(together_key))
+    ]
+
+    for name, test_func in tests:
+        print(f"Testing {name}...")
+        try:
+            res = test_func()
+            if res:
+                results.append(res)
+        except Exception as e:
+            print(f"  Skipped {name}: {e}")
+            continue
+
+    if results:
+        # Sort: Online providers first (by time), then failed providers (by name)
+        results.sort(key=lambda x: (x['status'] != 'Online', x['time'] if x['status'] == 'Online' else 999, x['provider']))
+    else:
+        print("WARNING: No successful API tests. Creating empty data file.")
+        results = []
+
+    history = load_history()
+    timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
+    history_entry = {
+        "timestamp": timestamp,
+        "results": {}
+    }
+    
+    for result in results:
+        provider = result['provider']
+        history_entry["results"][provider] = {
+            "time": result['time'],
+            "tps": result['tokens_per_second'],
+            "status": result['status'],
+            "cost": result['cost_per_request']
+        }
+    
+    history = update_history(history, history_entry)
+
+    final_data = {
+        "last_updated": timestamp,
+        "prompt": PROMPT,
+        "max_tokens": MAX_TOKENS,
+        "results": results,
+        "history": history
+    }
+
+    with open('data.json', 'w') as f:
+        json.dump(final_data, f, indent=4)
+        print("\n--- SUCCESSFULLY WROTE data.json ---")
+
+if __name__ == "__main__":
+    try:
+        update_json()
+    except Exception as e:
+        print(f"FATAL ERROR: {e}")
+        import traceback
+        traceback.print_exc()
+        exit(1)
