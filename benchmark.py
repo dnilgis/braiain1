@@ -7,7 +7,7 @@ from datetime import datetime, timezone
 # --- CONFIGURATION ---
 MODELS = {
     "openai": "gpt-4o-mini",
-    "anthropic": "claude-3-5-sonnet-latest",  # Use latest instead of date
+    "anthropic": "claude-3-5-sonnet-20240620",  # Earlier stable version
     "google": "gemini-1.5-flash",
     "groq": "llama-3.1-70b-versatile",
     "mistral": "mistral-large-latest",
@@ -22,8 +22,10 @@ MAX_RETRIES = 2
 
 PRICING = {
     "gpt-4o-mini": {"input": 0.15, "output": 0.60},
+    "claude-3-5-sonnet-20240620": {"input": 3.00, "output": 15.00},
     "claude-3-5-sonnet-latest": {"input": 3.00, "output": 15.00},
     "claude-3-5-sonnet-20241022": {"input": 3.00, "output": 15.00},
+    "gemini-1.5-pro-latest": {"input": 0.00, "output": 0.00},
     "gemini-pro": {"input": 0.00, "output": 0.00},
     "llama-3.1-70b-versatile": {"input": 0.00, "output": 0.00},
     "llama-3.3-70b-versatile": {"input": 0.00, "output": 0.00},
@@ -171,7 +173,7 @@ def test_anthropic(api_key):
         input_tokens = usage.get('input_tokens', PROMPT_TOKENS)
         output_tokens = usage.get('output_tokens', MAX_TOKENS)
         tps = round(output_tokens / duration, 2) if duration > 0 else 0
-        cost = calculate_cost("claude-3-5-sonnet-latest", input_tokens, output_tokens)
+        cost = calculate_cost("claude-3-5-sonnet-20240620", input_tokens, output_tokens)
         
         return {
             "provider": "Anthropic",
@@ -203,8 +205,8 @@ def test_google(api_key):
     if not api_key: 
         return None
     
-    # Use the most stable Gemini model
-    model_name = "gemini-pro"
+    # Use the correct current Gemini model
+    model_name = "gemini-1.5-pro-latest"
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
     data = {
         "contents": [{"parts": [{"text": PROMPT}]}],
@@ -231,11 +233,11 @@ def test_google(api_key):
         input_tokens = usage.get('promptTokenCount', PROMPT_TOKENS)
         output_tokens = usage.get('candidatesTokenCount', MAX_TOKENS)
         tps = round(output_tokens / duration, 2) if duration > 0 else 0
-        cost = calculate_cost("gemini-pro", input_tokens, output_tokens)
+        cost = calculate_cost("gemini-1.5-pro-latest", input_tokens, output_tokens)
         
         return {
             "provider": "Google",
-            "model": "Gemini Pro",
+            "model": "Gemini 1.5 Pro",
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
@@ -249,7 +251,7 @@ def test_google(api_key):
         print(f"Google API Failure: {e}")
         return {
             "provider": "Google",
-            "model": "Gemini Pro",
+            "model": "Gemini 1.5 Pro",
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
