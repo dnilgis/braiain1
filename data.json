@@ -1,23 +1,23 @@
 {
-    "last_updated": "2025-11-28 00:04:18 UTC",
+    "last_updated": "2025-11-28 00:12:03 UTC",
     "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.",
     "max_tokens": 300,
     "results": [
         {
             "provider": "OpenAI",
-            "model": "gpt-4o-mini",
-            "time": 9.7153,
+            "model": "GPT-4o Mini",
+            "time": 5.6777,
             "status": "Online",
-            "response_preview": "The history of the internet dates back to the 1960s when the U.S. Department of Defense initiated ARPANET, a project designed to create a network that...",
-            "full_response": "The history of the internet dates back to the 1960s when the U.S. Department of Defense initiated ARPANET, a project designed to create a network that could sustain communication between computers during emergencies. The first successful message was transmitted in 1969 between UCLA and Stanford Research Institute, marking the beginning of a decentralized network. Throughout the 1970s and 1980s, significant protocols like TCP/IP were developed, enabling different networks to communicate with one another. The introduction of the World Wide Web by Tim Berners-Lee in 1989 revolutionized the internet, allowing users to access and share information through websites, fundamentally transforming the landscape of digital communication and data sharing.\n\nIn the 1990s, the commercialization of the internet catalyzed its rapid growth, with the advent of web browsers like Netscape and Internet Explorer making it accessible to the general public. This decade saw a boom in e-commerce, online communities, and the rise of tech giants like Amazon and Google. By the early 2000s, social media platforms emerged, profoundly altering how individuals interacted online and prompting concerns over privacy, security, and misinformation. The proliferation of mobile devices in the 2010s further accelerated internet usage, leading to an era dominated by mobile applications and real-time communication, thereby integrating the internet into daily life at an unprecedented scale.\n\nLooking ahead to 2030, the internet is poised to undergo transformative changes driven by advancements in artificial intelligence, the Internet of Things (Io",
-            "tokens_per_second": 30.88,
+            "response_preview": "The history of the internet dates back to the 1960s when the U.S. Department of Defense developed ARPANET, which allowed multiple computers to communi...",
+            "full_response": "The history of the internet dates back to the 1960s when the U.S. Department of Defense developed ARPANET, which allowed multiple computers to communicate on a single network. This foundational network utilized packet-switching technology, creating a more efficient way to transmit data compared to traditional circuit-switched systems. By the 1970s, key protocols like TCP/IP were established, enabling different networks to connect and communicate with one another. As academic and research institutions began to embrace this technology, ARPANET grew, eventually becoming the basis for what we now understand as the internet. The commercialization of the internet in the 1990s, fueled by the introduction of the World Wide Web and web browsers, transformed it into a public utility, allowing users worldwide to share information easily.\n\nAs the internet evolved, it shaped economies, cultures, and social interactions. The 2000s saw the rise of social media platforms, which changed how people connect and share information. With the advent of mobile technology and broadband access, the internet became more accessible, permeating daily life. This period also witnessed important developments in e-commerce, cloud computing, and cybersecurity. The proliferation of mobile devices allowed instantaneous access to the internet, further enhancing its impact on society. In parallel, concerns over privacy, data security, and misinformation have emerged, prompting discussions about regulation and the ethical implications of internet technologies.\n\nLooking toward 2030, the internet is expected to undergo significant transformation, characterized by advancements in artificial intelligence, the",
+            "tokens_per_second": 52.84,
             "output_tokens": 300,
             "cost_per_request": 0.000185
         },
         {
             "provider": "Anthropic",
             "model": "claude-3-5-sonnet-20241022",
-            "time": 0.3534,
+            "time": 0.1454,
             "status": "API FAILURE",
             "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
             "tokens_per_second": 0,
@@ -27,7 +27,7 @@
         {
             "provider": "Google",
             "model": "gemini-2.0-flash-exp",
-            "time": 0.1004,
+            "time": 0.1127,
             "status": "API FAILURE",
             "response_preview": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-...",
             "tokens_per_second": 0,
@@ -37,7 +37,7 @@
         {
             "provider": "Groq",
             "model": "llama-3.1-70b-versatile",
-            "time": 0.0932,
+            "time": 0.1406,
             "status": "API FAILURE",
             "response_preview": "400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
             "tokens_per_second": 0,
@@ -404,6 +404,35 @@
                 },
                 "Groq": {
                     "time": 0.0932,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                }
+            }
+        },
+        {
+            "timestamp": "2025-11-28 00:12:03 UTC",
+            "results": {
+                "OpenAI": {
+                    "time": 5.6777,
+                    "tps": 52.84,
+                    "status": "Online",
+                    "cost": 0.000185
+                },
+                "Anthropic": {
+                    "time": 0.1454,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Google": {
+                    "time": 0.1127,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Groq": {
+                    "time": 0.1406,
                     "tps": 0,
                     "status": "API FAILURE",
                     "cost": null
