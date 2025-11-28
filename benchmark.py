@@ -111,7 +111,7 @@ def test_openai(api_key):
         
         return {
             "provider": "OpenAI",
-            "model": MODELS["openai"],
+            "model": "GPT-4o Mini",  # Friendlier name
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
