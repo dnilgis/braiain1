@@ -1,45 +1,48 @@
 {
-    "last_updated": "2025-11-28 00:12:03 UTC",
+    "last_updated": "2025-11-28 00:19:26 UTC",
     "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.",
     "max_tokens": 300,
     "results": [
         {
             "provider": "OpenAI",
             "model": "GPT-4o Mini",
-            "time": 5.6777,
+            "time": 6.5994,
             "status": "Online",
-            "response_preview": "The history of the internet dates back to the 1960s when the U.S. Department of Defense developed ARPANET, which allowed multiple computers to communi...",
-            "full_response": "The history of the internet dates back to the 1960s when the U.S. Department of Defense developed ARPANET, which allowed multiple computers to communicate on a single network. This foundational network utilized packet-switching technology, creating a more efficient way to transmit data compared to traditional circuit-switched systems. By the 1970s, key protocols like TCP/IP were established, enabling different networks to connect and communicate with one another. As academic and research institutions began to embrace this technology, ARPANET grew, eventually becoming the basis for what we now understand as the internet. The commercialization of the internet in the 1990s, fueled by the introduction of the World Wide Web and web browsers, transformed it into a public utility, allowing users worldwide to share information easily.\n\nAs the internet evolved, it shaped economies, cultures, and social interactions. The 2000s saw the rise of social media platforms, which changed how people connect and share information. With the advent of mobile technology and broadband access, the internet became more accessible, permeating daily life. This period also witnessed important developments in e-commerce, cloud computing, and cybersecurity. The proliferation of mobile devices allowed instantaneous access to the internet, further enhancing its impact on society. In parallel, concerns over privacy, data security, and misinformation have emerged, prompting discussions about regulation and the ethical implications of internet technologies.\n\nLooking toward 2030, the internet is expected to undergo significant transformation, characterized by advancements in artificial intelligence, the",
-            "tokens_per_second": 52.84,
+            "response_preview": "The history of the internet traces its origins to the 1960s, when the U.S. Department of Defense funded research to establish a network, known as ARPA...",
+            "full_response": "The history of the internet traces its origins to the 1960s, when the U.S. Department of Defense funded research to establish a network, known as ARPANET, to facilitate communication among military and academic researchers. The initial purpose was to create a resilient communications system that could withstand potential disruptions, especially during the Cold War. By the early 1970s, the Transmission Control Protocol and Internet Protocol (TCP/IP) were developed, establishing the protocols necessary for different networks to interconnect, which led to the expansion of networks joining to form what became known as the internet. The 1980s saw the introduction of domain names and the establishment of the National Science Foundation Network (NSFNET), which significantly boosted the growth and accessibility of the internet for educational and research institutions.\n\nThe 1990s marked the transition of the internet from a primarily academic tool to a public utility, driven by the creation of the World Wide Web by Tim Berners-Lee in 1991. This innovation allowed users to navigate the internet through a graphical interface, leading to an explosion of online content and the emergence of popular platforms like Yahoo and Amazon. E-commerce began to flourish as businesses started to recognize the potential of online sales. By the late 1990s and into the early 2000s, social media began to rise, with platforms like Facebook, Twitter, and YouTube changing the way people interacted online, leading to new societal norms and the birth of influencer culture.\n\nAs we look",
+            "tokens_per_second": 45.46,
             "output_tokens": 300,
             "cost_per_request": 0.000185
         },
         {
             "provider": "Anthropic",
-            "model": "claude-3-5-sonnet-20241022",
-            "time": 0.1454,
+            "model": "Claude 3.5 Sonnet",
+            "time": 0.2039,
             "status": "API FAILURE",
             "response_preview": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
+            "full_response": "404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages",
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": null
         },
         {
             "provider": "Google",
-            "model": "gemini-2.0-flash-exp",
-            "time": 0.1127,
+            "model": "Gemini 1.5 Flash",
+            "time": 0.1447,
             "status": "API FAILURE",
-            "response_preview": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-2.0-...",
+            "response_preview": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-1.5-...",
+            "full_response": "404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=AIzaSyCDWfvoF4QiRUDQ_9mL4IY4ocGRe24QGa8",
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": null
         },
         {
             "provider": "Groq",
-            "model": "llama-3.1-70b-versatile",
-            "time": 0.1406,
+            "model": "Llama 3.1 70B",
+            "time": 0.2808,
             "status": "API FAILURE",
             "response_preview": "400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
+            "full_response": "400 Client Error: Bad Request for url: https://api.groq.com/openai/v1/chat/completions",
             "tokens_per_second": 0,
             "output_tokens": 0,
             "cost_per_request": null
@@ -433,6 +436,35 @@
                 },
                 "Groq": {
                     "time": 0.1406,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                }
+            }
+        },
+        {
+            "timestamp": "2025-11-28 00:19:26 UTC",
+            "results": {
+                "OpenAI": {
+                    "time": 6.5994,
+                    "tps": 45.46,
+                    "status": "Online",
+                    "cost": 0.000185
+                },
+                "Anthropic": {
+                    "time": 0.2039,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Google": {
+                    "time": 0.1447,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Groq": {
+                    "time": 0.2808,
                     "tps": 0,
                     "status": "API FAILURE",
                     "cost": null
