@@ -23,8 +23,9 @@ MAX_RETRIES = 2
 PRICING = {
     "gpt-4o-mini": {"input": 0.15, "output": 0.60},
     "claude-3-5-sonnet-20241022": {"input": 3.00, "output": 15.00},
-    "gemini-1.5-flash": {"input": 0.00, "output": 0.00},
+    "gemini-pro": {"input": 0.00, "output": 0.00},
     "llama-3.1-70b-versatile": {"input": 0.00, "output": 0.00},
+    "llama-3.3-70b-versatile": {"input": 0.00, "output": 0.00},
     "mistral-large-latest": {"input": 2.00, "output": 6.00},
     "command-r-plus": {"input": 3.00, "output": 15.00},
     "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo": {"input": 0.18, "output": 0.18}
@@ -201,8 +202,8 @@ def test_google(api_key):
     if not api_key: 
         return None
     
-    # Try without models/ prefix first
-    model_name = "gemini-1.5-flash-latest"
+    # Use the most stable Gemini model
+    model_name = "gemini-pro"
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
     data = {
         "contents": [{"parts": [{"text": PROMPT}]}],
@@ -229,11 +230,11 @@ def test_google(api_key):
         input_tokens = usage.get('promptTokenCount', PROMPT_TOKENS)
         output_tokens = usage.get('candidatesTokenCount', MAX_TOKENS)
         tps = round(output_tokens / duration, 2) if duration > 0 else 0
-        cost = calculate_cost(MODELS["google"], input_tokens, output_tokens)
+        cost = calculate_cost("gemini-pro", input_tokens, output_tokens)
         
         return {
             "provider": "Google",
-            "model": "Gemini 1.5 Flash",
+            "model": "Gemini Pro",
             "time": duration,
             "status": "Online",
             "response_preview": get_preview(response_text),
@@ -247,7 +248,7 @@ def test_google(api_key):
         print(f"Google API Failure: {e}")
         return {
             "provider": "Google",
-            "model": "Gemini 1.5 Flash",
+            "model": "Gemini Pro",
             "time": duration,
             "status": "API FAILURE",
             "response_preview": get_preview(str(e), 100),
@@ -293,7 +294,7 @@ def test_groq(api_key):
         input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
         output_tokens = usage.get('completion_tokens', MAX_TOKENS)
         tps = round(output_tokens / duration, 2) if duration > 0 else 0
-        cost = calculate_cost(MODELS["groq"], input_tokens, output_tokens)
+        cost = calculate_cost("llama-3.3-70b-versatile", input_tokens, output_tokens)
         
         return {
             "provider": "Groq",
