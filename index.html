@@ -5,6 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Braiain AI Speed Index | Daily LLM Benchmarks</title>
     <meta name="description" content="Real-time AI model speed benchmarks. Compare OpenAI, Anthropic, Google Gemini, Groq, and more API latency performance updated daily.">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="AI benchmarks, LLM speed test, OpenAI GPT-4, Claude API, Gemini speed, Groq performance, AI API comparison">
+    <meta name="author" content="Braiain AI Speed Index">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="Braiain AI Speed Index - Real-Time LLM Performance">
+    <meta property="og:description" content="Daily automated benchmarks of AI model speed, TPS, and cost across OpenAI, Anthropic, Google, and Groq.">
+    <meta property="og:image" content="https://yourdomain.com/og-image.png">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://yourdomain.com/">
+    <meta property="twitter:title" content="Braiain AI Speed Index - Real-Time LLM Performance">
+    <meta property="twitter:description" content="Daily automated benchmarks of AI model speed, TPS, and cost.">
+    <meta property="twitter:image" content="https://yourdomain.com/og-image.png">
+    
+    <!-- Google Analytics GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y5SESHWEE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1Y5SESHWEE');
+    </script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <style>
         /* === BASE STYLES === */
@@ -339,9 +368,314 @@
         .info-box strong {
             color: #1976d2;
         }
+        
+        /* === ADSENSE CONTAINER === */
+        .adsense-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
+            text-align: center;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .adsense-label {
+            font-size: 0.75em;
+            color: #999;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* === UTILITY BUTTONS === */
+        .utility-buttons {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .utility-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 2px solid #2196f3;
+            color: #2196f3;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9em;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .utility-btn:hover {
+            background: #2196f3;
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .utility-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* === EMAIL SIGNUP === */
+        .email-signup {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            text-align: center;
+            color: white;
+        }
+        
+        .email-signup h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+        }
+        
+        .email-signup p {
+            margin: 0 0 20px 0;
+            opacity: 0.9;
+        }
+        
+        .email-form {
+            display: flex;
+            gap: 10px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        
+        .email-form input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 6px;
+            font-size: 1em;
+        }
+        
+        .email-form button {
+            padding: 12px 30px;
+            background: white;
+            color: #667eea;
+            border: none;
+            border-radius: 6px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        
+        .email-form button:hover {
+            transform: scale(1.05);
+        }
+        
+        /* === THEME TOGGLE === */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            padding: 5px;
+            display: flex;
+            gap: 5px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .theme-btn {
+            padding: 8px 15px;
+            border: none;
+            background: transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.2s;
+            color: #666;
+        }
+        
+        .theme-btn.active {
+            background: #2196f3;
+            color: white;
+        }
+        
+        .theme-btn:hover:not(.active) {
+            background: #f0f0f0;
+        }
+        
+        /* === DARK THEME === */
+        body.dark-theme {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+        }
+        
+        body.dark-theme header {
+            background-color: #0a0a0a;
+        }
+        
+        body.dark-theme .about-section,
+        body.dark-theme h2 {
+            color: #e0e0e0;
+        }
+        
+        body.dark-theme .model-card {
+            background-color: #2a2a2a;
+            border-color: #3a3a3a;
+        }
+        
+        body.dark-theme .model-card:hover {
+            background-color: #333;
+        }
+        
+        body.dark-theme .chart-section {
+            background-color: #2a2a2a;
+            border-color: #3a3a3a;
+        }
+        
+        body.dark-theme .info-box {
+            background-color: #1e3a5f;
+            border-color: #2196f3;
+        }
+        
+        body.dark-theme .affiliate-btn {
+            background-color: #1976d2;
+        }
+        
+        body.dark-theme .toggle-response-btn {
+            background-color: #3a3a3a;
+            color: #e0e0e0;
+            border-color: #4a4a4a;
+        }
+        
+        body.dark-theme .full-response-text {
+            background-color: #1a1a1a;
+            color: #e0e0e0;
+            border-color: #3a3a3a;
+        }
+        
+        body.dark-theme .utility-btn {
+            background: #2a2a2a;
+            border-color: #2196f3;
+        }
+        
+        body.dark-theme .utility-btn:hover {
+            background: #2196f3;
+            color: white;
+        }
+        
+        body.dark-theme .theme-toggle {
+            background: #2a2a2a;
+            border-color: #3a3a3a;
+        }
+        
+        /* === PERMALINK MODAL === */
+        .permalink-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .permalink-modal.show {
+            display: flex;
+        }
+        
+        .permalink-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            max-width: 500px;
+            width: 90%;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+        }
+        
+        body.dark-theme .permalink-content {
+            background: #2a2a2a;
+            color: #e0e0e0;
+        }
+        
+        .permalink-content h3 {
+            margin: 0 0 15px 0;
+        }
+        
+        .permalink-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        
+        body.dark-theme .permalink-input {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            border-color: #3a3a3a;
+        }
+        
+        .permalink-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        .permalink-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .copy-btn {
+            background: #2196f3;
+            color: white;
+        }
+        
+        .copy-btn:hover {
+            background: #1976d2;
+        }
+        
+        .close-btn {
+            background: #e0e0e0;
+            color: #333;
+        }
+        
+        body.dark-theme .close-btn {
+            background: #3a3a3a;
+            color: #e0e0e0;
+        }
+        
+        .close-btn:hover {
+            background: #ccc;
+        }
     </style>
 </head>
 <body>
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-btn active" data-theme="light" onclick="setTheme('light')">☀️ Light</button>
+        <button class="theme-btn" data-theme="dark" onclick="setTheme('dark')">🌙 Dark</button>
+        <button class="theme-btn" data-theme="auto" onclick="setTheme('auto')">⚙️ Auto</button>
+    </div>
+
     <header>
         <h1>🤖 Braiain AI Speed Index</h1>
         <p class="tagline">Real-World LLM Speed, Cost & Performance Tracking</p>
@@ -363,6 +697,58 @@
     
     <div id="last-updated-wrapper">
         <span id="last-updated"></span>
+    </div>
+
+    <!-- Utility Buttons -->
+    <div class="utility-buttons">
+        <button class="utility-btn" onclick="exportCSV()">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+            Download CSV
+        </button>
+        <button class="utility-btn" onclick="showPermalink()">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+            </svg>
+            Share Link
+        </button>
+        <a class="utility-btn" href="https://twitter.com/intent/tweet?text=Check%20out%20the%20latest%20AI%20model%20speed%20rankings!&url=https://dnilgis.github.io/braiain-benchmark" target="_blank" rel="noopener">
+            <svg fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"/>
+            </svg>
+            Tweet
+        </a>
+    </div>
+
+    <!-- Email Signup -->
+    <div class="email-signup">
+        <h3>📧 Daily Updates Delivered</h3>
+        <p>Get the latest AI speed rankings delivered to your inbox every morning</p>
+        <form class="email-form" onsubmit="handleEmailSignup(event)">
+            <input type="email" placeholder="your@email.com" required id="email-input">
+            <button type="submit">Subscribe</button>
+        </form>
+        <p style="font-size: 0.85em; margin-top: 15px; opacity: 0.8;">
+            Free forever. Unsubscribe anytime. No spam.
+        </p>
+    </div>
+
+    <!-- Google AdSense (Least Annoying Position) -->
+    <div class="adsense-container">
+        <div class="adsense-label">Advertisement</div>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906493623732277"
+             crossorigin="anonymous"></script>
+        <!-- Braiain Speed Index Ad -->
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-2906493623732277"
+             data-ad-slot="5895952530"
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
     </div>
 
     <!-- TREND CHART (Appears after at least 2 data points) -->
@@ -772,6 +1158,71 @@
                 </div>
             `;
         }
+        
+        // === CSV EXPORT ===
+        function exportCSV() {
+            // Get current data
+            fetch('data.json?t=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    if (!data.results) return;
+                    
+                    // Create CSV content
+                    let csv = 'Rank,Provider,Model,Speed (s),TPS,Status,Cost Per Request\n';
+                    
+                    data.results.forEach((result, index) => {
+                        const rank = index + 1;
+                        const cost = result.cost_per_request === null ? 'N/A' : 
+                                    result.cost_per_request === 0 ? 'FREE' : 
+                                    ' + result.cost_per_request.toFixed(4);
+                        
+                        csv += `${rank},"${result.provider}","${result.model}",${result.time},${result.tokens_per_second},"${result.status}","${cost}"\n`;
+                    });
+                    
+                    // Create download link
+                    const blob = new Blob([csv], { type: 'text/csv' });
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `braiain-speed-index-${new Date().toISOString().split('T')[0]}.csv`;
+                    document.body.appendChild(a);
+                    a.click();
+                    document.body.removeChild(a);
+                    window.URL.revokeObjectURL(url);
+                    
+                    // Track in GA
+                    if (typeof gtag !== 'undefined') {
+                        gtag('event', 'csv_export', {
+                            'event_category': 'engagement',
+                            'event_label': 'Download CSV'
+                        });
+                    }
+                })
+                .catch(err => console.error('Export failed:', err));
+        }
+    </script>
+    
+    <!-- Schema.org structured data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Braiain AI Speed Index",
+      "description": "Daily automated benchmarks of AI model API speed, tokens-per-second, and cost efficiency",
+      "url": "https://yourdomain.com",
+      "applicationCategory": "TechnologyApplication",
+      "operatingSystem": "Any",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "dnilgis",
+        "email": "dnilgis@gmail.com"
+      }
+    }
     </script>
 </body>
 </html>
