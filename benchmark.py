@@ -201,7 +201,9 @@ def test_google(api_key):
     if not api_key: 
         return None
     
-    url = f"https://generativelanguage.googleapis.com/v1/models/{MODELS['google']}:generateContent?key={api_key}"
+    # Try without models/ prefix first
+    model_name = "gemini-1.5-flash-latest"
+    url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
     data = {
         "contents": [{"parts": [{"text": PROMPT}]}],
         "generationConfig": {"maxOutputTokens": MAX_TOKENS}
@@ -263,10 +265,12 @@ def test_groq(api_key):
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
+    # Try with a more common model name
     data = {
-        "model": MODELS["groq"],
+        "model": "llama-3.3-70b-versatile",  # Updated model name
         "messages": [{"role": "user", "content": PROMPT}],
-        "max_tokens": MAX_TOKENS
+        "max_tokens": 500,  # Increased from 300
+        "temperature": 0.7
     }
     
     start = time.monotonic()
