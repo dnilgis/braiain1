@@ -585,6 +585,9 @@
             const timeDisplay = isOnline ? `${result.time.toFixed(2)}s` : 'N/A';
             const tpsDisplay = isOnline ? result.tokens_per_second.toFixed(0) : 'N/A';
             
+            // Only add rank class for online providers in top 3
+            const rankClass = (isOnline && rank <= 3) ? ` rank-${rank}` : '';
+            
             // Badges
             const providerBadges = badges[result.provider] || [];
             let badgesHTML = '';
@@ -613,7 +616,7 @@
             
             card.innerHTML = `
                 <div class="card-header">
-                    <span class="rank-badge rank-${rank}">#${rank}</span>
+                    <span class="rank-badge${rankClass}">#${rank}</span>
                     <div class="provider-model-wrapper">
                         <div class="card-provider">${escapeHtml(result.provider)}</div>
                         <div class="card-model">${escapeHtml(result.model)}</div>
@@ -708,8 +711,8 @@
                 const failedProviders = failures.map(r => r.provider).join(', ');
                 infoBoxHTML = `
                     <div class="info-box" style="width: 100%; max-width: 1200px; margin: 0 auto 20px;">
-                        <strong>ℹ️ API Status Notice:</strong> ${failedProviders} ${failures.length === 1 ? 'is' : 'are'} currently experiencing issues. 
-                        This may be due to rate limits, service outages, or outdated API keys. Rankings show only operational providers.
+                        <strong>ℹ️ API Status Notice:</strong> ${failedProviders} ${failures.length === 1 ? 'is' : 'are'} currently offline. 
+                        Common causes: missing/invalid API keys, rate limits, or service outages. Failed providers are ranked below operational ones.
                     </div>
                 `;
             }
