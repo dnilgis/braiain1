@@ -7,8 +7,8 @@ from datetime import datetime, timezone
 # --- CONFIGURATION ---
 MODELS = {
     "openai": "gpt-4o-mini",
-    "anthropic": "claude-3-5-sonnet-20241022",
-    "google": "gemini-1.5-flash",  # FIXED: Changed from 2.0 to 1.5
+    "anthropic": "claude-3-5-sonnet-latest",  # Use latest instead of date
+    "google": "gemini-1.5-flash",
     "groq": "llama-3.1-70b-versatile",
     "mistral": "mistral-large-latest",
     "cohere": "command-r-plus",
@@ -22,6 +22,7 @@ MAX_RETRIES = 2
 
 PRICING = {
     "gpt-4o-mini": {"input": 0.15, "output": 0.60},
+    "claude-3-5-sonnet-latest": {"input": 3.00, "output": 15.00},
     "claude-3-5-sonnet-20241022": {"input": 3.00, "output": 15.00},
     "gemini-pro": {"input": 0.00, "output": 0.00},
     "llama-3.1-70b-versatile": {"input": 0.00, "output": 0.00},
@@ -170,7 +171,7 @@ def test_anthropic(api_key):
         input_tokens = usage.get('input_tokens', PROMPT_TOKENS)
         output_tokens = usage.get('output_tokens', MAX_TOKENS)
         tps = round(output_tokens / duration, 2) if duration > 0 else 0
-        cost = calculate_cost(MODELS["anthropic"], input_tokens, output_tokens)
+        cost = calculate_cost("claude-3-5-sonnet-latest", input_tokens, output_tokens)
         
         return {
             "provider": "Anthropic",
