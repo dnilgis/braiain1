@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- v1764447381 -->
     <title>Braiain AI Speed Index | Daily LLM Benchmarks</title>
     <meta name="description" content="Real-time AI model speed benchmarks. Compare OpenAI, Anthropic, Google Gemini, Groq, and more API latency performance updated daily.">
     
@@ -968,11 +969,24 @@
         }
 
         async function fetchData() {
-            console.log("Attempting to fetch fresh data...");
+            // IMMEDIATELY show fallback data - no waiting!
+            console.log("⚡ Showing fallback data immediately...");
+            displayResults(FALLBACK_DATA, "fallback");
+            
+            console.log("Attempting to fetch fresh data in background...");
+            
+            // Already showed fallback above, now try to load live data
             const paths = ["./data.json", "data.json", "/data.json"];
             for (const path of paths) {
                 try {
-                    const response = await fetch(path + "?t=" + Date.now());
+                    const controller = new AbortController();
+                    const timeoutId = setTimeout(() => controller.abort(), 3000); // 3 second timeout
+                    
+                    const response = await fetch(path + "?t=" + Date.now(), { 
+                        signal: controller.signal 
+                    });
+                    clearTimeout(timeoutId);
+                    
                     if (response.ok) {
                         const data = await response.json();
                         console.log("✅ Successfully loaded fresh data from:", path);
@@ -980,10 +994,11 @@
                         if (typeof gtag !== 'undefined') gtag("event", "data_loaded", {event_category: "data", event_label: "live_data"});
                         return true;
                     }
-                } catch (error) { console.log(`Failed to load from ${path}:`, error.message); }
+                } catch (error) { 
+                    console.log(`Failed to load from ${path}:`, error.message); 
+                }
             }
-            console.log("⚠️ Could not load data.json, using fallback data");
-            displayResults(FALLBACK_DATA, "fallback");
+            console.log("⚠️ Using fallback data (data.json not found)");
             if (typeof gtag !== 'undefined') gtag("event", "data_loaded", {event_category: "data", event_label: "fallback_data"});
             return false;
         }
