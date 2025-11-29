@@ -1,31 +1,31 @@
 {
-    "last_updated": "2025-11-29 20:05:14 UTC",
+    "last_updated": "2025-11-29 20:08:22 UTC",
     "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030. STRICT REQUIREMENTS: (1) Your response must be EXACTLY 1000-1200 characters - no more, no less. (2) You MUST end with a complete sentence - no partial thoughts. (3) Count your characters as you write and plan accordingly. (4) If you reach 1150 characters, wrap up your final sentence by character 1200. This is a hard limit - responses outside 1000-1200 characters will be rejected.",
     "max_tokens": 300,
     "results": [
         {
             "provider": "Groq",
             "model": "Llama 3.1 70B",
-            "time": 0.49,
+            "time": 0.7328,
             "status": "Online",
-            "response_preview": "The internet's history began in 1969 with ARPANET. It expanded in the 80s with the introduction of the TCP/IP protocol.   The World Wide Web was inven...",
-            "full_response": "The internet's history began in 1969 with ARPANET. It expanded in the 80s with the introduction of the TCP/IP protocol. \n\nThe World Wide Web was invented in 1989 by Tim Berners-Lee. The internet became widely available in the 90s with dial-up connections. \n\nBy 2030, the internet will be even more integrated into daily life, with widespread adoption of IoT devices and 5G networks, making it an essential part of human existence always.",
-            "tokens_per_second": 210.2,
-            "output_tokens": 103,
-            "character_count": 437,
+            "response_preview": "The internet originated in the 1960s as a US Department of Defense project. It expanded in the 1980s with the introduction of the Internet Protocol. T...",
+            "full_response": "The internet originated in the 1960s as a US Department of Defense project. It expanded in the 1980s with the introduction of the Internet Protocol. The World Wide Web was invented in 1989 by Tim Berners-Lee, making it easier for people to access and share information.\n\nThe internet gained popularity in the 1990s with the widespread use of dial-up connections and internet service providers. Broadband connections became common in the 2000s, enabling faster and more reliable access. Social media platforms and online services emerged, transforming the way people communicate and interact.\n\nBy 2030, the internet will be even more integrated into daily life, with the Internet of Things and artificial intelligence playing major roles, and virtual reality becoming increasingly prevalent, changing how we live and work completely.",
+            "tokens_per_second": 222.43,
+            "output_tokens": 163,
+            "character_count": 832,
             "cost_per_request": 0.0
         },
         {
             "provider": "OpenAI",
             "model": "GPT-4o Mini",
-            "time": 6.6079,
+            "time": 5.5026,
             "status": "Online",
-            "response_preview": "The internet's origins trace back to the 1960s when ARPANET, a U.S. Department of Defense project, aimed to create a network connecting various comput...",
-            "full_response": "The internet's origins trace back to the 1960s when ARPANET, a U.S. Department of Defense project, aimed to create a network connecting various computers for efficient communication. This pioneering technology adopted packet-switching, laying the groundwork for modern networking. By the 1970s, key developments like the Transmission Control Protocol (TCP) and Internet Protocol (IP) were introduced, facilitating data transmission across multiple networks. The 1980s saw the rise of the Domain Name System (DNS), making it easier to access information, while the introduction of the World Wide Web in the early 1990s revolutionized how users interacted with the internet.\n\nAs the internet expanded, its impact on society became profound. By the late 1990s and early 2000s, it gained commercial traction, leading to the dot-com boom and the emergence of tech giants like Google and Amazon. Social media began to emerge in the mid-2000s, fundamentally reshaping communication and fostering a global community. Mobile technologies further accelerated internet access, allowing users to connect anytime, anywhere.\n\nLooking ahead to 2030, the internet is poised to evolve with advancements in artificial intelligence, the Internet of Things (IoT), and decentralized technologies like blockchain. These innovations will likely enhance connectivity, accessibility, and security, fundamentally transforming how we interact with the digital world. The future may usher in a more connected and efficient global society.",
-            "tokens_per_second": 43.43,
-            "output_tokens": 287,
-            "character_count": 1510,
-            "cost_per_request": 0.000191
+            "response_preview": "The history of the internet dates back to the late 1960s when ARPANET, a project funded by the U.S. Department of Defense, first demonstrated packet-s...",
+            "full_response": "The history of the internet dates back to the late 1960s when ARPANET, a project funded by the U.S. Department of Defense, first demonstrated packet-switching technology. This innovation allowed multiple computers to communicate on a single network. By the 1970s, the introduction of protocols like TCP/IP enabled disparate networks to interconnect, laying the groundwork for the internet as we know it. The 1980s saw the establishment of domain names and the expansion of network access, culminating in the development of the World Wide Web in 1991 by Tim Berners-Lee, which made the internet accessible to the general public.\n\nThroughout the 1990s and 2000s, the internet underwent rapid commercialization and expansion, leading to the dot-com boom. This era birthed major technological advances like search engines, social media platforms, and e-commerce. By the 2010s, mobile technology further revolutionized access, turning the internet into a ubiquitous presence. Social issues arose, including concerns over privacy, misinformation, and digital inequality, prompting dialogues on regulation and ethics.\n\nBy 2030, the internet is expected to evolve with the advent of advanced technologies such as AI integration, augmented reality, and expanded 5G connectivity, creating an immersive experience. This could lead towards a deeper intertwining of the digital and physical worlds, significantly transforming human interaction and communication.",
+            "tokens_per_second": 50.7,
+            "output_tokens": 279,
+            "character_count": 1449,
+            "cost_per_request": 0.000186
         },
         {
             "provider": "Anthropic",
@@ -51,35 +51,6 @@
         }
     ],
     "history": [
-        {
-            "timestamp": "2025-11-27 00:58:30 UTC",
-            "results": {
-                "Google": {
-                    "time": 0.0987,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
-                },
-                "Groq": {
-                    "time": 0.1653,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
-                },
-                "Anthropic": {
-                    "time": 0.245,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
-                },
-                "OpenAI": {
-                    "time": 5.4268,
-                    "tps": 55.28,
-                    "status": "Online",
-                    "cost": 0.000185
-                }
-            }
-        },
         {
             "timestamp": "2025-11-27 23:54:46 UTC",
             "results": {
@@ -906,6 +877,35 @@
                     "tps": 43.43,
                     "status": "Online",
                     "cost": 0.000191
+                },
+                "Anthropic": {
+                    "time": 99.9999,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Google": {
+                    "time": 99.9999,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                }
+            }
+        },
+        {
+            "timestamp": "2025-11-29 20:08:22 UTC",
+            "results": {
+                "Groq": {
+                    "time": 0.7328,
+                    "tps": 222.43,
+                    "status": "Online",
+                    "cost": 0.0
+                },
+                "OpenAI": {
+                    "time": 5.5026,
+                    "tps": 50.7,
+                    "status": "Online",
+                    "cost": 0.000186
                 },
                 "Anthropic": {
                     "time": 99.9999,
