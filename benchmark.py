@@ -1,869 +1,321 @@
-import os
-import time 
-import json
-import requests
-from datetime import datetime, timezone
-
-# --- CONFIGURATION ---
-# Model names to try in order (fallback system)
-MODELS = {
-    "openai": ["gpt-4o-mini", "gpt-4o", "gpt-3.5-turbo"],
-    "anthropic": [
-        "claude-3-5-sonnet-20241022",
-        "claude-3-5-sonnet-20240620", 
-        "claude-3-opus-20240229",
-        "claude-3-sonnet-20240229"
-    ],
-    "google": [
-        "gemini-1.5-pro-latest",
-        "gemini-1.5-flash-latest", 
-        "gemini-1.5-flash",
-        "gemini-pro"
-    ],
-    "groq": ["llama-3.3-70b-versatile", "llama-3.1-70b-versatile", "mixtral-8x7b-32768"],
-    "mistral": ["mistral-large-latest", "mistral-medium-latest"],
-    "cohere": ["command-r-plus", "command-r"],
-    "together": ["meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"]
-}
-
-PROMPT = "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030. STRICT REQUIREMENTS: (1) Your response must be EXACTLY 1000-1200 characters - no more, no less. (2) You MUST end with a complete sentence - no partial thoughts. (3) Count your characters as you write and plan accordingly. (4) If you reach 1150 characters, wrap up your final sentence by character 1200. This is a hard limit - responses outside 1000-1200 characters will be rejected." 
-MAX_TOKENS = 300
-MAX_CHARACTERS = 1200  # Approximately 4 chars per token
-MIN_CHARACTERS = 1000  # Minimum to ensure substance 
-TIMEOUT = 30
-MAX_RETRIES = 2
-
-PRICING = {
-    # OpenAI
-    "gpt-4o-mini": {"input": 0.15, "output": 0.60},
-    "gpt-4o": {"input": 2.50, "output": 10.00},
-    "gpt-3.5-turbo": {"input": 0.50, "output": 1.50},
-    # Anthropic
-    "claude-3-5-sonnet-20241022": {"input": 3.00, "output": 15.00},
-    "claude-3-5-sonnet-20240620": {"input": 3.00, "output": 15.00},
-    "claude-3-5-sonnet-latest": {"input": 3.00, "output": 15.00},
-    "claude-3-opus-20240229": {"input": 15.00, "output": 75.00},
-    "claude-3-sonnet-20240229": {"input": 3.00, "output": 15.00},
-    # Google (all free)
-    "gemini-1.5-pro-latest": {"input": 0.00, "output": 0.00},
-    "gemini-1.5-flash-latest": {"input": 0.00, "output": 0.00},
-    "gemini-1.5-flash": {"input": 0.00, "output": 0.00},
-    "gemini-pro": {"input": 0.00, "output": 0.00},
-    # Groq (all free)
-    "llama-3.1-70b-versatile": {"input": 0.00, "output": 0.00},
-    "llama-3.3-70b-versatile": {"input": 0.00, "output": 0.00},
-    "mixtral-8x7b-32768": {"input": 0.00, "output": 0.00},
-    # Others
-    "mistral-large-latest": {"input": 2.00, "output": 6.00},
-    "mistral-medium-latest": {"input": 2.70, "output": 8.10},
-    "command-r-plus": {"input": 3.00, "output": 15.00},
-    "command-r": {"input": 0.50, "output": 1.50},
-    "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo": {"input": 0.18, "output": 0.18}
-}
-
-PROMPT_TOKENS = 30
-
-def get_preview(text, max_chars=150):
-    if not text:
-        return ""
-    clean_text = text.replace('\n', ' ').replace('\t', ' ').strip()
-    if len(clean_text) > max_chars:
-        return clean_text[:max_chars] + "..."
-    return clean_text
-
-def calculate_cost(model_name, input_tokens, output_tokens):
-    if model_name not in PRICING:
-        return None
-    pricing = PRICING[model_name]
-    input_cost = (input_tokens / 1_000_000) * pricing["input"]
-    output_cost = (output_tokens / 1_000_000) * pricing["output"]
-    return round(input_cost + output_cost, 6)
-
-def validate_character_count(char_count, model_name):
-    """Validate character count and print appropriate message"""
-    if char_count < MIN_CHARACTERS:
-        print(f"  ⚠️  Response too short: {char_count} chars (minimum: {MIN_CHARACTERS})")
-        return False
-    elif char_count > MAX_CHARACTERS:
-        print(f"  ⚠️  Response too long: {char_count} chars (maximum: {MAX_CHARACTERS})")
-        return False
-    else:
-        print(f"  ✓ Character count within range: {char_count} chars")
-        return True
-
-def make_request_with_retry(request_func, max_retries=MAX_RETRIES):
-    for attempt in range(max_retries):
-        try:
-            return request_func()
-        except requests.exceptions.RequestException as e:
-            if attempt == max_retries - 1:
-                raise
-            time.sleep(2 ** attempt)
-            print(f"  Retry {attempt + 1}/{max_retries}...")
-
-def load_history():
-    try:
-        with open('data.json', 'r') as f:
-            data = json.load(f)
-            return data.get('history', [])
-    except (FileNotFoundError, json.JSONDecodeError):
-        return []
-
-def update_history(history, new_entry):
-    history.append(new_entry)
-    if len(history) > 30:
-        history = history[-30:]
-    return history
-
-def test_openai(api_key):
-    if not api_key: 
-        return None
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Braiain AI Speed Index | Daily LLM Benchmarks</title>
+    <meta name="description" content="Real-time AI model speed benchmarks. Compare OpenAI, Anthropic, Google Gemini, Groq, and more API latency performance updated daily.">
     
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
+    <!-- SEO Meta Tags -->
+    <meta name="keywords" content="AI benchmarks, LLM speed test, OpenAI GPT-4, Claude API, Gemini speed, Groq performance, AI API comparison">
+    <meta name="author" content="Braiain AI Speed Index">
+    <meta name="robots" content="index, follow">
     
-    # Try each model in order until one works
-    for model in MODELS["openai"]:
-        data = {
-            "model": model,
-            "messages": [{"role": "user", "content": PROMPT}],
-            "max_tokens": MAX_TOKENS
+    <!-- Google Analytics GA4 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y5SESHWEE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-1Y5SESHWEE');
+    </script>
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <style>
+        :root {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f9f9f9;
+            --text-primary: #1c1c1c;
+            --text-secondary: #555;
+            --text-tertiary: #777;
+            --border-color: #e0e0e0;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
+            --shadow-lg: 0 6px 16px rgba(0,0,0,0.15);
         }
         
-        start = time.monotonic()
-        try:
-            def make_request():
-                return requests.post(
-                    "https://api.openai.com/v1/chat/completions",
-                    headers=headers, 
-                    json=data, 
-                    timeout=TIMEOUT
-                )
-            
-            response = make_request_with_retry(make_request)
-            response.raise_for_status()
-            duration = round(time.monotonic() - start, 4)
-            
-            response_data = response.json()
-            response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
-            char_count = len(response_text)
-            usage = response_data.get('usage', {})
-            input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
-            output_tokens = usage.get('completion_tokens', MAX_TOKENS)
-            tps = round(output_tokens / duration, 2) if duration > 0 else 0
-            cost = calculate_cost(model, input_tokens, output_tokens)
-            
-            print(f"  ✓ Successfully used model: {model}")
-            validate_character_count(char_count, model)
-            
-            return {
-                "provider": "OpenAI",
-                "model": "GPT-4o Mini",
-                "time": duration,
-                "status": "Online",
-                "response_preview": get_preview(response_text),
-                "full_response": response_text,
-                "tokens_per_second": tps,
-                "output_tokens": output_tokens,
-                "character_count": char_count,
-                "cost_per_request": cost
-            }
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                print(f"  ✗ Model {model} not found, trying next...")
-                continue
-            else:
-                duration = round(time.monotonic() - start, 4)
-                print(f"OpenAI API Failure: {e}")
-                return {
-                    "provider": "OpenAI",
-                    "model": "GPT-4o Mini",
-                    "time": duration,
-                    "status": "API FAILURE",
-                    "response_preview": get_preview(str(e), 100),
-                    "full_response": str(e),
-                    "tokens_per_second": 0,
-                    "output_tokens": 0,
-                    "cost_per_request": None
-                }
-        except Exception as e:
-            duration = round(time.monotonic() - start, 4)
-            print(f"OpenAI API Failure: {e}")
-            return {
-                "provider": "OpenAI",
-                "model": "GPT-4o Mini",
-                "time": duration,
-                "status": "API FAILURE",
-                "response_preview": get_preview(str(e), 100),
-                "full_response": str(e),
-                "tokens_per_second": 0,
-                "output_tokens": 0,
-                "cost_per_request": None
-            }
-    
-    # All models failed
-    return {
-        "provider": "OpenAI",
-        "model": "GPT-4o Mini",
-        "time": 99.9999,
-        "status": "API FAILURE",
-        "response_preview": "All model versions failed",
-        "full_response": "All model versions failed",
-        "tokens_per_second": 0,
-        "output_tokens": 0,
-        "cost_per_request": None
-    }
-
-def test_anthropic(api_key):
-    if not api_key: 
-        return None
-    
-    headers = {
-        "x-api-key": api_key,
-        "anthropic-version": "2023-06-01",
-        "content-type": "application/json"
-    }
-    
-    # Try each model in order until one works
-    for model in MODELS["anthropic"]:
-        data = {
-            "model": model,
-            "max_tokens": MAX_TOKENS,
-            "messages": [{"role": "user", "content": [{"type": "text", "text": PROMPT}]}]
+        [data-theme="dark"] {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2d2d2d;
+            --bg-tertiary: #252525;
+            --text-primary: #e0e0e0;
+            --text-secondary: #b0b0b0;
+            --text-tertiary: #888;
+            --border-color: #404040;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
+            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
+            --shadow-lg: 0 6px 16px rgba(0,0,0,0.5);
         }
         
-        start = time.monotonic()
-        try:
-            def make_request():
-                return requests.post(
-                    "https://api.anthropic.com/v1/messages",
-                    headers=headers, 
-                    json=data, 
-                    timeout=TIMEOUT
-                )
-            
-            response = make_request_with_retry(make_request)
-            response.raise_for_status()
-            duration = round(time.monotonic() - start, 4)
-            
-            response_data = response.json()
-            response_text = response_data.get('content', [{}])[0].get('text', '')
-            char_count = len(response_text)
-            usage = response_data.get('usage', {})
-            input_tokens = usage.get('input_tokens', PROMPT_TOKENS)
-            output_tokens = usage.get('output_tokens', MAX_TOKENS)
-            tps = round(output_tokens / duration, 2) if duration > 0 else 0
-            cost = calculate_cost(model, input_tokens, output_tokens)
-            
-            print(f"  ✓ Successfully used model: {model}")
-            validate_character_count(char_count, model)
-            
-            return {
-                "provider": "Anthropic",
-                "model": "Claude 3.5 Sonnet",
-                "time": duration,
-                "status": "Online",
-                "response_preview": get_preview(response_text),
-                "full_response": response_text,
-                "tokens_per_second": tps,
-                "output_tokens": output_tokens,
-                "character_count": char_count,
-                "cost_per_request": cost
-            }
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                print(f"  ✗ Model {model} not found, trying next...")
-                continue  # Try next model
-            else:
-                # Other error, stop trying
-                duration = round(time.monotonic() - start, 4)
-                print(f"Anthropic API Failure: {e}")
-                return {
-                    "provider": "Anthropic",
-                    "model": "Claude 3.5 Sonnet",
-                    "time": duration,
-                    "status": "API FAILURE",
-                    "response_preview": get_preview(str(e), 100),
-                    "full_response": str(e),
-                    "tokens_per_second": 0,
-                    "output_tokens": 0,
-                    "cost_per_request": None
-                }
-        except Exception as e:
-            duration = round(time.monotonic() - start, 4)
-            print(f"Anthropic API Failure: {e}")
-            return {
-                "provider": "Anthropic",
-                "model": "Claude 3.5 Sonnet",
-                "time": duration,
-                "status": "API FAILURE",
-                "response_preview": get_preview(str(e), 100),
-                "full_response": str(e),
-                "tokens_per_second": 0,
-                "output_tokens": 0,
-                "cost_per_request": None
-            }
-    
-    # All models failed
-    print(f"  ✗ All Anthropic models failed")
-    return {
-        "provider": "Anthropic",
-        "model": "Claude 3.5 Sonnet",
-        "time": 99.9999,
-        "status": "API FAILURE",
-        "response_preview": "All model versions failed",
-        "full_response": "All model versions failed",
-        "tokens_per_second": 0,
-        "output_tokens": 0,
-        "cost_per_request": None
-    }
-
-def test_google(api_key):
-    if not api_key: 
-        return None
-    
-    # Try each model in order until one works
-    for model_name in MODELS["google"]:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        data = {
-            "contents": [{"parts": [{"text": PROMPT}]}],
-            "generationConfig": {"maxOutputTokens": MAX_TOKENS}
+        * { box-sizing: border-box; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            transition: background-color 0.3s, color 0.3s;
         }
         
-        start = time.monotonic()
-        try:
-            def make_request():
-                return requests.post(
-                    url, 
-                    headers={"Content-Type": "application/json"}, 
-                    json=data, 
-                    timeout=TIMEOUT
-                )
-            
-            response = make_request_with_retry(make_request)
-            response.raise_for_status()
-            duration = round(time.monotonic() - start, 4)
-            
-            response_data = response.json()
-            response_text = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
-            char_count = len(response_text)
-            usage = response_data.get('usageMetadata', {})
-            input_tokens = usage.get('promptTokenCount', PROMPT_TOKENS)
-            output_tokens = usage.get('candidatesTokenCount', MAX_TOKENS)
-            tps = round(output_tokens / duration, 2) if duration > 0 else 0
-            cost = 0.0  # Google is free
-            
-            print(f"  ✓ Successfully used model: {model_name}")
-            if char_count > MAX_CHARACTERS:
-                print(f"  ⚠️  Response exceeds character limit: {char_count}/{MAX_CHARACTERS} chars")
-            
-            return {
-                "provider": "Google",
-                "model": "Gemini 1.5 Pro",
-                "time": duration,
-                "status": "Online",
-                "response_preview": get_preview(response_text),
-                "full_response": response_text,
-                "tokens_per_second": tps,
-                "output_tokens": output_tokens,
-                "character_count": char_count,
-                "cost_per_request": cost
-            }
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                print(f"  ✗ Model {model_name} not found, trying next...")
-                continue  # Try next model
-            else:
-                duration = round(time.monotonic() - start, 4)
-                print(f"Google API Failure: {e}")
-                return {
-                    "provider": "Google",
-                    "model": "Gemini 1.5 Pro",
-                    "time": duration,
-                    "status": "API FAILURE",
-                    "response_preview": get_preview(str(e), 100),
-                    "full_response": str(e),
-                    "tokens_per_second": 0,
-                    "output_tokens": 0,
-                    "cost_per_request": None
-                }
-        except Exception as e:
-            duration = round(time.monotonic() - start, 4)
-            print(f"Google API Failure: {e}")
-            return {
-                "provider": "Google",
-                "model": "Gemini 1.5 Pro",
-                "time": duration,
-                "status": "API FAILURE",
-                "response_preview": get_preview(str(e), 100),
-                "full_response": str(e),
-                "tokens_per_second": 0,
-                "output_tokens": 0,
-                "cost_per_request": None
-            }
-    
-    # All models failed
-    print(f"  ✗ All Google models failed")
-    return {
-        "provider": "Google",
-        "model": "Gemini 1.5 Pro",
-        "time": 99.9999,
-        "status": "API FAILURE",
-        "response_preview": "All model versions failed",
-        "full_response": "All model versions failed",
-        "tokens_per_second": 0,
-        "output_tokens": 0,
-        "cost_per_request": None
-    }
-
-def test_groq(api_key):
-    if not api_key: 
-        return None
-    
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    
-    # Try each model in order until one works
-    for model in MODELS["groq"]:
-        data = {
-            "model": model,
-            "messages": [{"role": "user", "content": PROMPT}],
-            "max_tokens": 500,
-            "temperature": 0.7
+        header {
+            background-color: #1c1c1c;
+            color: white;
+            text-align: center;
+            padding: 30px 20px 20px;
+            margin-bottom: 20px;
+            position: relative;
         }
         
-        start = time.monotonic()
-        try:
-            def make_request():
-                return requests.post(
-                    "https://api.groq.com/openai/v1/chat/completions",
-                    headers=headers, 
-                    json=data, 
-                    timeout=TIMEOUT
-                )
-            
-            response = make_request_with_retry(make_request)
-            response.raise_for_status()
-            duration = round(time.monotonic() - start, 4)
-            
-            response_data = response.json()
-            response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
-            char_count = len(response_text)
-            usage = response_data.get('usage', {})
-            input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
-            output_tokens = usage.get('completion_tokens', MAX_TOKENS)
-            tps = round(output_tokens / duration, 2) if duration > 0 else 0
-            cost = 0.0  # Groq is free
-            
-            print(f"  ✓ Successfully used model: {model}")
-            validate_character_count(char_count, model)
-            
-            return {
-                "provider": "Groq",
-                "model": "Llama 3.1 70B",
-                "time": duration,
-                "status": "Online",
-                "response_preview": get_preview(response_text),
-                "full_response": response_text,
-                "tokens_per_second": tps,
-                "output_tokens": output_tokens,
-                "character_count": char_count,
-                "cost_per_request": cost
-            }
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code in [400, 404]:
-                print(f"  ✗ Model {model} not available, trying next...")
-                continue
-            else:
-                duration = round(time.monotonic() - start, 4)
-                print(f"Groq API Failure: {e}")
-                return {
-                    "provider": "Groq",
-                    "model": "Llama 3.1 70B",
-                    "time": duration,
-                    "status": "API FAILURE",
-                    "response_preview": get_preview(str(e), 100),
-                    "full_response": str(e),
-                    "tokens_per_second": 0,
-                    "output_tokens": 0,
-                    "cost_per_request": None
-                }
-        except Exception as e:
-            duration = round(time.monotonic() - start, 4)
-            print(f"Groq API Failure: {e}")
-            return {
-                "provider": "Groq",
-                "model": "Llama 3.1 70B",
-                "time": duration,
-                "status": "API FAILURE",
-                "response_preview": get_preview(str(e), 100),
-                "full_response": str(e),
-                "tokens_per_second": 0,
-                "output_tokens": 0,
-                "cost_per_request": None
-            }
-    
-    # All models failed
-    return {
-        "provider": "Groq",
-        "model": "Llama 3.1 70B",
-        "time": 99.9999,
-        "status": "API FAILURE",
-        "response_preview": "All model versions failed",
-        "full_response": "All model versions failed",
-        "tokens_per_second": 0,
-        "output_tokens": 0,
-        "cost_per_request": None
-    }
-
-def test_mistral(api_key):
-    if not api_key: 
-        return None
-    
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    
-    # FIXED: Try each model in order
-    for model in MODELS["mistral"]:
-        data = {
-            "model": model,
-            "messages": [{"role": "user", "content": PROMPT}],
-            "max_tokens": MAX_TOKENS
+        .theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: all 0.3s;
         }
         
-        start = time.monotonic()
-        try:
-            def make_request():
-                return requests.post(
-                    "https://api.mistral.ai/v1/chat/completions",
-                    headers=headers, 
-                    json=data, 
-                    timeout=TIMEOUT
-                )
-            
-            response = make_request_with_retry(make_request)
-            response.raise_for_status()
-            duration = round(time.monotonic() - start, 4)
-            
-            response_data = response.json()
-            response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
-            char_count = len(response_text)
-            usage = response_data.get('usage', {})
-            input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
-            output_tokens = usage.get('completion_tokens', MAX_TOKENS)
-            tps = round(output_tokens / duration, 2) if duration > 0 else 0
-            cost = calculate_cost(model, input_tokens, output_tokens)
-            
-            print(f"  ✓ Successfully used model: {model}")
-            validate_character_count(char_count, model)
-            
-            return {
-                "provider": "Mistral AI",
-                "model": "Mistral Large",
-                "time": duration,
-                "status": "Online",
-                "response_preview": get_preview(response_text),
-                "full_response": response_text,
-                "tokens_per_second": tps,
-                "output_tokens": output_tokens,
-                "character_count": char_count,
-                "cost_per_request": cost
-            }
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                print(f"  ✗ Model {model} not found, trying next...")
-                continue
-            else:
-                duration = round(time.monotonic() - start, 4)
-                print(f"Mistral API Failure: {e}")
-                return {
-                    "provider": "Mistral AI",
-                    "model": "Mistral Large",
-                    "time": duration,
-                    "status": "API FAILURE",
-                    "response_preview": get_preview(str(e), 100),
-                    "full_response": str(e),
-                    "tokens_per_second": 0,
-                    "output_tokens": 0,
-                    "cost_per_request": None
-                }
-        except Exception as e:
-            duration = round(time.monotonic() - start, 4)
-            print(f"Mistral API Failure: {e}")
-            return {
-                "provider": "Mistral AI",
-                "model": "Mistral Large",
-                "time": duration,
-                "status": "API FAILURE",
-                "response_preview": get_preview(str(e), 100),
-                "full_response": str(e),
-                "tokens_per_second": 0,
-                "output_tokens": 0,
-                "cost_per_request": None
-            }
-    
-    return {
-        "provider": "Mistral AI",
-        "model": "Mistral Large",
-        "time": 99.9999,
-        "status": "API FAILURE",
-        "response_preview": "All model versions failed",
-        "full_response": "All model versions failed",
-        "tokens_per_second": 0,
-        "output_tokens": 0,
-        "cost_per_request": None
-    }
-
-def test_cohere(api_key):
-    if not api_key: 
-        return None
-    
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    
-    # FIXED: Try each model in order
-    for model in MODELS["cohere"]:
-        data = {
-            "model": model,
-            "message": PROMPT,
-            "max_tokens": MAX_TOKENS
+        .theme-toggle:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
         }
         
-        start = time.monotonic()
-        try:
-            def make_request():
-                return requests.post(
-                    "https://api.cohere.com/v1/chat",
-                    headers=headers, 
-                    json=data, 
-                    timeout=TIMEOUT
-                )
-            
-            response = make_request_with_retry(make_request)
-            response.raise_for_status()
-            duration = round(time.monotonic() - start, 4)
-            
-            response_data = response.json()
-            response_text = response_data.get('text', '')
-            char_count = len(response_text)
-            usage = response_data.get('meta', {}).get('billed_units', {})
-            input_tokens = usage.get('input_tokens', PROMPT_TOKENS)
-            output_tokens = usage.get('output_tokens', MAX_TOKENS)
-            tps = round(output_tokens / duration, 2) if duration > 0 else 0
-            cost = calculate_cost(model, input_tokens, output_tokens)
-            
-            print(f"  ✓ Successfully used model: {model}")
-            validate_character_count(char_count, model)
-            
-            return {
-                "provider": "Cohere",
-                "model": "Command R+",
-                "time": duration,
-                "status": "Online",
-                "response_preview": get_preview(response_text),
-                "full_response": response_text,
-                "tokens_per_second": tps,
-                "output_tokens": output_tokens,
-                "character_count": char_count,
-                "cost_per_request": cost
-            }
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                print(f"  ✗ Model {model} not found, trying next...")
-                continue
-            else:
-                duration = round(time.monotonic() - start, 4)
-                print(f"Cohere API Failure: {e}")
-                return {
-                    "provider": "Cohere",
-                    "model": "Command R+",
-                    "time": duration,
-                    "status": "API FAILURE",
-                    "response_preview": get_preview(str(e), 100),
-                    "full_response": str(e),
-                    "tokens_per_second": 0,
-                    "output_tokens": 0,
-                    "cost_per_request": None
-                }
-        except Exception as e:
-            duration = round(time.monotonic() - start, 4)
-            print(f"Cohere API Failure: {e}")
-            return {
-                "provider": "Cohere",
-                "model": "Command R+",
-                "time": duration,
-                "status": "API FAILURE",
-                "response_preview": get_preview(str(e), 100),
-                "full_response": str(e),
-                "tokens_per_second": 0,
-                "output_tokens": 0,
-                "cost_per_request": None
-            }
-    
-    return {
-        "provider": "Cohere",
-        "model": "Command R+",
-        "time": 99.9999,
-        "status": "API FAILURE",
-        "response_preview": "All model versions failed",
-        "full_response": "All model versions failed",
-        "tokens_per_second": 0,
-        "output_tokens": 0,
-        "cost_per_request": None
-    }
-
-def test_together(api_key):
-    if not api_key: 
-        return None
-    
-    headers = {
-        "Authorization": f"Bearer {api_key}",
-        "Content-Type": "application/json"
-    }
-    
-    # FIXED: Use the model string directly from MODELS
-    model = MODELS["together"][0]
-    data = {
-        "model": model,
-        "messages": [{"role": "user", "content": PROMPT}],
-        "max_tokens": MAX_TOKENS
-    }
-    
-    start = time.monotonic()
-    try:
-        def make_request():
-            return requests.post(
-                "https://api.together.xyz/v1/chat/completions",
-                headers=headers, 
-                json=data, 
-                timeout=TIMEOUT
-            )
+        h1 { font-size: 2.4em; margin: 0 0 8px 0; }
+        .tagline { font-size: 1.1em; color: #c0c0c0; margin: 0; }
         
-        response = make_request_with_retry(make_request)
-        response.raise_for_status()
-        duration = round(time.monotonic() - start, 4)
-        
-        response_data = response.json()
-        response_text = response_data.get('choices', [{}])[0].get('message', {}).get('content', '')
-        char_count = len(response_text)
-        usage = response_data.get('usage', {})
-        input_tokens = usage.get('prompt_tokens', PROMPT_TOKENS)
-        output_tokens = usage.get('completion_tokens', MAX_TOKENS)
-        tps = round(output_tokens / duration, 2) if duration > 0 else 0
-        cost = calculate_cost(model, input_tokens, output_tokens)
-        
-        print(f"  ✓ Successfully used model: {model}")
-        if char_count > MAX_CHARACTERS:
-            print(f"  ⚠️  Response exceeds character limit: {char_count}/{MAX_CHARACTERS} chars")
-        
-        return {
-            "provider": "Together AI",
-            "model": "Llama 3.1 70B",
-            "time": duration,
-            "status": "Online",
-            "response_preview": get_preview(response_text),
-            "full_response": response_text,
-            "tokens_per_second": tps,
-            "output_tokens": output_tokens,
-            "character_count": char_count,
-            "cost_per_request": cost
+        .controls-bar {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 15px 20px;
+            background: var(--bg-secondary);
+            border-radius: 8px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            align-items: center;
+            box-shadow: var(--shadow-sm);
         }
-    except Exception as e:
-        duration = round(time.monotonic() - start, 4)
-        print(f"Together AI API Failure: {e}")
-        return {
-            "provider": "Together AI",
-            "model": "Llama 3.1 70B",
-            "time": duration,
-            "status": "API FAILURE",
-            "response_preview": get_preview(str(e), 100),
-            "full_response": str(e),
-            "tokens_per_second": 0,
-            "output_tokens": 0,
-            "cost_per_request": None
+        
+        .sort-btn {
+            padding: 10px 20px;
+            border: 2px solid #2196f3;
+            background: var(--bg-secondary);
+            color: #2196f3;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.95em;
+        }
+        
+        .sort-btn.active {
+            background: #2196f3;
+            color: white;
+        }
+        
+        .sort-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .about-section { 
+            max-width: 1200px; 
+            margin: 20px auto; 
+            padding: 0 20px; 
+        }
+        
+        h2 { 
+            color: var(--text-primary);
+            font-size: 1.5em; 
+            margin-top: 30px; 
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 8px; 
+        }
+        
+        .data-source-indicator {
+            max-width: 1200px;
+            margin: 10px auto;
+            padding: 10px 20px;
+            text-align: center;
+            font-size: 0.9em;
+            border-radius: 4px;
+        }
+        
+        .data-live {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .data-fallback {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+        
+        .leaderboard-cards-wrapper {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px; 
+            justify-content: center;
+            align-items: flex-start; 
         }
 
-def update_json():
-    openai_key = os.getenv('OPENAI_API_KEY')
-    anthropic_key = os.getenv('ANTHROPIC_API_KEY')
-    google_key = os.getenv('GEMINI_API_KEY')
-    groq_key = os.getenv('GROQ_API_KEY')
-    mistral_key = os.getenv('MISTRAL_API_KEY')
-    cohere_key = os.getenv('COHERE_API_KEY')
-    together_key = os.getenv('TOGETHER_API_KEY')
-
-    results = []
-
-    tests = [
-        ("OpenAI", lambda: test_openai(openai_key)),
-        ("Anthropic", lambda: test_anthropic(anthropic_key)),
-        ("Google", lambda: test_google(google_key)),
-        ("Groq", lambda: test_groq(groq_key)),
-        ("Mistral AI", lambda: test_mistral(mistral_key)),
-        ("Cohere", lambda: test_cohere(cohere_key)),
-        ("Together AI", lambda: test_together(together_key))
-    ]
-
-    for name, test_func in tests:
-        print(f"Testing {name}...")
-        try:
-            res = test_func()
-            if res:
-                results.append(res)
-        except Exception as e:
-            print(f"  Skipped {name}: {e}")
-            continue
-
-    if results:
-        # Sort: Online providers first (by time), then failed providers (by name)
-        results.sort(key=lambda x: (x['status'] != 'Online', x['time'] if x['status'] == 'Online' else 999, x['provider']))
-    else:
-        print("WARNING: No successful API tests. Creating empty data file.")
-        results = []
-
-    history = load_history()
-    timestamp = datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S UTC')
-    history_entry = {
-        "timestamp": timestamp,
-        "results": {}
-    }
-    
-    for result in results:
-        provider = result['provider']
-        history_entry["results"][provider] = {
-            "time": result['time'],
-            "tps": result['tokens_per_second'],
-            "status": result['status'],
-            "cost": result['cost_per_request']
+        .model-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            width: 100%;
+            max-width: 360px;
+            box-shadow: var(--shadow-md);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.2s, box-shadow 0.2s;
         }
-    
-    history = update_history(history, history_entry)
+        
+        .model-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
 
-    final_data = {
-        "last_updated": timestamp,
-        "prompt": PROMPT,
-        "max_tokens": MAX_TOKENS,
-        "results": results,
-        "history": history
-    }
+        .card-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        
+        .rank-badge {
+            background-color: #666;
+            color: white;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 15px;
+            flex-shrink: 0;
+            min-width: 45px;
+            text-align: center;
+        }
+        
+        .rank-badge.rank-1 { 
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); 
+            color: #1c1c1c;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
+        }
+        .rank-badge.rank-2 { 
+            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%); 
+            color: #1c1c1c;
+            box-shadow: 0 2px 8px rgba(192, 192, 192, 0.4);
+        }
+        .rank-badge.rank-3 { 
+            background: linear-gradient(135deg, #cd7f32 0%, #e6a85c 100%); 
+            color: #1c1c1c;
+            box-shadow: 0 2px 8px rgba(205, 127, 50, 0.4);
+        }
+        
+        .provider-model-wrapper {
+            display: flex;
+            flex-direction: column;
+            line-height: 1.2;
+            overflow: hidden; 
+            flex: 1;
+        }
+        
+        .card-provider { font-size: 1.3em; font-weight: 700; }
+        .card-model { font-size: 0.9em; color: var(--text-secondary); word-break: break-word; }
 
-    with open('data.json', 'w') as f:
-        json.dump(final_data, f, indent=4)
-        print("\n--- SUCCESSFULLY WROTE data.json ---")
+        .stats-wrapper {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-bottom: 15px;
+            padding: 10px 0;
+        }
+        
+        .stat-group { text-align: center; }
+        
+        .stat-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            line-height: 1.1;
+        }
+        
+        .stat-label { 
+            font-size: 0.75em; 
+            color: var(--text-tertiary);
+            text-transform: uppercase; 
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+        
+        .speed-fast, .tps-fast { color: #2e7d32; }
+        .speed-medium, .tps-medium { color: #f57c00; }
+        .speed-slow, .tps-slow { color: #c62828; }
+        
+        .status-online { color: #2e7d32; }
+        .status-error { color: #c62828; }
+        
+        .cost-badge {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+        
+        .cost-free { background-color: #e8f5e9; color: #2e7d32; }
+        .cost-cheap { background-color: #fff3e0; color: #f57c00; }
+        .cost-expensive { background-color: #ffebee; color: #c62828; }
 
-if __name__ == "__main__":
-    try:
-        update_json()
-    except Exception as e:
-        print(f"FATAL ERROR: {e}")
-        import traceback
-        traceback.print_exc()
-        exit(1)
+        /* RESPONSE PREVIEW AT BOTTOM */
+        .response-preview-wrapper {
+            margin-top: 15px;
+            padding: 12px;
+            background: var(--bg-tertiary);
+            border-radius: 6px;
+            border-left: 3px solid #2196f3;
+            font-size: 0.85em;
+            line-height: 1.5;
+            color: var(--text-secondary);
+            max-height: 120px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+        
+        .response-preview-wrapper:hover {
+            box-shadow: var(--shadow-sm);
+            border-left-color: #1976d2;
+        }
+        
+        .response-preview-wrapper::after {
+            content: '👁️ Click to read full response';
+            position: absolute;
+            bottom: 5px;
+            right: 10px;
+            font-size: 0.7em;
+            color: #2196f3;
+            font-weight: 600;
+            background: var(--bg-tertiary);
+            padding: 2px 6px;
+            border-radius: 3px;
+        }
