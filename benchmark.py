@@ -39,15 +39,15 @@ END WITH A COMPLETE SENTENCE AND A PERIOD (.)
 
 THIS IS MANDATORY.""" 
 
-# EXTREME model-specific token limits based on actual observed behavior
+# FINAL EXTREME token limits based on latest test results
 MODEL_MAX_TOKENS = {
-    "groq": 400,        # Groq stops WAY too early - give it 400 tokens
-    "together": 250,    # Together runs WAY too long - cut it to 250
-    "openai": 250,      # OpenAI runs WAY too long - cut it to 250
-    "mistral": 280,     # Mistral is close - keep at 280
-    "anthropic": 300,   # Anthropic is perfect - keep at 300
-    "google": 300,      # Google is usually good
-    "cohere": 300       # Cohere standard
+    "groq": 500,        # Was 400, still too short (705 chars) → INCREASE to 500
+    "together": 250,    # Perfect at 1288 chars → KEEP
+    "openai": 240,      # Was 250, got 1335 (over) → DECREASE to 240
+    "mistral": 260,     # Was 280, got 1364 (over) → DECREASE to 260
+    "anthropic": 300,   # Perfect at 1109 chars → KEEP
+    "google": 300,      # Standard
+    "cohere": 300       # Standard
 }
 
 MAX_TOKENS = 300  # Default fallback
