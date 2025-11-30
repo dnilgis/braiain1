@@ -884,8 +884,10 @@
             
             if (showFreeOnly) {
                 filterBtn.classList.add('active');
+                filterBtn.innerHTML = '✨ FREE ONLY ✓';
             } else {
                 filterBtn.classList.remove('active');
+                filterBtn.innerHTML = '✨ FREE ONLY';
             }
             
             displayResults({...allResults, results: getSortedResults()}, dataSource);
