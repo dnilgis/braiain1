@@ -25,8 +25,17 @@ MODELS = {
     "together": ["meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo"]
 }
 
-PROMPT = "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030. STRICT REQUIREMENTS: (1) Your response must be EXACTLY 1000-1200 characters - no more, no less. (2) You MUST end with a complete sentence - no partial thoughts. (3) Count your characters as you write and plan accordingly. (4) If you reach 1150 characters, wrap up your final sentence by character 1200. This is a hard limit - responses outside 1000-1200 characters will be rejected." 
-MAX_TOKENS = 300
+PROMPT = """Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.
+
+CRITICAL REQUIREMENTS - YOU WILL BE REJECTED IF YOU VIOLATE THESE:
+1. Your response MUST be between 1000-1200 characters (COUNT AS YOU WRITE!)
+2. You MUST end with a complete sentence - no partial thoughts
+3. If you go over 1200 characters, you FAILED
+4. If you write under 1000 characters, you FAILED
+5. Plan your response to finish between characters 1000-1200
+
+This is MANDATORY. Responses outside 1000-1200 characters will be automatically rejected.""" 
+MAX_TOKENS = 280  # ~1120 chars at 4 chars/token (leaves room for variation)
 MAX_CHARACTERS = 1200  # Approximately 4 chars per token
 MIN_CHARACTERS = 1000  # Minimum to ensure substance 
 TIMEOUT = 30
@@ -91,6 +100,35 @@ def validate_character_count(char_count, model_name):
     else:
         print(f"  ✓ Character count within range: {char_count} chars")
         return True
+
+def make_api_request_with_validation(api_call_func, max_attempts=3):
+    """Make API request and retry if character count is out of range"""
+    for attempt in range(1, max_attempts + 1):
+        if attempt > 1:
+            print(f"  🔄 Retry attempt {attempt}/{max_attempts} due to character count...")
+        
+        result = api_call_func()
+        
+        # If it's an error result, return immediately (don't retry on API errors)
+        if result and result.get('status') == 'API FAILURE':
+            return result
+        
+        # Check character count
+        if result and 'character_count' in result:
+            char_count = result['character_count']
+            if MIN_CHARACTERS <= char_count <= MAX_CHARACTERS:
+                return result
+            else:
+                print(f"  ❌ Attempt {attempt} failed validation (got {char_count} chars)")
+                if attempt < max_attempts:
+                    print(f"  ⏳ Waiting 2 seconds before retry...")
+                    time.sleep(2)
+        else:
+            # No character_count in result, return as-is
+            return result
+    
+    print(f"  ❌ All {max_attempts} attempts failed character validation")
+    return result  # Return last attempt even if validation failed
 
 def make_request_with_retry(request_func, max_retries=MAX_RETRIES):
     for attempt in range(max_retries):
