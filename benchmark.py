@@ -325,84 +325,67 @@ def test_google(api_key):
     if not api_key: 
         return None
     
-    # Try each model in order until one works
+    # Try each model with both API versions
+    api_versions = ["v1", "v1beta"]
+    
     for model_name in MODELS["google"]:
-        url = f"https://generativelanguage.googleapis.com/v1beta/models/{model_name}:generateContent?key={api_key}"
-        data = {
-            "contents": [{"parts": [{"text": PROMPT}]}],
-            "generationConfig": {"maxOutputTokens": MAX_TOKENS}
-        }
-        
-        start = time.monotonic()
-        try:
-            def make_request():
-                return requests.post(
-                    url, 
-                    headers={"Content-Type": "application/json"}, 
-                    json=data, 
-                    timeout=TIMEOUT
-                )
+        for api_version in api_versions:
+            print(f"  Trying {api_version}/{model_name}...")
             
-            response = make_request_with_retry(make_request)
-            response.raise_for_status()
-            duration = round(time.monotonic() - start, 4)
-            
-            response_data = response.json()
-            response_text = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
-            char_count = len(response_text)
-            usage = response_data.get('usageMetadata', {})
-            input_tokens = usage.get('promptTokenCount', PROMPT_TOKENS)
-            output_tokens = usage.get('candidatesTokenCount', MAX_TOKENS)
-            tps = round(output_tokens / duration, 2) if duration > 0 else 0
-            cost = 0.0  # Google is free
-            
-            print(f"  ✓ Successfully used model: {model_name}")
-            validate_character_count(char_count, model_name)
-            
-            return {
-                "provider": "Google",
-                "model": "Gemini 1.5 Pro",
-                "time": duration,
-                "status": "Online",
-                "response_preview": get_preview(response_text),
-                "full_response": response_text,
-                "tokens_per_second": tps,
-                "output_tokens": output_tokens,
-                "character_count": char_count,
-                "cost_per_request": cost
+            url = f"https://generativelanguage.googleapis.com/{api_version}/models/{model_name}:generateContent?key={api_key}"
+            data = {
+                "contents": [{"parts": [{"text": PROMPT}]}],
+                "generationConfig": {"maxOutputTokens": MAX_TOKENS}
             }
-        except requests.exceptions.HTTPError as e:
-            if e.response.status_code == 404:
-                print(f"  ✗ Model {model_name} not found, trying next...")
-                continue  # Try next model
-            else:
+            
+            start = time.monotonic()
+            try:
+                def make_request():
+                    return requests.post(
+                        url, 
+                        headers={"Content-Type": "application/json"}, 
+                        json=data, 
+                        timeout=TIMEOUT
+                    )
+                
+                response = make_request_with_retry(make_request)
+                response.raise_for_status()
                 duration = round(time.monotonic() - start, 4)
-                print(f"Google API Failure: {e}")
+                
+                response_data = response.json()
+                response_text = response_data.get('candidates', [{}])[0].get('content', {}).get('parts', [{}])[0].get('text', '')
+                char_count = len(response_text)
+                usage = response_data.get('usageMetadata', {})
+                input_tokens = usage.get('promptTokenCount', PROMPT_TOKENS)
+                output_tokens = usage.get('candidatesTokenCount', MAX_TOKENS)
+                tps = round(output_tokens / duration, 2) if duration > 0 else 0
+                cost = 0.0  # Google is free
+                
+                print(f"  ✓ Successfully used model: {api_version}/{model_name}")
+                validate_character_count(char_count, model_name)
+                
                 return {
                     "provider": "Google",
                     "model": "Gemini 1.5 Pro",
                     "time": duration,
-                    "status": "API FAILURE",
-                    "response_preview": get_preview(str(e), 100),
-                    "full_response": str(e),
-                    "tokens_per_second": 0,
-                    "output_tokens": 0,
-                    "cost_per_request": None
+                    "status": "Online",
+                    "response_preview": get_preview(response_text),
+                    "full_response": response_text,
+                    "tokens_per_second": tps,
+                    "output_tokens": output_tokens,
+                    "character_count": char_count,
+                    "cost_per_request": cost
                 }
-        except Exception as e:
-            duration = round(time.monotonic() - start, 4)
-            print(f"Google API Failure: {e}")
-            return {
-                "provider": "Google",
-                "model": "Gemini 1.5 Pro",
-                "time": duration,
-                "status": "API FAILURE",
-                "response_preview": get_preview(str(e), 100),
-                "full_response": str(e),
-                "tokens_per_second": 0,
-                "output_tokens": 0,
-                "cost_per_request": None
-            }
+            except requests.exceptions.HTTPError as e:
+                if e.response.status_code == 404:
+                    print(f"  ✗ {api_version}/{model_name} not found")
+                    continue  # Try next api_version/model combination
+                else:
+                    print(f"  ✗ HTTP error for {api_version}/{model_name}: {e.response.status_code}")
+                    continue  # Try next combination
+            except Exception as e:
+                print(f"  ✗ Error with {api_version}/{model_name}: {str(e)[:100]}")
+                continue  # Try next combination
     
     # All models failed
     print(f"  ✗ All Google models failed")
