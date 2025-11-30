@@ -126,6 +126,29 @@
             box-shadow: var(--shadow-sm);
         }
         
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #4caf50;
+            background: var(--bg-secondary);
+            color: #4caf50;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            font-size: 0.95em;
+            margin-left: 10px;
+        }
+        
+        .filter-btn.active {
+            background: #4caf50;
+            color: white;
+        }
+        
+        .filter-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        
         .about-section { 
             max-width: 1200px; 
             margin: 20px auto; 
@@ -330,6 +353,32 @@
         
         .response-preview-bottom.expanded::after {
             content: '▲ Click to collapse';
+        }
+        
+        .copy-btn {
+            position: absolute;
+            bottom: 8px;
+            left: 10px;
+            padding: 5px 12px;
+            background: #2196f3;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.3s, background 0.2s;
+            z-index: 10;
+        }
+        
+        .response-preview-bottom.expanded .copy-btn {
+            opacity: 1;
+        }
+        
+        .copy-btn:hover {
+            background: #1976d2;
+            transform: scale(1.05);
         }
         
         /* MODAL OVERLAY */
@@ -547,6 +596,7 @@
         <button class="sort-btn active" onclick="sortResults('speed')">⚡ Speed</button>
         <button class="sort-btn" onclick="sortResults('tps')">🚀 TPS</button>
         <button class="sort-btn" onclick="sortResults('cost')">💰 Cost</button>
+        <button class="filter-btn" onclick="toggleFreeFilter()" id="filter-free">✨ FREE ONLY</button>
     </div>
 
     <!-- LEADERBOARD CARDS -->
@@ -776,6 +826,7 @@
             const responseHTML = isOnline && result.response_preview ? 
                 `<div class="response-preview-bottom" onclick="toggleResponse(this)">
                     ${escapeHtml(result.response_preview)}
+                    <button class="copy-btn" onclick="event.stopPropagation(); copyResponse('${escapeHtml(result.full_response).replace(/'/g, "\\'")}', this)">📋 Copy</button>
                 </div>` : '';
             
             card.innerHTML = `
@@ -825,8 +876,46 @@
             displayResults({...allResults, results: getSortedResults()}, dataSource);
         }
 
+        let showFreeOnly = false;
+        
+        function toggleFreeFilter() {
+            showFreeOnly = !showFreeOnly;
+            const filterBtn = document.getElementById('filter-free');
+            
+            if (showFreeOnly) {
+                filterBtn.classList.add('active');
+            } else {
+                filterBtn.classList.remove('active');
+            }
+            
+            displayResults({...allResults, results: getSortedResults()}, dataSource);
+        }
+
+        function copyResponse(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.innerHTML;
+                button.innerHTML = '✅ Copied!';
+                button.style.background = '#4caf50';
+                setTimeout(() => {
+                    button.innerHTML = originalText;
+                    button.style.background = '';
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy:', err);
+                button.innerHTML = '❌ Failed';
+                setTimeout(() => {
+                    button.innerHTML = '📋 Copy';
+                }, 2000);
+            });
+        }
+
         function getSortedResults() {
             let sorted = [...allResults.results];
+            
+            // Apply free filter if active
+            if (showFreeOnly) {
+                sorted = sorted.filter(result => result.cost_per_request === null || result.cost_per_request === 0);
+            }
             
             if (currentSort === 'speed') {
                 sorted.sort((a, b) => {
