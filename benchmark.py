@@ -29,13 +29,18 @@ PROMPT = """Write a complete, three-paragraph summary of the history of the inte
 
 CRITICAL REQUIREMENTS - YOU WILL BE REJECTED IF YOU VIOLATE THESE:
 1. Your response MUST be between 1000-1200 characters (COUNT AS YOU WRITE!)
-2. You MUST end with a complete sentence - no partial thoughts
-3. If you go over 1200 characters, you FAILED
-4. If you write under 1000 characters, you FAILED
-5. Plan your response to finish between characters 1000-1200
+2. You MUST end with a COMPLETE SENTENCE ending in a period (.)
+3. NO incomplete thoughts, NO trailing commas, NO cut-off sentences
+4. Write THREE complete paragraphs with proper endings
+5. If you go over 1200 characters, you FAILED
+6. If you write under 1000 characters, you FAILED
+7. Plan ahead: aim for 1100 characters and finish with a complete sentence
 
-This is MANDATORY. Responses outside 1000-1200 characters will be automatically rejected.""" 
-MAX_TOKENS = 280  # ~1120 chars at 4 chars/token (leaves room for variation)
+EXAMPLE OF GOOD ENDING: "...will transform global connectivity by 2030."
+EXAMPLE OF BAD ENDING: "...will transform global connectivity and"
+
+This is MANDATORY. Responses outside 1000-1200 characters OR with incomplete sentences will be rejected.""" 
+MAX_TOKENS = 320  # ~1200 chars at ~3.75 chars/token (allows for complete sentences)
 MAX_CHARACTERS = 1200  # Approximately 4 chars per token
 MIN_CHARACTERS = 1000  # Minimum to ensure substance 
 TIMEOUT = 30
