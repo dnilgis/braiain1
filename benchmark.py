@@ -73,12 +73,12 @@ PRICING = {
 
 PROMPT_TOKENS = 30
 
-def get_preview(text, max_chars=150):
+def get_preview(text, max_chars=None):
+    """Return text for preview (CSS handles overflow, no truncation needed)"""
     if not text:
         return ""
+    # Just clean up whitespace, don't truncate
     clean_text = text.replace('\n', ' ').replace('\t', ' ').strip()
-    if len(clean_text) > max_chars:
-        return clean_text[:max_chars] + "..."
     return clean_text
 
 def calculate_cost(model_name, input_tokens, output_tokens):
