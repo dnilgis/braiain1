@@ -29,36 +29,25 @@ PROMPT = """Write a complete, three-paragraph summary of the history of the inte
 
 ABSOLUTE REQUIREMENTS - YOUR RESPONSE WILL BE REJECTED IF YOU VIOLATE THESE:
 
-YOU MUST GENERATE EXACTLY 1000-1200 CHARACTERS. NOT 300. NOT 1500. EXACTLY 1000-1200.
+YOU MUST WRITE EXACTLY 1000-1200 CHARACTERS. COUNT EVERY SINGLE CHARACTER.
 
-1. COUNT every character as you write
-2. At 1150 characters, finish your current sentence by 1200
-3. Response MUST end with a complete sentence ending with a period (.)
-4. Write EXACTLY THREE complete paragraphs
+WRITE EXACTLY THREE PARAGRAPHS. STOP WHEN YOU REACH 1200 CHARACTERS.
 
-DO NOT STOP EARLY. DO NOT WRITE TOO MUCH. TARGET: 1100 CHARACTERS.
+TARGET LENGTH: 1100 CHARACTERS
 
-EXAMPLE GOOD ENDING: "...enabling seamless global communication by 2030."
-EXAMPLE BAD ENDING: "...enabling seamless global" (incomplete)
+END WITH A COMPLETE SENTENCE AND A PERIOD (.)
 
-THIS IS MANDATORY. RESPONSES UNDER 1000 OR OVER 1200 CHARACTERS ARE FAILURES.""" 
+THIS IS MANDATORY.""" 
 
-# Model-specific token limits based on observed behavior
+# EXTREME model-specific token limits based on actual observed behavior
 MODEL_MAX_TOKENS = {
-    # Groq tends to stop early - give it more tokens
-    "groq": 350,
-    # Together tends to run long - limit it more
-    "together": 280,
-    # OpenAI tends to run long - limit it
-    "openai": 280,
-    # Mistral tends to run long - limit it
-    "mistral": 280,
-    # Anthropic is good - use standard
-    "anthropic": 300,
-    # Google is usually good - use standard
-    "google": 300,
-    # Cohere - use standard
-    "cohere": 300
+    "groq": 400,        # Groq stops WAY too early - give it 400 tokens
+    "together": 250,    # Together runs WAY too long - cut it to 250
+    "openai": 250,      # OpenAI runs WAY too long - cut it to 250
+    "mistral": 280,     # Mistral is close - keep at 280
+    "anthropic": 300,   # Anthropic is perfect - keep at 300
+    "google": 300,      # Google is usually good
+    "cohere": 300       # Cohere standard
 }
 
 MAX_TOKENS = 300  # Default fallback
