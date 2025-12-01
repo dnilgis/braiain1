@@ -3,18 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Braiain AI Speed Index | Daily LLM Benchmarks</title>
-    <meta name="description" content="Real-time AI model speed benchmarks. Compare OpenAI, Anthropic, Google Gemini, Groq, and more API latency performance updated daily.">
-    
-    <!-- SEO Meta Tags -->
-    <meta name="keywords" content="AI benchmarks, LLM speed test, OpenAI GPT-4, Claude API, Gemini speed, Groq performance, AI API comparison">
-    <meta name="author" content="Braiain AI Speed Index">
-    <meta name="robots" content="index, follow">
-    
-    <!-- Open Graph -->
-    <meta property="og:title" content="Braiain AI Speed Index - Daily LLM Benchmarks">
-    <meta property="og:description" content="Real-time AI model speed benchmarks. Compare response times, tokens-per-second, and costs across major LLM providers.">
-    <meta property="og:type" content="website">
+    <title>BRAIAIN SPEED INDEX // SYSTEM DIAGNOSTICS v2.1</title>
+    <meta name="description" content="Real-time AI model speed benchmarks. Terminal-style monitoring of OpenAI, Anthropic, Google Gemini, Groq performance metrics.">
     
     <!-- Google Analytics GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-1Y5SESHWEE"></script>
@@ -25,601 +15,714 @@
       gtag('config', 'G-1Y5SESHWEE');
     </script>
     
-    <!-- Chart.js - SINGLE IMPORT -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700;900&display=swap');
+        
         :root {
-            --bg-primary: #f5f5f7;
-            --bg-secondary: #ffffff;
-            --bg-tertiary: #f9f9f9;
-            --text-primary: #1c1c1c;
-            --text-secondary: #555;
-            --text-tertiary: #777;
-            --border-color: #e0e0e0;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.05);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.1);
-            --shadow-lg: 0 6px 16px rgba(0,0,0,0.15);
-            --accent-blue: #2196f3;
-            --accent-green: #4caf50;
-            --accent-red: #f44336;
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #0d1117;
+            --bg-terminal: #000000;
+            --text-primary: #00ff41;
+            --text-secondary: #00cc33;
+            --text-dim: #006622;
+            --border-color: #00ff41;
+            --glow-color: #00ff41;
+            --accent-red: #ff0055;
+            --accent-cyan: #00ffff;
+            --accent-amber: #ffaa00;
         }
         
-        [data-theme="dark"] {
-            --bg-primary: #1a1a1a;
-            --bg-secondary: #2d2d2d;
-            --bg-tertiary: #252525;
-            --text-primary: #e0e0e0;
-            --text-secondary: #b0b0b0;
-            --text-tertiary: #888;
-            --border-color: #404040;
-            --shadow-sm: 0 2px 8px rgba(0,0,0,0.3);
-            --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
-            --shadow-lg: 0 6px 16px rgba(0,0,0,0.5);
+        [data-theme="amber"] {
+            --text-primary: #ffaa00;
+            --text-secondary: #ff8800;
+            --text-dim: #cc6600;
+            --border-color: #ffaa00;
+            --glow-color: #ffaa00;
         }
         
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        [data-theme="cyan"] {
+            --text-primary: #00ffff;
+            --text-secondary: #00cccc;
+            --text-dim: #006666;
+            --border-color: #00ffff;
+            --glow-color: #00ffff;
+        }
+        
+        [data-theme="red"] {
+            --text-primary: #ff0055;
+            --text-secondary: #cc0044;
+            --text-dim: #660022;
+            --border-color: #ff0055;
+            --glow-color: #ff0055;
+        }
+        
+        * { 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Share Tech Mono', 'Courier New', monospace;
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            line-height: 1.6;
-            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.5;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* CRT SCANLINE EFFECT */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.15),
+                rgba(0, 0, 0, 0.15) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            pointer-events: none;
+            z-index: 9999;
+            animation: scanline 8s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(10px); }
+        }
+        
+        /* SCREEN FLICKER */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(18, 16, 16, 0.1);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 9998;
+            animation: flicker 0.15s infinite;
+        }
+        
+        @keyframes flicker {
+            0% { opacity: 0.27861; }
+            5% { opacity: 0.34769; }
+            10% { opacity: 0.23604; }
+            15% { opacity: 0.90626; }
+            20% { opacity: 0.18128; }
+            25% { opacity: 0.83891; }
+            30% { opacity: 0.65583; }
+            35% { opacity: 0.67807; }
+            40% { opacity: 0.26559; }
+            45% { opacity: 0.84693; }
+            50% { opacity: 0.96019; }
+            55% { opacity: 0.08594; }
+            60% { opacity: 0.20313; }
+            65% { opacity: 0.71988; }
+            70% { opacity: 0.53455; }
+            75% { opacity: 0.37288; }
+            80% { opacity: 0.71428; }
+            85% { opacity: 0.70419; }
+            90% { opacity: 0.7003; }
+            95% { opacity: 0.36108; }
+            100% { opacity: 0.24387; }
         }
         
         header {
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: white;
-            text-align: center;
-            padding: 40px 20px 30px;
-            margin-bottom: 30px;
+            background: linear-gradient(180deg, #0d1117 0%, #000000 100%);
+            border-bottom: 2px solid var(--border-color);
+            padding: 30px 20px;
             position: relative;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            box-shadow: 0 0 20px var(--glow-color);
         }
         
-        .theme-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255,255,255,0.15);
-            border: 1px solid rgba(255,255,255,0.3);
-            padding: 10px 18px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1.2em;
-            transition: all 0.3s;
-            backdrop-filter: blur(10px);
+        .terminal-header {
+            max-width: 1400px;
+            margin: 0 auto;
         }
         
-        .theme-toggle:hover {
-            background: rgba(255,255,255,0.25);
-            transform: scale(1.05);
+        .terminal-prompt {
+            font-family: 'Share Tech Mono', monospace;
+            color: var(--text-dim);
+            font-size: 0.9em;
+            margin-bottom: 10px;
         }
         
-        h1 { 
-            font-size: 2.8em; 
-            margin: 0 0 12px 0;
-            font-weight: 700;
-            letter-spacing: -0.5px;
+        .terminal-prompt::before {
+            content: '> ';
+            color: var(--text-primary);
         }
         
-        .tagline { 
-            font-size: 1.2em; 
-            color: rgba(255,255,255,0.9); 
-            margin: 0 0 20px 0;
-            font-weight: 300;
+        h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.5em;
+            font-weight: 900;
+            color: var(--text-primary);
+            text-shadow: 
+                0 0 10px var(--glow-color),
+                0 0 20px var(--glow-color),
+                0 0 30px var(--glow-color);
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+            animation: glitch 3s infinite;
         }
         
-        .header-stats {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 20px;
-            flex-wrap: wrap;
+        @keyframes glitch {
+            0%, 90%, 100% { transform: translate(0); }
+            92% { transform: translate(-2px, 1px); }
+            94% { transform: translate(2px, -1px); }
+            96% { transform: translate(-1px, 2px); }
+            98% { transform: translate(1px, -2px); }
         }
         
-        .header-stat {
+        .ascii-art {
+            font-size: 0.6em;
+            color: var(--text-dim);
+            line-height: 1.2;
+            white-space: pre;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+        
+        .system-status {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 0;
+        }
+        
+        .status-item {
             text-align: center;
+            padding: 10px;
+            border: 1px solid var(--text-dim);
+            position: relative;
         }
         
-        .header-stat-value {
-            font-size: 2em;
+        .status-item::before {
+            content: '[';
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-primary);
+        }
+        
+        .status-item::after {
+            content: ']';
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-primary);
+        }
+        
+        .status-value {
+            font-size: 1.8em;
             font-weight: 700;
-            display: block;
+            color: var(--text-primary);
+            text-shadow: 0 0 5px var(--glow-color);
+            font-family: 'Orbitron', monospace;
         }
         
-        .header-stat-label {
-            font-size: 0.85em;
-            opacity: 0.9;
+        .status-label {
+            font-size: 0.75em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 5px;
+        }
+        
+        .controls-panel {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+        
+        .control-group {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.1);
+        }
+        
+        .control-label {
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+            font-size: 0.9em;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
         
-        .controls-bar {
-            max-width: 1200px;
-            margin: 20px auto;
-            padding: 15px 20px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
+        .control-label::before {
+            content: '// ';
+            color: var(--text-dim);
+        }
+        
+        .btn-group {
             display: flex;
-            gap: 15px;
-            justify-content: center;
-            align-items: center;
-            box-shadow: var(--shadow-sm);
+            gap: 10px;
             flex-wrap: wrap;
         }
         
-        .sort-btn {
+        .terminal-btn {
             padding: 12px 24px;
-            border: 2px solid var(--accent-blue);
-            background: var(--bg-secondary);
-            color: var(--accent-blue);
-            border-radius: 8px;
+            background: var(--bg-terminal);
+            color: var(--text-primary);
+            border: 1px solid var(--border-color);
+            font-family: 'Share Tech Mono', monospace;
             cursor: pointer;
-            font-weight: 600;
             transition: all 0.2s;
-            font-size: 0.95em;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85em;
         }
         
-        .sort-btn.active {
-            background: var(--accent-blue);
-            color: white;
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        .terminal-btn::before {
+            content: '[ ';
         }
         
-        .sort-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
+        .terminal-btn::after {
+            content: ' ]';
         }
         
-        .refresh-btn {
-            padding: 12px 24px;
-            border: 2px solid var(--accent-green);
-            background: var(--bg-secondary);
-            color: var(--accent-green);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-            font-size: 0.95em;
-            margin-left: 10px;
-        }
-        
-        .refresh-btn:hover {
-            background: var(--accent-green);
-            color: white;
+        .terminal-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-terminal);
+            box-shadow: 0 0 15px var(--glow-color);
             transform: translateY(-2px);
         }
         
-        .about-section { 
-            max-width: 1200px; 
-            margin: 30px auto; 
-            padding: 0 20px; 
+        .terminal-btn.active {
+            background: var(--text-primary);
+            color: var(--bg-terminal);
+            box-shadow: 0 0 20px var(--glow-color);
         }
         
-        .intro-box {
-            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+        .theme-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        
+        .theme-btn {
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--border-color);
+            cursor: pointer;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .theme-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        
+        .theme-btn.active::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--bg-terminal);
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .theme-green { background: #00ff41; }
+        .theme-amber { background: #ffaa00; }
+        .theme-cyan { background: #00ffff; }
+        .theme-red { background: #ff0055; }
+        
+        /* CARD VIEW */
+        .results-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 20px;
+        }
+        
+        .terminal-card {
+            background: var(--bg-terminal);
+            border: 2px solid var(--border-color);
+            padding: 0;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+            transition: all 0.3s;
+        }
+        
+        .terminal-card:hover {
+            box-shadow: 0 0 30px var(--glow-color);
+            transform: translateY(-5px);
+        }
+        
+        .card-header-bar {
+            background: var(--text-primary);
+            color: var(--bg-terminal);
+            padding: 8px 15px;
+            font-size: 0.8em;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: bold;
+        }
+        
+        .card-body {
+            padding: 20px;
+        }
+        
+        .rank-display {
+            font-family: 'Orbitron', monospace;
+            font-size: 3em;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--glow-color);
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .rank-display.rank-1 {
+            animation: pulse-glow 2s infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { 
+                text-shadow: 0 0 10px var(--glow-color),
+                             0 0 20px var(--glow-color);
+            }
+            50% { 
+                text-shadow: 0 0 20px var(--glow-color),
+                             0 0 40px var(--glow-color),
+                             0 0 60px var(--glow-color);
+            }
+        }
+        
+        .provider-name {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5em;
+            color: var(--text-primary);
+            margin-bottom: 5px;
+            text-align: center;
+        }
+        
+        .model-name {
+            font-size: 0.85em;
+            color: var(--text-secondary);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        
+        .metrics-display {
+            border: 1px solid var(--text-dim);
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .metric-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px dotted var(--text-dim);
+        }
+        
+        .metric-row:last-child {
+            border-bottom: none;
+        }
+        
+        .metric-label {
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            font-size: 0.8em;
+            letter-spacing: 1px;
+        }
+        
+        .metric-value {
+            color: var(--text-primary);
+            font-weight: bold;
+            text-shadow: 0 0 5px var(--glow-color);
+        }
+        
+        .metric-value.status-online {
+            color: var(--text-primary);
+        }
+        
+        .metric-value.status-error {
+            color: var(--accent-red);
+        }
+        
+        .terminal-response {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid var(--text-dim);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.8em;
+            max-height: 100px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: max-height 0.3s;
+            position: relative;
+        }
+        
+        .terminal-response.expanded {
+            max-height: 1000px;
+        }
+        
+        .terminal-response::before {
+            content: '>>> OUTPUT';
+            display: block;
+            color: var(--text-dim);
+            margin-bottom: 10px;
+            font-size: 0.9em;
+        }
+        
+        .action-link {
+            display: block;
+            text-align: center;
+            padding: 12px;
+            margin-top: 15px;
+            background: var(--bg-terminal);
+            color: var(--text-primary);
+            text-decoration: none;
+            border: 1px solid var(--border-color);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        
+        .action-link:hover {
+            background: var(--text-primary);
+            color: var(--bg-terminal);
+            box-shadow: 0 0 15px var(--glow-color);
+        }
+        
+        /* LINEAR TABLE VIEW */
+        .results-table-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            overflow-x: auto;
+        }
+        
+        .terminal-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: var(--bg-terminal);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+        
+        .terminal-table thead {
+            background: var(--text-primary);
+            color: var(--bg-terminal);
+        }
+        
+        .terminal-table th {
+            padding: 15px;
+            text-align: left;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.85em;
+            border: 1px solid var(--bg-terminal);
+        }
+        
+        .terminal-table td {
+            padding: 15px;
+            border: 1px solid var(--text-dim);
+            color: var(--text-secondary);
+        }
+        
+        .terminal-table tbody tr {
+            transition: all 0.2s;
+        }
+        
+        .terminal-table tbody tr:hover {
+            background: rgba(0, 255, 65, 0.1);
+            box-shadow: inset 0 0 10px var(--glow-color);
+        }
+        
+        .table-rank {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5em;
+            color: var(--text-primary);
+            text-shadow: 0 0 5px var(--glow-color);
+            font-weight: bold;
+        }
+        
+        .table-provider {
+            font-weight: bold;
+            color: var(--text-primary);
+        }
+        
+        .table-metric {
+            color: var(--text-primary);
+            font-weight: bold;
+        }
+        
+        /* CHART SECTION */
+        .chart-terminal {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .terminal-window {
+            background: var(--bg-terminal);
+            border: 2px solid var(--border-color);
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2);
+        }
+        
+        .window-title-bar {
+            background: var(--text-primary);
+            color: var(--bg-terminal);
+            padding: 10px 15px;
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .window-controls {
+            display: flex;
+            gap: 5px;
+        }
+        
+        .window-btn {
+            width: 12px;
+            height: 12px;
+            border: 1px solid var(--bg-terminal);
+            background: var(--bg-terminal);
+        }
+        
+        .window-content {
             padding: 30px;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent-blue);
-            box-shadow: var(--shadow-md);
-            margin-bottom: 30px;
         }
         
-        .intro-box p {
-            font-size: 1.1em;
+        .chart-container {
+            height: 400px;
+            position: relative;
+        }
+        
+        /* LOADING */
+        .loading-terminal {
+            text-align: center;
+            padding: 60px 20px;
+        }
+        
+        .loading-text {
+            font-size: 1.2em;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+        }
+        
+        .loading-text::after {
+            content: '';
+            animation: loading-dots 1.5s infinite;
+        }
+        
+        @keyframes loading-dots {
+            0%, 20% { content: '.'; }
+            40% { content: '..'; }
+            60%, 100% { content: '...'; }
+        }
+        
+        .loading-bar {
+            width: 300px;
+            height: 20px;
+            border: 2px solid var(--border-color);
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loading-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: var(--text-primary);
+            animation: loading-scan 2s linear infinite;
+        }
+        
+        @keyframes loading-scan {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        
+        /* INFO SECTION */
+        .info-terminal {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .info-block {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        
+        .info-block h2 {
+            font-family: 'Orbitron', monospace;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+            text-shadow: 0 0 10px var(--glow-color);
+        }
+        
+        .info-block h2::before {
+            content: '>> ';
+            color: var(--text-dim);
+        }
+        
+        .info-block p {
+            color: var(--text-secondary);
             line-height: 1.8;
             margin-bottom: 15px;
         }
         
-        .intro-box p:last-child {
-            margin-bottom: 0;
-        }
-        
-        .highlight {
-            color: var(--accent-blue);
-            font-weight: 600;
-        }
-        
-        h2 { 
-            color: var(--text-primary);
-            font-size: 1.8em; 
-            margin-top: 40px;
-            margin-bottom: 20px;
-            border-bottom: 3px solid var(--accent-blue);
-            padding-bottom: 12px;
-            font-weight: 700;
-        }
-        
-        h3 {
-            color: var(--text-primary);
-            font-size: 1.3em;
-            margin-top: 25px;
-            margin-bottom: 12px;
-            font-weight: 600;
-        }
-        
-        .data-source-indicator {
-            max-width: 1200px;
-            margin: 10px auto;
-            padding: 15px 20px;
-            text-align: center;
-            font-size: 0.95em;
-            border-radius: 8px;
-            font-weight: 500;
-        }
-        
-        .data-live {
-            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
-            color: #155724;
-            border: 2px solid #b1dfbb;
-        }
-        
-        .data-fallback {
-            background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
-            color: #856404;
-            border: 2px solid #ffd93d;
-        }
-        
-        .leaderboard-cards-wrapper {
-            max-width: 1200px;
-            margin: 40px auto;
-            padding: 0 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 24px; 
-            justify-content: center;
-            align-items: flex-start; 
-        }
-
-        .model-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 24px;
-            width: 100%;
-            max-width: 360px;
-            box-shadow: var(--shadow-md);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.3s, box-shadow 0.3s;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .model-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent-blue), var(--accent-green));
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-        
-        .model-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .model-card:hover::before {
-            opacity: 1;
-        }
-
-        .card-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 18px;
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 12px;
-        }
-        
-        .rank-badge {
-            background-color: #666;
-            color: white;
-            padding: 8px 14px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 1.3em;
-            margin-right: 15px;
-            flex-shrink: 0;
-            min-width: 50px;
-            text-align: center;
-        }
-        
-        .rank-badge.rank-1 { 
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%); 
-            color: #1c1c1c;
-            box-shadow: 0 4px 12px rgba(255, 215, 0, 0.5);
-            animation: pulse 2s ease-in-out infinite;
-        }
-        
-        .rank-badge.rank-2 { 
-            background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%); 
-            color: #1c1c1c;
-            box-shadow: 0 4px 12px rgba(192, 192, 192, 0.5);
-        }
-        
-        .rank-badge.rank-3 { 
-            background: linear-gradient(135deg, #cd7f32 0%, #e6a85c 100%); 
-            color: #1c1c1c;
-            box-shadow: 0 4px 12px rgba(205, 127, 50, 0.5);
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        .provider-model-wrapper {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.3;
-            overflow: hidden; 
-            flex: 1;
-        }
-        
-        .card-provider { 
-            font-size: 1.4em; 
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        
-        .card-model { 
-            font-size: 0.9em; 
-            color: var(--text-secondary); 
-            word-break: break-word; 
-        }
-
-        .stats-wrapper {
+        .info-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-bottom: 18px;
-            padding: 12px 0;
-        }
-        
-        .stat-group { 
-            text-align: center;
-            padding: 8px;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            transition: transform 0.2s;
-        }
-        
-        .stat-group:hover {
-            transform: scale(1.05);
-        }
-        
-        .stat-value {
-            font-size: 1.4em;
-            font-weight: bold;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            line-height: 1.1;
-        }
-        
-        .stat-label { 
-            font-size: 0.75em; 
-            color: var(--text-tertiary);
-            text-transform: uppercase; 
-            margin-bottom: 6px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        
-        .speed-fast, .tps-fast { color: #2e7d32; }
-        .speed-medium, .tps-medium { color: #f57c00; }
-        .speed-slow, .tps-slow { color: #c62828; }
-        
-        .status-online { color: #2e7d32; }
-        .status-error { color: #c62828; }
-        
-        .cost-badge {
-            display: inline-block;
-            padding: 6px 12px;
-            border-radius: 6px;
-            font-size: 0.9em;
-            font-weight: 600;
-            margin-top: 8px;
-        }
-        
-        .cost-free { 
-            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
-            color: #2e7d32;
-            border: 1px solid #a5d6a7;
-        }
-        
-        .cost-cheap { 
-            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
-            color: #f57c00;
-            border: 1px solid #ffcc80;
-        }
-        
-        .cost-expensive { 
-            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
-            color: #c62828;
-            border: 1px solid #ef9a9a;
-        }
-
-        .response-preview-bottom {
-            margin: 18px 0 0 0;
-            padding: 14px;
-            padding-bottom: 40px;
-            background: var(--bg-tertiary);
-            border-radius: 8px;
-            border-left: 4px solid var(--accent-blue);
-            font-size: 0.85em;
-            line-height: 1.6;
-            color: var(--text-secondary);
-            max-height: 120px;
-            overflow: hidden;
-            position: relative;
-            cursor: pointer;
-            transition: max-height 0.4s ease, box-shadow 0.3s;
-            word-wrap: break-word;
-            white-space: pre-wrap;
-        }
-        
-        .response-preview-bottom.expanded {
-            max-height: 2000px;
-            cursor: default;
-        }
-        
-        .response-preview-bottom:hover {
-            box-shadow: var(--shadow-sm);
-            border-left-color: #1976d2;
-        }
-        
-        .response-preview-bottom::after {
-            content: '▼ Click to expand';
-            position: absolute;
-            bottom: 8px;
-            right: 12px;
-            font-size: 0.75em;
-            color: var(--accent-blue);
-            font-weight: 600;
-            background: var(--bg-tertiary);
-            padding: 4px 10px;
-            border-radius: 4px;
-        }
-        
-        .response-preview-bottom.expanded::after {
-            content: '▲ Click to collapse';
-        }
-        
-        .copy-btn {
-            position: absolute;
-            bottom: 10px;
-            left: 12px;
-            padding: 6px 14px;
-            background: var(--accent-blue);
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 0.8em;
-            font-weight: 600;
-            opacity: 0;
-            transition: opacity 0.3s, background 0.2s, transform 0.2s;
-            z-index: 10;
-        }
-        
-        .response-preview-bottom.expanded .copy-btn {
-            opacity: 1;
-        }
-        
-        .copy-btn:hover {
-            background: #1976d2;
-            transform: scale(1.05);
-        }
-        
-        .char-count-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.75em;
-            font-weight: 600;
-            margin-left: 8px;
-        }
-        
-        .char-ok { background: #e8f5e9; color: #2e7d32; }
-        .char-warn { background: #fff3cd; color: #856404; }
-        .char-over { background: #ffebee; color: #c62828; }
-        .char-short { background: #e3f2fd; color: #1976d2; }
-
-        .badge-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin: 12px 0;
-        }
-        
-        .badge {
-            padding: 5px 12px;
-            border-radius: 14px;
-            font-size: 0.75em;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .badge-fastest { 
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #1c1c1c; 
-        }
-        
-        .badge-best-value { 
-            background: linear-gradient(135deg, #4caf50 0%, #66bb6a 100%);
-            color: white; 
-        }
-        
-        .badge-highest-tps { 
-            background: linear-gradient(135deg, #2196f3 0%, #42a5f5 100%);
-            color: white; 
-        }
-
-        .affiliate-btn {
-            background: linear-gradient(135deg, var(--accent-blue) 0%, #1976d2 100%);
-            color: white;
-            padding: 14px 22px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 0.95em;
-            transition: all 0.3s;
-            text-align: center;
-            margin-top: 12px;
-            display: block;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-        }
-        
-        .affiliate-btn:hover { 
-            background: linear-gradient(135deg, #1976d2 0%, #1565c0 100%);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 16px rgba(33, 150, 243, 0.4);
-        }
-
-        #last-updated-wrapper { 
-            text-align: center; 
-            margin: 40px auto; 
-            font-size: 1em; 
-            color: var(--text-tertiary);
-            padding: 0 20px;
-        }
-        
-        .methodology-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
-            margin: 25px 0;
+            margin: 20px 0;
         }
         
-        .methodology-card {
-            background: var(--bg-secondary);
-            padding: 24px;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.2s, box-shadow 0.2s;
+        .info-card {
+            border: 1px solid var(--text-dim);
+            padding: 20px;
+            background: rgba(0, 255, 65, 0.03);
         }
         
-        .methodology-card:hover {
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-md);
+        .info-card h3 {
+            color: var(--text-primary);
+            margin-bottom: 10px;
+            font-size: 1.1em;
         }
         
-        .methodology-card h3 {
-            margin-top: 0;
-            color: var(--accent-blue);
-            font-size: 1.2em;
+        .info-card h3::before {
+            content: '> ';
         }
         
         .info-list {
@@ -628,480 +731,304 @@
         }
         
         .info-list li {
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 8px 0;
+            color: var(--text-secondary);
+            border-bottom: 1px dotted var(--text-dim);
+        }
+        
+        .info-list li::before {
+            content: '- ';
+            color: var(--text-primary);
         }
         
         .info-list li:last-child {
             border-bottom: none;
         }
         
-        .info-label {
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-        
-        .info-value {
-            color: var(--text-primary);
-            font-weight: 500;
-        }
-        
-        .adsense-container {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 25px;
+        /* FOOTER */
+        footer {
+            background: var(--bg-terminal);
+            border-top: 2px solid var(--border-color);
+            padding: 40px 20px;
+            margin-top: 60px;
             text-align: center;
-            background: var(--bg-tertiary);
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
         }
         
-        .adsense-label {
-            font-size: 0.75em;
-            color: #999;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
+        .footer-ascii {
+            font-size: 0.7em;
+            color: var(--text-dim);
+            margin-bottom: 20px;
+            white-space: pre;
+            font-family: monospace;
         }
         
-        .chart-section {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 30px;
-            background: var(--bg-secondary);
-            border-radius: 12px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border-color);
+        footer p {
+            color: var(--text-secondary);
+            margin: 10px 0;
         }
         
-        .chart-container {
-            position: relative;
-            height: 400px;
-            margin-top: 25px;
+        footer a {
+            color: var(--text-primary);
+            text-decoration: none;
+            text-shadow: 0 0 5px var(--glow-color);
         }
         
-        .chart-controls {
-            display: flex;
-            gap: 12px;
-            justify-content: center;
-            margin-top: 25px;
-            flex-wrap: wrap;
+        footer a:hover {
+            text-decoration: underline;
         }
         
-        .chart-btn {
-            padding: 10px 20px;
-            border: 2px solid var(--accent-blue);
-            background: var(--bg-secondary);
-            color: var(--accent-blue);
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
-        
-        .chart-btn.active {
-            background: var(--accent-blue);
-            color: white;
-            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
-        }
-        
-        .chart-btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .faq-section {
-            max-width: 1200px;
-            margin: 50px auto;
-            padding: 0 20px;
-        }
-        
-        .faq-item {
-            background: var(--bg-secondary);
-            margin-bottom: 15px;
-            border-radius: 10px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: var(--shadow-sm);
-        }
-        
-        .faq-question {
-            padding: 20px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 1.1em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.2s;
-        }
-        
-        .faq-question:hover {
-            background: var(--bg-tertiary);
-        }
-        
-        .faq-answer {
-            padding: 0 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease, padding 0.3s ease;
-        }
-        
-        .faq-item.active .faq-answer {
-            padding: 20px;
-            max-height: 500px;
-        }
-        
-        .faq-toggle {
-            font-size: 1.2em;
-            transition: transform 0.3s;
-        }
-        
-        .faq-item.active .faq-toggle {
-            transform: rotate(180deg);
-        }
-        
-        #site-footer { 
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
-            color: rgba(255,255,255,0.9); 
-            padding: 40px 20px; 
-            text-align: center; 
-            font-size: 0.9em; 
-            margin-top: 80px; 
-        }
-        
-        #site-footer a { 
-            color: #64b5f6; 
-            text-decoration: none; 
-            font-weight: bold; 
-        }
-        
-        #site-footer a:hover { 
-            text-decoration: underline; 
-            color: #90caf9;
-        }
-        
-        .legal-text { 
-            margin-top: 20px; 
-            font-size: 0.85em; 
-            color: rgba(255,255,255,0.7); 
-            line-height: 1.6; 
-        }
-
-        .loading-container { 
-            width: 100%; 
-            text-align: center; 
-            padding: 60px 20px; 
-        }
-        
-        .loading-spinner {
-            border: 5px solid var(--border-color);
-            border-top: 5px solid var(--accent-blue);
-            border-radius: 50%;
-            width: 60px;
-            height: 60px;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 25px;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
+        /* MOBILE */
         @media (max-width: 768px) {
-            h1 { font-size: 2em; }
-            .tagline { font-size: 1em; }
-            .model-card { max-width: 100%; }
-            .stats-wrapper { grid-template-columns: repeat(2, 1fr); }
-            .stat-group:last-child { grid-column: 1 / -1; }
-            .chart-container { height: 300px; }
-            .controls-bar { padding: 15px; }
-            .theme-toggle { 
-                position: static; 
-                margin: 15px auto; 
-                display: block; 
-                width: fit-content; 
+            h1 { font-size: 1.5em; }
+            .results-grid {
+                grid-template-columns: 1fr;
             }
-            header { padding: 25px 15px; }
-            .header-stats { gap: 20px; }
-            .methodology-grid { grid-template-columns: 1fr; }
+            .system-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .btn-group {
+                flex-direction: column;
+            }
+            .terminal-table {
+                font-size: 0.85em;
+            }
+            .chart-container {
+                height: 300px;
+            }
+        }
+        
+        /* UTILITY */
+        .hidden {
+            display: none !important;
+        }
+        
+        .text-center {
+            text-align: center;
+        }
+        
+        .mb-20 {
+            margin-bottom: 20px;
         }
     </style>
 </head>
-<body>
+<body data-theme="green">
+    
     <header>
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle dark mode" aria-label="Toggle dark mode">🌓</button>
-        <h1>🤖 Braiain AI Speed Index</h1>
-        <p class="tagline">Independent, Real-Time LLM Performance Benchmarks</p>
-        <div class="header-stats">
-            <div class="header-stat">
-                <span class="header-stat-value" id="provider-count">7</span>
-                <span class="header-stat-label">Providers Tested</span>
+        <div class="terminal-header">
+            <div class="terminal-prompt">SYSTEM BOOT SEQUENCE INITIATED...</div>
+            <h1>BRAIAIN SPEED INDEX</h1>
+            <div class="ascii-art">
+  ▄▄▄▄    ██▀███   ▄▄▄       ██▓ ▄▄▄       ██▓ ███▄    █ 
+ ▓█████▄ ▓██ ▒ ██▒▒████▄    ▓██▒▒████▄    ▓██▒ ██ ▀█   █ 
+ ▒██▒ ▄██▓██ ░▄█ ▒▒██  ▀█▄  ▒██▒▒██  ▀█▄  ▒██▒▓██  ▀█ ██▒
+ ▒██░█▀  ▒██▀▀█▄  ░██▄▄▄▄██ ░██░░██▄▄▄▄██ ░██░▓██▒  ▐▌██▒
+ ░▓█  ▀█▓░██▓ ▒██▒ ▓█   ▓██▒░██░ ▓█   ▓██▒░██░▒██░   ▓██░
+ ░▒▓███▀▒░ ▒▓ ░▒▓░ ▒▒   ▓▒█░░▓   ▒▒   ▓▒█░░▓  ░ ▒░   ▒ ▒ 
+ ▒░▒   ░   ░▒ ░ ▒░  ▒   ▒▒ ░ ▒ ░  ▒   ▒▒ ░ ▒ ░░ ░░   ░ ▒░
+  ░    ░   ░░   ░   ░   ▒    ▒ ░  ░   ▒    ▒ ░   ░   ░ ░ 
+  ░         ░           ░  ░ ░        ░  ░ ░           ░ 
+       ░                                                   
             </div>
-            <div class="header-stat">
-                <span class="header-stat-value" id="test-frequency">Daily</span>
-                <span class="header-stat-label">Update Frequency</span>
-            </div>
-            <div class="header-stat">
-                <span class="header-stat-value" id="data-points">30</span>
-                <span class="header-stat-label">Days of History</span>
+            
+            <div class="system-status">
+                <div class="status-item">
+                    <div class="status-value" id="provider-count">7</div>
+                    <div class="status-label">NODES</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value">LIVE</div>
+                    <div class="status-label">STATUS</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value">6H</div>
+                    <div class="status-label">REFRESH</div>
+                </div>
+                <div class="status-item">
+                    <div class="status-value">30D</div>
+                    <div class="status-label">HISTORY</div>
+                </div>
             </div>
         </div>
     </header>
 
-    <div id="data-source-indicator"></div>
-
-    <section class="about-section">
-        <div class="intro-box">
-            <p>
-                Welcome to the <strong>Braiain AI Speed Index</strong>—your independent source for <span class="highlight">real-world LLM performance data</span>. Unlike marketing benchmarks, we measure what matters: actual API response times, throughput, and cost efficiency across all major AI providers.
-            </p>
-            <p>
-                Our automated testing system runs <span class="highlight">identical prompts</span> across OpenAI, Anthropic, Google, Groq, Mistral, Cohere, and Together AI every day, tracking speed (latency), tokens-per-second (throughput), and per-request costs. Whether you're building production applications or comparing API options, our data helps you make <span class="highlight">informed, unbiased decisions</span> based on objective performance metrics.
-            </p>
-            <p>
-                All tests run from the same infrastructure under controlled conditions, ensuring <span class="highlight">apples-to-apples comparisons</span>. Data updates automatically every 6 hours, with 30 days of historical trends available for analysis.
-            </p>
+    <div class="controls-panel">
+        <div class="control-group">
+            <div class="control-label">Display Mode</div>
+            <div class="btn-group">
+                <button class="terminal-btn active" onclick="setViewMode('cards')" id="btn-cards">CARDS</button>
+                <button class="terminal-btn" onclick="setViewMode('table')" id="btn-table">LINEAR TABLE</button>
+            </div>
         </div>
-    </section>
-
-    <!-- SORT CONTROLS -->
-    <div class="controls-bar">
-        <strong>Sort by:</strong>
-        <button class="sort-btn active" onclick="sortResults('speed')" aria-label="Sort by speed">⚡ Speed</button>
-        <button class="sort-btn" onclick="sortResults('tps')" aria-label="Sort by tokens per second">🚀 TPS</button>
-        <button class="sort-btn" onclick="sortResults('cost')" aria-label="Sort by cost">💰 Cost</button>
-        <button class="refresh-btn" onclick="refreshData()" aria-label="Refresh data">🔄 Refresh</button>
+        
+        <div class="control-group">
+            <div class="control-label">Sort Algorithm</div>
+            <div class="btn-group">
+                <button class="terminal-btn active" onclick="sortResults('speed')" id="btn-speed">SPEED</button>
+                <button class="terminal-btn" onclick="sortResults('tps')" id="btn-tps">TPS</button>
+                <button class="terminal-btn" onclick="sortResults('cost')" id="btn-cost">COST</button>
+                <button class="terminal-btn" onclick="refreshData()">REFRESH</button>
+            </div>
+        </div>
+        
+        <div class="control-group">
+            <div class="control-label">Terminal Color Scheme</div>
+            <div class="theme-selector">
+                <button class="theme-btn theme-green active" onclick="setTheme('green')" title="Green Phosphor"></button>
+                <button class="theme-btn theme-amber" onclick="setTheme('amber')" title="Amber Monitor"></button>
+                <button class="theme-btn theme-cyan" onclick="setTheme('cyan')" title="Cyan Terminal"></button>
+                <button class="theme-btn theme-red" onclick="setTheme('red')" title="Red Alert"></button>
+            </div>
+        </div>
     </div>
 
-    <!-- LEADERBOARD CARDS -->
-    <div class="leaderboard-cards-wrapper" id="results-container">
-        <div class="loading-container">
-            <div class="loading-spinner"></div>
-            <p>Loading benchmark data...</p>
+    <!-- CARDS VIEW -->
+    <div class="results-grid" id="cards-view">
+        <div class="loading-terminal">
+            <div class="loading-text">INITIALIZING NEURAL NET</div>
+            <div class="loading-bar"></div>
         </div>
     </div>
-    
-    <div id="last-updated-wrapper">
-        <span id="last-updated"></span>
+
+    <!-- TABLE VIEW -->
+    <div class="results-table-container hidden" id="table-view">
+        <table class="terminal-table">
+            <thead>
+                <tr>
+                    <th>RANK</th>
+                    <th>PROVIDER</th>
+                    <th>MODEL</th>
+                    <th>SPEED (s)</th>
+                    <th>TPS</th>
+                    <th>COST</th>
+                    <th>CHARS</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                </tr>
+            </thead>
+            <tbody id="table-body">
+                <!-- Populated by JS -->
+            </tbody>
+        </table>
     </div>
 
-    <!-- GOOGLE ADSENSE -->
-    <div class="adsense-container">
-        <div class="adsense-label">Advertisement</div>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2906493623732277"
-             crossorigin="anonymous"></script>
-        <ins class="adsbygoogle"
-             style="display:block"
-             data-ad-client="ca-pub-2906493623732277"
-             data-ad-slot="5895952530"
-             data-ad-format="auto"
-             data-full-width-responsive="true"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
+    <!-- CHART SECTION -->
+    <div class="chart-terminal" id="chart-section" style="display: none;">
+        <div class="terminal-window">
+            <div class="window-title-bar">
+                <span>PERFORMANCE ANALYSIS // HISTORICAL TRENDS</span>
+                <div class="window-controls">
+                    <div class="window-btn"></div>
+                    <div class="window-btn"></div>
+                    <div class="window-btn"></div>
+                </div>
+            </div>
+            <div class="window-content">
+                <div class="control-label">TIME RANGE SELECTOR</div>
+                <div class="btn-group mb-20">
+                    <button class="terminal-btn active" onclick="updateChartRange(7)">7 DAYS</button>
+                    <button class="terminal-btn" onclick="updateChartRange(30)">30 DAYS</button>
+                    <button class="terminal-btn" onclick="updateChartRange(0)">ALL TIME</button>
+                </div>
+                <div class="chart-container">
+                    <canvas id="trendChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- TREND CHART SECTION -->
-    <section class="chart-section" id="chart-section" style="display: none;">
-        <h2>📈 Performance Trends</h2>
-        <p style="color: var(--text-tertiary); font-size: 0.95em; margin-bottom: 10px;">Historical speed comparison over time (lower is better)</p>
-        
-        <div class="chart-controls">
-            <button class="chart-btn active" onclick="updateChartRange(7)">7 Days</button>
-            <button class="chart-btn" onclick="updateChartRange(30)">30 Days</button>
-            <button class="chart-btn" onclick="updateChartRange(0)">All Time</button>
-        </div>
-        
-        <div class="chart-container">
-            <canvas id="trendChart"></canvas>
-        </div>
-    </section>
-
-    <section class="about-section">
-        <h2>🔬 Methodology & Testing Framework</h2>
-        
-        <div class="intro-box">
+    <!-- INFO SECTION -->
+    <div class="info-terminal">
+        <div class="info-block">
+            <h2>SYSTEM OVERVIEW</h2>
             <p>
-                Our benchmarking methodology is designed to provide <span class="highlight">fair, reproducible, and meaningful</span> performance comparisons across all major LLM providers. Every test uses identical conditions to ensure data integrity and comparability.
+                BRAIAIN SPEED INDEX is an independent benchmarking system for Large Language Model APIs. 
+                We execute identical prompts across all major providers under controlled conditions, 
+                measuring real-world latency, throughput, and cost metrics.
+            </p>
+            <p>
+                Unlike vendor-provided benchmarks, our data represents actual API performance from 
+                production infrastructure. All tests run from the same datacenter with consistent 
+                network conditions, ensuring valid cross-provider comparisons.
             </p>
         </div>
-        
-        <div class="methodology-grid">
-            <div class="methodology-card">
-                <h3>📋 Test Prompt</h3>
-                <p>All providers receive an identical 3-paragraph writing task requiring 1000-1200 characters. This tests real-world generation capabilities rather than simple completions.</p>
-                <ul class="info-list">
-                    <li><span class="info-label">Task Type:</span> <span class="info-value">Historical summary</span></li>
-                    <li><span class="info-label">Target Length:</span> <span class="info-value">1100 chars</span></li>
-                    <li><span class="info-label">Complexity:</span> <span class="info-value">Medium</span></li>
-                </ul>
-            </div>
-            
-            <div class="methodology-card">
-                <h3>⚙️ Test Configuration</h3>
-                <p>Each API call uses optimized parameters tuned per provider to achieve consistent output quality and length.</p>
-                <ul class="info-list">
-                    <li><span class="info-label">Max Tokens:</span> <span class="info-value">240-650</span></li>
-                    <li><span class="info-label">Temperature:</span> <span class="info-value">Default/0.8</span></li>
-                    <li><span class="info-label">Retries:</span> <span class="info-value">3 attempts</span></li>
-                </ul>
-            </div>
-            
-            <div class="methodology-card">
-                <h3>🌐 Test Environment</h3>
-                <p>All tests run from consistent infrastructure to eliminate network variability and ensure fair comparisons.</p>
-                <ul class="info-list">
-                    <li><span class="info-label">Location:</span> <span class="info-value">Fixed datacenter</span></li>
-                    <li><span class="info-label">Connection:</span> <span class="info-value">Dedicated</span></li>
-                    <li><span class="info-label">Frequency:</span> <span class="info-value">Every 6 hours</span></li>
-                </ul>
-            </div>
-            
-            <div class="methodology-card">
-                <h3>📊 Metrics Collected</h3>
-                <p>We track multiple performance dimensions to provide a complete picture of API performance.</p>
-                <ul class="info-list">
-                    <li><span class="info-label">Latency:</span> <span class="info-value">End-to-end time</span></li>
-                    <li><span class="info-label">Throughput:</span> <span class="info-value">Tokens/second</span></li>
-                    <li><span class="info-label">Cost:</span> <span class="info-value">Per request</span></li>
-                    <li><span class="info-label">Quality:</span> <span class="info-value">Char count</span></li>
-                </ul>
-            </div>
-            
-            <div class="methodology-card">
-                <h3>✅ Quality Validation</h3>
-                <p>Each response undergoes automatic validation to ensure it meets requirements before being recorded.</p>
-                <ul class="info-list">
-                    <li><span class="info-label">Length Check:</span> <span class="info-value">1000-1200 chars</span></li>
-                    <li><span class="info-label">Completion:</span> <span class="info-value">Full sentence</span></li>
-                    <li><span class="info-label">Retry Logic:</span> <span class="info-value">Auto-retry 3x</span></li>
-                </ul>
-            </div>
-            
-            <div class="methodology-card">
-                <h3>💾 Data Storage</h3>
-                <p>Results are stored with full historical tracking to identify trends and anomalies over time.</p>
-                <ul class="info-list">
-                    <li><span class="info-label">History:</span> <span class="info-value">30 days rolling</span></li>
-                    <li><span class="info-label">Full Responses:</span> <span class="info-value">Stored</span></li>
-                    <li><span class="info-label">Update:</span> <span class="info-value">Real-time</span></li>
-                </ul>
-            </div>
-        </div>
-        
-        <h3>🎯 What We Measure</h3>
-        <ul>
-            <li><strong>Speed (Latency):</strong> Total time from API request to complete response. Measured in seconds. Lower is better. Critical for real-time applications.</li>
-            <li><strong>TPS (Tokens Per Second):</strong> Throughput metric showing how quickly the model generates tokens. Higher is better. Important for long-form generation.</li>
-            <li><strong>Cost Per Request:</strong> Actual API cost based on current pricing (input + output tokens). Calculated using official pricing tables. Free tiers shown as $0.00.</li>
-            <li><strong>Character Count:</strong> Response length validation. Target is 1000-1200 characters to ensure consistent comparison. Responses outside this range may indicate model issues.</li>
-            <li><strong>Output Tokens:</strong> Number of tokens generated in the response. Used for cost calculation and throughput metrics.</li>
-        </ul>
-        
-        <h3>⚠️ Important Limitations</h3>
-        <ul>
-            <li><strong>Network Variability:</strong> While we use consistent infrastructure, internet conditions can affect absolute times. Focus on relative comparisons.</li>
-            <li><strong>Model Updates:</strong> Providers may update models without notice. Performance can change over time.</li>
-            <li><strong>Prompt Sensitivity:</strong> Different prompts may yield different relative performance. Our test is one scenario.</li>
-            <li><strong>Geographic Location:</strong> Results may vary based on proximity to provider data centers.</li>
-            <li><strong>Rate Limits:</strong> We respect all provider rate limits. Tests may be delayed during high-load periods.</li>
-        </ul>
-    </section>
 
-    <!-- FAQ SECTION -->
-    <section class="faq-section">
-        <h2>❓ Frequently Asked Questions</h2>
-        
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                Why do speeds vary between tests?
-                <span class="faq-toggle">▼</span>
-            </div>
-            <div class="faq-answer">
-                API response times naturally fluctuate due to server load, network conditions, and provider infrastructure changes. We track 30 days of history so you can see trends rather than individual variations. Look at the 7-day or 30-day averages for more reliable comparisons.
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                Which metric should I prioritize?
-                <span class="faq-toggle">▼</span>
-            </div>
-            <div class="faq-answer">
-                It depends on your use case: For real-time chat applications, prioritize <strong>Speed (latency)</strong>. For batch processing or long-form generation, <strong>TPS (throughput)</strong> matters more. For cost-sensitive applications, focus on <strong>Cost per Request</strong>. For most users, a balance of speed and cost is optimal.
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                Are these results representative of all use cases?
-                <span class="faq-toggle">▼</span>
-            </div>
-            <div class="faq-answer">
-                Our benchmark uses a specific prompt type (medium-length creative writing). Results may differ for other tasks like code generation, question answering, or very long documents. However, our test provides a good baseline for comparing general-purpose performance.
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                Why are some providers marked as "API FAILURE"?
-                <span class="faq-toggle">▼</span>
-            </div>
-            <div class="faq-answer">
-                API failures can occur due to: API key issues, rate limiting, temporary service outages, model deprecation, or network problems. We automatically retry failed requests. Persistent failures are tracked in our historical data.
+        <div class="info-block">
+            <h2>METHODOLOGY</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>TEST PARAMETERS</h3>
+                    <ul class="info-list">
+                        <li>Identical 3-paragraph prompt</li>
+                        <li>Target: 1000-1200 characters</li>
+                        <li>Max tokens: 240-650 (optimized per provider)</li>
+                        <li>Validation: 3 retry attempts</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>METRICS TRACKED</h3>
+                    <ul class="info-list">
+                        <li>SPEED: End-to-end latency</li>
+                        <li>TPS: Tokens per second</li>
+                        <li>COST: Per-request pricing</li>
+                        <li>QUALITY: Character validation</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>DATA INTEGRITY</h3>
+                    <ul class="info-list">
+                        <li>Automated testing every 6 hours</li>
+                        <li>30-day rolling history</li>
+                        <li>Full response logging</li>
+                        <li>Transparent error reporting</li>
+                    </ul>
+                </div>
             </div>
         </div>
-        
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                How accurate are the cost calculations?
-                <span class="faq-toggle">▼</span>
-            </div>
-            <div class="faq-answer">
-                Costs are calculated using official pricing tables from each provider and actual token counts from API responses. Prices are accurate as of the last update but may change. Some providers offer volume discounts or different pricing tiers not reflected here.
-            </div>
-        </div>
-        
-        <div class="faq-item">
-            <div class="faq-question" onclick="toggleFAQ(this)">
-                Can I run these benchmarks myself?
-                <span class="faq-toggle">▼</span>
-            </div>
-            <div class="faq-answer">
-                Yes! Our testing methodology is transparent. You'll need API keys for each provider you want to test. Results may vary based on your geographic location and network conditions.
-            </div>
-        </div>
-    </section>
 
-    <footer id="site-footer">
-        <div>A <a href="mailto:contact@braiain.com">dnilgis</a> project.</div>
-        <div class="legal-text">
-            <strong>Legal Disclaimer:</strong> Benchmark data provided for informational purposes only. Performance and pricing may vary based on usage, location, and API tier. All product names, logos, and brands are property of their respective owners. This site is not affiliated with or endorsed by any AI provider. Data accuracy is not guaranteed. Use at your own risk.
+        <div class="info-block">
+            <h2>SYSTEM LIMITATIONS</h2>
+            <ul class="info-list">
+                <li>Results reflect our specific infrastructure and geographic location</li>
+                <li>Network conditions vary; absolute times may differ from your environment</li>
+                <li>Providers may update models without notice, affecting performance</li>
+                <li>Single prompt type; results may vary for different use cases</li>
+                <li>Rate limits and quotas may affect availability during testing</li>
+            </ul>
         </div>
-        <div style="margin-top: 15px; font-size: 0.85em;">
-            Last updated: <span id="footer-timestamp">Loading...</span>
+    </div>
+
+    <footer>
+        <div class="footer-ascii">
+═══════════════════════════════════════════════════════════
+ ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
+ ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
+ ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
+ ██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██║╚██╗██║
+ ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
+ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
+═══════════════════════════════════════════════════════════
         </div>
+        <p>A <a href="mailto:contact@braiain.com">dnilgis</a> PROJECT // v2.1</p>
+        <p style="color: var(--text-dim); font-size: 0.85em; margin-top: 20px;">
+            DISCLAIMER: Data provided for informational purposes only. Performance may vary. 
+            All trademarks are property of their respective owners. Not affiliated with any AI provider.
+        </p>
+        <p id="footer-timestamp" style="margin-top: 15px; color: var(--text-dim);">
+            LAST SYNC: <span id="last-updated">LOADING...</span>
+        </p>
     </footer>
 
     <script>
-        // EMBEDDED FALLBACK DATA
+        // FALLBACK DATA
         const FALLBACK_DATA = {
-            "last_updated": "2025-11-28 21:56:17 UTC",
-            "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030...",
-            "max_tokens": 300,
+            "last_updated": "2025-11-30 00:00:00 UTC",
             "results": [
-                {"provider": "Groq", "model": "Llama 3.3 70B", "time": 0.53, "status": "Online", "response_preview": "The internet originated in the 1960s as a US military project...", "full_response": "The internet originated in the 1960s as a US military project, ARPANET, designed to create a decentralized communication network. By the 1980s, TCP/IP protocols standardized data transmission, enabling global connectivity. The 1990s saw the World Wide Web's emergence, revolutionizing information access through browsers like Mosaic and Netscape.\n\nThe 2000s brought social media platforms, smartphones, and cloud computing, transforming daily life. Web 2.0 enabled user-generated content, e-commerce exploded, and streaming services changed entertainment consumption. Mobile internet access became ubiquitous, connecting billions worldwide.\n\nBy 2030, the internet will likely integrate AI assistants seamlessly into daily tasks, expand through satellite networks to reach remote areas, and enable immersive virtual reality experiences. Quantum computing may revolutionize encryption and data processing, while IoT devices create interconnected smart cities. Privacy concerns and digital governance will shape the internet's evolution, balancing innovation with security and individual rights in an increasingly connected world.", "tokens_per_second": 176, "output_tokens": 479, "character_count": 1087, "cost_per_request": 0.0},
-                {"provider": "OpenAI", "model": "GPT-4o Mini", "time": 6.08, "status": "Online", "response_preview": "The internet's origins trace back to the 1960s with ARPANET...", "full_response": "The internet's origins trace back to the 1960s with ARPANET, a U.S. Department of Defense project designed to enable communication between computers. The 1980s saw the development of TCP/IP protocols, standardizing data transmission and laying the groundwork for modern networking. The World Wide Web, created by Tim Berners-Lee in 1989, revolutionized access to information, making the internet user-friendly and widely accessible by the 1990s.\n\nThe 2000s marked explosive growth with social media platforms like Facebook and Twitter, e-commerce giants like Amazon, and the rise of mobile internet through smartphones. Cloud computing transformed business operations, while streaming services like Netflix changed entertainment consumption. The internet became integral to daily life, connecting billions globally.\n\nBy 2030, the internet will likely feature ubiquitous AI integration, seamless virtual and augmented reality experiences, and expanded Internet of Things ecosystems. Enhanced 6G networks will enable near-instantaneous global communication, while blockchain technologies may decentralize control and improve security. The internet will continue evolving as humanity's primary platform for connection, commerce, and innovation.", "tokens_per_second": 44, "output_tokens": 300, "character_count": 1172, "cost_per_request": 0.0002},
-                {"provider": "Anthropic", "model": "Claude 3.5 Sonnet", "time": 99.9999, "status": "API FAILURE", "response_preview": "All model versions failed", "full_response": "All model versions failed", "tokens_per_second": 0, "output_tokens": 0, "character_count": 0, "cost_per_request": null}
+                {"provider": "Groq", "model": "Llama 3.3 70B", "time": 0.53, "status": "Online", "response_preview": "The internet originated in the 1960s...", "full_response": "The internet originated in the 1960s as a US military project, ARPANET, designed to create a decentralized communication network...", "tokens_per_second": 176, "output_tokens": 479, "character_count": 1087, "cost_per_request": 0.0},
+                {"provider": "OpenAI", "model": "GPT-4o Mini", "time": 6.08, "status": "Online", "response_preview": "The internet's origins trace back...", "full_response": "The internet's origins trace back to the 1960s with ARPANET...", "tokens_per_second": 44, "output_tokens": 300, "character_count": 1172, "cost_per_request": 0.0002}
             ],
-            "history": [
-                {"timestamp": "2025-11-21 00:00:00 UTC", "results": {"Groq": {"time": 2.1, "tps": 220, "status": "Online", "cost": 0.0}, "OpenAI": {"time": 6.5, "tps": 46, "status": "Online", "cost": 0.000185}}},
-                {"timestamp": "2025-11-28 21:56:17 UTC", "results": {"Groq": {"time": 0.53, "tps": 176, "status": "Online", "cost": 0.0}, "OpenAI": {"time": 6.08, "tps": 44, "status": "Online", "cost": 0.0002}}}
-            ]
+            "history": []
         };
 
         const AFFILIATE_LINKS = {
@@ -1113,7 +1040,7 @@
             "Cohere": "https://dashboard.cohere.com/",
             "Together AI": "https://api.together.xyz/"
         };
-        
+
         const PROVIDER_COLORS = {
             "OpenAI": "#10a37f",
             "Anthropic": "#d97757",
@@ -1124,328 +1051,59 @@
             "Together AI": "#6366f1"
         };
 
-        let dataSource = "loading";
+        let allResults = [];
+        let currentSort = 'speed';
+        let currentView = 'cards';
         let trendChart = null;
         let currentChartRange = 7;
         let fullHistoryData = [];
-        let currentSort = 'speed';
-        let allResults = [];
 
-        // THEME TOGGLE
-        function toggleTheme() {
-            const body = document.body;
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
+        // THEME SWITCHING
+        function setTheme(theme) {
+            document.body.setAttribute('data-theme', theme);
+            localStorage.setItem('theme', theme);
+            
+            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelector(`.theme-${theme}`).classList.add('active');
             
             if (typeof gtag !== 'undefined') {
-                gtag('event', 'theme_toggle', {event_category: 'ui', event_label: newTheme});
+                gtag('event', 'theme_change', {event_category: 'ui', event_label: theme});
             }
         }
 
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'light';
-        document.body.setAttribute('data-theme', savedTheme);
-
-        // FAQ TOGGLE
-        function toggleFAQ(element) {
-            const faqItem = element.parentElement;
-            faqItem.classList.toggle('active');
+        // VIEW MODE SWITCHING
+        function setViewMode(mode) {
+            currentView = mode;
+            
+            document.getElementById('btn-cards').classList.toggle('active', mode === 'cards');
+            document.getElementById('btn-table').classList.toggle('active', mode === 'table');
+            
+            document.getElementById('cards-view').classList.toggle('hidden', mode !== 'cards');
+            document.getElementById('table-view').classList.toggle('hidden', mode !== 'table');
+            
+            if (allResults.results) {
+                displayResults(allResults);
+            }
             
             if (typeof gtag !== 'undefined') {
-                gtag('event', 'faq_toggle', {event_category: 'engagement'});
+                gtag('event', 'view_change', {event_category: 'ui', event_label: mode});
             }
-        }
-
-        // RESPONSE TOGGLE
-        function toggleResponse(element) {
-            element.classList.toggle('expanded');
-            if (typeof gtag !== 'undefined') {
-                const action = element.classList.contains('expanded') ? 'expand' : 'collapse';
-                gtag('event', 'response_' + action, {event_category: 'engagement'});
-            }
-        }
-
-        function setDataSourceIndicator(source, data) {
-            const indicator = document.getElementById("data-source-indicator");
-            indicator.className = "data-source-indicator data-" + source;
-            indicator.innerHTML = source === "live" 
-                ? `✅ <strong>Live Data</strong> - Updated: ${data.last_updated} | Auto-refreshes every 6 hours` 
-                : `⚠️ <strong>Using Cached Data</strong> - Last snapshot: ${data.last_updated}`;
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement("div");
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        function getSpeedClass(time, isOnline) {
-            return !isOnline ? "status-error" : time < 5 ? "speed-fast" : time < 10 ? "speed-medium" : "speed-slow";
-        }
-
-        function getTpsClass(tps) {
-            return tps > 60 ? "tps-fast" : tps > 30 ? "tps-medium" : "tps-slow";
-        }
-
-        function getCostClass(cost) {
-            return cost === null || cost === 0 ? "cost-free" : cost < 0.001 ? "cost-cheap" : "cost-expensive";
-        }
-
-        function formatCost(cost) {
-            return cost === null ? "N/A" : cost === 0 ? "FREE" : cost < 0.0001 ? "<$0.0001" : `$${cost.toFixed(4)}`;
-        }
-        
-        function getCharCountClass(charCount) {
-            if (!charCount || charCount === 0) return 'char-short';
-            if (charCount < 1000) return 'char-short';
-            if (charCount <= 1200) return 'char-ok';
-            return 'char-over';
-        }
-
-        function createTrendChart(history, range = 7) {
-            const ctx = document.getElementById("trendChart");
-            const chartSection = document.getElementById("chart-section");
-            
-            if (!ctx || !history || history.length < 2) {
-                if (chartSection) chartSection.style.display = "none";
-                return;
-            }
-            
-            if (chartSection) chartSection.style.display = "block";
-            fullHistoryData = history;
-            
-            const recentHistory = range > 0 ? history.slice(-range) : history;
-            const labels = [];
-            const datasets = {};
-            
-            recentHistory.forEach(entry => {
-                const date = new Date(entry.timestamp);
-                labels.push(date.toLocaleDateString("en-US", {month: "short", day: "numeric"}));
-                
-                Object.keys(entry.results).forEach(provider => {
-                    if (!datasets[provider]) {
-                        datasets[provider] = {
-                            label: provider,
-                            data: [],
-                            borderColor: PROVIDER_COLORS[provider] || "#999",
-                            backgroundColor: PROVIDER_COLORS[provider] || "#999",
-                            tension: 0.3,
-                            spanGaps: true,
-                            pointRadius: 4,
-                            pointHoverRadius: 6
-                        };
-                    }
-                    
-                    const time = entry.results[provider].time;
-                    datasets[provider].data.push(time < 99 && entry.results[provider].status === "Online" ? time : null);
-                });
-            });
-            
-            if (trendChart) trendChart.destroy();
-            
-            trendChart = new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: Object.values(datasets)
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: "top",
-                            labels: {
-                                usePointStyle: true,
-                                padding: 15,
-                                font: { size: 12 }
-                            }
-                        },
-                        tooltip: {
-                            callbacks: {
-                                label: function(context) {
-                                    if (context.parsed.y === null) return null;
-                                    return context.dataset.label + ": " + context.parsed.y.toFixed(2) + "s";
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: "Response Time (seconds)"
-                            },
-                            grid: {
-                                color: "rgba(0, 0, 0, 0.05)"
-                            }
-                        },
-                        x: {
-                            grid: {
-                                display: false
-                            }
-                        }
-                    },
-                    interaction: {
-                        mode: "index",
-                        intersect: false
-                    }
-                }
-            });
-        }
-
-        function updateChartRange(range) {
-            currentChartRange = range;
-            document.querySelectorAll(".chart-btn").forEach(btn => btn.classList.remove("active"));
-            event.target.classList.add("active");
-            if (fullHistoryData.length > 0) createTrendChart(fullHistoryData, range);
-        }
-
-        function calculateBadges(results) {
-            if (results.length === 0) return {};
-            const online = results.filter(r => r.status === "Online");
-            if (online.length === 0) return {};
-            
-            const badges = {};
-            
-            const fastest = online.reduce((min, r) => r.time < min.time ? r : min);
-            badges[fastest.provider] = badges[fastest.provider] || [];
-            badges[fastest.provider].push("fastest");
-            
-            const highestTps = online.reduce((max, r) => r.tokens_per_second > max.tokens_per_second ? r : max);
-            badges[highestTps.provider] = badges[highestTps.provider] || [];
-            badges[highestTps.provider].push("highest-tps");
-            
-            const paid = online.filter(r => r.cost_per_request > 0);
-            if (paid.length > 0) {
-                const bestValue = paid.reduce((best, r) => {
-                    const value = r.tokens_per_second / r.cost_per_request;
-                    const bestVal = best.tokens_per_second / best.cost_per_request;
-                    return value > bestVal ? r : best;
-                });
-                badges[bestValue.provider] = badges[bestValue.provider] || [];
-                badges[bestValue.provider].push("best-value");
-            }
-            
-            return badges;
-        }
-
-        function createModelCard(result, rank, badges) {
-            const card = document.createElement("div");
-            card.className = "model-card";
-            const isOnline = result.status === "Online";
-            const speedClass = getSpeedClass(result.time, isOnline);
-            const tpsClass = getTpsClass(result.tokens_per_second);
-            const costClass = getCostClass(result.cost_per_request);
-            const charClass = getCharCountClass(result.character_count);
-            
-            const timeDisplay = isOnline ? `${result.time.toFixed(2)}s` : "N/A";
-            const tpsDisplay = isOnline ? result.tokens_per_second.toFixed(0) : "N/A";
-            const rankClass = (isOnline && rank <= 3) ? ` rank-${rank}` : "";
-            
-            const providerBadges = badges[result.provider] || [];
-            let badgesHTML = "";
-            if (providerBadges.length > 0) {
-                badgesHTML = '<div class="badge-container">';
-                providerBadges.forEach(badge => {
-                    const text = badge === "fastest" ? "⚡ Fastest" : 
-                                 badge === "highest-tps" ? "🚀 Highest TPS" : 
-                                 badge === "best-value" ? "💰 Best Value" : "";
-                    badgesHTML += `<span class="badge badge-${badge}">${text}</span>`;
-                });
-                badgesHTML += "</div>";
-            }
-            
-            const link = AFFILIATE_LINKS[result.provider];
-            const affiliateButtonHTML = isOnline 
-                ? `<a href="${link}" target="_blank" rel="noopener" class="affiliate-btn">Try ${result.provider}</a>` 
-                : '<div class="affiliate-btn" style="background: linear-gradient(135deg, #c62828 0%, #b71c1c 100%); cursor: not-allowed;">Currently Offline</div>';
-            
-            const charCountHTML = result.character_count 
-                ? `<span class="char-count-badge ${charClass}">${result.character_count} chars</span>` 
-                : '';
-            
-            const responseHTML = isOnline && result.response_preview 
-                ? `<div class="response-preview-bottom" onclick="toggleResponse(this)">
-                    ${escapeHtml(result.response_preview)}
-                    <button class="copy-btn" onclick="event.stopPropagation(); copyResponse('${escapeHtml(result.full_response).replace(/'/g, "\\'")}', this)">📋 Copy</button>
-                </div>` 
-                : '';
-            
-            card.innerHTML = `
-                <div class="card-header">
-                    <span class="rank-badge${rankClass}">#${rank}</span>
-                    <div class="provider-model-wrapper">
-                        <div class="card-provider">${escapeHtml(result.provider)}</div>
-                        <div class="card-model">${escapeHtml(result.model)} ${charCountHTML}</div>
-                    </div>
-                </div>
-                
-                ${badgesHTML}
-                
-                <div class="stats-wrapper">
-                    <div class="stat-group">
-                        <div class="stat-label">Speed</div>
-                        <div class="stat-value ${speedClass}">${timeDisplay}</div>
-                    </div>
-                    <div class="stat-group">
-                        <div class="stat-label">TPS</div>
-                        <div class="stat-value ${tpsClass}">${tpsDisplay}</div>
-                    </div>
-                    <div class="stat-group">
-                        <div class="stat-label">Status</div>
-                        <div class="stat-value ${isOnline ? "status-online" : "status-error"}">
-                            ${escapeHtml(result.status)}
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="text-align: center;">
-                    <div class="stat-label">Cost Per Request</div>
-                    <div class="cost-badge ${costClass}">${formatCost(result.cost_per_request)}</div>
-                </div>
-                
-                ${affiliateButtonHTML}
-                ${responseHTML}
-            `;
-            
-            return card;
         }
 
         function sortResults(sortBy) {
             currentSort = sortBy;
-            document.querySelectorAll('.sort-btn').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-            displayResults({...allResults, results: getSortedResults()}, dataSource);
+            
+            ['speed', 'tps', 'cost'].forEach(type => {
+                document.getElementById(`btn-${type}`).classList.toggle('active', type === sortBy);
+            });
+            
+            if (allResults.results) {
+                displayResults(allResults);
+            }
             
             if (typeof gtag !== 'undefined') {
                 gtag('event', 'sort_change', {event_category: 'interaction', event_label: sortBy});
             }
-        }
-
-        function copyResponse(text, button) {
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = button.innerHTML;
-                button.innerHTML = '✅ Copied!';
-                button.style.background = '#4caf50';
-                setTimeout(() => {
-                    button.innerHTML = originalText;
-                    button.style.background = '';
-                }, 2000);
-                
-                if (typeof gtag !== 'undefined') {
-                    gtag('event', 'copy_response', {event_category: 'engagement'});
-                }
-            }).catch(err => {
-                console.error('Failed to copy:', err);
-                button.innerHTML = '❌ Failed';
-                setTimeout(() => {
-                    button.innerHTML = '📋 Copy';
-                }, 2000);
-            });
         }
 
         function getSortedResults() {
@@ -1476,46 +1134,233 @@
             return sorted;
         }
 
-        function displayResults(data, source = "live") {
-            const container = document.getElementById("results-container");
-            const lastUpdated = document.getElementById("last-updated");
-            const footerTimestamp = document.getElementById("footer-timestamp");
+        function formatCost(cost) {
+            return cost === null ? "N/A" : cost === 0 ? "FREE" : cost < 0.0001 ? "<$0.0001" : `$${cost.toFixed(4)}`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement("div");
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        function createCard(result, rank) {
+            const isOnline = result.status === "Online";
+            const rankClass = rank <= 3 ? ` rank-${rank}` : '';
             
-            dataSource = source;
-            setDataSourceIndicator(source, data);
+            return `
+                <div class="terminal-card">
+                    <div class="card-header-bar">
+                        <span>NODE_${rank.toString().padStart(2, '0')}</span>
+                        <span>${result.provider.toUpperCase()}</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="rank-display${rankClass}">
+                            #${rank}
+                        </div>
+                        <div class="provider-name">${escapeHtml(result.provider)}</div>
+                        <div class="model-name">${escapeHtml(result.model)}</div>
+                        
+                        <div class="metrics-display">
+                            <div class="metric-row">
+                                <span class="metric-label">SPEED</span>
+                                <span class="metric-value">${isOnline ? result.time.toFixed(2) + 's' : 'N/A'}</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">TPS</span>
+                                <span class="metric-value">${isOnline ? result.tokens_per_second.toFixed(0) : 'N/A'}</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">COST</span>
+                                <span class="metric-value">${formatCost(result.cost_per_request)}</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">CHARS</span>
+                                <span class="metric-value">${result.character_count || 'N/A'}</span>
+                            </div>
+                            <div class="metric-row">
+                                <span class="metric-label">STATUS</span>
+                                <span class="metric-value ${isOnline ? 'status-online' : 'status-error'}">${result.status}</span>
+                            </div>
+                        </div>
+                        
+                        ${isOnline && result.response_preview ? `
+                            <div class="terminal-response" onclick="this.classList.toggle('expanded')">
+                                ${escapeHtml(result.response_preview)}
+                            </div>
+                        ` : ''}
+                        
+                        ${isOnline ? `
+                            <a href="${AFFILIATE_LINKS[result.provider]}" target="_blank" class="action-link">
+                                ACCESS ${result.provider.toUpperCase()}
+                            </a>
+                        ` : `
+                            <div class="action-link" style="opacity: 0.5; cursor: not-allowed;">
+                                OFFLINE
+                            </div>
+                        `}
+                    </div>
+                </div>
+            `;
+        }
+
+        function createTableRow(result, rank) {
+            const isOnline = result.status === "Online";
             
-            if (data.last_updated) {
-                lastUpdated.textContent = `Last Updated: ${data.last_updated}`;
-                footerTimestamp.textContent = data.last_updated;
-            }
-            
-            if (!data.results || data.results.length === 0) {
-                container.innerHTML = '<div style="text-align: center; padding: 40px;">No results available</div>';
-                return;
-            }
-            
+            return `
+                <tr>
+                    <td class="table-rank">#${rank}</td>
+                    <td class="table-provider">${escapeHtml(result.provider)}</td>
+                    <td>${escapeHtml(result.model)}</td>
+                    <td class="table-metric">${isOnline ? result.time.toFixed(2) : 'N/A'}</td>
+                    <td class="table-metric">${isOnline ? result.tokens_per_second.toFixed(0) : 'N/A'}</td>
+                    <td class="table-metric">${formatCost(result.cost_per_request)}</td>
+                    <td>${result.character_count || 'N/A'}</td>
+                    <td class="${isOnline ? 'status-online' : 'status-error'}">${result.status}</td>
+                    <td>
+                        ${isOnline ? `<a href="${AFFILIATE_LINKS[result.provider]}" target="_blank" style="color: var(--text-primary);">ACCESS</a>` : 'OFFLINE'}
+                    </td>
+                </tr>
+            `;
+        }
+
+        function displayResults(data) {
             allResults = data;
             const results = getSortedResults();
-            const badges = calculateBadges(results);
             
-            container.innerHTML = "";
-            results.forEach((result, index) => {
-                const rank = index + 1;
-                const card = createModelCard(result, rank, badges);
-                container.appendChild(card);
-            });
+            document.getElementById('last-updated').textContent = data.last_updated || 'UNKNOWN';
             
+            // Cards view
+            const cardsContainer = document.getElementById('cards-view');
+            cardsContainer.innerHTML = results.map((result, index) => 
+                createCard(result, index + 1)
+            ).join('');
+            
+            // Table view
+            const tableBody = document.getElementById('table-body');
+            tableBody.innerHTML = results.map((result, index) => 
+                createTableRow(result, index + 1)
+            ).join('');
+            
+            // Chart
             if (data.history && data.history.length >= 2) {
                 createTrendChart(data.history, currentChartRange);
             }
+        }
+
+        function createTrendChart(history, range = 7) {
+            const ctx = document.getElementById("trendChart");
+            const chartSection = document.getElementById("chart-section");
             
-            // Update header stats
-            const onlineCount = results.filter(r => r.status === 'Online').length;
-            document.getElementById('provider-count').textContent = results.length;
+            if (!ctx || !history || history.length < 2) {
+                if (chartSection) chartSection.style.display = "none";
+                return;
+            }
+            
+            if (chartSection) chartSection.style.display = "block";
+            fullHistoryData = history;
+            
+            const recentHistory = range > 0 ? history.slice(-range) : history;
+            const labels = [];
+            const datasets = {};
+            
+            recentHistory.forEach(entry => {
+                const date = new Date(entry.timestamp);
+                labels.push(date.toLocaleDateString("en-US", {month: "short", day: "numeric"}));
+                
+                Object.keys(entry.results).forEach(provider => {
+                    if (!datasets[provider]) {
+                        datasets[provider] = {
+                            label: provider,
+                            data: [],
+                            borderColor: PROVIDER_COLORS[provider] || "#00ff41",
+                            backgroundColor: PROVIDER_COLORS[provider] || "#00ff41",
+                            tension: 0.3,
+                            spanGaps: true,
+                            pointRadius: 3,
+                            pointHoverRadius: 6,
+                            borderWidth: 2
+                        };
+                    }
+                    
+                    const time = entry.results[provider].time;
+                    datasets[provider].data.push(time < 99 && entry.results[provider].status === "Online" ? time : null);
+                });
+            });
+            
+            if (trendChart) trendChart.destroy();
+            
+            trendChart = new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: Object.values(datasets)
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: "top",
+                            labels: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
+                                font: { family: 'Share Tech Mono', size: 11 }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                            titleColor: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
+                            bodyColor: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                            borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border-color'),
+                            borderWidth: 1,
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.parsed.y === null) return null;
+                                    return context.dataset.label + ": " + context.parsed.y.toFixed(2) + "s";
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: {
+                                display: true,
+                                text: "LATENCY (seconds)",
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                font: { family: 'Share Tech Mono' }
+                            },
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                font: { family: 'Share Tech Mono' }
+                            },
+                            grid: {
+                                color: 'rgba(0, 255, 65, 0.1)'
+                            }
+                        },
+                        x: {
+                            ticks: {
+                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
+                                font: { family: 'Share Tech Mono' }
+                            },
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function updateChartRange(range) {
+            currentChartRange = range;
+            if (fullHistoryData.length > 0) {
+                createTrendChart(fullHistoryData, range);
+            }
         }
 
         async function fetchData() {
-            console.log("Attempting to fetch fresh data...");
+            console.log("INITIATING DATA FETCH...");
             const paths = ["./data.json", "data.json", "/data.json"];
             
             for (const path of paths) {
@@ -1523,20 +1368,20 @@
                     const response = await fetch(path + "?t=" + Date.now());
                     if (response.ok) {
                         const data = await response.json();
-                        console.log("✅ Successfully loaded fresh data from:", path);
-                        displayResults(data, "live");
+                        console.log("✓ DATA LOADED FROM:", path);
+                        displayResults(data);
                         if (typeof gtag !== 'undefined') {
                             gtag("event", "data_loaded", {event_category: "data", event_label: "live_data"});
                         }
                         return true;
                     }
                 } catch (error) {
-                    console.log(`Failed to load from ${path}:`, error.message);
+                    console.log(`× FAILED TO LOAD FROM ${path}:`, error.message);
                 }
             }
             
-            console.log("⚠️ Could not load data.json, using fallback data");
-            displayResults(FALLBACK_DATA, "fallback");
+            console.log("⚠ USING FALLBACK DATA");
+            displayResults(FALLBACK_DATA);
             if (typeof gtag !== 'undefined') {
                 gtag("event", "data_loaded", {event_category: "data", event_label: "fallback_data"});
             }
@@ -1544,15 +1389,15 @@
         }
 
         async function refreshData() {
-            const button = event.target;
-            button.disabled = true;
-            button.innerHTML = '🔄 Refreshing...';
+            const btn = event.target;
+            btn.disabled = true;
+            btn.textContent = 'SYNCING';
             
             await fetchData();
             
             setTimeout(() => {
-                button.disabled = false;
-                button.innerHTML = '🔄 Refresh';
+                btn.disabled = false;
+                btn.textContent = '[ REFRESH ]';
             }, 2000);
             
             if (typeof gtag !== 'undefined') {
@@ -1560,41 +1405,32 @@
             }
         }
 
-        console.log("🚀 Braiain Speed Index initializing...");
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'green';
+        setTheme(savedTheme);
+
+        // Initialize
+        console.log("BRAIAIN SPEED INDEX // SYSTEM ONLINE");
         fetchData();
         
         // Auto-refresh every 6 hours
-        setInterval(async () => {
-            if (dataSource === "live") {
-                console.log("🔄 Auto-refreshing data...");
-                await fetchData();
-            }
+        setInterval(() => {
+            console.log("AUTO-SYNC INITIATED...");
+            fetchData();
         }, 21600000);
     </script>
     
-    <!-- COMPLETE JSON-LD SCHEMA -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "WebApplication",
       "name": "Braiain AI Speed Index",
-      "description": "Daily automated benchmarks of AI model API speed, tokens-per-second, and cost efficiency across major providers including OpenAI, Anthropic, Google, Groq, Mistral, Cohere, and Together AI",
-      "url": "https://yourwebsite.com",
+      "description": "Real-time LLM API performance benchmarking system with retro-futuristic terminal interface",
       "applicationCategory": "DeveloperApplication",
       "offers": {
         "@type": "Offer",
         "price": "0",
         "priceCurrency": "USD"
-      },
-      "author": {
-        "@type": "Organization",
-        "name": "Braiain"
-      },
-      "datePublished": "2024-01-01",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.8",
-        "ratingCount": "127"
       }
     }
     </script>
