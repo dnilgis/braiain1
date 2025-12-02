@@ -1,67 +1,67 @@
 {
-    "last_updated": "2025-12-02 00:19:20 UTC",
+    "last_updated": "2025-12-02 00:21:02 UTC",
     "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.\n\nABSOLUTE REQUIREMENTS - YOUR RESPONSE WILL BE REJECTED IF YOU VIOLATE THESE:\n\nYOU MUST WRITE EXACTLY 1000-1200 CHARACTERS. COUNT EVERY SINGLE CHARACTER.\n\nWRITE EXACTLY THREE PARAGRAPHS. STOP WHEN YOU REACH 1200 CHARACTERS.\n\nTARGET LENGTH: 1100 CHARACTERS\n\nEND WITH A COMPLETE SENTENCE AND A PERIOD (.)\n\nDO NOT STOP WRITING UNTIL YOU REACH AT LEAST 1000 CHARACTERS. THIS IS MANDATORY.\n\nYour response must be substantive and detailed. DO NOT write short summaries.",
     "max_tokens": 240,
     "results": [
         {
             "provider": "Groq",
             "model": "Llama 3.3 70B",
-            "time": 0.6394,
+            "time": 0.8859,
             "status": "Online",
-            "response_preview": "The internet's history began in 1960s with ARPANET.  Developed by the US Department of Defense, it connected computers.  The 1980s saw the internet's expansion with the introduction of the TCP/IP protocol, allowing different networks to communicate.   By 2030, the internet will be even more integrated into daily life, with increased reliance on artificial intelligence and the Internet of Things, transforming how we live and work completely.",
-            "full_response": "The internet's history began in 1960s with ARPANET. \nDeveloped by the US Department of Defense, it connected computers.\n\nThe 1980s saw the internet's expansion with the introduction of the TCP/IP protocol, allowing different networks to communicate. \n\nBy 2030, the internet will be even more integrated into daily life, with increased reliance on artificial intelligence and the Internet of Things, transforming how we live and work completely.",
-            "tokens_per_second": 143.88,
-            "output_tokens": 92,
-            "character_count": 444,
+            "response_preview": "The internet's history began in 1960s with ARPANET, a project funded by the US Department of Defense. This network allowed different computer systems to communicate, laying the foundation for the modern internet. In the 1980s, the Internet Protocol (IP) was developed, enabling different networks to connect and exchange data.  The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, revolutionizing the internet with web browsers and hyperlinks. The 1990s saw widespread adoption of the internet, with the development of dial-up connections and internet service providers (ISPs). As technology improved, broadband connections became more common, allowing for faster and more reliable access to the internet.  By 2030, the internet is expected to be even more integrated into daily life, with the Internet of Things (IoT) connecting billions of devices worldwide, and artificial intelligence (AI) playing a larger role in shaping online experiences, making it an essential part of modern life.",
+            "full_response": "The internet's history began in 1960s with ARPANET, a project funded by the US Department of Defense. This network allowed different computer systems to communicate, laying the foundation for the modern internet. In the 1980s, the Internet Protocol (IP) was developed, enabling different networks to connect and exchange data.\n\nThe World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, revolutionizing the internet with web browsers and hyperlinks. The 1990s saw widespread adoption of the internet, with the development of dial-up connections and internet service providers (ISPs). As technology improved, broadband connections became more common, allowing for faster and more reliable access to the internet.\n\nBy 2030, the internet is expected to be even more integrated into daily life, with the Internet of Things (IoT) connecting billions of devices worldwide, and artificial intelligence (AI) playing a larger role in shaping online experiences, making it an essential part of modern life.",
+            "tokens_per_second": 230.27,
+            "output_tokens": 204,
+            "character_count": 1003,
             "cost_per_request": 0.0
         },
         {
             "provider": "Together AI",
             "model": "Llama 3.1 70B",
-            "time": 2.9795,
+            "time": 1.8347,
             "status": "Online",
-            "response_preview": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency Network (ARPANET), the first operational packet switching network. This network was designed to facilitate communication between government and academic researchers. In the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, making it easier for users to access and share information using web browsers and hyperlinks.  The widespread adoption of the internet in the 1990s revolutionized the way people communicate, access information, and conduct business. The development of dial-up internet and the introduction of commercial internet service providers (ISPs) made it possible for individuals to access the internet from their homes. The rise of e-commerce, online banking, and social media transformed the way people shop, manage their finances, and interact with each other. The proliferation of mobile devices and the development of 4G and 5G networks further accelerated the growth of the internet, enabling faster and more widespread access to online services.  As the internet continues to evolve, it is likely that emerging",
-            "full_response": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency Network (ARPANET), the first operational packet switching network. This network was designed to facilitate communication between government and academic researchers. In the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, making it easier for users to access and share information using web browsers and hyperlinks.\n\nThe widespread adoption of the internet in the 1990s revolutionized the way people communicate, access information, and conduct business. The development of dial-up internet and the introduction of commercial internet service providers (ISPs) made it possible for individuals to access the internet from their homes. The rise of e-commerce, online banking, and social media transformed the way people shop, manage their finances, and interact with each other. The proliferation of mobile devices and the development of 4G and 5G networks further accelerated the growth of the internet, enabling faster and more widespread access to online services.\n\nAs the internet continues to evolve, it is likely that emerging",
-            "tokens_per_second": 83.91,
+            "response_preview": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency (ARPA) funding a project to create a network of computers that could communicate with each other. This project, called ARPANET, was the first operational packet switching network, and it was developed in the late 1960s and early 1970s. The first message sent over ARPANET was in 1969, and it was a simple \"LO\" as the system crashed before the full message \"LOGIN\" could be sent.  In the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, a British computer scientist, and it revolutionized the way people accessed and shared information online. The web made it easy for people to access and share information using web browsers and hyperlinks. The internet became widely available to the public in the 1990s, and it quickly became an essential part of modern life.  Today, the internet is a global network of billions of interconnected devices, and it continues to evolve and expand",
+            "full_response": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency (ARPA) funding a project to create a network of computers that could communicate with each other. This project, called ARPANET, was the first operational packet switching network, and it was developed in the late 1960s and early 1970s. The first message sent over ARPANET was in 1969, and it was a simple \"LO\" as the system crashed before the full message \"LOGIN\" could be sent.\n\nIn the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, a British computer scientist, and it revolutionized the way people accessed and shared information online. The web made it easy for people to access and share information using web browsers and hyperlinks. The internet became widely available to the public in the 1990s, and it quickly became an essential part of modern life.\n\nToday, the internet is a global network of billions of interconnected devices, and it continues to evolve and expand",
+            "tokens_per_second": 136.26,
             "output_tokens": 250,
-            "character_count": 1325,
+            "character_count": 1175,
             "cost_per_request": 7.8e-05
-        },
-        {
-            "provider": "OpenAI",
-            "model": "GPT-4o Mini",
-            "time": 5.3977,
-            "status": "Online",
-            "response_preview": "The history of the internet begins in the late 1960s with ARPANET, a project funded by the U.S. Department of Defense. Initially designed to facilitate communication between research institutions, ARPANET introduced key technologies like packet switching and email. The network expanded through the 1970s and 1980s, becoming more decentralized and accessible. The introduction of the Transmission Control Protocol/Internet Protocol (TCP/IP) in 1983 standardized communication, allowing diverse networks to interconnect. The late 1980s marked the advent of the World Wide Web, created by Tim Berners-Lee, which popularized the internet and made it user-friendly, paving the way for millions of people globally to access and share information.  By the mid-1990s, commercial interests began to shape the internet's growth, leading to the dot-com boom. Websites flourished, new services emerged, and e-commerce became a major industry. Social media platforms appeared in the early 2000s, reshaping how individuals interacted online. The mobile internet explosion followed, with smartphones making connectivity ubiquitous. Tech giants like Google, Facebook, and Amazon emerged, dominating the landscape. The increase in broadband availability",
-            "full_response": "The history of the internet begins in the late 1960s with ARPANET, a project funded by the U.S. Department of Defense. Initially designed to facilitate communication between research institutions, ARPANET introduced key technologies like packet switching and email. The network expanded through the 1970s and 1980s, becoming more decentralized and accessible. The introduction of the Transmission Control Protocol/Internet Protocol (TCP/IP) in 1983 standardized communication, allowing diverse networks to interconnect. The late 1980s marked the advent of the World Wide Web, created by Tim Berners-Lee, which popularized the internet and made it user-friendly, paving the way for millions of people globally to access and share information.\n\nBy the mid-1990s, commercial interests began to shape the internet's growth, leading to the dot-com boom. Websites flourished, new services emerged, and e-commerce became a major industry. Social media platforms appeared in the early 2000s, reshaping how individuals interacted online. The mobile internet explosion followed, with smartphones making connectivity ubiquitous. Tech giants like Google, Facebook, and Amazon emerged, dominating the landscape. The increase in broadband availability",
-            "tokens_per_second": 44.46,
-            "output_tokens": 240,
-            "character_count": 1237,
-            "cost_per_request": 0.000167
         },
         {
             "provider": "Mistral AI",
             "model": "Mistral Large",
-            "time": 6.965,
+            "time": 3.584,
             "status": "Online",
-            "response_preview": "The history of the internet begins in the Cold War era, when the U.S. Department of Defense sought a decentralized communication system resilient to nuclear attacks. In 1969, ARPANET (Advanced Research Projects Agency Network) launched as the world\u2019s first packet-switched network, connecting four universities\u2014UCLA, Stanford, UC Santa Barbara, and the University of Utah\u2014using Interface Message Processors (IMPs) to route data. By the 1970s, ARPANET expanded globally, adopting TCP/IP (Transmission Control Protocol/Internet Protocol) in 1983, which standardized data transmission and birthed the modern internet. Concurrently, innovations like email (1971), FTP (File Transfer Protocol), and early bulletin board systems (BBS) emerged, democratizing digital communication. The 1980s saw the rise of domain names (1985) and the World Wide Web (WWW), invented by Tim Berners-Lee in 1989 at CERN, which introduced hypertext, URLs, and browsers\u2014revolutionizing information access. Commercialization followed in the 1990s with the NSFNET\u2019s privatization, ISPs like A",
-            "full_response": "The history of the internet begins in the Cold War era, when the U.S. Department of Defense sought a decentralized communication system resilient to nuclear attacks. In 1969, ARPANET (Advanced Research Projects Agency Network) launched as the world\u2019s first packet-switched network, connecting four universities\u2014UCLA, Stanford, UC Santa Barbara, and the University of Utah\u2014using Interface Message Processors (IMPs) to route data. By the 1970s, ARPANET expanded globally, adopting TCP/IP (Transmission Control Protocol/Internet Protocol) in 1983, which standardized data transmission and birthed the modern internet. Concurrently, innovations like email (1971), FTP (File Transfer Protocol), and early bulletin board systems (BBS) emerged, democratizing digital communication. The 1980s saw the rise of domain names (1985) and the World Wide Web (WWW), invented by Tim Berners-Lee in 1989 at CERN, which introduced hypertext, URLs, and browsers\u2014revolutionizing information access. Commercialization followed in the 1990s with the NSFNET\u2019s privatization, ISPs like A",
-            "tokens_per_second": 37.33,
+            "response_preview": "The history of the internet begins in the Cold War era, when the U.S. Department of Defense sought a decentralized communication system resilient to nuclear attacks. In 1969, ARPANET (Advanced Research Projects Agency Network) launched as the world\u2019s first packet-switched network, connecting four universities\u2014UCLA, Stanford, UC Santa Barbara, and the University of Utah\u2014using Interface Message Processors (IMPs) to route data. By the 1970s, ARPANET expanded globally, adopting TCP/IP (Transmission Control Protocol/Internet Protocol) in 1983, which standardized data transmission and birthed the modern internet. Concurrently, innovations like email (1971), FTP (File Transfer Protocol), and Usenet (1979) emerged, fostering early digital communities. The 1980s saw the rise of commercial internet service providers (ISPs) and the Domain Name System (DNS), replacing numeric IP addresses with readable names. Tim Berners-Lee\u2019s 1989 invention of the World Wide Web\u2014combining HTML, URLs, and HTTP\u2014revolutionized accessibility, transforming the internet from a military-academic tool into a public resource. By the",
+            "full_response": "The history of the internet begins in the Cold War era, when the U.S. Department of Defense sought a decentralized communication system resilient to nuclear attacks. In 1969, ARPANET (Advanced Research Projects Agency Network) launched as the world\u2019s first packet-switched network, connecting four universities\u2014UCLA, Stanford, UC Santa Barbara, and the University of Utah\u2014using Interface Message Processors (IMPs) to route data. By the 1970s, ARPANET expanded globally, adopting TCP/IP (Transmission Control Protocol/Internet Protocol) in 1983, which standardized data transmission and birthed the modern internet. Concurrently, innovations like email (1971), FTP (File Transfer Protocol), and Usenet (1979) emerged, fostering early digital communities. The 1980s saw the rise of commercial internet service providers (ISPs) and the Domain Name System (DNS), replacing numeric IP addresses with readable names. Tim Berners-Lee\u2019s 1989 invention of the World Wide Web\u2014combining HTML, URLs, and HTTP\u2014revolutionized accessibility, transforming the internet from a military-academic tool into a public resource. By the",
+            "tokens_per_second": 72.54,
             "output_tokens": 260,
-            "character_count": 1063,
+            "character_count": 1113,
             "cost_per_request": 0.001938
+        },
+        {
+            "provider": "OpenAI",
+            "model": "GPT-4o Mini",
+            "time": 4.4459,
+            "status": "Online",
+            "response_preview": "The internet's origins trace back to the 1960s when ARPANET, developed by the U.S. Department of Defense, aimed to enable robust communication through interconnected networks. By the 1970s, the introduction of TCP/IP protocols laid the groundwork for the internet as we know it. The 1980s witnessed the emergence of personal computing, propelling the internet's popularity. In 1989, Tim Berners-Lee proposed the World Wide Web, which transformed the way information was accessed and shared. This period saw the release of the first web browsers, fostering a rapid expansion of online content, user engagement, and commerce.  The 1990s marked a pivotal moment, as commercial restrictions on the internet were lifted, leading to an explosion of online businesses and communities. Companies like Amazon and eBay emerged, fundamentally changing commerce and consumer behavior. The advent of social media at the start of the 2000s further connected users across the globe, creating platforms that facilitated sharing and communication. As mobile technology advanced, we saw the rise of smartphones, making internet access ubiquitous and driving a dramatic increase in online participation.  Looking towards 2030, the internet is expected to evolve",
+            "full_response": "The internet's origins trace back to the 1960s when ARPANET, developed by the U.S. Department of Defense, aimed to enable robust communication through interconnected networks. By the 1970s, the introduction of TCP/IP protocols laid the groundwork for the internet as we know it. The 1980s witnessed the emergence of personal computing, propelling the internet's popularity. In 1989, Tim Berners-Lee proposed the World Wide Web, which transformed the way information was accessed and shared. This period saw the release of the first web browsers, fostering a rapid expansion of online content, user engagement, and commerce.\n\nThe 1990s marked a pivotal moment, as commercial restrictions on the internet were lifted, leading to an explosion of online businesses and communities. Companies like Amazon and eBay emerged, fundamentally changing commerce and consumer behavior. The advent of social media at the start of the 2000s further connected users across the globe, creating platforms that facilitated sharing and communication. As mobile technology advanced, we saw the rise of smartphones, making internet access ubiquitous and driving a dramatic increase in online participation.\n\nLooking towards 2030, the internet is expected to evolve",
+            "tokens_per_second": 53.98,
+            "output_tokens": 240,
+            "character_count": 1242,
+            "cost_per_request": 0.000167
         },
         {
             "provider": "Anthropic",
             "model": "Claude 3.5 Sonnet",
-            "time": 8.1039,
+            "time": 8.8668,
             "status": "Online",
-            "response_preview": "The internet originated in the 1960s as ARPANET, a U.S. Department of Defense research project designed to create a decentralized communication network that could survive nuclear attacks. Early pioneers like Vint Cerf and Bob Kahn developed the TCP/IP protocol suite in the 1970s, establishing the foundational architecture for data transmission across networks. By 1983, ARPANET officially adopted TCP/IP, and the domain name system emerged in 1984, making the network more accessible to universities and research institutions.  The 1990s marked the internet's transformation from academic tool to global phenomenon. Tim Berners-Lee invented the World Wide Web in 1991, introducing browsers, hyperlinks, and HTML that revolutionized information sharing. The National Science Foundation lifted commercial restrictions in 1995, enabling businesses to establish online presence. Major portals like Yahoo, Amazon, and Google emerged, while dial-up connections gave way to broadband, dramatically expanding internet accessibility and usage worldwide.  Social media platforms like Facebook, Twitter, and YouTube dominated the 2000s, fundamentally changing human communication and commerce. Mobile internet through smartphones made connectivity ubiquitous, while cloud computing transformed data storage and software delivery. By 2030, I predict artificial intelligence will be seamlessly integrated into internet infrastructure, quantum computing will enhance security and processing speeds, and augmented reality will create immersive web experiences",
-            "full_response": "The internet originated in the 1960s as ARPANET, a U.S. Department of Defense research project designed to create a decentralized communication network that could survive nuclear attacks. Early pioneers like Vint Cerf and Bob Kahn developed the TCP/IP protocol suite in the 1970s, establishing the foundational architecture for data transmission across networks. By 1983, ARPANET officially adopted TCP/IP, and the domain name system emerged in 1984, making the network more accessible to universities and research institutions.\n\nThe 1990s marked the internet's transformation from academic tool to global phenomenon. Tim Berners-Lee invented the World Wide Web in 1991, introducing browsers, hyperlinks, and HTML that revolutionized information sharing. The National Science Foundation lifted commercial restrictions in 1995, enabling businesses to establish online presence. Major portals like Yahoo, Amazon, and Google emerged, while dial-up connections gave way to broadband, dramatically expanding internet accessibility and usage worldwide.\n\nSocial media platforms like Facebook, Twitter, and YouTube dominated the 2000s, fundamentally changing human communication and commerce. Mobile internet through smartphones made connectivity ubiquitous, while cloud computing transformed data storage and software delivery. By 2030, I predict artificial intelligence will be seamlessly integrated into internet infrastructure, quantum computing will enhance security and processing speeds, and augmented reality will create immersive web experiences",
-            "tokens_per_second": 37.02,
-            "output_tokens": 300,
-            "character_count": 1546,
-            "cost_per_request": 0.005013
+            "response_preview": "The internet originated in the late 1960s as ARPANET, a U.S. Department of Defense research project designed to create a decentralized communication network that could survive nuclear attacks. Scientists and researchers connected computers at universities and government facilities, enabling them to share data and communicate remotely. Tim Berners-Lee invented the World Wide Web in 1989 at CERN, introducing HTTP protocols and HTML markup language that transformed the internet from a text-based system into a multimedia platform accessible to ordinary users worldwide.  The 1990s marked the internet's commercial explosion as dial-up connections became affordable for households. Companies like AOL, Yahoo, and Amazon emerged, while search engines like Google revolutionized information retrieval. The dot-com boom and subsequent crash shaped the digital economy. Broadband adoption accelerated in the 2000s, enabling video streaming, social media platforms like Facebook and Twitter, and cloud computing services that fundamentally changed how people work, communicate, and consume entertainment globally.  By 2030, artificial intelligence will be seamlessly integrated into internet infrastructure, creating personalized digital experiences that anticipate user needs. Quantum computing networks will enable instantaneous global communications, while augmented reality will blur the lines between physical and digital worlds, making the internet an invisible but omnipresent layer of human existence.",
+            "full_response": "The internet originated in the late 1960s as ARPANET, a U.S. Department of Defense research project designed to create a decentralized communication network that could survive nuclear attacks. Scientists and researchers connected computers at universities and government facilities, enabling them to share data and communicate remotely. Tim Berners-Lee invented the World Wide Web in 1989 at CERN, introducing HTTP protocols and HTML markup language that transformed the internet from a text-based system into a multimedia platform accessible to ordinary users worldwide.\n\nThe 1990s marked the internet's commercial explosion as dial-up connections became affordable for households. Companies like AOL, Yahoo, and Amazon emerged, while search engines like Google revolutionized information retrieval. The dot-com boom and subsequent crash shaped the digital economy. Broadband adoption accelerated in the 2000s, enabling video streaming, social media platforms like Facebook and Twitter, and cloud computing services that fundamentally changed how people work, communicate, and consume entertainment globally.\n\nBy 2030, artificial intelligence will be seamlessly integrated into internet infrastructure, creating personalized digital experiences that anticipate user needs. Quantum computing networks will enable instantaneous global communications, while augmented reality will blur the lines between physical and digital worlds, making the internet an invisible but omnipresent layer of human existence.",
+            "tokens_per_second": 31.92,
+            "output_tokens": 283,
+            "character_count": 1505,
+            "cost_per_request": 0.004758
         },
         {
             "provider": "Cohere",
@@ -89,35 +89,6 @@
         }
     ],
     "history": [
-        {
-            "timestamp": "2025-11-30 00:19:37 UTC",
-            "results": {
-                "Groq": {
-                    "time": 0.5465,
-                    "tps": 184.81,
-                    "status": "Online",
-                    "cost": 0.0
-                },
-                "OpenAI": {
-                    "time": 4.9036,
-                    "tps": 54.25,
-                    "status": "Online",
-                    "cost": 0.000179
-                },
-                "Anthropic": {
-                    "time": 99.9999,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
-                },
-                "Google": {
-                    "time": 99.9999,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
-                }
-            }
-        },
         {
             "timestamp": "2025-11-30 00:28:17 UTC",
             "results": {
@@ -1250,6 +1221,53 @@
                     "tps": 37.02,
                     "status": "Online",
                     "cost": 0.005013
+                },
+                "Cohere": {
+                    "time": 99.9999,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Google": {
+                    "time": 99.9999,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                }
+            }
+        },
+        {
+            "timestamp": "2025-12-02 00:21:02 UTC",
+            "results": {
+                "Groq": {
+                    "time": 0.8859,
+                    "tps": 230.27,
+                    "status": "Online",
+                    "cost": 0.0
+                },
+                "Together AI": {
+                    "time": 1.8347,
+                    "tps": 136.26,
+                    "status": "Online",
+                    "cost": 7.8e-05
+                },
+                "Mistral AI": {
+                    "time": 3.584,
+                    "tps": 72.54,
+                    "status": "Online",
+                    "cost": 0.001938
+                },
+                "OpenAI": {
+                    "time": 4.4459,
+                    "tps": 53.98,
+                    "status": "Online",
+                    "cost": 0.000167
+                },
+                "Anthropic": {
+                    "time": 8.8668,
+                    "tps": 31.92,
+                    "status": "Online",
+                    "cost": 0.004758
                 },
                 "Cohere": {
                     "time": 99.9999,
