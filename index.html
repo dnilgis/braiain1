@@ -15,6 +15,10 @@
       gtag('config', 'G-1Y5SESHWEE');
     </script>
     
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_PUBLISHER_ID"
+         crossorigin="anonymous"></script>
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
@@ -265,6 +269,31 @@
         .theme-amber { background: #ffaa00; }
         .theme-cyan { background: #00ffff; }
         .theme-red { background: #ff0055; }
+        
+        /* AD CONTAINER STYLING */
+        .ad-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .ad-terminal {
+            background: var(--bg-terminal);
+            border: 1px solid var(--border-color);
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .ad-label {
+            font-size: 0.7em;
+            color: var(--text-dim);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+        
+        .ad-label::before {
+            content: '// ';
+        }
         
         /* CARD VIEW */
         .results-grid {
@@ -794,6 +823,23 @@
         </table>
     </div>
 
+    <!-- ADSENSE AD #1 - After Results, Before Chart -->
+    <div class="ad-container">
+        <div class="ad-terminal">
+            <div class="ad-label">SPONSORED CONTENT</div>
+            <!-- Display Ad (728x90 Leaderboard or Responsive) -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID_1"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+    </div>
+
     <!-- SIMPLIFIED CHART SECTION - NO DATE SELECTOR -->
     <div class="chart-terminal" id="chart-section" style="display: none;">
         <div class="terminal-window">
@@ -805,6 +851,23 @@
                     <canvas id="trendChart"></canvas>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- ADSENSE AD #2 - After Chart, Before Info -->
+    <div class="ad-container">
+        <div class="ad-terminal">
+            <div class="ad-label">SPONSORED CONTENT</div>
+            <!-- Display Ad (728x90 Leaderboard or Responsive) -->
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-YOUR_PUBLISHER_ID"
+                 data-ad-slot="YOUR_AD_SLOT_ID_2"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
         </div>
     </div>
 
@@ -1126,7 +1189,6 @@
             if (chartSection) chartSection.style.display = "block";
             fullHistoryData = history;
             
-            // Always show all available data (up to 30 days)
             const labels = [];
             const datasets = {};
             
