@@ -156,16 +156,18 @@ jobs:
             
             git commit -m "🤖 Auto-update: $TIMESTAMP | $PROVIDERS providers online"
             
-            echo "✅ Changes committed"
+            # Pull with rebase to handle any remote changes (like GitHub Pages commits)
+            git pull --rebase origin main || git pull --rebase origin master || true
+            
+            # Push changes
+            git push origin HEAD:${{ github.ref_name }} || {
+              echo "⚠️ Push failed, retrying with force..."
+              git push --force-with-lease origin HEAD:${{ github.ref_name }}
+            }
+            
+            echo "✅ Changes committed and pushed"
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
-      
-      - name: 🚢 Push to repository
-        if: steps.commit.outputs.changed == 'true'
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
       
       - name: 📢 Job summary
         if: always()
