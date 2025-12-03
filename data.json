@@ -1,121 +1,1097 @@
 {
-  "last_updated": "2024-12-03 18:00:00 UTC",
-  "results": [
-    {
-      "provider": "Groq",
-      "model": "Llama 3.3 70B",
-      "time": 0.52,
-      "status": "Online",
-      "response_preview": "The internet originated in the 1960s as ARPANET, a U.S. military project designed to create a decentralized communication network. The first message was sent between UCLA and Stanford in 1969. In the 1980s, Tim Berners-Lee invented the World Wide Web...",
-      "full_response": "The internet originated in the 1960s as ARPANET, a U.S. military project designed to create a decentralized communication network that could survive disruptions. The first message was sent between UCLA and Stanford in 1969, marking the birth of networked computing. In the 1980s, Tim Berners-Lee invented the World Wide Web at CERN, introducing the HTTP protocol and HTML markup language. The 1990s saw explosive commercial growth with browsers like Netscape and Internet Explorer making the web accessible to millions. Today, over 5 billion people use the internet, which has fundamentally transformed communication, commerce, education, and entertainment. From social media to cloud computing, the internet continues to evolve as the backbone of modern digital civilization, connecting devices, data, and people across the globe in ways unimaginable to its early pioneers.",
-      "tokens_per_second": 185,
-      "output_tokens": 487,
-      "character_count": 1095,
-      "cost_per_request": 0.0
-    },
-    {
-      "provider": "OpenAI",
-      "model": "GPT-4o Mini",
-      "time": 5.87,
-      "status": "Online",
-      "response_preview": "The internet's origins trace back to the 1960s with ARPANET, developed by the U.S. Department of Defense to enable resilient computer networking. The first successful message transmission occurred in October 1969 between UCLA and Stanford Research Institute...",
-      "full_response": "The internet's origins trace back to the 1960s with ARPANET, developed by the U.S. Department of Defense to enable resilient computer networking. The first successful message transmission occurred in October 1969 between UCLA and Stanford Research Institute. Throughout the 1970s and 1980s, TCP/IP protocols were standardized, allowing different networks to interconnect. Tim Berners-Lee's creation of the World Wide Web in 1989 revolutionized information sharing by introducing hypertext and URL addressing. The 1990s brought commercialization, with companies like AOL, Yahoo, and Amazon pioneering online services. The dot-com boom, despite its crash in 2000, laid infrastructure for today's digital economy. Modern internet encompasses cloud computing, streaming services, social networks, and IoT devices. With over 5 billion users worldwide, the internet has become humanity's primary platform for communication, commerce, education, and entertainment, continuously evolving through technologies like 5G, AI, and edge computing.",
-      "tokens_per_second": 46,
-      "output_tokens": 312,
-      "character_count": 1168,
-      "cost_per_request": 0.00019
-    },
-    {
-      "provider": "Anthropic",
-      "model": "Claude Sonnet 4",
-      "time": 4.15,
-      "status": "Online",
-      "response_preview": "The internet emerged from ARPANET, a 1960s U.S. Defense Department project aiming to create a robust, distributed communication network. On October 29, 1969, the first message was transmitted between computers at UCLA and Stanford, though the system crashed...",
-      "full_response": "The internet emerged from ARPANET, a 1960s U.S. Defense Department project aiming to create a robust, distributed communication network. On October 29, 1969, the first message was transmitted between computers at UCLA and Stanford, though the system crashed after just two letters. The network expanded throughout the 1970s, adopting TCP/IP protocols that became the foundation of modern internet architecture. Tim Berners-Lee's 1989 invention of the World Wide Web transformed the internet from a research tool into a global information system, introducing browsers, HTML, and hyperlinks. The 1990s commercialization brought search engines like Google, e-commerce platforms like Amazon and eBay, and eventually social media networks. Today's internet connects over 5 billion people, facilitating instant global communication, cloud computing, streaming entertainment, and digital commerce. The infrastructure continues evolving with fiber optics, 5G wireless, and satellite networks, while new technologies like blockchain and AI reshape how we interact online.",
-      "tokens_per_second": 78,
-      "output_tokens": 325,
-      "character_count": 1142,
-      "cost_per_request": 0.00146
-    },
-    {
-      "provider": "Google",
-      "model": "Gemini 2.0 Flash",
-      "time": 3.21,
-      "status": "Online",
-      "response_preview": "The internet's genesis lies in ARPANET, initiated in 1969 by the U.S. Advanced Research Projects Agency to establish a decentralized communication framework. The inaugural connection between UCLA and Stanford marked networking's dawn. TCP/IP protocols...",
-      "full_response": "The internet's genesis lies in ARPANET, initiated in 1969 by the U.S. Advanced Research Projects Agency to establish a decentralized communication framework. The inaugural connection between UCLA and Stanford marked networking's dawn. TCP/IP protocols, standardized in the 1980s, enabled seamless inter-network communication. Tim Berners-Lee's World Wide Web invention at CERN in 1989 introduced HTTP, HTML, and URLs, democratizing information access. The 1990s witnessed explosive growth with Netscape Navigator, Internet Explorer, and early search engines. E-commerce pioneers like Amazon and eBay transformed retail, while email became ubiquitous. The 2000s brought Web 2.0, characterized by user-generated content, social media platforms, and mobile internet. Today's internet ecosystem encompasses cloud services, streaming platforms, IoT devices, and AI applications. With 5+ billion users, the internet serves as humanity's digital nervous system, enabling instant global communication, remote work, online education, and digital entertainment while continuously evolving through emerging technologies.",
-      "tokens_per_second": 92,
-      "output_tokens": 341,
-      "character_count": 1121,
-      "cost_per_request": 0.0
-    },
-    {
-      "provider": "Mistral AI",
-      "model": "Mistral Large",
-      "time": 6.42,
-      "status": "Online",
-      "response_preview": "The internet's history begins with ARPANET in 1969, funded by the U.S. Department of Defense to create a resilient computer network. The first node-to-node communication between UCLA and Stanford inaugurated packet-switching technology...",
-      "full_response": "The internet's history begins with ARPANET in 1969, funded by the U.S. Department of Defense to create a resilient computer network. The first node-to-node communication between UCLA and Stanford inaugurated packet-switching technology. Throughout the 1970s, email emerged as a killer application, while TCP/IP protocols unified diverse networks. Tim Berners-Lee's 1989 World Wide Web proposal at CERN introduced hypertext, HTTP, and browsers, transforming the internet into an accessible information highway. The 1990s commercialization brought ISPs, web portals, and search engines. The dot-com era, despite its bubble burst, established e-commerce and online services. The 2000s introduced broadband, social media, and smartphones, making internet access ubiquitous. Today's internet supports cloud computing, streaming services, IoT networks, and AI platforms. With over 5 billion users worldwide, it serves as the foundation for modern society, enabling remote work, digital education, telemedicine, and global commerce while continuing to evolve through technologies like 5G and edge computing.",
-      "tokens_per_second": 41,
-      "output_tokens": 298,
-      "character_count": 1154,
-      "cost_per_request": 0.00179
-    },
-    {
-      "provider": "Cohere",
-      "model": "Command R+",
-      "time": 7.23,
-      "status": "Online",
-      "response_preview": "The internet traces its roots to ARPANET, established in 1969 by the U.S. Department of Defense's Advanced Research Projects Agency. This pioneering network connected UCLA and Stanford, demonstrating packet-switching for the first time...",
-      "full_response": "The internet traces its roots to ARPANET, established in 1969 by the U.S. Department of Defense's Advanced Research Projects Agency. This pioneering network connected UCLA and Stanford, demonstrating packet-switching for the first time. The 1970s saw network expansion and the development of fundamental protocols like TCP/IP, which enabled different computer systems to communicate seamlessly. Tim Berners-Lee revolutionized the landscape in 1989 by inventing the World Wide Web at CERN, introducing browsers, hyperlinks, and the HTTP protocol. The 1990s marked the internet's commercial explosion with companies like Netscape, Yahoo, and Amazon leading the charge. Search engines evolved from simple directories to sophisticated algorithms, with Google emerging as the dominant player. The 2000s brought social media platforms, smartphone connectivity, and cloud services. Today's internet encompasses 5+ billion users, supporting everything from streaming entertainment and e-commerce to remote work and online education. Continuous innovation through fiber optics, 5G networks, and AI integration ensures the internet remains central to modern civilization.",
-      "tokens_per_second": 37,
-      "output_tokens": 281,
-      "character_count": 1138,
-      "cost_per_request": 0.00168
-    },
-    {
-      "provider": "Together AI",
-      "model": "Llama 3.1 405B",
-      "time": 8.94,
-      "status": "Online",
-      "response_preview": "The internet's foundation was laid with ARPANET in 1969, a project funded by the U.S. military to develop a decentralized communication network resistant to single points of failure. The first message transmission between UCLA and Stanford...",
-      "full_response": "The internet's foundation was laid with ARPANET in 1969, a project funded by the U.S. military to develop a decentralized communication network resistant to single points of failure. The first message transmission between UCLA and Stanford marked the beginning of networked computing. During the 1970s and 1980s, TCP/IP protocols were developed and standardized, creating the technical foundation for internetworking. Tim Berners-Lee's invention of the World Wide Web in 1989 at CERN introduced user-friendly interfaces through browsers and HTML markup. The 1990s witnessed massive commercial growth with companies like AOL, Netscape, and early e-commerce pioneers establishing online presence. The dot-com boom, followed by its crash in 2000, nonetheless built critical infrastructure. The 2000s introduced broadband access, social networking platforms, and mobile internet via smartphones. Today's internet connects over 5 billion people globally, serving as the backbone for cloud computing, streaming services, digital commerce, remote work, and online education. Emerging technologies like 5G, edge computing, and AI continue transforming how we interact with this global network.",
-      "tokens_per_second": 31,
-      "output_tokens": 267,
-      "character_count": 1197,
-      "cost_per_request": 0.00214
-    }
-  ],
-  "history": [
-    {"timestamp": "2024-11-03 18:00:00", "results": {"Groq": {"time": 0.58, "status": "Online"}, "OpenAI": {"time": 6.21, "status": "Online"}, "Anthropic": {"time": 4.35, "status": "Online"}, "Google": {"time": 3.42, "status": "Online"}, "Mistral AI": {"time": 6.78, "status": "Online"}, "Cohere": {"time": 7.56, "status": "Online"}, "Together AI": {"time": 9.12, "status": "Online"}}},
-    {"timestamp": "2024-11-04 00:00:00", "results": {"Groq": {"time": 0.55, "status": "Online"}, "OpenAI": {"time": 6.15, "status": "Online"}, "Anthropic": {"time": 4.28, "status": "Online"}, "Google": {"time": 3.38, "status": "Online"}, "Mistral AI": {"time": 6.65, "status": "Online"}, "Cohere": {"time": 7.48, "status": "Online"}, "Together AI": {"time": 8.98, "status": "Online"}}},
-    {"timestamp": "2024-11-04 06:00:00", "results": {"Groq": {"time": 0.61, "status": "Online"}, "OpenAI": {"time": 6.32, "status": "Online"}, "Anthropic": {"time": 4.41, "status": "Online"}, "Google": {"time": 3.51, "status": "Online"}, "Mistral AI": {"time": 6.89, "status": "Online"}, "Cohere": {"time": 7.71, "status": "Online"}, "Together AI": {"time": 9.25, "status": "Online"}}},
-    {"timestamp": "2024-11-04 12:00:00", "results": {"Groq": {"time": 0.53, "status": "Online"}, "OpenAI": {"time": 6.08, "status": "Online"}, "Anthropic": {"time": 4.19, "status": "Online"}, "Google": {"time": 3.25, "status": "Online"}, "Mistral AI": {"time": 6.52, "status": "Online"}, "Cohere": {"time": 7.35, "status": "Online"}, "Together AI": {"time": 9.02, "status": "Online"}}},
-    {"timestamp": "2024-11-04 18:00:00", "results": {"Groq": {"time": 0.57, "status": "Online"}, "OpenAI": {"time": 6.18, "status": "Online"}, "Anthropic": {"time": 4.32, "status": "Online"}, "Google": {"time": 3.44, "status": "Online"}, "Mistral AI": {"time": 6.71, "status": "Online"}, "Cohere": {"time": 7.52, "status": "Online"}, "Together AI": {"time": 9.18, "status": "Online"}}},
-    {"timestamp": "2024-11-05 00:00:00", "results": {"Groq": {"time": 0.54, "status": "Online"}, "OpenAI": {"time": 6.11, "status": "Online"}, "Anthropic": {"time": 4.22, "status": "Online"}, "Google": {"time": 3.29, "status": "Online"}, "Mistral AI": {"time": 6.58, "status": "Online"}, "Cohere": {"time": 7.41, "status": "Online"}, "Together AI": {"time": 9.08, "status": "Online"}}},
-    {"timestamp": "2024-11-05 06:00:00", "results": {"Groq": {"time": 0.59, "status": "Online"}, "OpenAI": {"time": 6.28, "status": "Online"}, "Anthropic": {"time": 4.38, "status": "Online"}, "Google": {"time": 3.48, "status": "Online"}, "Mistral AI": {"time": 6.82, "status": "Online"}, "Cohere": {"time": 7.64, "status": "Online"}, "Together AI": {"time": 9.21, "status": "Online"}}},
-    {"timestamp": "2024-11-05 12:00:00", "results": {"Groq": {"time": 0.52, "status": "Online"}, "OpenAI": {"time": 6.05, "status": "Online"}, "Anthropic": {"time": 4.16, "status": "Online"}, "Google": {"time": 3.22, "status": "Online"}, "Mistral AI": {"time": 6.48, "status": "Online"}, "Cohere": {"time": 7.31, "status": "Online"}, "Together AI": {"time": 8.96, "status": "Online"}}},
-    {"timestamp": "2024-11-05 18:00:00", "results": {"Groq": {"time": 0.56, "status": "Online"}, "OpenAI": {"time": 6.19, "status": "Online"}, "Anthropic": {"time": 4.29, "status": "Online"}, "Google": {"time": 3.41, "status": "Online"}, "Mistral AI": {"time": 6.68, "status": "Online"}, "Cohere": {"time": 7.49, "status": "Online"}, "Together AI": {"time": 9.15, "status": "Online"}}},
-    {"timestamp": "2024-11-06 00:00:00", "results": {"Groq": {"time": 0.60, "status": "Online"}, "OpenAI": {"time": 6.35, "status": "Online"}, "Anthropic": {"time": 4.42, "status": "Online"}, "Google": {"time": 3.55, "status": "Online"}, "Mistral AI": {"time": 6.91, "status": "Online"}, "Cohere": {"time": 7.74, "status": "Online"}, "Together AI": {"time": 9.28, "status": "Online"}}},
-    {"timestamp": "2024-11-06 06:00:00", "results": {"Groq": {"time": 0.51, "status": "Online"}, "OpenAI": {"time": 6.02, "status": "Online"}, "Anthropic": {"time": 4.14, "status": "Online"}, "Google": {"time": 3.18, "status": "Online"}, "Mistral AI": {"time": 6.45, "status": "Online"}, "Cohere": {"time": 7.28, "status": "Online"}, "Together AI": {"time": 8.92, "status": "Online"}}},
-    {"timestamp": "2024-11-06 12:00:00", "results": {"Groq": {"time": 0.55, "status": "Online"}, "OpenAI": {"time": 6.14, "status": "Online"}, "Anthropic": {"time": 4.25, "status": "Online"}, "Google": {"time": 3.35, "status": "Online"}, "Mistral AI": {"time": 6.62, "status": "Online"}, "Cohere": {"time": 7.45, "status": "Online"}, "Together AI": {"time": 9.05, "status": "Online"}}},
-    {"timestamp": "2024-11-06 18:00:00", "results": {"Groq": {"time": 0.58, "status": "Online"}, "OpenAI": {"time": 6.25, "status": "Online"}, "Anthropic": {"time": 4.36, "status": "Online"}, "Google": {"time": 3.46, "status": "Online"}, "Mistral AI": {"time": 6.75, "status": "Online"}, "Cohere": {"time": 7.58, "status": "Online"}, "Together AI": {"time": 9.19, "status": "Online"}}},
-    {"timestamp": "2024-11-07 00:00:00", "results": {"Groq": {"time": 0.53, "status": "Online"}, "OpenAI": {"time": 6.09, "status": "Online"}, "Anthropic": {"time": 4.20, "status": "Online"}, "Google": {"time": 3.27, "status": "Online"}, "Mistral AI": {"time": 6.54, "status": "Online"}, "Cohere": {"time": 7.37, "status": "Online"}, "Together AI": {"time": 9.01, "status": "Online"}}},
-    {"timestamp": "2024-11-07 06:00:00", "results": {"Groq": {"time": 0.57, "status": "Online"}, "OpenAI": {"time": 6.22, "status": "Online"}, "Anthropic": {"time": 4.33, "status": "Online"}, "Google": {"time": 3.43, "status": "Online"}, "Mistral AI": {"time": 6.72, "status": "Online"}, "Cohere": {"time": 7.54, "status": "Online"}, "Together AI": {"time": 9.16, "status": "Online"}}},
-    {"timestamp": "2024-11-07 12:00:00", "results": {"Groq": {"time": 0.54, "status": "Online"}, "OpenAI": {"time": 6.12, "status": "Online"}, "Anthropic": {"time": 99.99, "status": "Error"}, "Google": {"time": 3.31, "status": "Online"}, "Mistral AI": {"time": 6.59, "status": "Online"}, "Cohere": {"time": 7.42, "status": "Online"}, "Together AI": {"time": 9.09, "status": "Online"}}},
-    {"timestamp": "2024-11-07 18:00:00", "results": {"Groq": {"time": 0.59, "status": "Online"}, "OpenAI": {"time": 6.31, "status": "Online"}, "Anthropic": {"time": 4.24, "status": "Online"}, "Google": {"time": 3.52, "status": "Online"}, "Mistral AI": {"time": 6.86, "status": "Online"}, "Cohere": {"time": 7.68, "status": "Online"}, "Together AI": {"time": 9.24, "status": "Online"}}},
-    {"timestamp": "2024-11-08 00:00:00", "results": {"Groq": {"time": 0.52, "status": "Online"}, "OpenAI": {"time": 6.06, "status": "Online"}, "Anthropic": {"time": 4.17, "status": "Online"}, "Google": {"time": 3.24, "status": "Online"}, "Mistral AI": {"time": 6.50, "status": "Online"}, "Cohere": {"time": 7.33, "status": "Online"}, "Together AI": {"time": 8.98, "status": "Online"}}},
-    {"timestamp": "2024-11-08 06:00:00", "results": {"Groq": {"time": 0.56, "status": "Online"}, "OpenAI": {"time": 6.17, "status": "Online"}, "Anthropic": {"time": 4.30, "status": "Online"}, "Google": {"time": 3.40, "status": "Online"}, "Mistral AI": {"time": 6.69, "status": "Online"}, "Cohere": {"time": 7.50, "status": "Online"}, "Together AI": {"time": 9.14, "status": "Online"}}},
-    {"timestamp": "2024-11-08 12:00:00", "results": {"Groq": {"time": 0.61, "status": "Online"}, "OpenAI": {"time": 6.38, "status": "Online"}, "Anthropic": {"time": 4.44, "status": "Online"}, "Google": {"time": 3.58, "status": "Online"}, "Mistral AI": {"time": 6.93, "status": "Online"}, "Cohere": {"time": 7.77, "status": "Online"}, "Together AI": {"time": 9.31, "status": "Online"}}},
-    {"timestamp": "2024-11-08 18:00:00", "results": {"Groq": {"time": 0.50, "status": "Online"}, "OpenAI": {"time": 5.99, "status": "Online"}, "Anthropic": {"time": 4.12, "status": "Online"}, "Google": {"time": 3.16, "status": "Online"}, "Mistral AI": {"time": 6.42, "status": "Online"}, "Cohere": {"time": 7.25, "status": "Online"}, "Together AI": {"time": 8.89, "status": "Online"}}},
-    {"timestamp": "2024-11-09 00:00:00", "results": {"Groq": {"time": 0.55, "status": "Online"}, "OpenAI": {"time": 6.13, "status": "Online"}, "Anthropic": {"time": 4.26, "status": "Online"}, "Google": {"time": 3.37, "status": "Online"}, "Mistral AI": {"time": 6.64, "status": "Online"}, "Cohere": {"time": 7.46, "status": "Online"}, "Together AI": {"time": 9.07, "status": "Online"}}},
-    {"timestamp": "2024-11-09 06:00:00", "results": {"Groq": {"time": 0.58, "status": "Online"}, "OpenAI": {"time": 6.27, "status": "Online"}, "Anthropic": {"time": 4.37, "status": "Online"}, "Google": {"time": 3.49, "status": "Online"}, "Mistral AI": {"time": 6.79, "status": "Online"}, "Cohere": {"time": 7.61, "status": "Online"}, "Together AI": {"time": 9.22, "status": "Online"}}},
-    {"timestamp": "2024-11-09 12:00:00", "results": {"Groq": {"time": 0.53, "status": "Online"}, "OpenAI": {"time": 6.10, "status": "Online"}, "Anthropic": {"time": 4.21, "status": "Online"}, "Google": {"time": 3.28, "status": "Online"}, "Mistral AI": {"time": 6.56, "status": "Online"}, "Cohere": {"time": 7.39, "status": "Online"}, "Together AI": {"time": 9.03, "status": "Online"}}},
-    {"timestamp": "2024-11-09 18:00:00", "results": {"Groq": {"time": 0.57, "status": "Online"}, "OpenAI": {"time": 6.24, "status": "Online"}, "Anthropic": {"time": 4.34, "status": "Online"}, "Google": {"time": 3.45, "status": "Online"}, "Mistral AI": {"time": 6.74, "status": "Online"}, "Cohere": {"time": 7.57, "status": "Online"}, "Together AI": {"time": 9.17, "status": "Online"}}},
-    {"timestamp": "2024-11-10 00:00:00", "results": {"Groq": {"time": 0.54, "status": "Online"}, "OpenAI": {"time": 6.11, "status": "Online"}, "Anthropic": {"time": 4.23, "status": "Online"}, "Google": {"time": 3.30, "status": "Online"}, "Mistral AI": {"time": 6.60, "status": "Online"}, "Cohere": {"time": 7.43, "status": "Online"}, "Together AI": {"time": 99.99, "status": "Error"}}},
-    {"timestamp": "2024-11-10 06:00:00", "results": {"Groq": {"time": 0.59, "status": "Online"}, "OpenAI": {"time": 6.29, "status": "Online"}, "Anthropic": {"time": 4.39, "status": "Online"}, "Google": {"time": 3.50, "status": "Online"}, "Mistral AI": {"time": 6.84, "status": "Online"}, "Cohere": {"time": 7.66, "status": "Online"}, "Together AI": {"time": 9.06, "status": "Online"}}},
-    {"timestamp": "2024-11-10 12:00:00", "results": {"Groq": {"time": 0.51, "status": "Online"}, "OpenAI": {"time": 6.04, "status": "Online"}, "Anthropic": {"time": 4.15, "status": "Online"}, "Google": {"time": 3.20, "status": "Online"}, "Mistral AI": {"time": 6.47, "status": "Online"}, "Cohere": {"time": 7.30, "status": "Online"}, "Together AI": {"time": 8.95, "status": "Online"}}},
-    {"timestamp": "2024-11-10 18:00:00", "results": {"Groq": {"time": 0.56, "status": "Online"}, "OpenAI": {"time": 6.20, "status": "Online"}, "Anthropic": {"time": 4.31, "status": "Online"}, "Google": {"time": 3.42, "status": "Online"}, "Mistral AI": {"time": 6.70, "status": "Online"}, "Cohere": {"time": 7.51, "status": "Online"}, "Together AI": {"time": 9.13, "status": "Online"}}},
-    {"timestamp": "2024-12-03 18:00:00", "results": {"Groq": {"time": 0.52, "status": "Online"}, "OpenAI": {"time": 5.87, "status": "Online"}, "Anthropic": {"time": 4.15, "status": "Online"}, "Google": {"time": 3.21, "status": "Online"}, "Mistral AI": {"time": 6.42, "status": "Online"}, "Cohere": {"time": 7.23, "status": "Online"}, "Together AI": {"time": 8.94, "status": "Online"}}}
-  ]
+    "last_updated": "2025-12-03 23:19:41 UTC",
+    "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.\n\nABSOLUTE REQUIREMENTS - YOUR RESPONSE WILL BE REJECTED IF YOU VIOLATE THESE:\n\nYOU MUST WRITE EXACTLY 1000-1200 CHARACTERS. COUNT EVERY SINGLE CHARACTER.\n\nWRITE EXACTLY THREE PARAGRAPHS. STOP WHEN YOU REACH 1200 CHARACTERS.\n\nTARGET LENGTH: 1100 CHARACTERS\n\nEND WITH A COMPLETE SENTENCE AND A PERIOD (.)\n\nDO NOT STOP WRITING UNTIL YOU REACH AT LEAST 1000 CHARACTERS. THIS IS MANDATORY.\n\nYour response must be substantive and detailed. DO NOT write short summaries.",
+    "max_tokens": 240,
+    "results": [
+        {
+            "provider": "Groq",
+            "model": "Llama 3.3 70B",
+            "time": 0.8921,
+            "status": "Online",
+            "response_preview": "The history of the internet began in the 1960s with the development of ARPANET, a project funded by the US Department of Defense. This early network was designed to connect computers at different research institutions, allowing them to communicate and share resources. The first message sent over ARPANET was in 1969, and it marked the beginning of a new era in communication.  As the years passed, other networks were developed and connected to ARPANET, forming a network of networks that would eventually become the internet. The introduction of the Internet Protocol (IP) in the 1980s allowed different networks to communicate with each other, and the Domain Name System (DNS) made it easier for users to access websites using easy-to-remember domain names. The World Wide Web was invented in 1989, making it easy for users to access and share information using web browsers and hyperlinks.  The internet has come a long way since its inception, and it continues to evolve rapidly. With the rise of mobile devices and social media, the internet has become an integral part of modern life. As we look to the future, it is likely that the internet will become even more ubiquitous and integrated into our daily lives, with advancements in artificial intelligence and the Internet of Things (IoT) leading to new innovations and applications, and by 2030, the internet will be even more pervasive and essential to daily life.",
+            "full_response": "The history of the internet began in the 1960s with the development of ARPANET, a project funded by the US Department of Defense. This early network was designed to connect computers at different research institutions, allowing them to communicate and share resources. The first message sent over ARPANET was in 1969, and it marked the beginning of a new era in communication.\n\nAs the years passed, other networks were developed and connected to ARPANET, forming a network of networks that would eventually become the internet. The introduction of the Internet Protocol (IP) in the 1980s allowed different networks to communicate with each other, and the Domain Name System (DNS) made it easier for users to access websites using easy-to-remember domain names. The World Wide Web was invented in 1989, making it easy for users to access and share information using web browsers and hyperlinks.\n\nThe internet has come a long way since its inception, and it continues to evolve rapidly. With the rise of mobile devices and social media, the internet has become an integral part of modern life. As we look to the future, it is likely that the internet will become even more ubiquitous and integrated into our daily lives, with advancements in artificial intelligence and the Internet of Things (IoT) leading to new innovations and applications, and by 2030, the internet will be even more pervasive and essential to daily life.",
+            "tokens_per_second": 320.59,
+            "output_tokens": 286,
+            "character_count": 1424,
+            "cost_per_request": 0.0
+        },
+        {
+            "provider": "Together AI",
+            "model": "Llama 3.1 70B",
+            "time": 3.009,
+            "status": "Online",
+            "response_preview": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency (ARPA) funding a project to create a network of computers that could communicate with each other. This project, called ARPANET, was the first operational packet switching network, and it was developed in the late 1960s and early 1970s. The first message sent over ARPANET was in 1969, and it was a simple \"LO\" as the system crashed before the full message \"LOGIN\" could be sent.  In the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, a British computer scientist, and it revolutionized the way people accessed and shared information online. The web made it easy for people to access and share information using web browsers and hyperlinks. The internet became widely available to the public in the 1990s, and it quickly became an essential part of modern life.  Today, the internet is a global network of billions of interconnected devices, and it continues to evolve and expand",
+            "full_response": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency (ARPA) funding a project to create a network of computers that could communicate with each other. This project, called ARPANET, was the first operational packet switching network, and it was developed in the late 1960s and early 1970s. The first message sent over ARPANET was in 1969, and it was a simple \"LO\" as the system crashed before the full message \"LOGIN\" could be sent.\n\nIn the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, a British computer scientist, and it revolutionized the way people accessed and shared information online. The web made it easy for people to access and share information using web browsers and hyperlinks. The internet became widely available to the public in the 1990s, and it quickly became an essential part of modern life.\n\nToday, the internet is a global network of billions of interconnected devices, and it continues to evolve and expand",
+            "tokens_per_second": 83.08,
+            "output_tokens": 250,
+            "character_count": 1175,
+            "cost_per_request": 7.8e-05
+        },
+        {
+            "provider": "OpenAI",
+            "model": "GPT-4o Mini",
+            "time": 4.7846,
+            "status": "Online",
+            "response_preview": "The history of the internet began in the 1960s with ARPANET, a project funded by the U.S. Department of Defense to connect various research institutions. At its inception, the network focused on enabling reliable communication between computers, particularly in the event of a nuclear attack. By the 1970s, the development of TCP/IP protocols laid the foundation for more robust connections, leading to the transformation of ARPANET into the Internet we know today. The 1980s saw the birth of the World Wide Web, created by Tim Berners-Lee, who implemented HTML and HTTP, making information more accessible and user-friendly.  The 1990s heralded a rapid expansion of the internet, driven by the introduction of web browsers that fueled commercial interest and personal engagement. This decade witnessed the rise of search engines, e-commerce platforms, and social networking sites, which transformed how individuals and businesses operated online. By the early 2000s, broadband technology further increased accessibility and speed, leading to the establishment of myriad websites and online services. Throughout the 2010s, the rise of mobile devices and applications solidified the internet as an integral aspect of daily life.  Looking ahead",
+            "full_response": "The history of the internet began in the 1960s with ARPANET, a project funded by the U.S. Department of Defense to connect various research institutions. At its inception, the network focused on enabling reliable communication between computers, particularly in the event of a nuclear attack. By the 1970s, the development of TCP/IP protocols laid the foundation for more robust connections, leading to the transformation of ARPANET into the Internet we know today. The 1980s saw the birth of the World Wide Web, created by Tim Berners-Lee, who implemented HTML and HTTP, making information more accessible and user-friendly.\n\nThe 1990s heralded a rapid expansion of the internet, driven by the introduction of web browsers that fueled commercial interest and personal engagement. This decade witnessed the rise of search engines, e-commerce platforms, and social networking sites, which transformed how individuals and businesses operated online. By the early 2000s, broadband technology further increased accessibility and speed, leading to the establishment of myriad websites and online services. Throughout the 2010s, the rise of mobile devices and applications solidified the internet as an integral aspect of daily life.\n\nLooking ahead",
+            "tokens_per_second": 50.16,
+            "output_tokens": 240,
+            "character_count": 1242,
+            "cost_per_request": 0.000167
+        },
+        {
+            "provider": "Anthropic",
+            "model": "Claude 3.5 Sonnet",
+            "time": 8.3282,
+            "status": "Online",
+            "response_preview": "The internet began in the late 1960s as ARPANET, a U.S. Department of Defense project connecting four university computers. This network used packet-switching technology to enable reliable communication between distant computers. By the 1970s, TCP/IP protocols were developed, creating the foundation for modern internet architecture. The domain name system emerged in the 1980s, making web addresses more user-friendly and accessible to growing numbers of institutions and researchers.  The 1990s marked the internet's transformation from academic tool to global phenomenon. Tim Berners-Lee invented the World Wide Web in 1991, introducing browsers, websites, and hyperlinks that made information easily accessible to ordinary users. Commercial restrictions were lifted, allowing businesses to establish online presence. Email, e-commerce, and early social platforms emerged, while dial-up connections brought the internet into millions of homes worldwide.  The 2000s and 2010s saw explosive growth with broadband adoption, mobile internet, social media dominance, and cloud computing. Smartphones made internet access ubiquitous, while platforms like Facebook, Google, and Amazon reshaped commerce and communication. By 2030, quantum internet infrastructure will likely emerge, offering unprecedented security and speed, while AI-driven personalization and augmented reality will seamlessly integrate digital and physical experiences.",
+            "full_response": "The internet began in the late 1960s as ARPANET, a U.S. Department of Defense project connecting four university computers. This network used packet-switching technology to enable reliable communication between distant computers. By the 1970s, TCP/IP protocols were developed, creating the foundation for modern internet architecture. The domain name system emerged in the 1980s, making web addresses more user-friendly and accessible to growing numbers of institutions and researchers.\n\nThe 1990s marked the internet's transformation from academic tool to global phenomenon. Tim Berners-Lee invented the World Wide Web in 1991, introducing browsers, websites, and hyperlinks that made information easily accessible to ordinary users. Commercial restrictions were lifted, allowing businesses to establish online presence. Email, e-commerce, and early social platforms emerged, while dial-up connections brought the internet into millions of homes worldwide.\n\nThe 2000s and 2010s saw explosive growth with broadband adoption, mobile internet, social media dominance, and cloud computing. Smartphones made internet access ubiquitous, while platforms like Facebook, Google, and Amazon reshaped commerce and communication. By 2030, quantum internet infrastructure will likely emerge, offering unprecedented security and speed, while AI-driven personalization and augmented reality will seamlessly integrate digital and physical experiences.",
+            "tokens_per_second": 33.86,
+            "output_tokens": 282,
+            "character_count": 1436,
+            "cost_per_request": 0.004743
+        },
+        {
+            "provider": "Cohere",
+            "model": "Command R+",
+            "time": 99.9999,
+            "status": "API FAILURE",
+            "response_preview": "All model versions failed",
+            "full_response": "All model versions failed",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "character_count": 0,
+            "cost_per_request": null
+        },
+        {
+            "provider": "Google",
+            "model": "Gemini 1.5 Pro",
+            "time": 99.9999,
+            "status": "API FAILURE",
+            "response_preview": "All model versions failed",
+            "full_response": "All model versions failed",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "character_count": 0,
+            "cost_per_request": null
+        },
+        {
+            "provider": "Mistral AI",
+            "model": "Mistral Large",
+            "time": 61.11881918499998,
+            "status": "API FAILURE",
+            "response_preview": "HTTPSConnectionPool(host='api.mistral.ai', port=443): Read timed out. (read timeout=30)",
+            "full_response": "HTTPSConnectionPool(host='api.mistral.ai', port=443): Read timed out. (read timeout=30)",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "character_count": 0,
+            "cost_per_request": null
+        }
+    ],
+    "history": [
+        {
+            "timestamp": "2024-11-04 00:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.55,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.15,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.28,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.38,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.65,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.48,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 8.98,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-04 06:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.61,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.32,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.41,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.51,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.89,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.71,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.25,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-04 12:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.53,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.08,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.19,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.25,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.52,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.35,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.02,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-04 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.57,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.18,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.32,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.44,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.71,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.52,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.18,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-05 00:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.54,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.11,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.22,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.29,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.58,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.41,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.08,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-05 06:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.59,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.28,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.38,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.48,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.82,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.64,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.21,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-05 12:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.52,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.05,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.16,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.22,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.48,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.31,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 8.96,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-05 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.56,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.19,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.29,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.41,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.68,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.49,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.15,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-06 00:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.6,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.35,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.42,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.55,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.91,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.74,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.28,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-06 06:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.51,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.02,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.14,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.18,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.45,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.28,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 8.92,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-06 12:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.55,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.14,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.25,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.35,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.62,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.45,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.05,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-06 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.58,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.25,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.36,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.46,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.75,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.58,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.19,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-07 00:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.53,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.09,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.2,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.27,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.54,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.37,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.01,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-07 06:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.57,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.22,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.33,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.43,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.72,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.54,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.16,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-07 12:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.54,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.12,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 99.99,
+                    "status": "Error"
+                },
+                "Google": {
+                    "time": 3.31,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.59,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.42,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.09,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-07 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.59,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.31,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.24,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.52,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.86,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.68,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.24,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-08 00:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.52,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.06,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.17,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.24,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.5,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.33,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 8.98,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-08 06:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.56,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.17,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.3,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.4,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.69,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.5,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.14,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-08 12:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.61,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.38,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.44,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.58,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.93,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.77,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.31,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-08 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.5,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 5.99,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.12,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.16,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.42,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.25,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 8.89,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-09 00:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.55,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.13,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.26,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.37,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.64,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.46,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.07,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-09 06:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.58,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.27,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.37,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.49,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.79,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.61,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.22,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-09 12:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.53,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.1,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.21,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.28,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.56,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.39,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.03,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-09 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.57,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.24,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.34,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.45,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.74,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.57,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.17,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-10 00:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.54,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.11,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.23,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.3,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.6,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.43,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 99.99,
+                    "status": "Error"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-10 06:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.59,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.29,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.39,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.5,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.84,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.66,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.06,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-10 12:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.51,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.04,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.15,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.2,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.47,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.3,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 8.95,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-11-10 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.56,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 6.2,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.31,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.42,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.7,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.51,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 9.13,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2024-12-03 18:00:00",
+            "results": {
+                "Groq": {
+                    "time": 0.52,
+                    "status": "Online"
+                },
+                "OpenAI": {
+                    "time": 5.87,
+                    "status": "Online"
+                },
+                "Anthropic": {
+                    "time": 4.15,
+                    "status": "Online"
+                },
+                "Google": {
+                    "time": 3.21,
+                    "status": "Online"
+                },
+                "Mistral AI": {
+                    "time": 6.42,
+                    "status": "Online"
+                },
+                "Cohere": {
+                    "time": 7.23,
+                    "status": "Online"
+                },
+                "Together AI": {
+                    "time": 8.94,
+                    "status": "Online"
+                }
+            }
+        },
+        {
+            "timestamp": "2025-12-03 23:19:41 UTC",
+            "results": {
+                "Groq": {
+                    "time": 0.8921,
+                    "tps": 320.59,
+                    "status": "Online",
+                    "cost": 0.0
+                },
+                "Together AI": {
+                    "time": 3.009,
+                    "tps": 83.08,
+                    "status": "Online",
+                    "cost": 7.8e-05
+                },
+                "OpenAI": {
+                    "time": 4.7846,
+                    "tps": 50.16,
+                    "status": "Online",
+                    "cost": 0.000167
+                },
+                "Anthropic": {
+                    "time": 8.3282,
+                    "tps": 33.86,
+                    "status": "Online",
+                    "cost": 0.004743
+                },
+                "Cohere": {
+                    "time": 99.9999,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Google": {
+                    "time": 99.9999,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                },
+                "Mistral AI": {
+                    "time": 61.11881918499998,
+                    "tps": 0,
+                    "status": "API FAILURE",
+                    "cost": null
+                }
+            }
+        }
+    ]
 }
