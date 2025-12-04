@@ -1634,4 +1634,12 @@
             }
         }
 
-        const savedT
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log(">> BRAIAN SPEED INDEX INITIALIZING");
+            await fetchData();
+            console.log(">> SYSTEM READY");
+        });
+    </script>
+</body>
+</html>
