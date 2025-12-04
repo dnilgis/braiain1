@@ -76,20 +76,14 @@ jobs:
           
           echo "✅ data.json successfully generated"
           ls -lh data.json
-          
-          echo "📊 Provider counts:"
-          python -c "
-import json
-with open('data.json') as f:
-    data = json.load(f)
-    online = sum(1 for r in data['results'] if r['status'] == 'Online')
-    total = len(data['results'])
-    history = len(data.get('history', []))
-    print(f'  Total Providers: {total}')
-    print(f'  Online: {online}')
-    print(f'  Offline: {total - online}')
-    print(f'  History Points: {history}')
-"
+      
+      - name: 📊 Check results
+        if: always()
+        run: |
+          if [ -f "data.json" ]; then
+            echo "Provider Summary:"
+            python -c 'import json; data=json.load(open("data.json")); total=len(data["results"]); online=sum(1 for r in data["results"] if r["status"]=="Online"); print(f"Total: {total}, Online: {online}, Offline: {total-online}")'
+          fi
       
       - name: 📋 Generate summary report
         if: always()
@@ -98,16 +92,16 @@ with open('data.json') as f:
           echo "" >> $GITHUB_STEP_SUMMARY
           
           if [ -f "data.json" ]; then
-            python << 'EOF' >> $GITHUB_STEP_SUMMARY
+            python << 'PYTHON_SCRIPT' >> $GITHUB_STEP_SUMMARY
 import json
 
 with open('data.json') as f:
     data = json.load(f)
 
 print(f"**Last Updated:** {data['last_updated']}")
-print(f"")
+print("")
 print(f"**Total Providers:** {len(data['results'])}")
-print(f"")
+print("")
 
 online = [r for r in data['results'] if r['status'] == 'Online']
 offline = [r for r in data['results'] if r['status'] != 'Online']
@@ -132,7 +126,7 @@ if offline:
     print("")
 
 print(f"**History Entries:** {len(data.get('history', []))}")
-EOF
+PYTHON_SCRIPT
           else
             echo "⚠️ data.json not found - benchmark may have failed" >> $GITHUB_STEP_SUMMARY
           fi
@@ -142,23 +136,21 @@ EOF
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
           git config --local user.name "github-actions[bot]"
           
-          # Pull with rebase to handle any remote changes
           git pull --rebase origin main || git pull --rebase origin master || true
           
-          # Stage changes
           git add data.json
           
-          # Check if there are changes to commit
           if git diff --staged --quiet; then
             echo "ℹ️ No changes to commit"
             exit 0
           fi
           
-          # Create smart commit message
           TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
-          ONLINE_COUNT=$(python -c "import json; data=json.load(open('data.json')); print(sum(1 for r in data['results'] if r['status']=='Online'))")
+          if [ -f "data.json" ]; then
+            ONLINE_COUNT=$(python -c 'import json; data=json.load(open("data.json")); print(sum(1 for r in data["results"] if r["status"]=="Online"))')
+            git commit -m "🤖 Auto-update: ${TIMESTAMP} | ${ONLINE_COUNT} providers online"
+          else
+            git commit -m "🤖 Auto-update: ${TIMESTAMP}"
+          fi
           
-          git commit -m "🤖 Auto-update: ${TIMESTAMP} | ${ONLINE_COUNT} providers online"
-          
-          # Push with force-with-lease as fallback
           git push || git push --force-with-lease
