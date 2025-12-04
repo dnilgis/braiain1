@@ -85,51 +85,7 @@ jobs:
       
       - name: 📋 Generate summary report
         if: always()
-        run: |
-          echo "### 🎯 Benchmark Results" >> $GITHUB_STEP_SUMMARY
-          echo "" >> $GITHUB_STEP_SUMMARY
-          
-          if [ -f "data.json" ]; then
-            cat > /tmp/summary.py << 'EOF'
-import json
-import sys
-
-with open('data.json') as f:
-    data = json.load(f)
-
-print(f"**Last Updated:** {data['last_updated']}")
-print("")
-print(f"**Total Providers:** {len(data['results'])}")
-print("")
-
-online = [r for r in data['results'] if r['status'] == 'Online']
-offline = [r for r in data['results'] if r['status'] != 'Online']
-
-if online:
-    print("### ✅ Online Providers")
-    print("")
-    print("| Rank | Provider | Model | Time | TPS | Cost |")
-    print("|------|----------|-------|------|-----|------|")
-    
-    for i, r in enumerate(online, 1):
-        medal = "🥇" if i == 1 else "🥈" if i == 2 else "🥉" if i == 3 else f"#{i}"
-        cost = f"${r['cost_per_request']:.5f}" if r['cost_per_request'] > 0 else "FREE"
-        print(f"| {medal} | {r['provider']} | {r['model']} | {r['time']:.2f}s | {r['tokens_per_second']:.0f} | {cost} |")
-    print("")
-
-if offline:
-    print("### ❌ Offline Providers")
-    print("")
-    for r in offline:
-        print(f"- {r['provider']} ({r['model']})")
-    print("")
-
-print(f"**History Entries:** {len(data.get('history', []))}")
-EOF
-            python /tmp/summary.py >> $GITHUB_STEP_SUMMARY
-          else
-            echo "⚠️ data.json not found - benchmark may have failed" >> $GITHUB_STEP_SUMMARY
-          fi
+        run: python generate_summary.py >> $GITHUB_STEP_SUMMARY
       
       - name: 💾 Commit and push results
         run: |
@@ -147,7 +103,7 @@ EOF
           
           TIMESTAMP=$(date -u '+%Y-%m-%d %H:%M UTC')
           if [ -f "data.json" ]; then
-            ONLINE_COUNT=$(python -c 'import json; data=json.load(open("data.json")); print(sum(1 for r in data["results"] if r["status"]=="Online"))')
+            ONLINE_COUNT=$(python -c 'import json; data=json.load(open("data.json")); print(sum(1 for r in data["results"] if r["status"]=="Online"))' 2>/dev/null || echo "?")
             git commit -m "🤖 Auto-update: ${TIMESTAMP} | ${ONLINE_COUNT} providers online"
           else
             git commit -m "🤖 Auto-update: ${TIMESTAMP}"
