@@ -1002,13 +1002,33 @@
             <h2>SYSTEM OVERVIEW</h2>
             <p>
                 BRAIAIN SPEED INDEX is an independent benchmarking system for Large Language Model APIs. 
-                We execute identical prompts across all major providers under controlled conditions, 
-                measuring real-world latency, throughput, and cost metrics.
+                We execute identical, complex analytical prompts across all major providers under controlled conditions, 
+                measuring real-world latency, throughput, cost metrics, and response quality.
             </p>
             <p>
                 Unlike vendor-provided benchmarks, our data represents actual API performance from 
                 production infrastructure. All tests run from the same datacenter with consistent 
-                network conditions, ensuring valid cross-provider comparisons.
+                network conditions, ensuring valid cross-provider comparisons. Tests are automated 
+                via GitHub Actions and run every 6 hours.
+            </p>
+        </div>
+
+        <div class="info-block">
+            <h2>TEST PROMPT</h2>
+            <div class="terminal-response" style="max-height: 120px; cursor: pointer; margin-top: 10px;" onclick="this.classList.toggle('expanded')">
+                <strong>Multi-Step Analytical Reasoning Challenge:</strong><br><br>
+                
+                <strong>Part 1: Historical Analysis (400-450 characters)</strong><br>
+                Analyze the evolution of artificial intelligence from 2010 to 2025. Identify and explain the THREE most significant breakthroughs that fundamentally changed the field. For each breakthrough, describe its technical innovation and its broader impact on AI capabilities.<br><br>
+                
+                <strong>Part 2: Comparative Technical Assessment (400-450 characters)</strong><br>
+                Compare and contrast deep learning architectures versus transformer architectures. Explain why transformers became dominant for language tasks despite deep learning's earlier success. Include specific technical reasons for this paradigm shift.<br><br>
+                
+                <strong>Part 3: Predictive Analysis (300-350 characters)</strong><br>
+                Based on current trends, predict the next major AI breakthrough likely to occur post-2025. Provide THREE specific technical reasons supporting your prediction and a realistic timeline.
+            </div>
+            <p style="color: var(--text-dim); font-size: 0.85em; margin-top: 10px; font-style: italic;">
+                Click to expand/collapse full prompt
             </p>
         </div>
 
@@ -1018,30 +1038,74 @@
                 <div class="info-card">
                     <h3>TEST PARAMETERS</h3>
                     <ul class="info-list">
-                        <li>Identical 3-paragraph prompt</li>
-                        <li>Target: 1000-1200 characters</li>
-                        <li>Max tokens: 240-650 (optimized per provider)</li>
-                        <li>Validation: 3 retry attempts</li>
+                        <li>Multi-step analytical reasoning prompt</li>
+                        <li>Target output: 1100-1250 characters</li>
+                        <li>Max tokens: 240 (consistent across providers)</li>
+                        <li>Temperature: 1.0 (default creativity)</li>
+                        <li>Validation: 3 retry attempts with character checks</li>
+                        <li>Quality filter: 1000-1400 character range required</li>
                     </ul>
                 </div>
                 
                 <div class="info-card">
                     <h3>METRICS TRACKED</h3>
                     <ul class="info-list">
-                        <li>SPEED: End-to-end latency</li>
-                        <li>TPS: Tokens per second</li>
-                        <li>COST: Per-request pricing</li>
-                        <li>QUALITY: Character validation</li>
+                        <li>SPEED: End-to-end API latency (seconds)</li>
+                        <li>TPS: Tokens generated per second</li>
+                        <li>COST: Per-request pricing (input + output)</li>
+                        <li>QUALITY: Character count validation (1000-1400)</li>
+                        <li>OUTPUT: Complete response text logged</li>
+                        <li>STATUS: Online/offline availability tracking</li>
                     </ul>
                 </div>
                 
                 <div class="info-card">
                     <h3>DATA INTEGRITY</h3>
                     <ul class="info-list">
-                        <li>Automated testing every 6 hours</li>
-                        <li>30-day rolling history</li>
-                        <li>Full response logging</li>
-                        <li>Transparent error reporting</li>
+                        <li>Automated testing every 6 hours (GitHub Actions)</li>
+                        <li>30-day rolling history with trend analysis</li>
+                        <li>Full response logging for quality verification</li>
+                        <li>Transparent error reporting (API failures tracked)</li>
+                        <li>Consistent datacenter location (no geographic variance)</li>
+                        <li>Version-controlled benchmark script (open source)</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <h2>TECHNICAL DETAILS</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>INFRASTRUCTURE</h3>
+                    <ul class="info-list">
+                        <li>Platform: GitHub Actions (Ubuntu 24.04)</li>
+                        <li>Python 3.x with requests library</li>
+                        <li>Network: Standard GitHub infrastructure</li>
+                        <li>Concurrency: Sequential testing (no parallel requests)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>PROVIDERS TESTED</h3>
+                    <ul class="info-list">
+                        <li>OpenAI (GPT-4o Mini)</li>
+                        <li>Anthropic (Claude 3.5 Sonnet)</li>
+                        <li>Google (Gemini 1.5 Flash)</li>
+                        <li>Groq (Llama 3.3 70B Versatile)</li>
+                        <li>Together AI (Llama 3.1 70B Instruct Turbo)</li>
+                        <li>Mistral AI (Mistral Large Latest)</li>
+                        <li>Cohere (Command R Plus)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>COST CALCULATION</h3>
+                    <ul class="info-list">
+                        <li>Input: ~200 tokens (prompt)</li>
+                        <li>Output: ~240-520 tokens (response)</li>
+                        <li>Pricing: Provider-specific rates applied</li>
+                        <li>Calculation: (input_tokens × input_rate) + (output_tokens × output_rate)</li>
                     </ul>
                 </div>
             </div>
@@ -1050,12 +1114,50 @@
         <div class="info-block">
             <h2>SYSTEM LIMITATIONS</h2>
             <ul class="info-list">
-                <li>Results reflect our specific infrastructure and geographic location</li>
-                <li>Network conditions vary; absolute times may differ from your environment</li>
-                <li>Providers may update models without notice, affecting performance</li>
-                <li>Single prompt type; results may vary for different use cases</li>
-                <li>Rate limits and quotas may affect availability during testing</li>
+                <li><strong>Geographic Location:</strong> Results reflect GitHub Actions infrastructure location; your results may vary based on proximity to provider regions</li>
+                <li><strong>Network Variance:</strong> Network conditions fluctuate; absolute times should be compared relatively, not as guarantees</li>
+                <li><strong>Model Updates:</strong> Providers may update models, change pricing, or modify rate limits without notice</li>
+                <li><strong>Prompt Specificity:</strong> This benchmark tests analytical reasoning; performance may differ for other use cases (coding, creative writing, simple Q&A)</li>
+                <li><strong>Rate Limiting:</strong> API quotas and rate limits can cause temporary failures; we retry 3 times before marking as offline</li>
+                <li><strong>API Key Availability:</strong> Some providers require paid accounts; missing API keys result in "API FAILURE" status</li>
+                <li><strong>Sequential Testing:</strong> Providers tested one at a time; parallel testing might show different latencies</li>
+                <li><strong>Sample Size:</strong> Single test per 6-hour interval; more frequent testing could reveal greater variance</li>
             </ul>
+        </div>
+
+        <div class="info-block">
+            <h2>INTERPRETATION GUIDE</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h3>SPEED RANKINGS</h3>
+                    <ul class="info-list">
+                        <li><strong>&lt; 2s:</strong> Exceptional (near real-time)</li>
+                        <li><strong>2-5s:</strong> Excellent (production-ready)</li>
+                        <li><strong>5-10s:</strong> Good (acceptable for most uses)</li>
+                        <li><strong>&gt; 10s:</strong> Slow (may impact UX)</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>TPS MEANINGS</h3>
+                    <ul class="info-list">
+                        <li><strong>&gt; 200 TPS:</strong> Extremely fast inference</li>
+                        <li><strong>100-200 TPS:</strong> Fast inference</li>
+                        <li><strong>50-100 TPS:</strong> Moderate speed</li>
+                        <li><strong>&lt; 50 TPS:</strong> Slower processing</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h3>COST RANGES</h3>
+                    <ul class="info-list">
+                        <li><strong>FREE:</strong> No API costs (Groq)</li>
+                        <li><strong>&lt; $0.001:</strong> Very affordable</li>
+                        <li><strong>$0.001-0.005:</strong> Moderate pricing</li>
+                        <li><strong>&gt; $0.005:</strong> Premium pricing</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
