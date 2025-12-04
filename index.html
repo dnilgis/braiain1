@@ -36,30 +36,6 @@
             --glow-color: #00ff41;
         }
         
-        [data-theme="amber"] {
-            --text-primary: #ffaa00;
-            --text-secondary: #ff8800;
-            --text-dim: #cc6600;
-            --border-color: #ffaa00;
-            --glow-color: #ffaa00;
-        }
-        
-        [data-theme="cyan"] {
-            --text-primary: #00ffff;
-            --text-secondary: #00cccc;
-            --text-dim: #006666;
-            --border-color: #00ffff;
-            --glow-color: #00ffff;
-        }
-        
-        [data-theme="red"] {
-            --text-primary: #ff0055;
-            --text-secondary: #cc0044;
-            --text-dim: #660022;
-            --border-color: #ff0055;
-            --glow-color: #ff0055;
-        }
-        
         * { 
             box-sizing: border-box; 
             margin: 0; 
@@ -133,40 +109,9 @@
         .tagline {
             font-size: 0.95em;
             color: var(--text-secondary);
-            margin-top: 10px;
+            margin-top: 15px;
             letter-spacing: 2px;
             text-transform: uppercase;
-        }
-        
-        /* OUROBOROS LOGO */
-        .ouroboros-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 15px;
-            margin: 15px 0;
-        }
-        
-        .ouroboros-logo {
-            width: 40px;
-            height: 40px;
-            animation: rotate-ouroboros 20s linear infinite;
-            opacity: 0.8;
-            filter: drop-shadow(0 0 5px rgba(0, 255, 65, 0.5));
-        }
-        
-        @keyframes rotate-ouroboros {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-        
-        .ouroboros-logo:hover {
-            opacity: 1;
-            filter: drop-shadow(0 0 10px rgba(0, 255, 65, 0.8));
         }
         
         .system-status {
@@ -267,40 +212,6 @@
             background: var(--text-primary);
             color: var(--bg-terminal);
         }
-        
-        .theme-selector {
-            display: flex;
-            gap: 6px;
-        }
-        
-        .theme-btn {
-            width: 30px;
-            height: 30px;
-            border: 2px solid var(--border-color);
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-        }
-        
-        .theme-btn:hover {
-            transform: scale(1.1);
-        }
-        
-        .theme-btn.active::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: var(--bg-terminal);
-            font-size: 1.2em;
-            font-weight: bold;
-        }
-        
-        .theme-green { background: #00ff41; }
-        .theme-amber { background: #ffaa00; }
-        .theme-cyan { background: #00ffff; }
-        .theme-red { background: #ff0055; }
         
         /* AD CONTAINER STYLING - SINGLE BANNER */
         .ad-container {
@@ -679,6 +590,33 @@
             font-weight: bold;
         }
         
+        .table-response {
+            max-width: 300px;
+            font-size: 0.75em;
+        }
+        
+        .response-preview {
+            margin-bottom: 8px;
+            line-height: 1.4;
+            color: var(--text-secondary);
+        }
+        
+        .expand-btn {
+            background: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 4px 8px;
+            font-size: 0.7em;
+            cursor: pointer;
+            font-family: 'Share Tech Mono', monospace;
+            transition: all 0.2s;
+        }
+        
+        .expand-btn:hover {
+            background: var(--text-primary);
+            color: var(--bg-terminal);
+        }
+        
         /* CHART SECTION - SIMPLIFIED */
         .chart-terminal {
             max-width: 1400px;
@@ -903,8 +841,27 @@
                 width: 100%;
                 justify-content: space-between;
             }
+            .results-table-container {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
             .terminal-table {
                 font-size: 0.75em;
+                min-width: 800px;
+            }
+            .terminal-table th,
+            .terminal-table td {
+                padding: 8px 6px;
+            }
+            .table-response {
+                max-width: 200px;
+            }
+            .response-preview {
+                font-size: 0.8em;
+            }
+            .expand-btn {
+                font-size: 0.65em;
+                padding: 3px 6px;
             }
             .chart-container {
                 height: 300px;
@@ -937,10 +894,6 @@
  ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
 ═══════════════════════════════════════════════════════════
-            </div>
-            
-            <div class="ouroboros-container">
-                <img src="favicon.png" alt="Ouroboros" class="ouroboros-logo">
             </div>
             
             <div class="tagline">Real-Time LLM Performance Monitoring</div>
@@ -977,7 +930,7 @@
                 </div>
             </div>
             <a href="/cdn-cgi/l/email-protection#284c4641444f415b684f45494144064b4745175b5d4a424d4b5c15694c5e4d5a5c415b41464f0d1a1847460d1a186a7a696169660d1a187b584d4d4c0d1a1861464c4d50" class="advertise-contact">
-                CONTACT: <span class="__cf_email__" data-cfemail="94f0fafdf8f3fde7d4f3f9f5fdf8baf7fbf9">[email&#160;protected]</span>
+                CONTACT: <a href="mailto:dnilgis@gmail.com" class="advertise-link">dnilgis@gmail.com</a>
             </a>
         </div>
     </div>
@@ -1000,16 +953,6 @@
                     <button class="terminal-btn" onclick="sortResults('tps')" id="btn-tps">TPS</button>
                     <button class="terminal-btn" onclick="sortResults('cost')" id="btn-cost">COST</button>
                     <button class="terminal-btn" onclick="refreshData(event)">REFRESH</button>
-                </div>
-            </div>
-            
-            <div class="control-group">
-                <span class="control-label">THEME:</span>
-                <div class="theme-selector">
-                    <button class="theme-btn theme-green active" onclick="setTheme('green')" title="Green Phosphor"></button>
-                    <button class="theme-btn theme-amber" onclick="setTheme('amber')" title="Amber Monitor"></button>
-                    <button class="theme-btn theme-cyan" onclick="setTheme('cyan')" title="Cyan Terminal"></button>
-                    <button class="theme-btn theme-red" onclick="setTheme('red')" title="Red Alert"></button>
                 </div>
             </div>
         </div>
@@ -1036,6 +979,7 @@
                     <th>COST</th>
                     <th>CHARS</th>
                     <th>STATUS</th>
+                    <th>RESPONSE</th>
                     <th>ACTION</th>
                 </tr>
             </thead>
@@ -1299,17 +1243,17 @@
         let trendChart = null;
         let fullHistoryData = [];
 
-        function setTheme(theme) {
-            document.body.setAttribute('data-theme', theme);
-            localStorage.setItem('theme', theme);
-            
-            document.querySelectorAll('.theme-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector(`.theme-${theme}`).classList.add('active');
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'theme_change', {event_category: 'ui', event_label: theme});
+        // Handle expand button clicks using event delegation
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('expand-btn')) {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                const results = getSortedResults();
+                const result = results[index];
+                if (result && result.full_response) {
+                    alert(`${result.provider} - ${result.model}\n\n${result.full_response}`);
+                }
             }
-        }
+        });
 
         function setViewMode(mode) {
             currentView = mode;
@@ -1456,6 +1400,12 @@
                     <td class="table-metric">${formatCost(result.cost_per_request)}</td>
                     <td>${result.character_count || 'N/A'}</td>
                     <td class="${isOnline ? 'status-online' : 'status-error'}">${result.status}</td>
+                    <td class="table-response">
+                        ${isOnline && result.response_preview ? `
+                            <div class="response-preview">${escapeHtml(result.response_preview.substring(0, 100))}...</div>
+                            <button class="expand-btn" data-index="${rank - 1}">EXPAND</button>
+                        ` : 'N/A'}
+                    </td>
                     <td>
                         ${isOnline ? `<a href="${AFFILIATE_LINKS[result.provider]}" target="_blank" style="color: var(--text-primary);">ACCESS</a>` : 'OFFLINE'}
                     </td>
@@ -1500,7 +1450,13 @@
             const datasets = {};
             
             history.forEach(entry => {
+                // Validate timestamp
+                if (!entry.timestamp) return;
+                
                 const date = new Date(entry.timestamp);
+                // Check if date is valid
+                if (isNaN(date.getTime())) return;
+                
                 labels.push(date.toLocaleDateString("en-US", {month: "short", day: "numeric"}));
                 
                 Object.keys(entry.results).forEach(provider => {
