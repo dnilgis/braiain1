@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-04 19:39:01 UTC",
+  "last_updated": "2025-12-04 19:51:01 UTC",
   "prompt": "Analyze the evolution of artificial intelligence from 2010 to 2025. Identify and explain the THREE most significant breakthroughs that fundamentally changed the field. For each breakthrough, describe its technical innovation and its broader impact on AI capabilities.\n\nCompare and contrast deep learning architectures versus transformer architectures. Explain why transformers became dominant for language tasks despite deep learning's earlier success. Include specific technical reasons for this paradigm shift.\n\nBased on current trends, predict the next major AI breakthrough likely to occur post-2025. Provide THREE specific technical reasons supporting your prediction and a realistic timeline.",
   "max_tokens": 240,
   "results": [
@@ -7,49 +7,61 @@
       "provider": "Groq",
       "model": "llama-3.3-70b-versatile",
       "status": "Online",
-      "time": 1.23,
-      "tokens_per_second": 195.0,
+      "time": 1.14,
+      "tokens_per_second": 210.0,
       "output_tokens": 240,
-      "character_count": 1330,
+      "character_count": 1273,
       "cost_per_request": 0.0,
-      "full_response": "The evolution of artificial intelligence (AI) from 2010 to 2025 has been marked by significant breakthroughs that have transformed the field. The three most notable breakthroughs are:\n\n1. **Deep Learning (2010-2015)**: The introduction of deep learning techniques, such as convolutional neural networks (CNNs) and recurrent neural networks (RNNs), revolutionized the field of computer vision and speech recognition. Technical innovations like stochastic gradient descent, dropout, and batch normalization enabled the training of large neural networks, leading to state-of-the-art performance in image and speech recognition tasks. The broader impact was the ability to learn complex patterns in data, enabling applications like self-driving cars, facial recognition, and voice assistants.\n2. **Transformer Architectures (2017-2020)**: The introduction of transformer architectures, such as BERT and RoBERTa, fundamentally changed the landscape of natural language processing (NLP). Technical innovations like self-attention mechanisms, positional encoding, and multi-head attention enabled the modeling of complex linguistic relationships, leading to unprecedented performance in language tasks like question answering, sentiment analysis, and language translation. The broader impact was the ability to capture nuanced linguistic",
-      "response_preview": "The evolution of artificial intelligence (AI) from 2010 to 2025 has been marked by significant breakthroughs that have transformed the field. The three most notable breakthroughs are:\n\n1. **Deep Learn..."
+      "full_response": "The evolution of artificial intelligence (AI) from 2010 to 2025 has been marked by significant breakthroughs that have transformed the field. The three most notable advancements are:\n\n1. **Deep Learning (2010-2015)**: The introduction of deep learning architectures, such as Convolutional Neural Networks (CNNs) and Recurrent Neural Networks (RNNs), revolutionized image and speech recognition tasks. These models leveraged large datasets and computational power to learn complex patterns, achieving state-of-the-art performance. The technical innovation was the use of multiple layers to learn hierarchical representations, enabling AI systems to recognize objects, speech, and text with unprecedented accuracy. The broader impact was the ability to develop applications like self-driving cars, speech assistants, and image recognition systems.\n2. **Transformer Architectures (2017-2020)**: The introduction of transformer architectures, such as BERT and RoBERTa, marked a significant shift in natural language processing (NLP) tasks. Transformers replaced traditional recurrent neural networks (RNNs) and convolutional neural networks (CNNs) with self-attention mechanisms, allowing for more efficient and effective processing of sequential data. The technical innovation",
+      "response_preview": "The evolution of artificial intelligence (AI) from 2010 to 2025 has been marked by significant breakthroughs that have transformed the field. The three most notable advancements are:\n\n1. **Deep Learni..."
     },
     {
       "provider": "Together AI",
       "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
       "status": "Online",
-      "time": 2.35,
-      "tokens_per_second": 102.0,
+      "time": 2.06,
+      "tokens_per_second": 116.0,
       "output_tokens": 240,
-      "character_count": 1191,
+      "character_count": 1307,
       "cost_per_request": 0.00034,
-      "full_response": "**Evolution of Artificial Intelligence (2010-2025)**\n\nOver the past 15 years, artificial intelligence (AI) has witnessed tremendous growth, driven by advances in computing power, data availability, and innovative algorithms. Among the numerous breakthroughs, three significant ones have fundamentally transformed the field:\n\n1. **Deep Learning (2010-2015)**\nTechnical innovation: The ReLU activation function, dropout, and batch normalization techniques improved the training of deep neural networks.\nBroader impact: Deep learning enabled AI systems to learn complex patterns in data, achieving state-of-the-art performance in image recognition, speech recognition, and natural language processing.\n\n2. **Convolutional Neural Networks (CNNs) and Generative Adversarial Networks (GANs) (2015-2018)**\nTechnical innovation: CNNs introduced spatial hierarchies to process images, while GANs allowed for unsupervised learning of data distributions.\nBroader impact: CNNs revolutionized computer vision, enabling applications like self-driving cars and facial recognition. GANs opened up new avenues for data generation, augmentation, and manipulation.\n\n3. **Transformer Architectures (2018-2025)**",
-      "response_preview": "**Evolution of Artificial Intelligence (2010-2025)**\n\nOver the past 15 years, artificial intelligence (AI) has witnessed tremendous growth, driven by advances in computing power, data availability, an..."
+      "full_response": "**Evolution of Artificial Intelligence from 2010 to 2025:**\n\nArtificial intelligence has undergone tremendous growth and transformation over the past 15 years. This evolution can be attributed to significant breakthroughs that have improved the capabilities of AI systems. Here are the top three breakthroughs that have fundamentally changed the field:\n\n1. **Deep Learning (2012)**:\nTechnical Innovation: Deep learning, a subset of machine learning, uses neural networks with multiple layers to learn and represent complex patterns in data. This was achieved through advances in GPU processing, large datasets, and optimization techniques.\n\nBroader Impact: Deep learning made it possible to automate tasks that previously required human expertise, such as image and speech recognition, natural language processing, and game playing. The success of deep learning led to significant advancements in various fields like computer vision, autonomous driving, and medical diagnosis.\n\n2. **Generative Adversarial Networks (GANs) (2014)**:\nTechnical Innovation: GANs consist of two neural networks: a generator that creates new data and a discriminator that evaluates the authenticity of the generated data. The GAN architecture facilitated the creation of novel, synthetic data that resembles real-world data.\n\nBro",
+      "response_preview": "**Evolution of Artificial Intelligence from 2010 to 2025:**\n\nArtificial intelligence has undergone tremendous growth and transformation over the past 15 years. This evolution can be attributed to sign..."
+    },
+    {
+      "provider": "Mistral AI",
+      "model": "mistral-large-latest",
+      "status": "Online",
+      "time": 5.57,
+      "tokens_per_second": 43.0,
+      "output_tokens": 240,
+      "character_count": 1002,
+      "cost_per_request": 0.00169,
+      "full_response": "### **Evolution of Artificial Intelligence (2010\u20132025): Three Most Significant Breakthroughs**\n\n#### **1. Deep Learning Revolution (2012\u20132015)**\n**Technical Innovation:**\nThe breakthrough in **deep learning** was catalyzed by:\n- **AlexNet (2012):** A convolutional neural network (CNN) that won the ImageNet competition by a large margin, leveraging **GPU acceleration** and **ReLU activation functions** to train deeper networks.\n- **Improved Training Techniques:** Methods like **dropout** (2012), **batch normalization** (2015), and **residual connections** (ResNet, 2015) enabled training of much deeper networks (50+ layers) without vanishing gradients.\n- **Big Data & Compute:** The availability of large labeled datasets (ImageNet, COCO) and powerful GPUs (NVIDIA CUDA) made training deep models feasible.\n\n**Broader Impact:**\n- **Computer Vision Dominance:** CNNs became the standard for image classification, object detection, and segmentation, enabling real-world applications like autonomous",
+      "response_preview": "### **Evolution of Artificial Intelligence (2010\u20132025): Three Most Significant Breakthroughs**\n\n#### **1. Deep Learning Revolution (2012\u20132015)**\n**Technical Innovation:**\nThe breakthrough in **deep le..."
     },
     {
       "provider": "OpenAI",
       "model": "gpt-4o-mini",
       "status": "Online",
-      "time": 7.17,
-      "tokens_per_second": 33.0,
+      "time": 6.05,
+      "tokens_per_second": 40.0,
       "output_tokens": 240,
-      "character_count": 1272,
+      "character_count": 1334,
       "cost_per_request": 0.00016,
-      "full_response": "### Evolution of Artificial Intelligence from 2010 to 2025\n\n#### Significant Breakthroughs\n\n1. **Deep Learning Revolution (2012 - 2014)**\n   - **Technical Innovation**: The resurgence of neural networks, known as deep learning, primarily through the development of convolutional neural networks (CNNs) for image recognition tasks (e.g., AlexNet in 2012). This period saw significant improvements in network architectures, optimization techniques (like dropout, batch normalization), and access to large datasets and powerful GPUs.\n   - **Broader Impact**: Deep learning transformed AI capabilities by achieving state-of-the-art performance in various tasks such as image classification, speech recognition, and game playing. It set the foundation for many AI applications we see today, effectively shifting the focus of AI research towards neural networks and data-driven approaches.\n\n2. **Natural Language Processing with Transformers (2017)**\n   - **Technical Innovation**: The introduction of the Transformer architecture by Vaswani et al. revolutionized NLP. It abandoned recurrent structures (RNNs) for self-attention mechanisms, enabling highly parallelized training and capturing long-range dependencies effectively. The introduction of attention scores allowed the",
-      "response_preview": "### Evolution of Artificial Intelligence from 2010 to 2025\n\n#### Significant Breakthroughs\n\n1. **Deep Learning Revolution (2012 - 2014)**\n   - **Technical Innovation**: The resurgence of neural networ..."
+      "full_response": "### Evolution of Artificial Intelligence (2010-2025)\n\nThe period from 2010 to 2025 has seen an extraordinary transformation in the field of artificial intelligence (AI). While advancements have been numerous, three significant breakthroughs stand out as fundamentally altering the capabilities and applications of AI.\n\n#### Breakthrough 1: Deep Learning (Neural Networks)\n\n**Technical Innovation:**\nThe resurgence of deep learning, particularly through the advancement of convolutional neural networks (CNNs) and recurrent neural networks (RNNs), was pivotal. New techniques in training deep networks, such as rectifier nonlinearities, dropout, and batch normalization, allowed for more effective training of neural networks with many layers.\n\n**Broader Impact:**\nDeep learning revolutionized fields like computer vision, natural language processing, and speech recognition. This technology underpinned applications such as image classification, automatic translation, and real-time voice assistants and dramatically increased AI's performance benchmarks. It set the stage for realizing the potential of AI in practical applications, leading to widespread commercial adoption across various sectors.\n\n#### Breakthrough 2: The Transformer Architecture\n\n**Technical Innovation:**\nIntroduced in the paper \"Attention is All You Need\" (201",
+      "response_preview": "### Evolution of Artificial Intelligence (2010-2025)\n\nThe period from 2010 to 2025 has seen an extraordinary transformation in the field of artificial intelligence (AI). While advancements have been n..."
     },
     {
       "provider": "DeepSeek",
       "model": "deepseek-chat",
       "status": "Online",
-      "time": 8.86,
-      "tokens_per_second": 27.0,
+      "time": 10.15,
+      "tokens_per_second": 24.0,
       "output_tokens": 240,
-      "character_count": 1180,
+      "character_count": 1144,
       "cost_per_request": 8e-05,
-      "full_response": "# Analysis of AI Evolution (2010-2025) & Future Predictions\n\n## **Evolution of AI (2010-2025)**\n\nThe period from 2010 to 2025 witnessed AI's transition from specialized academic research to a transformative general-purpose technology. Key phases included:\n- **2010-2015**: Deep learning renaissance with improved hardware and datasets\n- **2016-2020**: Scaling and practical deployment across industries\n- **2021-2025**: Foundation models, multimodal systems, and democratization\n\n## **THREE Most Significant Breakthroughs**\n\n### **1. AlexNet and the Deep Learning Revolution (2012)**\n**Technical Innovation**: Alex Krizhevsky's AlexNet demonstrated that deep convolutional neural networks with ReLU activations, dropout regularization, and GPU acceleration could dramatically outperform traditional computer vision methods on ImageNet (reducing error from 26% to 15%).\n\n**Broader Impact**: This breakthrough validated that:\n- Deep hierarchical representations could be effectively trained with sufficient data and compute\n- GPU parallelization made previously infeasible models practical\n- Established the template for subsequent architecture innovations (VGG, ResNet)\n- Catalyzed",
-      "response_preview": "# Analysis of AI Evolution (2010-2025) & Future Predictions\n\n## **Evolution of AI (2010-2025)**\n\nThe period from 2010 to 2025 witnessed AI's transition from specialized academic research to a transfor..."
+      "full_response": "# Analysis of AI Evolution (2010-2025) & Future Predictions\n\n## **Evolution of AI (2010-2025)**\n\nThe period from 2010 to 2025 witnessed AI's transition from academic curiosity to a transformative technology. Key phases include:\n- **2010-2015**: Deep learning renaissance with improved hardware and datasets\n- **2016-2020**: Mainstream adoption in industry, with specialized architectures\n- **2021-2025**: Scale-driven foundation models and multimodal systems\n\n## **THREE Most Significant Breakthroughs**\n\n### **1. AlexNet and the Deep Learning Revolution (2012)**\n- **Technical Innovation**: Alex Krizhevsky's deep convolutional neural network achieved unprecedented 84.7% top-5 accuracy on ImageNet (15.3% error reduction from previous best). Key innovations included ReLU activations, dropout regularization, and GPU acceleration.\n- **Impact**: Demonstrated that deeper networks with proper regularization could solve previously intractable computer vision problems. Catalyzed massive investment in deep learning research and established GPU computing as essential for AI development.\n\n### **2. Transformer Architecture (2017)**\n- **Technical",
+      "response_preview": "# Analysis of AI Evolution (2010-2025) & Future Predictions\n\n## **Evolution of AI (2010-2025)**\n\nThe period from 2010 to 2025 witnessed AI's transition from academic curiosity to a transformative tech..."
     },
     {
       "provider": "Anthropic",
@@ -66,18 +78,6 @@
     {
       "provider": "Google",
       "model": "gemini-1.5-flash",
-      "status": "API FAILURE",
-      "time": 99.9999,
-      "tokens_per_second": 0,
-      "output_tokens": 0,
-      "character_count": 0,
-      "cost_per_request": 0.0,
-      "full_response": "",
-      "response_preview": ""
-    },
-    {
-      "provider": "Mistral AI",
-      "model": "mistral-large-latest",
       "status": "API FAILURE",
       "time": 99.9999,
       "tokens_per_second": 0,
@@ -817,6 +817,71 @@
           "tokens_per_second": 0
         },
         "Mistral AI": {
+          "time": 99.9999,
+          "status": "API FAILURE",
+          "tokens_per_second": 0
+        },
+        "Cohere": {
+          "time": 99.9999,
+          "status": "API FAILURE",
+          "tokens_per_second": 0
+        },
+        "xAI": {
+          "time": 99.9999,
+          "status": "API FAILURE",
+          "tokens_per_second": 0
+        },
+        "Perplexity": {
+          "time": 99.9999,
+          "status": "API FAILURE",
+          "tokens_per_second": 0
+        },
+        "Fireworks": {
+          "time": 99.9999,
+          "status": "API FAILURE",
+          "tokens_per_second": 0
+        },
+        "Cerebras": {
+          "time": 99.9999,
+          "status": "API FAILURE",
+          "tokens_per_second": 0
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-04 19:51:01 UTC",
+      "results": {
+        "Groq": {
+          "time": 1.14,
+          "status": "Online",
+          "tokens_per_second": 210.0
+        },
+        "Together AI": {
+          "time": 2.06,
+          "status": "Online",
+          "tokens_per_second": 116.0
+        },
+        "Mistral AI": {
+          "time": 5.57,
+          "status": "Online",
+          "tokens_per_second": 43.0
+        },
+        "OpenAI": {
+          "time": 6.05,
+          "status": "Online",
+          "tokens_per_second": 40.0
+        },
+        "DeepSeek": {
+          "time": 10.15,
+          "status": "Online",
+          "tokens_per_second": 24.0
+        },
+        "Anthropic": {
+          "time": 99.9999,
+          "status": "API FAILURE",
+          "tokens_per_second": 0
+        },
+        "Google": {
           "time": 99.9999,
           "status": "API FAILURE",
           "tokens_per_second": 0
