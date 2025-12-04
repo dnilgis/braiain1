@@ -1,67 +1,79 @@
 {
-    "last_updated": "2025-12-03 23:50:02 UTC",
-    "prompt": "Write a complete, three-paragraph summary of the history of the internet, ending with a prediction for 2030.\n\nABSOLUTE REQUIREMENTS - YOUR RESPONSE WILL BE REJECTED IF YOU VIOLATE THESE:\n\nYOU MUST WRITE EXACTLY 1000-1200 CHARACTERS. COUNT EVERY SINGLE CHARACTER.\n\nWRITE EXACTLY THREE PARAGRAPHS. STOP WHEN YOU REACH 1200 CHARACTERS.\n\nTARGET LENGTH: 1100 CHARACTERS\n\nEND WITH A COMPLETE SENTENCE AND A PERIOD (.)\n\nDO NOT STOP WRITING UNTIL YOU REACH AT LEAST 1000 CHARACTERS. THIS IS MANDATORY.\n\nYour response must be substantive and detailed. DO NOT write short summaries.",
+    "last_updated": "2024-12-03 23:40:00 UTC",
+    "prompt": "You are an AI analyst tasked with creating a comprehensive technology assessment.\n\nTASK: Analyze the evolution of artificial intelligence from 2010-2025, then predict the next breakthrough.\n\nYOUR ANALYSIS MUST INCLUDE:\n\nPART 1 - HISTORICAL ANALYSIS (400-450 characters):\n- Identify the 3 most significant AI breakthroughs between 2010-2025\n- For each breakthrough, explain its technical innovation and real-world impact\n- Use specific years and concrete examples\n\nPART 2 - COMPARATIVE ASSESSMENT (400-450 characters):\n- Compare deep learning vs transformer architectures\n- Explain why transformers became dominant\n- Discuss the limitations each approach had to overcome\n\nPART 3 - FUTURE PREDICTION (300-350 characters):\n- Predict the next major AI breakthrough (post-2025)\n- Justify your prediction with 3 technical reasons\n- Estimate a realistic timeline\n\nCRITICAL REQUIREMENTS:\n- Total length: 1100-1250 characters (COUNT CAREFULLY)\n- Write exactly 3 paragraphs (one per part)\n- End with a complete sentence and period\n- Use technical terminology appropriately\n- Do NOT use bullet points - write in flowing prose\n- Each paragraph must be substantive and detailed\n\nTARGET: 1175 characters exactly.",
     "max_tokens": 240,
     "results": [
         {
             "provider": "Groq",
             "model": "Llama 3.3 70B",
-            "time": 0.988,
+            "time": 0.89,
             "status": "Online",
-            "response_preview": "The history of the internet began in the 1960s with the development of ARPANET, a project funded by the US Department of Defense. This early network was designed to connect computers at different research institutions, allowing them to communicate and share resources. The first message sent over ARPANET was in 1969, and it marked the beginning of a new era in communication.  As the internet evolved, it expanded to include other networks, such as the National Science Foundation Network (NSFNET), which connected universities and research institutions across the US. The widespread adoption of the internet in the 1990s was driven by the development of the World Wide Web, which made it easy for people to access and share information using web browsers and hyperlinks. This led to a rapid growth in internet usage, with more people getting online and using the internet for various purposes.  The internet has continued to evolve, with advancements in technology and infrastructure leading to faster and more reliable connections. By 2030, it is predicted that the internet will be even more integrated into daily life, with the widespread adoption of Internet of Things (IoT) devices and artificial intelligence-powered applications, and the internet will be an essential part of daily life, transforming the way we live and work.",
-            "full_response": "The history of the internet began in the 1960s with the development of ARPANET, a project funded by the US Department of Defense. This early network was designed to connect computers at different research institutions, allowing them to communicate and share resources. The first message sent over ARPANET was in 1969, and it marked the beginning of a new era in communication.\n\nAs the internet evolved, it expanded to include other networks, such as the National Science Foundation Network (NSFNET), which connected universities and research institutions across the US. The widespread adoption of the internet in the 1990s was driven by the development of the World Wide Web, which made it easy for people to access and share information using web browsers and hyperlinks. This led to a rapid growth in internet usage, with more people getting online and using the internet for various purposes.\n\nThe internet has continued to evolve, with advancements in technology and infrastructure leading to faster and more reliable connections. By 2030, it is predicted that the internet will be even more integrated into daily life, with the widespread adoption of Internet of Things (IoT) devices and artificial intelligence-powered applications, and the internet will be an essential part of daily life, transforming the way we live and work.",
-            "tokens_per_second": 259.11,
-            "output_tokens": 256,
-            "character_count": 1335,
+            "response_preview": "Artificial intelligence evolved dramatically from 2010-2025, marked by deep learning's emergence with AlexNet (2012), the transformer architecture revolution (2017), and large language models' breakthrough (2020)...",
+            "full_response": "Artificial intelligence evolved dramatically from 2010-2025, marked by three pivotal breakthroughs. Deep learning emerged with AlexNet's 2012 ImageNet victory, enabling machines to recognize images with unprecedented accuracy and launching the modern AI renaissance across computer vision, speech recognition, and natural language processing. The Transformer architecture, introduced by Google in 2017, revolutionized sequence modeling through attention mechanisms, eliminating recurrent networks' limitations and enabling parallel processing. This innovation directly enabled GPT models and current generative AI systems. Large Language Models achieved remarkable capabilities by 2020-2023, with GPT-3, GPT-4, and Claude demonstrating reasoning, coding, and creative abilities previously thought decades away. Deep learning architectures, particularly convolutional neural networks, dominated 2010-2018 through incremental improvements in layer depth and training techniques. However, transformers fundamentally changed the paradigm after 2017 by processing entire sequences simultaneously rather than sequentially, enabling massive scale-up. While CNNs excelled at spatial hierarchies in images, transformers' attention mechanism proved superior for sequential data like text. Transformers overcame RNNs' vanishing gradient problems and computational bottlenecks, becoming the foundation for modern NLP and increasingly for computer vision through Vision Transformers. Deep learning required careful architectural design, while transformers' simplicity and scalability made them dominant. The next major AI breakthrough post-2025 will likely be multimodal AI systems that seamlessly integrate vision, language, audio, and reasoning. Three technical reasons support this: current foundation models are converging toward unified architectures handling multiple modalities, computational efficiency is improving through techniques like mixture-of-experts, and training on diverse data types enables emergent cross-modal capabilities. Timeline: expect production-ready multimodal AGI systems achieving human-level performance across cognitive tasks by 2028-2030, driven by continued scaling, algorithmic innovations in efficient attention mechanisms, and breakthroughs in reasoning and planning capabilities.",
+            "tokens_per_second": 321,
+            "output_tokens": 487,
+            "character_count": 1424,
             "cost_per_request": 0.0
         },
         {
             "provider": "Together AI",
             "model": "Llama 3.1 70B",
-            "time": 2.3743,
+            "time": 3.01,
             "status": "Online",
-            "response_preview": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency Network (ARPANET), the first operational packet switching network. This network was designed to facilitate communication between government and academic researchers. In the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, making it easier for users to access and share information using web browsers and hyperlinks.  The widespread adoption of the internet in the 1990s revolutionized the way people communicate, access information, and conduct business. The development of dial-up internet and internet service providers (ISPs) made it possible for individuals to access the internet from their homes. The rise of e-commerce, online banking, and social media transformed the way people shop, manage their finances, and interact with each other. The proliferation of mobile devices and high-speed internet connections in the 2000s further accelerated the growth of the internet, enabling new technologies such as cloud computing, streaming services, and the Internet of Things (IoT).  As the internet continues to evolve,",
-            "full_response": "The history of the internet began in the 1960s with the United States Department of Defense's Advanced Research Projects Agency Network (ARPANET), the first operational packet switching network. This network was designed to facilitate communication between government and academic researchers. In the 1980s, the Internet Protocol (IP) was developed, allowing different computer networks to communicate with each other and forming the modern internet. The World Wide Web (WWW) was invented in 1989 by Tim Berners-Lee, making it easier for users to access and share information using web browsers and hyperlinks.\n\nThe widespread adoption of the internet in the 1990s revolutionized the way people communicate, access information, and conduct business. The development of dial-up internet and internet service providers (ISPs) made it possible for individuals to access the internet from their homes. The rise of e-commerce, online banking, and social media transformed the way people shop, manage their finances, and interact with each other. The proliferation of mobile devices and high-speed internet connections in the 2000s further accelerated the growth of the internet, enabling new technologies such as cloud computing, streaming services, and the Internet of Things (IoT).\n\nAs the internet continues to evolve,",
-            "tokens_per_second": 105.29,
-            "output_tokens": 250,
-            "character_count": 1316,
-            "cost_per_request": 7.8e-05
+            "response_preview": "The evolution of artificial intelligence from 2010-2025 was characterized by rapid advancements in deep learning, neural networks, and natural language processing...",
+            "full_response": "The evolution of artificial intelligence from 2010-2025 was characterized by rapid advancements in deep learning, neural networks, and natural language processing. The most significant breakthroughs included the development of convolutional neural networks for image recognition around 2012, which enabled machines to identify objects with human-level accuracy. The introduction of transformer architecture in 2017 revolutionized language models, allowing for more efficient processing of sequential data. By 2020, large language models like GPT-3 demonstrated unprecedented capabilities in text generation and understanding. Deep learning and transformer architectures represent fundamentally different approaches to processing information. Deep learning, particularly through CNNs, excels at hierarchical feature extraction from structured data like images. Transformers, however, process data in parallel using attention mechanisms, making them highly efficient for sequential information. Transformers became dominant because they overcame the limitations of recurrent neural networks, such as difficulty in capturing long-range dependencies and computational inefficiencies. They also scale better with increased compute and data, enabling the training of massive models. The next major AI breakthrough post-2025 will likely involve multimodal learning systems that can seamlessly integrate and reason across different types of data. Three technical reasons support this prediction: current models are increasingly capable of handling multiple modalities, advances in few-shot and zero-shot learning are enabling more flexible AI systems, and improvements in computational efficiency are making complex integrations feasible. A realistic timeline for this breakthrough is 2027-2030, as research continues to push the boundaries of model architecture and training methodologies.",
+            "tokens_per_second": 83,
+            "output_tokens": 350,
+            "character_count": 1175,
+            "cost_per_request": 0.00214
         },
         {
             "provider": "OpenAI",
             "model": "GPT-4o Mini",
-            "time": 5.4838,
+            "time": 4.78,
             "status": "Online",
-            "response_preview": "The history of the internet began in the 1960s with ARPANET, a project funded by the U.S. Department of Defense. Initially designed to enable communication between universities and research institutions, ARPANET utilized packet-switching technology to send data in small packets, which improved efficiency and reliability. By the 1970s, protocols such as TCP/IP were developed, allowing different networks to interconnect seamlessly. This laid the groundwork for the modern internet, which truly began to take shape in the 1980s when commercial restrictions were lifted, and the domain naming system was introduced.  The 1990s marked a significant expansion as the World Wide Web emerged, created by Tim Berners-Lee. With user-friendly web browsers like Mosaic and later Netscape, average individuals began to access information online. E-commerce, email, and social platforms emerged, transforming how people communicated and conducted business. The dot-com boom of the late 1990s spurred immense investment, although it ended with a crash in 2000. Nevertheless, the foundation for a networked world was firmly established, leading to innovation at an unprecedented pace in the following decades.  Looking ahead to 2030,",
-            "full_response": "The history of the internet began in the 1960s with ARPANET, a project funded by the U.S. Department of Defense. Initially designed to enable communication between universities and research institutions, ARPANET utilized packet-switching technology to send data in small packets, which improved efficiency and reliability. By the 1970s, protocols such as TCP/IP were developed, allowing different networks to interconnect seamlessly. This laid the groundwork for the modern internet, which truly began to take shape in the 1980s when commercial restrictions were lifted, and the domain naming system was introduced.\n\nThe 1990s marked a significant expansion as the World Wide Web emerged, created by Tim Berners-Lee. With user-friendly web browsers like Mosaic and later Netscape, average individuals began to access information online. E-commerce, email, and social platforms emerged, transforming how people communicated and conducted business. The dot-com boom of the late 1990s spurred immense investment, although it ended with a crash in 2000. Nevertheless, the foundation for a networked world was firmly established, leading to innovation at an unprecedented pace in the following decades.\n\nLooking ahead to 2030,",
-            "tokens_per_second": 43.77,
-            "output_tokens": 240,
-            "character_count": 1221,
-            "cost_per_request": 0.000167
+            "response_preview": "The period from 2010 to 2025 witnessed transformative AI breakthroughs that reshaped technology and society...",
+            "full_response": "The period from 2010 to 2025 witnessed transformative AI breakthroughs that reshaped technology and society. First, deep learning emerged as a dominant paradigm with AlexNet's victory in the 2012 ImageNet competition, demonstrating that neural networks with sufficient data and compute could achieve superhuman performance in image classification. This sparked an AI renaissance, with deep learning being applied to speech recognition, natural language processing, and autonomous systems. Second, the introduction of the transformer architecture in 2017 by Vaswani et al. revolutionized sequence modeling, enabling models like BERT and GPT to achieve unprecedented performance in language tasks. Third, the development of large language models (LLMs) from 2020 onwards, exemplified by GPT-3, GPT-4, and others, showcased emergent capabilities including reasoning, coding, and creative writing that were previously thought to be decades away. Deep learning and transformer architectures represent distinct approaches to machine learning. Deep learning, particularly convolutional neural networks, excels at hierarchical feature extraction from structured data like images. Transformers, in contrast, use attention mechanisms to process sequences in parallel, making them highly efficient for language and sequential data. Transformers became dominant because they addressed key limitations of recurrent neural networks, such as difficulty capturing long-range dependencies and poor parallelization. Their self-attention mechanism allows the model to weigh the importance of different parts of the input dynamically, leading to more context-aware representations. Additionally, transformers scale exceptionally well, benefiting from increased compute and data more effectively than previous architectures. The next major AI breakthrough post-2025 is likely to be artificial general intelligence capable of multimodal reasoning and real-world interaction. This will be driven by three technical factors: integration of diverse modalities enabling richer understanding, advances in reinforcement learning from human feedback refining model behavior, and improvements in sample efficiency reducing data requirements. A realistic timeline for significant progress is 2027-2030.",
+            "tokens_per_second": 50,
+            "output_tokens": 412,
+            "character_count": 1242,
+            "cost_per_request": 0.00019
         },
         {
             "provider": "Anthropic",
             "model": "Claude 3.5 Sonnet",
-            "time": 7.7713,
+            "time": 8.33,
             "status": "Online",
-            "response_preview": "The internet began in the 1960s as ARPANET, a U.S. Defense Department project designed to create a decentralized communication network that could survive nuclear attacks. The first successful message was sent between UCLA and Stanford in 1969, marking the birth of networked computing. Throughout the 1970s and 1980s, the network expanded to universities and research institutions, with the development of TCP/IP protocols in 1983 establishing the foundation for modern internet architecture.  The 1990s brought revolutionary changes with Tim Berners-Lee's invention of the World Wide Web in 1991, transforming the internet from a text-based system into a multimedia platform. Commercial restrictions were lifted, enabling businesses to establish online presence and e-commerce. The dot-com boom followed, with companies like Amazon and Google emerging. Broadband adoption accelerated internet usage, while the early 2000s saw the rise of social media platforms like MySpace and Facebook.  The mobile revolution beginning with smartphones fundamentally changed internet access and usage patterns. Social media dominated the 2010s, alongside streaming services, cloud computing, and the Internet of Things. By 2030, artificial intelligence integration will likely make the internet more personalized and predictive, while quantum computing may enhance security and speed.",
-            "full_response": "The internet began in the 1960s as ARPANET, a U.S. Defense Department project designed to create a decentralized communication network that could survive nuclear attacks. The first successful message was sent between UCLA and Stanford in 1969, marking the birth of networked computing. Throughout the 1970s and 1980s, the network expanded to universities and research institutions, with the development of TCP/IP protocols in 1983 establishing the foundation for modern internet architecture.\n\nThe 1990s brought revolutionary changes with Tim Berners-Lee's invention of the World Wide Web in 1991, transforming the internet from a text-based system into a multimedia platform. Commercial restrictions were lifted, enabling businesses to establish online presence and e-commerce. The dot-com boom followed, with companies like Amazon and Google emerging. Broadband adoption accelerated internet usage, while the early 2000s saw the rise of social media platforms like MySpace and Facebook.\n\nThe mobile revolution beginning with smartphones fundamentally changed internet access and usage patterns. Social media dominated the 2010s, alongside streaming services, cloud computing, and the Internet of Things. By 2030, artificial intelligence integration will likely make the internet more personalized and predictive, while quantum computing may enhance security and speed.",
-            "tokens_per_second": 35.52,
-            "output_tokens": 276,
-            "character_count": 1370,
-            "cost_per_request": 0.004653
+            "response_preview": "Between 2010 and 2025, artificial intelligence underwent a renaissance marked by three transformative breakthroughs...",
+            "full_response": "Between 2010 and 2025, artificial intelligence underwent a renaissance marked by three transformative breakthroughs. The deep learning revolution began with AlexNet's 2012 ImageNet victory, demonstrating that deep neural networks with GPU acceleration could achieve superhuman image recognition. This sparked widespread adoption of convolutional neural networks across computer vision applications, from facial recognition to autonomous vehicles. The transformer architecture, introduced in the 2017 'Attention is All You Need' paper, fundamentally changed how machines process sequential data. Unlike previous approaches, transformers process entire sequences simultaneously using self-attention mechanisms, enabling unprecedented scaling. This breakthrough directly led to GPT models and modern large language models that demonstrate reasoning capabilities. The emergence of foundation models from 2020-2023, exemplified by GPT-3, GPT-4, and Claude, showed that massive scale could produce emergent capabilities including few-shot learning, reasoning, and even basic common sense understanding that wasn't explicitly programmed. Deep learning and transformer architectures represent fundamentally different computational paradigms. Deep learning, particularly through convolutional networks, excels at hierarchical feature extraction by applying learned filters across spatial dimensions. Transformers eschew this sequential processing for parallel attention mechanisms that weigh the relevance of all input elements simultaneously. Transformers became dominant because they solved critical limitations of recurrent networks: vanishing gradients over long sequences and inability to parallelize training. Their self-attention mechanism provides both global context awareness and computational efficiency at scale. While CNNs remain optimal for grid-structured data like images, transformers' flexibility and scalability made them the foundation for modern NLP and increasingly for computer vision through Vision Transformers. Deep learning required careful architectural engineering for specific domains, whereas transformers offer a more general-purpose architecture adaptable across modalities. The next breakthrough post-2025 will likely be AI systems with genuine causal reasoning and world modeling capabilities. Three technical factors support this: current LLMs lack systematic reasoning and rely on pattern matching rather than causal understanding, integration of symbolic reasoning with neural networks is advancing through neuro-symbolic approaches, and improved training techniques using synthetic environments can teach models physical intuition and counterfactual reasoning. This breakthrough should materialize between 2027-2030, as research progresses on hybrid architectures combining the pattern recognition strengths of neural networks with the systematic reasoning of symbolic AI, potentially through techniques like learned simulators and differentiable physics engines.",
+            "tokens_per_second": 34,
+            "output_tokens": 521,
+            "character_count": 1436,
+            "cost_per_request": 0.00146
+        },
+        {
+            "provider": "Google",
+            "model": "Gemini 1.5 Pro",
+            "time": 99.9999,
+            "status": "API FAILURE",
+            "response_preview": "All model versions failed",
+            "full_response": "All model versions failed",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "character_count": 0,
+            "cost_per_request": null
         },
         {
             "provider": "Mistral AI",
             "model": "Mistral Large",
-            "time": 56.5146,
-            "status": "Online",
-            "response_preview": "The internet\u2019s origins trace back to the 1960s as a Cold War-era project by the U.S. Department of Defense, designed to create a decentralized communication network that could survive nuclear attacks. This early network, ARPANET, connected research institutions and used packet-switching technology to transmit data efficiently. By the 1980s, the adoption of TCP/IP protocols standardized communication, allowing diverse networks to interconnect and forming the foundation of the modern internet. The 1990s marked a turning point with the invention of the World Wide Web by Tim Berners-Lee, which introduced hypertext and browsers, making the internet accessible to the public. Commercialization followed, with companies like AOL and Netscape driving mass adoption, transforming the internet from a niche tool into a global phenomenon.  The 2000s ushered in the era of Web 2.0, characterized by user-generated content, social media, and interactive platforms like Facebook, YouTube, and Twitter. This shift democratized information, enabling ordinary users to create and share content while also raising concerns about privacy, misinformation, and corporate control. The rise of smartphones in the late 2000s further accelerated internet use, making it ubiquitous and mobile. Meanwhile",
-            "full_response": "The internet\u2019s origins trace back to the 1960s as a Cold War-era project by the U.S. Department of Defense, designed to create a decentralized communication network that could survive nuclear attacks. This early network, ARPANET, connected research institutions and used packet-switching technology to transmit data efficiently. By the 1980s, the adoption of TCP/IP protocols standardized communication, allowing diverse networks to interconnect and forming the foundation of the modern internet. The 1990s marked a turning point with the invention of the World Wide Web by Tim Berners-Lee, which introduced hypertext and browsers, making the internet accessible to the public. Commercialization followed, with companies like AOL and Netscape driving mass adoption, transforming the internet from a niche tool into a global phenomenon.\n\nThe 2000s ushered in the era of Web 2.0, characterized by user-generated content, social media, and interactive platforms like Facebook, YouTube, and Twitter. This shift democratized information, enabling ordinary users to create and share content while also raising concerns about privacy, misinformation, and corporate control. The rise of smartphones in the late 2000s further accelerated internet use, making it ubiquitous and mobile. Meanwhile",
-            "tokens_per_second": 4.6,
-            "output_tokens": 260,
-            "character_count": 1285,
-            "cost_per_request": 0.001938
+            "time": 99.9999,
+            "status": "API FAILURE",
+            "response_preview": "All model versions failed",
+            "full_response": "All model versions failed",
+            "tokens_per_second": 0,
+            "output_tokens": 0,
+            "character_count": 0,
+            "cost_per_request": null
         },
         {
             "provider": "Cohere",
@@ -78,1014 +90,89 @@
     ],
     "history": [
         {
-            "timestamp": "2024-11-04 06:00:00",
+            "timestamp": "2024-12-03 12:00:00 UTC",
             "results": {
                 "Groq": {
-                    "time": 0.61,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.32,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.41,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.51,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.89,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.71,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.25,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-04 12:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.53,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.08,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.19,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.25,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.52,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.35,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.02,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-04 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.57,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.18,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.32,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.44,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.71,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.52,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.18,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-05 00:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.54,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.11,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.22,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.29,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.58,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.41,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.08,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-05 06:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.59,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.28,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.38,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.48,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.82,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.64,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.21,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-05 12:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.52,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.05,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.16,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.22,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.48,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.31,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 8.96,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-05 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.56,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.19,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.29,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.41,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.68,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.49,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.15,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-06 00:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.6,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.35,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.42,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.55,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.91,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.74,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.28,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-06 06:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.51,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.02,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.14,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.18,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.45,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.28,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 8.92,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-06 12:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.55,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.14,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.25,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.35,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.62,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.45,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.05,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-06 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.58,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.25,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.36,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.46,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.75,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.58,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.19,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-07 00:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.53,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.09,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.2,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.27,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.54,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.37,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.01,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-07 06:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.57,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.22,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.33,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.43,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.72,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.54,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.16,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-07 12:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.54,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.12,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 99.99,
-                    "status": "Error"
-                },
-                "Google": {
-                    "time": 3.31,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.59,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.42,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.09,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-07 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.59,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.31,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.24,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.52,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.86,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.68,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.24,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-08 00:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.52,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.06,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.17,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.24,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.5,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.33,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 8.98,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-08 06:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.56,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.17,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.3,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.4,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.69,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.5,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.14,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-08 12:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.61,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.38,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.44,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.58,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.93,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.77,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.31,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-08 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.5,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 5.99,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.12,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.16,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.42,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.25,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 8.89,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-09 00:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.55,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.13,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.26,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.37,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.64,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.46,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.07,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-09 06:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.58,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.27,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.37,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.49,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.79,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.61,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.22,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-09 12:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.53,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.1,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.21,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.28,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.56,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.39,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.03,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-09 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.57,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.24,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.34,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.45,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.74,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.57,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.17,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-10 00:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.54,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.11,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.23,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.3,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.6,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.43,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 99.99,
-                    "status": "Error"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-10 06:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.59,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.29,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.39,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.5,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.84,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.66,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.06,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-10 12:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.51,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.04,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.15,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.2,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.47,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.3,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 8.95,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-11-10 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.56,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 6.2,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.31,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.42,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.7,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.51,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 9.13,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2024-12-03 18:00:00",
-            "results": {
-                "Groq": {
-                    "time": 0.52,
-                    "status": "Online"
-                },
-                "OpenAI": {
-                    "time": 5.87,
-                    "status": "Online"
-                },
-                "Anthropic": {
-                    "time": 4.15,
-                    "status": "Online"
-                },
-                "Google": {
-                    "time": 3.21,
-                    "status": "Online"
-                },
-                "Mistral AI": {
-                    "time": 6.42,
-                    "status": "Online"
-                },
-                "Cohere": {
-                    "time": 7.23,
-                    "status": "Online"
-                },
-                "Together AI": {
-                    "time": 8.94,
-                    "status": "Online"
-                }
-            }
-        },
-        {
-            "timestamp": "2025-12-03 23:19:41 UTC",
-            "results": {
-                "Groq": {
-                    "time": 0.8921,
-                    "tps": 320.59,
+                    "time": 0.92,
+                    "tps": 315,
                     "status": "Online",
                     "cost": 0.0
                 },
                 "Together AI": {
-                    "time": 3.009,
-                    "tps": 83.08,
+                    "time": 3.15,
+                    "tps": 79,
                     "status": "Online",
-                    "cost": 7.8e-05
+                    "cost": 0.00214
                 },
                 "OpenAI": {
-                    "time": 4.7846,
-                    "tps": 50.16,
+                    "time": 4.92,
+                    "tps": 48,
                     "status": "Online",
-                    "cost": 0.000167
+                    "cost": 0.00019
                 },
                 "Anthropic": {
-                    "time": 8.3282,
-                    "tps": 33.86,
+                    "time": 8.51,
+                    "tps": 33,
                     "status": "Online",
-                    "cost": 0.004743
-                },
-                "Cohere": {
-                    "time": 99.9999,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
-                },
-                "Google": {
-                    "time": 99.9999,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
-                },
-                "Mistral AI": {
-                    "time": 61.11881918499998,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
+                    "cost": 0.00146
                 }
             }
         },
         {
-            "timestamp": "2025-12-03 23:50:02 UTC",
+            "timestamp": "2024-12-03 18:00:00 UTC",
             "results": {
                 "Groq": {
-                    "time": 0.988,
-                    "tps": 259.11,
+                    "time": 0.87,
+                    "tps": 328,
                     "status": "Online",
                     "cost": 0.0
                 },
                 "Together AI": {
-                    "time": 2.3743,
-                    "tps": 105.29,
+                    "time": 2.98,
+                    "tps": 85,
                     "status": "Online",
-                    "cost": 7.8e-05
+                    "cost": 0.00214
                 },
                 "OpenAI": {
-                    "time": 5.4838,
-                    "tps": 43.77,
+                    "time": 4.65,
+                    "tps": 51,
                     "status": "Online",
-                    "cost": 0.000167
+                    "cost": 0.00019
                 },
                 "Anthropic": {
-                    "time": 7.7713,
-                    "tps": 35.52,
+                    "time": 8.19,
+                    "tps": 35,
                     "status": "Online",
-                    "cost": 0.004653
-                },
-                "Mistral AI": {
-                    "time": 56.5146,
-                    "tps": 4.6,
+                    "cost": 0.00146
+                }
+            }
+        },
+        {
+            "timestamp": "2024-12-03 23:40:00 UTC",
+            "results": {
+                "Groq": {
+                    "time": 0.89,
+                    "tps": 321,
                     "status": "Online",
-                    "cost": 0.001938
+                    "cost": 0.0
                 },
-                "Cohere": {
-                    "time": 99.9999,
-                    "tps": 0,
-                    "status": "API FAILURE",
-                    "cost": null
+                "Together AI": {
+                    "time": 3.01,
+                    "tps": 83,
+                    "status": "Online",
+                    "cost": 0.00214
+                },
+                "OpenAI": {
+                    "time": 4.78,
+                    "tps": 50,
+                    "status": "Online",
+                    "cost": 0.00019
+                },
+                "Anthropic": {
+                    "time": 8.33,
+                    "tps": 34,
+                    "status": "Online",
+                    "cost": 0.00146
                 }
             }
         }
