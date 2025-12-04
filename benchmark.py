@@ -30,7 +30,7 @@ PROVIDERS = {
         "api_key_env": "OPENAI_API_KEY",
         "input_price": 0.150,
         "output_price": 0.600,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "Anthropic": {
         "api_url": "https://api.anthropic.com/v1/messages",
@@ -38,7 +38,7 @@ PROVIDERS = {
         "api_key_env": "ANTHROPIC_API_KEY",
         "input_price": 3.0,
         "output_price": 15.0,
-        "max_tokens": 240,
+        "max_tokens": 1000,
         "anthropic_version": "2023-06-01"
     },
     "Google": {
@@ -47,7 +47,7 @@ PROVIDERS = {
         "api_key_env": "GEMINI_API_KEY",
         "input_price": 0.075,
         "output_price": 0.30,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "Groq": {
         "api_url": "https://api.groq.com/openai/v1/chat/completions",
@@ -55,7 +55,7 @@ PROVIDERS = {
         "api_key_env": "GROQ_API_KEY",
         "input_price": 0.0,
         "output_price": 0.0,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "Mistral AI": {
         "api_url": "https://api.mistral.ai/v1/chat/completions",
@@ -63,7 +63,7 @@ PROVIDERS = {
         "api_key_env": "MISTRAL_API_KEY",
         "input_price": 2.0,
         "output_price": 6.0,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "Cohere": {
         "api_url": "https://api.cohere.ai/v1/chat",
@@ -71,7 +71,7 @@ PROVIDERS = {
         "api_key_env": "COHERE_API_KEY",
         "input_price": 2.5,
         "output_price": 10.0,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "Together AI": {
         "api_url": "https://api.together.xyz/v1/chat/completions",
@@ -79,15 +79,7 @@ PROVIDERS = {
         "api_key_env": "TOGETHER_API_KEY",
         "input_price": 0.88,
         "output_price": 0.88,
-        "max_tokens": 240
-    },
-    "xAI": {
-        "api_url": "https://api.x.ai/v1/chat/completions",
-        "model": "grok-beta",
-        "api_key_env": "XAI_API_KEY",
-        "input_price": 5.0,
-        "output_price": 15.0,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "DeepSeek": {
         "api_url": "https://api.deepseek.com/v1/chat/completions",
@@ -95,15 +87,7 @@ PROVIDERS = {
         "api_key_env": "DEEPSEEK_API_KEY",
         "input_price": 0.14,
         "output_price": 0.28,
-        "max_tokens": 240
-    },
-    "Perplexity": {
-        "api_url": "https://api.perplexity.ai/chat/completions",
-        "model": "llama-3.1-sonar-large-128k-online",
-        "api_key_env": "PERPLEXITY_API_KEY",
-        "input_price": 1.0,
-        "output_price": 1.0,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "Fireworks": {
         "api_url": "https://api.fireworks.ai/inference/v1/chat/completions",
@@ -111,7 +95,7 @@ PROVIDERS = {
         "api_key_env": "FIREWORKS_API_KEY",
         "input_price": 0.90,
         "output_price": 0.90,
-        "max_tokens": 240
+        "max_tokens": 1000
     },
     "Cerebras": {
         "api_url": "https://api.cerebras.ai/v1/chat/completions",
@@ -119,7 +103,7 @@ PROVIDERS = {
         "api_key_env": "CEREBRAS_API_KEY",
         "input_price": 0.60,
         "output_price": 0.60,
-        "max_tokens": 240
+        "max_tokens": 1000
     }
 }
 
@@ -334,7 +318,7 @@ def save_results(results, history):
     output = {
         "last_updated": datetime.utcnow().strftime("%Y-%m-%d %H:%M:%S UTC"),
         "prompt": PROMPT,
-        "max_tokens": 240,
+        "max_tokens": 1000,
         "results": results,
         "history": history
     }
