@@ -1243,9 +1243,9 @@
                             </div>
                         </div>
                         
-                        ${isOnline && result.response_preview ? `
+                        ${isOnline && result.full_response ? `
                             <div class="terminal-response" onclick="this.classList.toggle('expanded')">
-                                ${escapeHtml(result.response_preview)}
+                                ${escapeHtml(result.full_response)}
                             </div>
                         ` : ''}
                         
