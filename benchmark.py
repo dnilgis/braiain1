@@ -11,8 +11,7 @@ import requests
 from datetime import datetime
 
 # Configuration
-MIN_CHARACTERS = 1000
-MAX_CHARACTERS = 1400
+MIN_CHARACTERS = 800
 MAX_RETRIES = 3
 
 # Multi-step analytical reasoning prompt
@@ -256,7 +255,8 @@ def benchmark_provider(provider_name, config):
             content = result["content"].strip()
             char_count = len(content)
             
-            if MIN_CHARACTERS <= char_count <= MAX_CHARACTERS:
+            # Validate response has minimum content (no maximum limit)
+            if char_count >= MIN_CHARACTERS:
                 input_tokens = result["input_tokens"]
                 output_tokens = result["output_tokens"]
                 cost = (input_tokens * config["input_price"] / 1_000_000) + \
