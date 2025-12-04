@@ -539,6 +539,29 @@
             font-size: 0.9em;
         }
         
+        /* EXPANDABLE PROMPT BOX */
+        .prompt-box {
+            background: rgba(0, 255, 65, 0.05);
+            border: 1px solid var(--text-dim);
+            padding: 15px;
+            margin-top: 15px;
+            font-size: 0.85em;
+            max-height: 120px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: max-height 0.5s ease;
+            line-height: 1.6;
+        }
+        
+        .prompt-box.expanded {
+            max-height: 800px;
+        }
+        
+        .prompt-box:hover {
+            border-color: var(--text-primary);
+            background: rgba(0, 255, 65, 0.08);
+        }
+        
         .action-link {
             display: block;
             text-align: center;
@@ -1015,7 +1038,7 @@
 
         <div class="info-block">
             <h2>TEST PROMPT</h2>
-            <div class="terminal-response" style="max-height: 120px; cursor: pointer; margin-top: 10px;" onclick="this.classList.toggle('expanded')">
+            <div class="prompt-box" onclick="this.classList.toggle('expanded')">
                 <strong>Multi-Step Analytical Reasoning Challenge:</strong><br><br>
                 
                 <strong>Part 1: Historical Analysis (400-450 characters)</strong><br>
@@ -1028,7 +1051,7 @@
                 Based on current trends, predict the next major AI breakthrough likely to occur post-2025. Provide THREE specific technical reasons supporting your prediction and a realistic timeline.
             </div>
             <p style="color: var(--text-dim); font-size: 0.85em; margin-top: 10px; font-style: italic;">
-                Click to expand/collapse full prompt
+                💡 Click prompt box above to expand/collapse full text
             </p>
         </div>
 
