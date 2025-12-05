@@ -990,6 +990,7 @@
                     <th>COST</th>
                     <th>RELIABILITY</th>
                     <th>STATUS</th>
+                    <th>RESPONSE</th>
                 </tr>
             </thead>
             <tbody id="table-body">
@@ -1067,12 +1068,17 @@
                 <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
                     <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">TEMPERATURE</div>
                     <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">1.0</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Maximum creativity</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Full capability testing</div>
                 </div>
                 <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
                     <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">MAX TOKENS</div>
                     <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">1,000</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Output limit</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Allows complete responses</div>
+                </div>
+                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
+                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">TARGET LENGTH</div>
+                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">2500-3500</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Characters (detailed response)</div>
                 </div>
                 <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
                     <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">MIN CHARS</div>
@@ -1083,6 +1089,11 @@
                     <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">FREQUENCY</div>
                     <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">6 HRS</div>
                     <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Test interval</div>
+                </div>
+                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
+                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">TIMEOUT</div>
+                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">90s</div>
+                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Per request</div>
                 </div>
             </div>
         </div>
@@ -1227,7 +1238,14 @@
             
             <p><strong style="color: var(--text-primary);">Transparency:</strong> Complete methodology documented. Test prompt shown above. All results public.</p>
             
-            <p><strong style="color: var(--text-primary);">What We Test:</strong> Speed, latency (TTFT), throughput (TPS), streaming quality, cost, and reliability. We do NOT test output quality or accuracy.</p>
+            <p><strong style="color: var(--text-primary);">What We Test:</strong> Speed, latency (TTFT), throughput (TPS), streaming quality, cost, and reliability using a challenging multi-step analytical reasoning prompt that requires:</p>
+            <ul style="color: var(--text-secondary); margin: 10px 0 10px 20px; line-height: 1.8;">
+                <li>Historical analysis with technical depth (2010-2025 AI evolution)</li>
+                <li>Architectural comparison (deep learning vs transformers)</li>
+                <li>Future prediction with justification (post-2025 breakthroughs)</li>
+                <li>Target: 2500-3500 characters demonstrating comprehensive understanding</li>
+            </ul>
+            <p><strong style="color: var(--text-primary);">What We Don't Test:</strong> Output quality, factual accuracy, or instruction following. This benchmark measures performance, not intelligence.</p>
             
             <p><strong style="color: var(--text-primary);">Limitations:</strong> Tests from single geographic location (GitHub Actions servers). Your latency may vary based on location. Results represent normal conditions, not peak load. Single test prompt - your use case may differ.</p>
             
@@ -1504,7 +1522,7 @@
                         
                         ${isOnline && result.full_response ? `
                             <div style="margin: 15px 0 10px;">
-                                <button class="terminal-btn" style="width: 100%;" onclick="showModal('responseModal', '${result.provider} - ${result.model}', ${JSON.stringify(result.full_response).replace(/'/g, "\\'")})">
+                                <button class="terminal-btn view-response-btn" style="width: 100%;">
                                     VIEW FULL RESPONSE
                                 </button>
                             </div>
@@ -1523,6 +1541,7 @@
         function createTableRow(result, rank) {
             const isOnline = result.status === "Online";
             const reliability = reliabilityScores[result.provider];
+            const preview = result.response_preview ? escapeHtml(result.response_preview.substring(0, 100)) + '...' : 'N/A';
             
             return `
                 <tr>
@@ -1536,6 +1555,12 @@
                     <td class="table-metric">${formatCost(result.cost_per_request)}</td>
                     <td>${reliability ? reliability + '%' : 'N/A'}</td>
                     <td class="${isOnline ? 'status-online' : 'status-error'}">${result.status}</td>
+                    <td style="max-width: 300px;">
+                        ${isOnline && result.full_response ? `
+                            <div style="font-size: 0.8em; color: var(--text-dim); margin-bottom: 5px;">${preview}</div>
+                            <button class="terminal-btn view-table-response-btn" style="font-size: 0.7em; padding: 4px 10px;">VIEW FULL</button>
+                        ` : 'N/A'}
+                    </td>
                 </tr>
             `;
         }
@@ -1865,6 +1890,31 @@
 
         // === INITIALIZE ===
         
+        // Event delegation for view response buttons (fixes modal popup)
+        document.addEventListener('click', function(e) {
+            if (e.target.classList.contains('view-response-btn')) {
+                const card = e.target.closest('.terminal-card');
+                if (card) {
+                    const providerName = card.querySelector('.provider-name').textContent;
+                    const result = allResults.results.find(r => r.provider === providerName);
+                    if (result && result.full_response) {
+                        showModal('responseModal', result.provider + ' - ' + result.model, result.full_response);
+                    }
+                }
+            }
+            
+            // Handle table row response clicks  
+            if (e.target.classList.contains('view-table-response-btn')) {
+                const row = e.target.closest('tr');
+                const providerName = row.querySelector('.table-provider').textContent;
+                const result = allResults.results.find(r => r.provider === providerName);
+                if (result && result.full_response) {
+                    showModal('responseModal', result.provider + ' - ' + result.model, result.full_response);
+                }
+            }
+        });
+        
+        // Main initialization
         document.addEventListener('DOMContentLoaded', async () => {
             console.log(">> BRAIAIN SPEED INDEX v3.0 INITIALIZING");
             await fetchData();
