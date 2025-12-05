@@ -807,19 +807,62 @@
             .controls-row {
                 flex-direction: column;
                 align-items: stretch;
+                gap: 15px;
+            }
+            .control-group {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .btn-group {
+                width: 100%;
+            }
+            .terminal-btn {
+                flex: 1;
+                min-width: auto;
             }
             .calculator-grid {
                 grid-template-columns: 1fr;
             }
             .info-block table {
-                font-size: 0.75em;
+                font-size: 0.7em;
+            }
+            .info-block {
+                padding: 15px;
             }
             .advertise-box {
                 flex-direction: column;
                 text-align: center;
+                gap: 10px;
             }
             .advertise-contact {
                 width: 100%;
+            }
+            .system-status {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .modal-content {
+                width: 95%;
+                margin: 20px auto;
+                padding: 20px;
+                max-height: 90vh;
+            }
+            .chart-container {
+                height: 300px;
+            }
+            /* Better mobile table scrolling */
+            .terminal-table {
+                display: block;
+                overflow-x: auto;
+                white-space: nowrap;
+            }
+            /* Stack metrics in cards on very small screens */
+            @media (max-width: 480px) {
+                .metrics-display {
+                    grid-template-columns: 1fr !important;
+                }
+                .system-status {
+                    grid-template-columns: 1fr;
+                }
             }
         }
         
@@ -881,35 +924,7 @@
                 </div>
             </div>
             <div class="advertise-contact">
-                CONTACT: <a href="/cdn-cgi/l/email-protection#75111b1c19121c06351218141c195b161a18" style="color: var(--text-primary); text-decoration: none;"><span class="__cf_email__" data-cfemail="04606a6d68636d77446369656d682a676b69">[email&#160;protected]</span></a>
-            </div>
-        </div>
-    </div>
-
-    <!-- COST CALCULATOR -->
-    <div class="calculator-panel">
-        <div class="calculator-terminal">
-            <div class="calculator-header">💰 COST CALCULATOR</div>
-            <div class="calculator-grid">
-                <div class="calc-input-group">
-                    <label class="calc-label">Monthly Requests</label>
-                    <input type="number" class="calc-input" id="calc-requests" value="10000" min="1" step="1000">
-                </div>
-                <div class="calc-input-group">
-                    <label class="calc-label">Avg Tokens/Request</label>
-                    <input type="number" class="calc-input" id="calc-tokens" value="500" min="1" step="100">
-                </div>
-                <div class="calc-input-group">
-                    <label class="calc-label">Select Provider</label>
-                    <select class="calc-input" id="calc-provider">
-                        <option value="">-- Compare All --</option>
-                    </select>
-                </div>
-            </div>
-            <div class="calc-results" id="calc-results">
-                <div class="calc-result-item">
-                    <span>Calculating...</span>
-                </div>
+                CONTACT: <a href="mailto:dnilgis@gmail.com" style="color: var(--text-primary); text-decoration: none;">dnilgis@gmail.com</a>
             </div>
         </div>
     </div>
@@ -1007,6 +1022,34 @@
             </div>
         </div>
     </div>
+    <!-- COST CALCULATOR -->
+    <div class="calculator-panel">
+        <div class="calculator-terminal">
+            <div class="calculator-header">💰 COST CALCULATOR</div>
+            <div class="calculator-grid">
+                <div class="calc-input-group">
+                    <label class="calc-label">Monthly Requests</label>
+                    <input type="number" class="calc-input" id="calc-requests" value="10000" min="1" step="1000">
+                </div>
+                <div class="calc-input-group">
+                    <label class="calc-label">Avg Tokens/Request</label>
+                    <input type="number" class="calc-input" id="calc-tokens" value="500" min="1" step="100">
+                </div>
+                <div class="calc-input-group">
+                    <label class="calc-label">Select Provider</label>
+                    <select class="calc-input" id="calc-provider">
+                        <option value="">-- Compare All --</option>
+                    </select>
+                </div>
+            </div>
+            <div class="calc-results" id="calc-results">
+                <div class="calc-result-item">
+                    <span>Calculating...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- METHODOLOGY & INFO SECTION -->
     <div class="info-terminal">
@@ -1256,7 +1299,7 @@
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
 ═══════════════════════════════════════════════════════════
         </div>
-        <p>A <a href="/cdn-cgi/l/email-protection#7a1e1413161d13093a1d171b131654191517">dnilgis</a> PROJECT // v3.0 ENHANCED</p>
+        <p>A <a href="mailto:dnilgis@gmail.com">dnilgis</a> PROJECT // v3.0 ENHANCED</p>
         <p style="color: var(--text-dim); margin-top: 15px;">
             DISCLAIMER: Data provided for informational purposes only. Performance may vary.
         </p>
@@ -1265,7 +1308,7 @@
         </p>
     </footer>
 
-    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    <script>
         // === ENHANCED JAVASCRIPT v3.0 ===
         
         const AFFILIATE_LINKS = {
@@ -1451,6 +1494,13 @@
                                 <span class="metric-value ${isOnline ? 'status-online' : 'status-error'}">${result.status}</span>
                             </div>
                         </div>
+                        
+                        ${isOnline && result.response_preview ? `
+                            <div style="margin: 15px 0; padding: 12px; background: rgba(0, 255, 65, 0.03); border-left: 3px solid var(--text-dim); font-size: 0.85em; color: var(--text-secondary); line-height: 1.6;">
+                                <div style="color: var(--text-dim); font-size: 0.75em; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Response Preview:</div>
+                                <div style="font-family: 'Share Tech Mono', monospace;">${escapeHtml(result.response_preview)}</div>
+                            </div>
+                        ` : ''}
                         
                         ${isOnline && result.full_response ? `
                             <div style="margin: 15px 0 10px;">
@@ -1666,7 +1716,13 @@
                 const date = new Date(entry.timestamp);
                 if (isNaN(date.getTime())) return;
                 
-                labels.push(date.toLocaleDateString("en-US", {month: "short", day: "numeric"}));
+                // Format: "Dec 5" or "Dec 5, 2024" if different year
+                const now = new Date();
+                const dateStr = date.getFullYear() !== now.getFullYear() 
+                    ? date.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"})
+                    : date.toLocaleDateString("en-US", {month: "short", day: "numeric"});
+                
+                labels.push(dateStr);
                 
                 allProviders.forEach(provider => {
                     const providerData = entry.results[provider];
