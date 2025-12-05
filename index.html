@@ -1621,116 +1621,170 @@
         }
 
         function createTrendChart(history) {
-            const ctx = document.getElementById("trendChart");
-            const chartSection = document.getElementById("chart-section");
-            
-            if (!ctx || !history || history.length < 2) {
-                if (chartSection) chartSection.style.display = "none";
-                return;
+    const ctx = document.getElementById("trendChart");
+    const chartSection = document.getElementById("chart-section");
+    
+    if (!ctx || !history || history.length < 2) {
+        if (chartSection) chartSection.style.display = "none";
+        return;
+    }
+    
+    if (chartSection) chartSection.style.display = "block";
+    fullHistoryData = history;
+    
+    const labels = [];
+    const datasets = {};
+    
+    // STEP 1: Collect all unique providers across entire history
+    const allProviders = new Set();
+    history.forEach(entry => {
+        if (!entry.timestamp || !entry.results) return;
+        Object.keys(entry.results).forEach(provider => {
+            // Skip xAI and Perplexity
+            if (provider === "xAI" || provider === "Perplexity") return;
+            allProviders.add(provider);
+        });
+    });
+    
+    // STEP 2: Initialize empty datasets for ALL providers
+    allProviders.forEach(provider => {
+        datasets[provider] = {
+            label: provider,
+            data: [],
+            borderColor: PROVIDER_COLORS[provider] || "#00ff41",
+            backgroundColor: PROVIDER_COLORS[provider] || "#00ff41",
+            tension: 0.3,
+            spanGaps: true,
+            pointRadius: 3,
+            pointHoverRadius: 6,
+            borderWidth: 2
+        };
+    });
+    
+    // STEP 3: Populate data - every provider gets a value (or null) for every timestamp
+    history.forEach(entry => {
+        // Validate timestamp
+        if (!entry.timestamp) return;
+        
+        const date = new Date(entry.timestamp);
+        // Check if date is valid
+        if (isNaN(date.getTime())) return;
+        
+        labels.push(date.toLocaleDateString("en-US", {month: "short", day: "numeric"}));
+        
+        // KEY FIX: Add data point for EVERY provider at this timestamp
+        // Use null if provider has no data for this specific timestamp
+        allProviders.forEach(provider => {
+            const providerData = entry.results[provider];
+            if (providerData && providerData.status === "Online" && providerData.time < 99) {
+                datasets[provider].data.push(providerData.time);
+            } else {
+                // Missing data = null (Chart.js will skip with spanGaps: true)
+                datasets[provider].data.push(null);
             }
-            
-            if (chartSection) chartSection.style.display = "block";
-            fullHistoryData = history;
-            
-            const labels = [];
-            const datasets = {};
-            
-            history.forEach(entry => {
-                // Validate timestamp
-                if (!entry.timestamp) return;
-                
-                const date = new Date(entry.timestamp);
-                // Check if date is valid
-                if (isNaN(date.getTime())) return;
-                
-                labels.push(date.toLocaleDateString("en-US", {month: "short", day: "numeric"}));
-                
-                Object.keys(entry.results).forEach(provider => {
-                    // Skip xAI and Perplexity
-                    if (provider === "xAI" || provider === "Perplexity") return;
-                    
-                    if (!datasets[provider]) {
-                        datasets[provider] = {
-                            label: provider,
-                            data: [],
-                            borderColor: PROVIDER_COLORS[provider] || "#00ff41",
-                            backgroundColor: PROVIDER_COLORS[provider] || "#00ff41",
-                            tension: 0.3,
-                            spanGaps: true,
-                            pointRadius: 3,
-                            pointHoverRadius: 6,
-                            borderWidth: 2
-                        };
+        });
+    });
+    
+    if (trendChart) trendChart.destroy();
+    
+    trendChart = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: labels,
+            datasets: Object.values(datasets)
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: 'index',
+                intersect: false
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    position: 'top',
+                    labels: {
+                        color: '#00ff41',
+                        font: {
+                            family: 'Share Tech Mono',
+                            size: 11
+                        },
+                        boxWidth: 15,
+                        padding: 10
                     }
-                    
-                    const time = entry.results[provider].time;
-                    datasets[provider].data.push(time < 99 && entry.results[provider].status === "Online" ? time : null);
-                });
-            });
-            
-            if (trendChart) trendChart.destroy();
-            
-            trendChart = new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: Object.values(datasets)
                 },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: {
-                        legend: {
-                            position: "top",
-                            labels: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                                font: { family: 'Share Tech Mono', size: 11 }
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                            titleColor: getComputedStyle(document.documentElement).getPropertyValue('--text-primary'),
-                            bodyColor: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                            borderColor: getComputedStyle(document.documentElement).getPropertyValue('--border-color'),
-                            borderWidth: 1,
-                            callbacks: {
-                                label: function(context) {
-                                    if (context.parsed.y === null) return null;
-                                    return context.dataset.label + ": " + context.parsed.y.toFixed(2) + "s";
-                                }
-                            }
-                        }
+                tooltip: {
+                    backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                    titleColor: '#00ff41',
+                    bodyColor: '#b8f3b8',
+                    borderColor: '#00ff41',
+                    borderWidth: 1,
+                    titleFont: {
+                        family: 'Share Tech Mono'
                     },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: {
-                                display: true,
-                                text: "LATENCY (seconds)",
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                                font: { family: 'Share Tech Mono' }
-                            },
-                            ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                                font: { family: 'Share Tech Mono' }
-                            },
-                            grid: {
-                                color: 'rgba(0, 255, 65, 0.1)'
+                    bodyFont: {
+                        family: 'Share Tech Mono'
+                    },
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
                             }
-                        },
-                        x: {
-                            ticks: {
-                                color: getComputedStyle(document.documentElement).getPropertyValue('--text-secondary'),
-                                font: { family: 'Share Tech Mono' }
-                            },
-                            grid: {
-                                display: false
+                            if (context.parsed.y !== null) {
+                                label += context.parsed.y.toFixed(2) + 's';
+                            } else {
+                                label += 'Offline';
                             }
+                            return label;
                         }
                     }
                 }
-            });
+            },
+            scales: {
+                x: {
+                    grid: {
+                        color: 'rgba(0, 255, 65, 0.1)'
+                    },
+                    ticks: {
+                        color: '#00ff41',
+                        font: {
+                            family: 'Share Tech Mono',
+                            size: 10
+                        },
+                        maxRotation: 45,
+                        minRotation: 45
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(0, 255, 65, 0.1)'
+                    },
+                    ticks: {
+                        color: '#00ff41',
+                        font: {
+                            family: 'Share Tech Mono'
+                        },
+                        callback: function(value) {
+                            return value + 's';
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'LATENCY (seconds)',
+                        color: '#00ff41',
+                        font: {
+                            family: 'Share Tech Mono',
+                            size: 11
+                        }
+                    }
+                }
+            }
         }
+    });
+}
 
         async function fetchData() {
             console.log("INITIATING DATA FETCH...");
