@@ -30,12 +30,32 @@ PARALLEL_TESTING = False  # Set to True to enable parallel testing
 ENABLE_STREAMING = True  # Set to True to measure streaming performance
 TIMEOUT = 90  # Increased timeout for slow providers
 
-# Multi-step analytical reasoning prompt
-PROMPT = """Analyze the evolution of artificial intelligence from 2010 to 2025. Identify and explain the THREE most significant breakthroughs that fundamentally changed the field. For each breakthrough, describe its technical innovation and its broader impact on AI capabilities.
+# Multi-step analytical reasoning prompt designed to challenge models
+PROMPT = """You are tasked with analyzing the evolution of artificial intelligence from 2010 to 2025. Your response must be comprehensive and well-structured.
 
-Compare and contrast deep learning architectures versus transformer architectures. Explain why transformers became dominant for language tasks despite deep learning's earlier success. Include specific technical reasons for this paradigm shift.
+PART 1 - HISTORICAL ANALYSIS (2010-2025):
+Identify and explain the THREE most transformative breakthroughs in AI during this period. For each breakthrough:
+- Describe the core technical innovation
+- Explain why it was a paradigm shift (not just incremental progress)
+- Analyze its broader impact on AI capabilities and applications
+- Provide specific examples of what became possible after this breakthrough
 
-Based on current trends, predict the next major AI breakthrough likely to occur post-2025. Provide THREE specific technical reasons supporting your prediction and a realistic timeline."""
+PART 2 - ARCHITECTURAL COMPARISON:
+Compare and contrast deep learning architectures versus transformer architectures:
+- Explain the fundamental architectural differences
+- Discuss why transformers became dominant for language tasks despite deep learning's earlier success in vision
+- Analyze the specific technical limitations that deep learning hit for NLP
+- Explain the key innovations in transformers (attention mechanism, positional encoding, etc.) that solved these limitations
+- Compare computational efficiency and scalability between the two approaches
+
+PART 3 - FUTURE PREDICTION:
+Based on current trends and technological trajectories, predict the next major AI breakthrough likely to occur post-2025:
+- Provide THREE specific, defensible technical reasons supporting your prediction
+- Explain what current limitations this breakthrough would address
+- Propose a realistic timeline with justification
+- Discuss potential obstacles that could delay or prevent this breakthrough
+
+Your response should demonstrate deep technical understanding, logical reasoning, and the ability to synthesize complex information. Aim for 2500-3500 characters with clear structure and specific technical details."""
 
 # Provider configurations - ENHANCED WITH DEBUG INFO
 PROVIDERS = {
