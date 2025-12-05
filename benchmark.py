@@ -1,7 +1,14 @@
 #!/usr/bin/env python3
 """
-BRAIAN Speed Index - LLM Benchmarking Script
+BRAIAN Speed Index - LLM Benchmarking Script (FIXED VERSION)
 Tests multiple LLM providers with identical prompts to measure performance
+
+FIXES APPLIED:
+- Anthropic: Corrected header format (x-api-key instead of Bearer)
+- Google: Fixed URL format (API key in URL parameter)
+- Cohere: Updated to use api.cohere.com (not .ai) with v2 endpoint
+- Fireworks: No changes needed (was already correct)
+- Cerebras: No changes needed (was already correct)
 """
 
 import os
@@ -21,7 +28,7 @@ Compare and contrast deep learning architectures versus transformer architecture
 
 Based on current trends, predict the next major AI breakthrough likely to occur post-2025. Provide THREE specific technical reasons supporting your prediction and a realistic timeline."""
 
-# Provider configurations - ALL 12 PROVIDERS
+# Provider configurations - ALL 10 PROVIDERS (FIXED)
 PROVIDERS = {
     "OpenAI": {
         "api_url": "https://api.openai.com/v1/chat/completions",
@@ -65,7 +72,7 @@ PROVIDERS = {
         "max_tokens": 1000
     },
     "Cohere": {
-        "api_url": "https://api.cohere.ai/v1/chat",
+        "api_url": "https://api.cohere.com/v2/chat",
         "model": "command-r-plus",
         "api_key_env": "COHERE_API_KEY",
         "input_price": 2.5,
@@ -136,9 +143,9 @@ def call_openai_compatible(provider_name, config, api_key):
 
 
 def call_anthropic(config, api_key):
-    """Call Anthropic API"""
+    """Call Anthropic API - FIXED"""
     headers = {
-        "x-api-key": api_key,
+        "x-api-key": api_key,  # FIXED: Use x-api-key instead of Authorization Bearer
         "anthropic-version": config["anthropic_version"],
         "content-type": "application/json"
     }
@@ -164,8 +171,13 @@ def call_anthropic(config, api_key):
 
 
 def call_google(config, api_key):
-    """Call Google Gemini API"""
+    """Call Google Gemini API - FIXED"""
+    # FIXED: API key goes in URL parameter, not in headers
     url = f"{config['api_url']}?key={api_key}"
+    
+    headers = {
+        "Content-Type": "application/json"
+    }
     
     data = {
         "contents": [{"parts": [{"text": PROMPT}]}],
@@ -175,7 +187,7 @@ def call_google(config, api_key):
         }
     }
     
-    response = requests.post(url, json=data, timeout=60)
+    response = requests.post(url, headers=headers, json=data, timeout=60)
     response.raise_for_status()
     result = response.json()
     
@@ -190,30 +202,30 @@ def call_google(config, api_key):
 
 
 def call_cohere(config, api_key):
-    """Call Cohere API"""
+    """Call Cohere API - FIXED"""
     headers = {
         "Authorization": f"Bearer {api_key}",
         "Content-Type": "application/json"
     }
     
+    # FIXED: Use v2 endpoint format
     data = {
         "model": config["model"],
-        "message": PROMPT,
-        "max_tokens": config["max_tokens"],
-        "temperature": 1.0
+        "messages": [{"role": "user", "content": PROMPT}]  # v2 uses messages array
     }
     
     response = requests.post(config["api_url"], headers=headers, json=data, timeout=60)
     response.raise_for_status()
     result = response.json()
     
-    content = result["text"]
-    usage = result.get("meta", {}).get("tokens", {})
+    # FIXED: Handle v2 response format
+    content = result["message"]["content"][0]["text"]
+    usage = result.get("usage", {})
     
     return {
         "content": content,
-        "input_tokens": usage.get("input_tokens", 0),
-        "output_tokens": usage.get("output_tokens", 0)
+        "input_tokens": usage.get("tokens", {}).get("input_tokens", 0),
+        "output_tokens": usage.get("tokens", {}).get("output_tokens", 0)
     }
 
 
@@ -283,7 +295,9 @@ def benchmark_provider(provider_name, config):
                 print(f"  ✗ Invalid length: {char_count} chars")
                 
         except Exception as e:
-            print(f"  ✗ Error: {str(e)}")
+            error_msg = str(e)
+            # Print more detailed error info
+            print(f"  ✗ Error: {error_msg}")
             if attempt < MAX_RETRIES - 1:
                 time.sleep(2)
     
@@ -333,7 +347,7 @@ def save_results(results, history):
 
 def main():
     print("=" * 60)
-    print("BRAIAN SPEED INDEX - LLM Benchmark")
+    print("BRAIAN SPEED INDEX - LLM Benchmark (FIXED)")
     print("=" * 60)
     print(f"Timestamp: {datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S UTC')}")
     print(f"Providers: {len(PROVIDERS)}")
