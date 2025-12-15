@@ -91,7 +91,6 @@
         .hud-item { display: flex; gap: 10px; align-items: center; font-size: 0.9rem; }
         .hud-label { color: var(--text-secondary); letter-spacing: 1px; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; }
         .hud-val { color: #fff; font-weight: bold; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; line-height: 1; }
-        .hud-val.glow { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
         .hud-sep { color: var(--border-default); opacity: 0.5; }
 
         /* --- AD BANNER --- */
@@ -143,14 +142,12 @@
             table-layout: fixed; 
         }
 
-        /* Tighter Cells & Better Vertical Alignment */
         th, td { 
-            padding: 12px 8px; 
+            padding: 12px 10px; 
             vertical-align: middle;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        /* Header Styling - Grounded & Aligned */
         th { 
             text-transform: uppercase;
             font-size: 0.75rem; 
@@ -158,36 +155,33 @@
             background: rgba(0, 20, 0, 0.6); 
             color: var(--neon-green);
             font-weight: 700;
-            position: sticky; 
-            top: 0;
+            position: sticky; top: 0;
         }
 
         /* 1. RANK */
-        th:nth-child(1), td:nth-child(1) { width: 50px; text-align: center; }
-        /* Sticky columns for mobile */
-        th:nth-child(1), td:nth-child(1) {
+        th:nth-child(1), td:nth-child(1) { 
+            width: 40px; text-align: center; 
             position: sticky; left: 0; z-index: 2;
             background-color: var(--bg-panel); border-right: 1px solid var(--border-default);
         }
 
         /* 2. PROVIDER */
-        th:nth-child(2), td:nth-child(2) { width: 130px; text-align: left; }
-        /* Sticky columns for mobile */
-        th:nth-child(2), td:nth-child(2) {
-            position: sticky; left: 50px; z-index: 2;
+        th:nth-child(2), td:nth-child(2) { 
+            width: 120px; text-align: left; 
+            position: sticky; left: 40px; z-index: 2;
             background-color: var(--bg-panel); border-right: 1px solid var(--border-default);
             box-shadow: 2px 0 5px rgba(0,0,0,0.5);
         }
 
-        /* 3. MODEL */
-        th:nth-child(3), td:nth-child(3) { width: 160px; text-align: left; }
+        /* 3. MODEL (Tighter) */
+        th:nth-child(3), td:nth-child(3) { width: 140px; text-align: left; }
 
         /* METRICS */
-        th:nth-child(4), td:nth-child(4) { width: 70px; text-align: center; } /* Score */
-        th:nth-child(5), td:nth-child(5) { width: 70px; text-align: center; } /* Speed */
-        th:nth-child(6), td:nth-child(6) { width: 70px; text-align: center; } /* TTFT */
-        th:nth-child(7), td:nth-child(7) { width: 60px; text-align: center; } /* TPS */
-        th:nth-child(8), td:nth-child(8) { width: 70px; text-align: center; } /* Cost */
+        th:nth-child(4), td:nth-child(4) { width: 60px; text-align: center; } /* Score */
+        th:nth-child(5), td:nth-child(5) { width: 60px; text-align: center; } /* Speed */
+        th:nth-child(6), td:nth-child(6) { width: 60px; text-align: center; } /* TTFT */
+        th:nth-child(7), td:nth-child(7) { width: 50px; text-align: center; } /* TPS */
+        th:nth-child(8), td:nth-child(8) { width: 60px; text-align: center; } /* Cost */
 
         /* CHECKS */
         th:nth-child(9), td:nth-child(9) { width: 50px; text-align: center; }
@@ -198,49 +192,43 @@
         th:nth-child(12), td:nth-child(12) { 
             width: auto; 
             text-align: left; 
-            color: #aaa; 
+            color: #777; 
             font-family: 'Share Tech Mono', monospace;
             white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
             padding-right: 15px; 
         }
 
-        /* LINK */
-        th:nth-child(13), td:nth-child(13) { width: 90px; text-align: center; }
+        /* LINK (Tight) */
+        th:nth-child(13), td:nth-child(13) { width: 80px; text-align: center; }
 
         tr:hover td { background: rgba(0, 255, 65, 0.03); }
         
-        .rank { font-family: 'Rajdhani', sans-serif; font-weight: bold; font-size: 1.2rem; }
-        .prov-name { color: #fff; font-weight: bold; text-decoration: none; border-bottom: 1px dotted #555; transition: 0.2s; }
+        .rank { font-family: 'Rajdhani', sans-serif; font-weight: bold; font-size: 1.1rem; }
+        .prov-name { color: #fff; font-weight: bold; text-decoration: none; border-bottom: 1px dotted #555; transition: 0.2s; font-size: 0.9rem; }
         .prov-name:hover { color: var(--neon-green); border-color: var(--neon-green); }
         
-        .score { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: bold; }
+        .score { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: bold; }
         .score-high { color: #fff; text-shadow: 0 0 10px var(--neon-green); }
         .score-mid { color: var(--neon-blue); }
         .score-low { color: var(--neon-red); }
 
-        .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 5px var(--neon-green); }
-        .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1.1rem; opacity: 0.7; }
+        .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1rem; }
+        .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1rem; opacity: 0.5; }
 
         .td-snippet { 
-            color: var(--text-secondary); font-size: 0.85rem; font-style: italic; cursor: pointer;
-            border-bottom: 1px dotted #444; transition: 0.2s;
+            color: var(--text-secondary); font-size: 0.8rem; font-style: italic; cursor: pointer;
+            border-bottom: 1px dotted #333; transition: 0.2s;
         }
         .td-snippet:hover { color: var(--neon-green); border-bottom-color: var(--neon-green); }
-        
-        .td-snippet[data-tooltip]:hover::after {
-            width: 400px; max-width: 400px; bottom: auto; top: 100%; 
-            right: 0; left: auto; transform: none; white-space: pre-wrap;
-            z-index: 9999; background: #0d1117; border-color: var(--neon-green);
-        }
 
         .act-btn { 
-            display: inline-block; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; 
+            display: inline-block; padding: 3px 8px; font-size: 0.7rem; font-weight: bold; 
             border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
             background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif;
         }
         .act-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-dim); }
 
-        /* --- CARDS (IMPROVED GRID) --- */
+        /* --- CARDS (FIXED LAYOUT) --- */
         .grid-view { 
             display: grid; 
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
@@ -253,7 +241,8 @@
             border: 1px solid var(--border-default); 
             padding: 20px; 
             border-radius: 6px;
-            display: flex; flex-direction: column; gap: 15px; 
+            display: flex; flex-direction: column; 
+            height: 100%; /* Uniform Height */
             transition: 0.2s; position: relative; overflow: hidden;
         }
         .card:hover { 
@@ -264,7 +253,7 @@
 
         .card-head { 
             display: flex; justify-content: space-between; align-items: flex-start; 
-            border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; 
+            border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 15px;
         }
         .card-prov { 
             font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #fff; 
@@ -272,7 +261,7 @@
         }
         .card-model {
             font-size: 0.75rem; color: #888; margin-top: 3px;
-            font-family: 'Share Tech Mono', monospace;
+            font-family: 'Share Tech Mono', monospace; display: block;
         }
         .card-rank {
             font-family: 'Rajdhani', sans-serif; font-size: 1.2rem;
@@ -280,36 +269,40 @@
         }
 
         .card-stats { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 12px; 
-            background: rgba(0,0,0,0.2); padding: 12px; border-radius: 4px;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; 
+            background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; margin-bottom: 15px;
         }
         .stat-box { display: flex; flex-direction: column; }
         .stat-lbl { font-size: 0.65rem; color: #666; letter-spacing: 1px; margin-bottom: 2px; }
-        .stat-val { font-family: 'Rajdhani', sans-serif; font-size: 1.1rem; color: #eee; font-weight: 700; }
+        .stat-val { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: #eee; font-weight: 700; }
 
         .comp-row { 
-            display: flex; justify-content: space-around; padding: 8px 0; 
+            display: flex; justify-content: space-around; padding: 10px 0; 
             border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
+            margin-bottom: 15px;
         }
         .comp-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .comp-lbl { font-size: 0.65rem; color: #666; letter-spacing: 1px; }
 
+        /* Fixed Height Snippet Box */
         .card-snippet {
-            font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: #aaa;
+            font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: #999;
             background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px;
-            height: 60px; overflow: hidden; position: relative; line-height: 1.4;
+            height: 80px; overflow: hidden; position: relative; line-height: 1.4;
             cursor: pointer; border: 1px solid transparent; transition: 0.2s;
+            margin-bottom: 15px;
         }
-        .card-snippet:hover { border-color: #444; color: #fff; }
+        .card-snippet:hover { border-color: #444; color: #ccc; }
         .card-snippet::after {
-            content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 20px;
+            content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 30px;
             background: linear-gradient(to bottom, transparent, var(--bg-card));
         }
 
+        /* Buttons pinned to bottom */
         .card-actions { display: flex; gap: 10px; margin-top: auto; }
         .card-btn {
-            flex: 1; padding: 10px; text-align: center;
-            font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: bold;
+            flex: 1; padding: 8px; text-align: center;
+            font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold;
             text-decoration: none; cursor: pointer; border-radius: 4px;
             transition: 0.2s; text-transform: uppercase;
         }
@@ -614,7 +607,7 @@
             
             const rawSnippet = r.full_response || "";
             // Snippet for table (short)
-            const snippetDisplay = rawSnippet.substring(0, 60).replace(/</g,'&lt;') + (rawSnippet.length > 60 ? '...' : '');
+            const snippetDisplay = rawSnippet.substring(0, 40).replace(/</g,'&lt;') + (rawSnippet.length > 40 ? '...' : '');
             const snippetHover = rawSnippet.substring(0, 800).replace(/"/g, '&quot;') + '...';
 
             return `<tr>
