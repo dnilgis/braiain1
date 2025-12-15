@@ -54,32 +54,38 @@
             overflow-x: hidden;
         }
 
-        /* --- TOOLTIPS (Fixed Z-Index) --- */
+        /* --- TOOLTIPS (FIXED Z-INDEX) --- */
         [data-tooltip] { position: relative; cursor: help; }
+        
         [data-tooltip]::after {
             content: attr(data-tooltip);
             position: absolute;
             visibility: hidden;
             opacity: 0;
             bottom: 100%; left: 50%;
-            transform: translateX(-50%) translateY(10px);
+            transform: translateX(-50%) translateY(-10px);
             background: #0a0e12; 
             border: 1px solid var(--neon-green); 
             color: #fff; 
-            padding: 15px;
-            font-size: 0.8rem; 
+            padding: 12px;
+            font-size: 0.75rem; 
             font-family: 'Share Tech Mono', monospace;
             width: max-content; 
             max-width: 400px; 
-            z-index: 9999999; /* Highest priority */
+            z-index: 999999; /* Float above everything */
             box-shadow: 0 10px 40px rgba(0,0,0,1); 
             text-align: left; 
             white-space: pre-wrap; 
             line-height: 1.4;
-            transition: 0.15s ease-out;
+            transition: 0.1s ease-out;
             pointer-events: none;
         }
-        [data-tooltip]:hover::after { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(-10px); }
+        
+        [data-tooltip]:hover::after {
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-15px);
+        }
 
         /* --- TYPOGRAPHY --- */
         h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #fff; }
@@ -91,7 +97,7 @@
         
         /* --- LOGO (SVG IMAGE - NO GLITCH) --- */
         .logo-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
-        .braiain-logo-img { width: 300px; height: auto; display: block; filter: drop-shadow(0 0 5px rgba(0,255,65,0.5)); }
+        .braiain-logo-img { width: 400px; max-width: 100%; height: auto; display: block; filter: drop-shadow(0 0 8px rgba(0,255,65,0.3)); }
 
         /* --- HUD --- */
         .hud-bar {
@@ -104,25 +110,10 @@
         .hud-val { color: #fff; font-weight: bold; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; line-height: 1; }
         .hud-sep { color: var(--border-default); opacity: 0.5; }
 
-        /* --- AD BANNER --- */
-        .ad-banner {
-            margin: 25px auto; padding: 15px 25px;
-            border: 1px dashed var(--border-default);
-            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.05) 50%, rgba(0,0,0,0) 100%);
-            display: flex; justify-content: space-between; align-items: center; gap: 20px;
-        }
-        .ad-text { font-size: 1rem; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: bold; }
-        .act-btn { 
-            display: inline-block; padding: 6px 16px; font-size: 0.8rem; font-weight: bold; 
-            border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
-            background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif;
-        }
-        .act-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-dim); }
-
         /* --- CONTROLS --- */
         .controls { 
             background: var(--bg-panel); border: 1px solid var(--border-default); 
-            padding: 15px; margin-bottom: 25px;
+            padding: 15px; margin-bottom: 25px; margin-top: 25px;
             display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px;
             align-items: center;
         }
@@ -137,7 +128,7 @@
         .btn:hover { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 8px var(--neon-dim); text-shadow: 0 0 5px var(--neon-green); }
         .btn.active { background: var(--neon-dim); color: var(--neon-green); border-color: var(--neon-green); box-shadow: inset 0 0 10px var(--neon-dim); }
 
-        /* --- TABLE (TIGHTENED & CLEAN) --- */
+        /* --- TABLE (TIGHTENED) --- */
         .table-wrap { 
             overflow-x: auto; 
             border: 1px solid var(--border-default); 
@@ -149,6 +140,7 @@
         table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1000px; table-layout: fixed; }
         th, td { padding: 8px 6px; vertical-align: middle; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
 
+        /* Sticky Header */
         th { 
             text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;
             background: #05080a; color: var(--neon-green); font-weight: 700;
@@ -157,16 +149,31 @@
             padding-top: 12px; padding-bottom: 12px;
         }
 
-        th:nth-child(1), td:nth-child(1) { width: 40px; text-align: center; position: sticky; left: 0; z-index: 21; background-color: var(--bg-panel); border-right: 1px solid var(--border-default); }
-        th:nth-child(2), td:nth-child(2) { width: 120px; text-align: left; position: sticky; left: 40px; z-index: 21; background-color: var(--bg-panel); border-right: 1px solid var(--border-default); box-shadow: 2px 0 5px rgba(0,0,0,0.5); }
-        th:nth-child(3), td:nth-child(3) { width: 140px; text-align: left; }
+        /* Explicit Column Widths */
+        th:nth-child(1), td:nth-child(1) { width: 40px; text-align: center; } /* Rank */
+        th:nth-child(2), td:nth-child(2) { width: 120px; text-align: left; }  /* Provider */
+        th:nth-child(3), td:nth-child(3) { width: 140px; text-align: left; }  /* Model */
         
-        th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6), th:nth-child(8), td:nth-child(8) { width: 65px; text-align: center; }
+        /* Metrics */
+        th:nth-child(4), td:nth-child(4), 
+        th:nth-child(5), td:nth-child(5), 
+        th:nth-child(6), td:nth-child(6), 
+        th:nth-child(8), td:nth-child(8) { width: 65px; text-align: center; }
+        
         th:nth-child(7), td:nth-child(7) { width: 50px; text-align: center; }
-        th:nth-child(9), td:nth-child(9), th:nth-child(10), td:nth-child(10), th:nth-child(11), td:nth-child(11) { width: 45px; text-align: center; }
 
-        /* Output Box - Strictly 3 Lines */
-        th:nth-child(12), td:nth-child(12) { width: auto; text-align: left; color: #777; font-family: 'Share Tech Mono', monospace; padding-right: 15px; }
+        /* Checks */
+        th:nth-child(9), td:nth-child(9), 
+        th:nth-child(10), td:nth-child(10), 
+        th:nth-child(11), td:nth-child(11) { width: 40px; text-align: center; }
+
+        /* Output Box - 3 Lines Max */
+        th:nth-child(12), td:nth-child(12) { 
+            width: auto; /* Takes remaining space */
+            text-align: left; 
+            color: #777; font-family: 'Share Tech Mono', monospace;
+            padding-right: 15px; 
+        }
         
         .td-output-box {
             display: -webkit-box;
@@ -190,12 +197,12 @@
         .prov-name:hover { color: var(--neon-green); border-color: var(--neon-green); }
         .score { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: bold; }
         .score-high { color: #fff; text-shadow: 0 0 10px var(--neon-green); }
-        .score-mid { color: var(--neon-blue); }
-        .score-low { color: var(--neon-red); }
         .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1rem; }
         .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1rem; opacity: 0.5; }
+        .act-btn { display: inline-block; padding: 3px 10px; font-size: 0.7rem; font-weight: bold; border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif; }
+        .act-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-dim); }
 
-        /* --- CARDS (FIXED GRID & HEIGHTS) --- */
+        /* --- CARDS (FIXED GRID) --- */
         .grid-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 30px; }
 
         .card { 
@@ -235,10 +242,9 @@
         .card-snippet::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 30px; background: linear-gradient(to bottom, transparent, var(--bg-card)); }
 
         /* Buttons (Pinned to Bottom) */
-        .card-actions { display: flex; gap: 10px; margin-top: auto; width: 100%; }
+        .card-actions { display: flex; gap: 10px; margin-top: auto; }
         .card-btn {
-            flex: 1; /* Forces 50% width each */
-            padding: 10px; text-align: center;
+            flex: 1; padding: 10px; text-align: center;
             font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold;
             text-decoration: none; cursor: pointer; border-radius: 4px;
             transition: 0.2s; text-transform: uppercase;
@@ -278,8 +284,7 @@
         @media(max-width: 768px) {
             .hud-bar { flex-wrap: wrap; justify-content: center; gap: 15px; }
             .hud-sep { display: none; }
-            .braiain-logo-img { width: 220px; }
-            .ad-banner { flex-direction: column; text-align: center; }
+            .braiain-logo-img { width: 250px; }
             .controls { flex-direction: column; align-items: stretch; }
             .grid-view { grid-template-columns: 1fr; }
         }
@@ -291,7 +296,7 @@
     <div class="container">
         <div class="header-content">
             <div class="logo-container">
-                <img src="data:image/svg+xml;base64,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" alt="Braiain Speed Index" class="braiain-logo-img">
+                <img src="data:image/svg+xml;base64,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" alt="Braiain Speed Index" class="braiain-logo-img">
             </div>
 
             <div class="hud-bar">
@@ -433,13 +438,8 @@
 
 <footer>
     <div class="container footer-container">
-        <div class="ascii-logo footer-logo" style="margin:0 auto 20px auto; font-size:0.5rem; opacity:0.6; display:inline-block; text-align:left;">
- ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
- ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
- ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
- ██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██╔══██║
- ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
- ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
+        <div style="text-align:center; opacity:0.5; margin-bottom:10px;">
+            <img src="data:image/svg+xml;base64,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" width="150" alt="Braiain Speed Index">
         </div>
         <p style="color: var(--text-secondary); margin-bottom: 10px;">
             A <a href="mailto:dnilgis@gmail.com" style="color: var(--neon-green); text-decoration: none;">dnilgis</a> PROJECT
@@ -503,23 +503,25 @@
         };
     }
 
-    // --- Helper to Clean Prompts from Output ---
+    // --- SMART CLEANER: REMOVES PROMPT TEXT ---
     function cleanOutputSnippet(text) {
         if (!text) return "";
         
-        // 1. Remove the "PART 1" or "PART 2" headers from benchmark prompt
+        // 1. Remove standard benchmark headers
         let cleaned = text.replace(/^PART \d+ - [A-Z ]+:\s*/i, '');
         
-        // 2. Remove markdown code block starts like ```json or ```python
+        // 2. Remove markdown blocks
         cleaned = cleaned.replace(/^```[a-z]*\n?/i, '');
         
-        // 3. (Advanced) If text starts with the prompt's instructions (common with smaller models)
-        // We look for the first JSON bracket '{' or the first "Here is"
-        const jsonStart = cleaned.indexOf('{');
-        if (jsonStart > -1 && jsonStart < 50) { // If JSON starts early, cut to it
-            cleaned = cleaned.substring(jsonStart);
-        }
+        // 3. Heuristic: If it starts with typical preamble "Here is the answer...", strip it.
+        // We look for the first '{' (JSON) or the first "def" (Python) or just take the raw if clean.
+        // For this specific benchmark, we want to skip the "PART 1" text if possible.
         
+        // If it starts with "PART 1", recursively strip it to get to the content
+        while (cleaned.match(/^PART \d+/i)) {
+             cleaned = cleaned.replace(/^PART \d+ - [A-Z ]+:\s*/i, '');
+        }
+
         return cleaned.trim();
     }
 
@@ -546,11 +548,9 @@
             const iLogic = comps.logic ? '<span class="grade-check">✓</span>' : '<span class="grade-cross">✗</span>';
             const iCode = comps.code ? '<span class="grade-check">✓</span>' : '<span class="grade-cross">✗</span>';
             
-            // CLEAN THE SNIPPET
             let rawSnippet = r.full_response || "";
             let cleanSnippet = cleanOutputSnippet(rawSnippet);
             
-            // Shorten for display
             const snippetDisplay = cleanSnippet.substring(0, 300).replace(/</g,'&lt;');
             const snippetHover = rawSnippet.substring(0, 1500).replace(/"/g, '&quot;') + '...';
 
