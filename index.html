@@ -54,13 +54,38 @@
             overflow-x: hidden;
         }
 
-        /* --- TOOLTIPS (ELI5 Style) --- */
-        [data-tooltip] { position: relative; cursor: help; border-bottom: 1px dotted var(--text-secondary); }
+        /* --- TOOLTIPS (Enhanced) --- */
+        [data-tooltip] { position: relative; cursor: help; }
+        
+        /* Tooltip Visual */
+        [data-tooltip]::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            visibility: hidden;
+            opacity: 0;
+            bottom: 100%; left: 50%;
+            transform: translateX(-50%) translateY(10px);
+            background: #0a0e12; 
+            border: 1px solid var(--neon-green); 
+            color: #fff; 
+            padding: 12px;
+            font-size: 0.75rem; 
+            font-family: 'Share Tech Mono', monospace;
+            width: max-content; 
+            max-width: 350px; 
+            z-index: 99999; 
+            box-shadow: 0 4px 30px rgba(0,0,0,0.9); 
+            text-align: left; 
+            white-space: pre-wrap; 
+            line-height: 1.4;
+            transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none; /* Let clicks pass through */
+        }
+        
         [data-tooltip]:hover::after {
-            content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-            background: #0a0e12; border: 1px solid var(--neon-green); color: #fff; padding: 10px;
-            font-size: 0.8rem; width: max-content; max-width: 300px; z-index: 9999; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.9); text-align: left; white-space: normal; line-height: 1.4;
+            visibility: visible;
+            opacity: 1;
+            transform: translateX(-50%) translateY(-10px);
         }
 
         /* --- TYPOGRAPHY --- */
@@ -74,8 +99,11 @@
         /* --- LOGO (Fixed ASCII) --- */
         .logo-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
         .ascii-logo {
-            font-family: 'Courier New', Courier, monospace; 
-            white-space: pre; font-size: 0.85rem; line-height: 1.1; font-weight: 900;
+            font-family: 'Consolas', 'Monaco', 'Courier New', monospace; /* Fixed Width Stack */
+            white-space: pre; 
+            font-size: 14px; 
+            line-height: 12px; /* Super tight line height for block connection */
+            font-weight: 900;
             background: linear-gradient(180deg, #ccffcc 0%, #00ff41 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
@@ -101,12 +129,12 @@
             display: flex; justify-content: space-between; align-items: center; gap: 20px;
         }
         .ad-text { font-size: 1rem; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: bold; }
-        .ad-link { 
-            color: var(--neon-green); text-decoration: none; font-weight: bold; 
-            border: 1px solid var(--neon-green); padding: 8px 20px; font-size: 0.9rem; 
-            transition: 0.2s; background: var(--neon-dim); font-family: 'Orbitron', sans-serif;
+        .act-btn { 
+            display: inline-block; padding: 6px 16px; font-size: 0.8rem; font-weight: bold; 
+            border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
+            background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif;
         }
-        .ad-link:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-dim); }
+        .act-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-dim); }
 
         /* --- CONTROLS --- */
         .controls { 
@@ -129,10 +157,12 @@
         /* --- TABLE (OPTIMIZED LAYOUT) --- */
         .table-wrap { 
             overflow-x: auto; 
+            overflow-y: visible; /* Allow tooltips to overflow y */
             border: 1px solid var(--border-default); 
             background: var(--bg-panel); 
             margin-bottom: 30px; 
             border-radius: 4px;
+            min-height: 400px; /* Ensure space for content */
         }
         table { 
             width: 100%; 
@@ -152,28 +182,30 @@
             text-transform: uppercase;
             font-size: 0.75rem; 
             letter-spacing: 1px;
-            background: rgba(0, 20, 0, 0.6); 
+            background: #05080a; /* Opaque background for sticky header */
             color: var(--neon-green);
             font-weight: 700;
             position: sticky; top: 0;
+            z-index: 10; /* High z-index for tooltips */
+            border-bottom: 2px solid var(--border-default);
         }
 
         /* 1. RANK */
         th:nth-child(1), td:nth-child(1) { 
             width: 40px; text-align: center; 
-            position: sticky; left: 0; z-index: 2;
+            position: sticky; left: 0; z-index: 11;
             background-color: var(--bg-panel); border-right: 1px solid var(--border-default);
         }
 
         /* 2. PROVIDER */
         th:nth-child(2), td:nth-child(2) { 
             width: 120px; text-align: left; 
-            position: sticky; left: 40px; z-index: 2;
+            position: sticky; left: 40px; z-index: 11;
             background-color: var(--bg-panel); border-right: 1px solid var(--border-default);
             box-shadow: 2px 0 5px rgba(0,0,0,0.5);
         }
 
-        /* 3. MODEL (Tighter) */
+        /* 3. MODEL */
         th:nth-child(3), td:nth-child(3) { width: 140px; text-align: left; }
 
         /* METRICS */
@@ -188,17 +220,30 @@
         th:nth-child(10), td:nth-child(10) { width: 50px; text-align: center; }
         th:nth-child(11), td:nth-child(11) { width: 50px; text-align: center; }
 
-        /* OUTPUT: Fluid width */
+        /* OUTPUT: Boxed & Clamped */
         th:nth-child(12), td:nth-child(12) { 
             width: auto; 
             text-align: left; 
             color: #777; 
             font-family: 'Share Tech Mono', monospace;
-            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
             padding-right: 15px; 
         }
+        
+        .td-output-box {
+            display: -webkit-box;
+            -webkit-line-clamp: 2; /* Force 2 lines max */
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 1.4;
+            max-height: 2.8em; /* Fallback */
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        .td-output-box:hover { color: #fff; }
 
-        /* LINK (Tight) */
+        /* LINK */
         th:nth-child(13), td:nth-child(13) { width: 80px; text-align: center; }
 
         tr:hover td { background: rgba(0, 255, 65, 0.03); }
@@ -215,23 +260,10 @@
         .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1rem; }
         .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1rem; opacity: 0.5; }
 
-        .td-snippet { 
-            color: var(--text-secondary); font-size: 0.8rem; font-style: italic; cursor: pointer;
-            border-bottom: 1px dotted #333; transition: 0.2s;
-        }
-        .td-snippet:hover { color: var(--neon-green); border-bottom-color: var(--neon-green); }
-
-        .act-btn { 
-            display: inline-block; padding: 3px 8px; font-size: 0.7rem; font-weight: bold; 
-            border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
-            background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif;
-        }
-        .act-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-dim); }
-
         /* --- CARDS (FIXED LAYOUT) --- */
         .grid-view { 
             display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); 
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
             gap: 25px; 
             margin-bottom: 30px; 
         }
@@ -288,9 +320,9 @@
         .card-snippet {
             font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: #999;
             background: rgba(0,0,0,0.3); padding: 10px; border-radius: 4px;
-            height: 80px; overflow: hidden; position: relative; line-height: 1.4;
+            height: 90px; overflow: hidden; position: relative; line-height: 1.4;
             cursor: pointer; border: 1px solid transparent; transition: 0.2s;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .card-snippet:hover { border-color: #444; color: #ccc; }
         .card-snippet::after {
@@ -299,12 +331,16 @@
         }
 
         /* Buttons pinned to bottom */
-        .card-actions { display: flex; gap: 10px; margin-top: auto; }
+        .card-actions { 
+            display: flex; gap: 10px; 
+            margin-top: auto; /* PINS TO BOTTOM */
+        }
         .card-btn {
-            flex: 1; padding: 8px; text-align: center;
-            font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold;
+            flex: 1; padding: 10px; text-align: center;
+            font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: bold;
             text-decoration: none; cursor: pointer; border-radius: 4px;
             transition: 0.2s; text-transform: uppercase;
+            display: flex; align-items: center; justify-content: center;
         }
         .btn-view { background: transparent; border: 1px solid #444; color: #888; }
         .btn-view:hover { border-color: #fff; color: #fff; }
@@ -607,8 +643,8 @@
             
             const rawSnippet = r.full_response || "";
             // Snippet for table (short)
-            const snippetDisplay = rawSnippet.substring(0, 40).replace(/</g,'&lt;') + (rawSnippet.length > 40 ? '...' : '');
-            const snippetHover = rawSnippet.substring(0, 800).replace(/"/g, '&quot;') + '...';
+            const snippetDisplay = rawSnippet.substring(0, 300).replace(/</g,'&lt;'); // longer for CSS clamp
+            const snippetHover = rawSnippet.substring(0, 1500).replace(/"/g, '&quot;') + '...';
 
             return `<tr>
                 <td class="rank ${i===0?'rank-1':''}">${i+1}</td>
@@ -625,7 +661,9 @@
                 <td>${iCode}</td>
                 
                 <td class="td-snippet" data-tooltip="${snippetHover}" onclick="openModal('${r.provider}', '${rawSnippet.replace(/'/g, "\\'")}')">
-                    <span style="opacity:0.7">&gt;</span> ${snippetDisplay}
+                    <div class="td-output-box">
+                        <span style="opacity:0.7; color:var(--neon-green); margin-right:5px;">&gt;</span>${snippetDisplay}
+                    </div>
                 </td>
                 
                 <td><a href="${link}" target="_blank" class="act-btn">VISIT</a></td>
