@@ -54,10 +54,8 @@
             overflow-x: hidden;
         }
 
-        /* --- TOOLTIPS (Fixed) --- */
+        /* --- TOOLTIPS --- */
         [data-tooltip] { position: relative; cursor: help; }
-        
-        /* Custom Tooltip Visual */
         [data-tooltip]::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -73,7 +71,7 @@
             font-family: 'Share Tech Mono', monospace;
             width: max-content; 
             max-width: 350px; 
-            z-index: 10000; /* High z-index */
+            z-index: 999999; 
             box-shadow: 0 4px 30px rgba(0,0,0,0.9); 
             text-align: left; 
             white-space: pre-wrap; 
@@ -81,12 +79,7 @@
             transition: 0.1s ease-out;
             pointer-events: none;
         }
-        
-        [data-tooltip]:hover::after {
-            visibility: visible;
-            opacity: 1;
-            transform: translateX(-50%) translateY(-10px);
-        }
+        [data-tooltip]:hover::after { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(-10px); }
 
         /* --- TYPOGRAPHY --- */
         h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #fff; }
@@ -96,20 +89,11 @@
         .container { max-width: 1450px; margin: 0 auto; padding: 0 20px; }
         header { background: rgba(0,0,0,0.95); border-bottom: 1px solid var(--border-default); padding: 30px 0 20px; position: sticky; top: 0; z-index: 500; backdrop-filter: var(--glass-blur); }
         
-        /* --- LOGO (Fixed Glitch) --- */
+        /* --- LOGO (SVG REPLACEMENT) --- */
         .logo-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
-        .ascii-logo {
-            font-family: 'Consolas', 'Monaco', 'Courier New', monospace; 
-            white-space: pre; 
-            font-size: 14px; 
-            line-height: 14px; 
-            font-weight: 900;
-            background: linear-gradient(180deg, #ccffcc 0%, #00ff41 100%);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
-            display: block; width: max-content; margin-bottom: 5px;
-        }
-        
+        /* Container ensuring the SVG scales but doesn't overflow */
+        .svg-logo-wrapper { width: 100%; max-width: 600px; height: auto; display: block; }
+
         /* --- HUD --- */
         .hud-bar {
             display: flex; justify-content: center; align-items: center; gap: 30px;
@@ -154,33 +138,19 @@
         .btn:hover { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 8px var(--neon-dim); text-shadow: 0 0 5px var(--neon-green); }
         .btn.active { background: var(--neon-dim); color: var(--neon-green); border-color: var(--neon-green); box-shadow: inset 0 0 10px var(--neon-dim); }
 
-        /* --- TABLE (OPTIMIZED & TIGHTENED) --- */
+        /* --- TABLE VIEW --- */
         .table-wrap { 
             overflow-x: auto; 
-            /* Fix tooltip clipping by allowing vertical overflow if X is okay, 
-               but typically overflow-x hidden breaks it. 
-               We will use native 'title' tooltips for headers to be safe. */
+            overflow-y: visible; 
             border: 1px solid var(--border-default); 
             background: var(--bg-panel); 
             margin-bottom: 30px; 
             border-radius: 4px;
             min-height: 200px;
         }
-        table { 
-            width: 100%; 
-            border-collapse: separate; 
-            border-spacing: 0;
-            min-width: 1000px; 
-            table-layout: fixed; 
-        }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; min-width: 1000px; table-layout: fixed; }
+        th, td { padding: 8px 6px; vertical-align: middle; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
 
-        th, td { 
-            padding: 8px 6px; /* Tighter padding */
-            vertical-align: middle;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Sticky Header */
         th { 
             text-transform: uppercase; font-size: 0.75rem; letter-spacing: 1px;
             background: #05080a; color: var(--neon-green); font-weight: 700;
@@ -189,44 +159,20 @@
             padding-top: 12px; padding-bottom: 12px;
         }
 
-        /* Sticky Columns (Rank & Provider) */
-        th:nth-child(1), td:nth-child(1) { 
-            width: 40px; text-align: center; 
-            position: sticky; left: 0; z-index: 21;
-            background-color: var(--bg-panel); border-right: 1px solid var(--border-default);
-        }
-        th:nth-child(2), td:nth-child(2) { 
-            width: 120px; text-align: left; 
-            position: sticky; left: 40px; z-index: 21;
-            background-color: var(--bg-panel); border-right: 1px solid var(--border-default);
-            box-shadow: 2px 0 5px rgba(0,0,0,0.5);
-        }
-
+        th:nth-child(1), td:nth-child(1) { width: 40px; text-align: center; position: sticky; left: 0; z-index: 21; background-color: var(--bg-panel); border-right: 1px solid var(--border-default); }
+        th:nth-child(2), td:nth-child(2) { width: 120px; text-align: left; position: sticky; left: 40px; z-index: 21; background-color: var(--bg-panel); border-right: 1px solid var(--border-default); box-shadow: 2px 0 5px rgba(0,0,0,0.5); }
         th:nth-child(3), td:nth-child(3) { width: 140px; text-align: left; }
         
-        /* Metrics */
-        th:nth-child(4), td:nth-child(4),
-        th:nth-child(5), td:nth-child(5),
-        th:nth-child(6), td:nth-child(6),
-        th:nth-child(8), td:nth-child(8) { width: 65px; text-align: center; }
-        
+        th:nth-child(4), td:nth-child(4), th:nth-child(5), td:nth-child(5), th:nth-child(6), td:nth-child(6), th:nth-child(8), td:nth-child(8) { width: 65px; text-align: center; }
         th:nth-child(7), td:nth-child(7) { width: 50px; text-align: center; }
-
-        /* Checks */
-        th:nth-child(9), td:nth-child(9),
-        th:nth-child(10), td:nth-child(10),
-        th:nth-child(11), td:nth-child(11) { width: 45px; text-align: center; }
+        th:nth-child(9), td:nth-child(9), th:nth-child(10), td:nth-child(10), th:nth-child(11), td:nth-child(11) { width: 45px; text-align: center; }
 
         /* Output Box - 3 Lines */
-        th:nth-child(12), td:nth-child(12) { 
-            width: auto; text-align: left; 
-            color: #777; font-family: 'Share Tech Mono', monospace;
-            padding-right: 15px; 
-        }
+        th:nth-child(12), td:nth-child(12) { width: auto; text-align: left; color: #777; font-family: 'Share Tech Mono', monospace; padding-right: 15px; }
         
         .td-output-box {
             display: -webkit-box;
-            -webkit-line-clamp: 3; /* 3 lines tall as requested */
+            -webkit-line-clamp: 3; /* 3 lines tall */
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -253,13 +199,8 @@
         .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1rem; }
         .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1rem; opacity: 0.5; }
 
-        /* --- CARDS (FIXED & ALIGNED) --- */
-        .grid-view { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); 
-            gap: 25px; 
-            margin-bottom: 30px; 
-        }
+        /* --- CARDS VIEW --- */
+        .grid-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 30px; }
 
         .card { 
             background: var(--bg-card); 
@@ -267,49 +208,25 @@
             padding: 20px; 
             border-radius: 6px;
             display: flex; flex-direction: column; 
-            height: 100%; /* Stretch to row height */
+            height: 100%; 
             transition: 0.2s; position: relative; overflow: hidden;
         }
-        .card:hover { 
-            border-color: var(--neon-green); 
-            box-shadow: 0 0 25px rgba(0, 255, 65, 0.1); 
-            transform: translateY(-2px); 
-        }
+        .card:hover { border-color: var(--neon-green); box-shadow: 0 0 25px rgba(0, 255, 65, 0.1); transform: translateY(-2px); }
 
-        .card-head { 
-            display: flex; justify-content: space-between; align-items: flex-start; 
-            border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 15px;
-        }
-        .card-prov { 
-            font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #fff; 
-            font-weight: 700; letter-spacing: 0.5px;
-        }
-        .card-model {
-            font-size: 0.75rem; color: #888; margin-top: 3px;
-            font-family: 'Share Tech Mono', monospace; display: block;
-        }
-        .card-rank {
-            font-family: 'Rajdhani', sans-serif; font-size: 1.2rem;
-            color: var(--text-secondary); font-weight: bold; opacity: 0.5;
-        }
+        .card-head { display: flex; justify-content: space-between; align-items: flex-start; border-bottom: 1px solid rgba(255,255,255,0.05); padding-bottom: 12px; margin-bottom: 15px; }
+        .card-prov { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #fff; font-weight: 700; letter-spacing: 0.5px; }
+        .card-model { font-size: 0.75rem; color: #888; margin-top: 3px; font-family: 'Share Tech Mono', monospace; display: block; }
+        .card-rank { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: var(--text-secondary); font-weight: bold; opacity: 0.5; }
 
-        .card-stats { 
-            display: grid; grid-template-columns: 1fr 1fr; gap: 15px; 
-            background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; margin-bottom: 15px;
-        }
+        .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 4px; margin-bottom: 15px; }
         .stat-box { display: flex; flex-direction: column; }
         .stat-lbl { font-size: 0.65rem; color: #666; letter-spacing: 1px; margin-bottom: 2px; }
         .stat-val { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; color: #eee; font-weight: 700; }
 
-        .comp-row { 
-            display: flex; justify-content: space-around; padding: 10px 0; 
-            border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05);
-            margin-bottom: 15px;
-        }
+        .comp-row { display: flex; justify-content: space-around; padding: 10px 0; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); margin-bottom: 15px; }
         .comp-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .comp-lbl { font-size: 0.65rem; color: #666; letter-spacing: 1px; }
 
-        /* Snippet Box */
         .card-snippet {
             font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: #999;
             background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px;
@@ -318,16 +235,9 @@
             margin-bottom: 20px;
         }
         .card-snippet:hover { border-color: #444; color: #ccc; }
-        .card-snippet::after {
-            content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 30px;
-            background: linear-gradient(to bottom, transparent, var(--bg-card));
-        }
+        .card-snippet::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 30px; background: linear-gradient(to bottom, transparent, var(--bg-card)); }
 
-        /* Footer Buttons (Pinned) */
-        .card-actions { 
-            display: flex; gap: 10px; 
-            margin-top: auto; /* Push to bottom */
-        }
+        .card-actions { display: flex; gap: 10px; margin-top: auto; }
         .card-btn {
             flex: 1; padding: 10px; text-align: center;
             font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold;
@@ -337,15 +247,8 @@
         }
         .btn-view { background: transparent; border: 1px solid #444; color: #888; }
         .btn-view:hover { border-color: #fff; color: #fff; }
-
-        .btn-visit {
-            background: rgba(0, 255, 65, 0.1); border: 1px solid var(--neon-green);
-            color: var(--neon-green);
-        }
-        .btn-visit:hover {
-            background: var(--neon-green); color: #000;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
-        }
+        .btn-visit { background: rgba(0, 255, 65, 0.1); border: 1px solid var(--neon-green); color: var(--neon-green); }
+        .btn-visit:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px rgba(0, 255, 65, 0.3); }
 
         /* --- CHART --- */
         .chart-box { background: var(--bg-panel); border: 1px solid var(--border-default); padding: 20px; height: 400px; margin-bottom: 30px; position: relative; }
@@ -367,23 +270,18 @@
 
         /* --- MODAL --- */
         .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; backdrop-filter: blur(5px); }
-        .modal-box { 
-            background: #0d1117; border: 1px solid var(--neon-green); 
-            width: 90%; max-width: 900px; margin: 5vh auto; height: 90vh; 
-            display: flex; flex-direction: column; box-shadow: 0 0 60px rgba(0,255,65,0.1); 
-        }
+        .modal-box { background: #0d1117; border: 1px solid var(--neon-green); width: 90%; max-width: 900px; margin: 5vh auto; height: 90vh; display: flex; flex-direction: column; box-shadow: 0 0 60px rgba(0,255,65,0.1); }
         .modal-head { padding: 15px 25px; border-bottom: 1px solid var(--border-default); display: flex; justify-content: space-between; align-items: center; background: rgba(0,255,65,0.05); }
         .modal-body { padding: 30px; overflow-y: auto; white-space: pre-wrap; color: #ccc; font-size: 1rem; line-height: 1.6; }
-
         .hidden { display: none !important; }
         
         @media(max-width: 768px) {
             .hud-bar { flex-wrap: wrap; justify-content: center; gap: 15px; }
             .hud-sep { display: none; }
-            .ascii-logo { font-size: 0.6rem; }
+            .svg-logo-wrapper { max-width: 300px; }
             .ad-banner { flex-direction: column; text-align: center; }
             .controls { flex-direction: column; align-items: stretch; }
-            .grid-view { grid-template-columns: 1fr; } /* Mobile: 1 column */
+            .grid-view { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -393,14 +291,26 @@
     <div class="container">
         <div class="header-content">
             <div class="logo-container">
-                <div class="ascii-logo">
- ██████╗ ██████  █████╗ ██╗ █████╗ ██╗███╗   ██╗
- ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
- ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
- ██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██╔═  ═██║
- ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
- ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
-                </div>
+                <svg class="svg-logo-wrapper" viewBox="0 0 550 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Braiain Speed Index Logo">
+                    <defs>
+                        <linearGradient id="neonGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#ccffcc;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#00ff41;stop-opacity:1" />
+                        </linearGradient>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
+                            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <text x="50%" y="20" font-family="'Courier New', monospace" font-weight="900" font-size="14" fill="url(#neonGrad)" text-anchor="middle" filter="url(#glow)">
+                        <tspan x="50%" dy="0">██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗</tspan>
+                        <tspan x="50%" dy="12">██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║</tspan>
+                        <tspan x="50%" dy="12">██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║</tspan>
+                        <tspan x="50%" dy="12">██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██╔══██║</tspan>
+                        <tspan x="50%" dy="12">██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║</tspan>
+                        <tspan x="50%" dy="12">╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝</tspan>
+                    </text>
+                </svg>
             </div>
 
             <div class="hud-bar">
@@ -639,6 +549,8 @@
             let rawSnippet = r.full_response || "";
             // Regex to strip "PART 1 - JSON GENERATION:" or similar headers
             let cleanSnippet = rawSnippet.replace(/^PART \d+ - [A-Z ]+:\s*/i, '').trim();
+            // Also try to strip if it's inside markdown code blocks
+            cleanSnippet = cleanSnippet.replace(/^```[a-z]*\n/, '').trim();
             
             // Shorten for display
             const snippetDisplay = cleanSnippet.substring(0, 300).replace(/</g,'&lt;');
@@ -677,6 +589,7 @@
              let rawSnippet = r.full_response || "";
              // Clean headers here too
              let cleanSnippet = rawSnippet.replace(/^PART \d+ - [A-Z ]+:\s*/i, '').trim();
+             cleanSnippet = cleanSnippet.replace(/^```[a-z]*\n/, '').trim();
              const snippetDisplay = cleanSnippet.substring(0, 150).replace(/</g,'&lt;'); 
              
              return `
