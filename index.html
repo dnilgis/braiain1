@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAIAIN SPEED INDEX v3.9.3 // Restored</title>
-    <meta name="description" content="AI model benchmarks testing Speed, Cost, and Intelligence.">
+    <title>BRAIAIN SPEED INDEX</title>
+    <meta name="description" content="AI model benchmarks testing Speed, Cost, and Intelligence via the Braiain Composite Score.">
     
     <!-- Google Analytics GA4 -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B3ZCE62NW"></script>
@@ -69,6 +69,7 @@
             background: #000; border: 1px solid var(--neon-green); color: #fff; padding: 10px;
             font-size: 0.8rem; width: max-content; max-width: 300px; z-index: 1000; 
             box-shadow: 0 0 15px var(--neon-dim); text-align: left; white-space: pre-wrap; margin-bottom: 8px;
+            font-family: 'Share Tech Mono', monospace;
         }
 
         /* --- TYPOGRAPHY --- */
@@ -90,7 +91,7 @@
             display: block; width: max-content;
         }
         .version-tag {
-            background: var(--neon-dim); color: var(--neon-green); padding: 2px 8px; font-size: 0.8rem;
+            background: var(--neon-dim); color: var(--neon-green); padding: 2px 8px; font-size: 0.9rem;
             border: 1px solid var(--neon-green); margin-left: 10px; display: inline-block; transform: translateY(-5px);
             font-family: 'Share Tech Mono', monospace;
         }
@@ -160,15 +161,21 @@
         .score-mid { color: var(--neon-blue); }
         .score-low { color: var(--neon-red); }
 
+        /* Fixed Snippet Column - Prevents Table Explosion */
         .td-snippet { 
-            max-width: 250px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; 
-            color: var(--text-secondary); font-size: 0.85rem; font-style: italic; cursor: help;
-            border-bottom: 1px dotted #444;
+            max-width: 250px; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+            white-space: nowrap; 
+            color: var(--text-secondary); 
+            font-size: 0.85rem; 
+            font-style: italic; 
+            cursor: help;
         }
-        .td-snippet:hover { color: var(--neon-green); border-color: var(--neon-green); }
-        /* Override tooltip for snippets to be wider */
+        .td-snippet:hover { color: var(--neon-green); }
+        /* Custom snippet tooltip width override */
         .td-snippet[data-tooltip]:hover::after { max-width: 400px; text-align: left; }
-
+        
         .td-notes { max-width: 150px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.8rem; color: #888; }
         
         /* --- CARDS --- */
@@ -200,17 +207,27 @@
         /* --- CHART --- */
         .chart-box { background: var(--bg-panel); border: 1px solid var(--border-default); padding: 20px; height: 450px; margin-bottom: 30px; position: relative; }
         .chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
-        
-        /* --- FOOTER (Restored) --- */
-        footer { border-top: 1px solid var(--border-default); background: #000; padding: 40px 0; text-align: center; margin-top: 50px; }
-        .footer-container { display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .footer-logo { font-family: 'Courier New', monospace; font-size: 0.6rem; line-height: 1.1; opacity: 0.6; margin-bottom: 20px; white-space: pre; text-align: left; }
+        .chart-toggles { display: flex; gap: 5px; }
+
+        /* --- FOOTER --- */
+        footer { border-top: 1px solid var(--border-default); background: rgba(0,0,0,0.9); padding: 30px 0; margin-top: 40px; }
+        .footer-ascii-container { display: flex; justify-content: center; width: 100%; margin-bottom: 20px; overflow: hidden; }
+        .footer-ascii { 
+            font-family: 'Courier New', Courier, monospace; 
+            white-space: pre; 
+            font-size: 0.6rem; 
+            color: var(--neon-dim); 
+            line-height: 1.1; 
+            text-align: left; 
+            display: block; 
+        }
+        .footer-content { text-align: center; }
         .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
-        .footer-link { color: var(--text-secondary); text-decoration: none; margin: 0 10px; font-size: 0.9rem; transition: 0.2s; }
+        .footer-link { color: var(--text-secondary); text-decoration: none; margin: 0 10px; font-size: 0.9rem; transition: color 0.2s; }
         .footer-link:hover { color: var(--neon-green); }
 
         /* --- MODAL --- */
-        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; backdrop-filter: blur(5px); }
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; backdrop-filter: blur(5px); }
         .modal-box { 
             background: #0d1117; border: 1px solid var(--neon-green); 
             width: 90%; max-width: 900px; margin: 50px auto; height: 85vh; 
@@ -392,7 +409,7 @@
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
         </div>
         <p style="color: var(--text-secondary); margin-bottom: 10px;">
-            A <a href="mailto:dnilgis@gmail.com" style="color: var(--neon-green); text-decoration: none;">dnilgis</a> PROJECT // v3.9.3
+            A <a href="mailto:dnilgis@gmail.com" style="color: var(--neon-green); text-decoration: none;">dnilgis</a> PROJECT
         </p>
         <div class="footer-links">
             <span>LAST SYNC: <span id="last-updated">--</span></span>
@@ -441,9 +458,12 @@
             const link = AFFILIATE_LINKS[r.provider] || "#";
             const scoreCls = (r.braiain_score >= 90) ? 'score-high' : (r.braiain_score >= 70) ? 'score-mid' : 'score-low';
             const notes = r.grade_breakdown ? (r.grade_breakdown.length > 20 ? r.grade_breakdown.substring(0,20)+'...' : r.grade_breakdown) : '-';
-            const snippet = r.full_response ? r.full_response.substring(0, 30).replace(/</g,'&lt;') + '...' : '-';
-            // Hover gets more text (approx 300 chars)
-            const snippetHover = r.full_response ? r.full_response.substring(0, 300).replace(/"/g, '&quot;') + '...' : '';
+            
+            // Clean snippet for display (escaped HTML)
+            const rawSnippet = r.full_response || "";
+            const snippetDisplay = rawSnippet.substring(0, 30).replace(/</g,'&lt;') + '...';
+            // Hover tooltip with more context (300 chars)
+            const snippetHover = rawSnippet.substring(0, 300).replace(/"/g, '&quot;') + '...';
 
             return `<tr>
                 <td class="rank">#${i+1}</td>
@@ -456,8 +476,8 @@
                 <td>${r.tokens_per_second.toFixed(0)}</td>
                 <td>${r.cost_per_request ? '$'+r.cost_per_request.toFixed(5) : 'FREE'}</td>
                 <td class="td-notes" title="${r.grade_breakdown}">${notes}</td>
-                <td class="td-snippet" data-tooltip="${snippetHover}">${snippet}</td>
-                <td><button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="openModal('${r.provider}', '${(r.full_response||'').replace(/'/g, "\\'")}')">VIEW</button></td>
+                <td class="td-snippet" data-tooltip="${snippetHover}">${snippetDisplay}</td>
+                <td><button class="btn" style="padding:4px 8px; font-size:0.75rem;" onclick="openModal('${r.provider}', '${rawSnippet.replace(/'/g, "\\'")}')">VIEW</button></td>
             </tr>`;
         }).join('');
 
