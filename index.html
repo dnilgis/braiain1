@@ -22,7 +22,8 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        /* FONTS: Orbitron (Doom/Headers), Rajdhani (HUD/Numbers), Share Tech Mono (Data/Code) */
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;700&display=swap');
         
         :root {
             --bg-deep: #050505;
@@ -51,25 +52,9 @@
             line-height: 1.5; 
             min-height: 100vh;
             font-size: 16px;
-            /* Subtle grid background */
-            background-image: 
-                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px), 
-                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-image: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
             background-size: 30px 30px; 
             overflow-x: hidden;
-        }
-
-        /* --- SCANLINE EFFECT --- */
-        body::after {
-            content: " ";
-            display: block;
-            position: fixed;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 999;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
         }
 
         /* --- TOOLTIPS (ELI5 Style) --- */
@@ -77,13 +62,13 @@
         [data-tooltip]:hover::after {
             content: attr(data-tooltip); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
             background: #0a0e12; border: 1px solid var(--neon-green); color: #fff; padding: 12px;
-            font-size: 0.9rem; width: max-content; max-width: 280px; z-index: 1000; 
+            font-size: 0.85rem; width: max-content; max-width: 300px; z-index: 9999; 
             box-shadow: 0 5px 20px rgba(0,0,0,0.9); text-align: left; white-space: normal; line-height: 1.4;
             font-family: 'Share Tech Mono', monospace;
         }
 
         /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 { text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #fff; }
+        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #fff; }
         h2 { font-size: 1.5rem; color: var(--neon-green); margin-bottom: 20px; border-bottom: 1px solid var(--border-default); padding-bottom: 8px; text-shadow: 0 0 10px rgba(0,255,65,0.2); }
         
         /* --- LAYOUT --- */
@@ -93,11 +78,8 @@
         /* --- LOGO (Fixed ASCII) --- */
         .logo-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
         .ascii-logo {
-            font-family: 'Courier New', Courier, monospace; /* Specific font stack for alignment */
-            white-space: pre; 
-            font-size: 0.85rem; 
-            line-height: 1.1; 
-            font-weight: 900;
+            font-family: 'Courier New', Courier, monospace; 
+            white-space: pre; font-size: 0.85rem; line-height: 1.1; font-weight: 900;
             background: linear-gradient(180deg, #ccffcc 0%, #00ff41 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
@@ -111,8 +93,8 @@
             padding: 10px 30px; width: fit-content; margin: 0 auto;
         }
         .hud-item { display: flex; gap: 10px; align-items: center; font-size: 0.9rem; }
-        .hud-label { color: var(--text-secondary); letter-spacing: 1px; font-size: 0.8rem; }
-        .hud-val { color: #fff; font-weight: bold; font-size: 1.2rem; }
+        .hud-label { color: var(--text-secondary); letter-spacing: 1px; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; }
+        .hud-val { color: #fff; font-weight: bold; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; line-height: 1; }
         .hud-val.glow { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
         .hud-sep { color: var(--border-default); opacity: 0.5; }
 
@@ -123,11 +105,11 @@
             background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.05) 50%, rgba(0,0,0,0) 100%);
             display: flex; justify-content: space-between; align-items: center; gap: 20px;
         }
-        .ad-text { font-size: 1rem; color: #fff; letter-spacing: 1px; font-weight: bold; }
+        .ad-text { font-size: 1rem; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: bold; }
         .ad-link { 
             color: var(--neon-green); text-decoration: none; font-weight: bold; 
             border: 1px solid var(--neon-green); padding: 8px 20px; font-size: 0.9rem; 
-            transition: 0.2s; background: var(--neon-dim); 
+            transition: 0.2s; background: var(--neon-dim); font-family: 'Orbitron', sans-serif;
         }
         .ad-link:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-dim); }
 
@@ -139,11 +121,11 @@
             align-items: center;
         }
         .btn-group { display: flex; gap: 5px; align-items: center; }
-        .label { font-size: 0.85rem; color: var(--text-secondary); margin-right: 8px; font-weight: bold; }
+        .label { font-size: 0.85rem; color: var(--text-secondary); margin-right: 8px; font-weight: bold; font-family: 'Orbitron', sans-serif; }
         
         .btn {
             background: transparent; border: 1px solid var(--border-default); color: var(--text-secondary);
-            padding: 8px 16px; font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
+            padding: 8px 16px; font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
             text-transform: uppercase; font-weight: bold;
         }
         .btn:hover { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 8px var(--neon-dim); text-shadow: 0 0 5px var(--neon-green); }
@@ -160,10 +142,10 @@
             width: 100%; 
             border-collapse: collapse; 
             min-width: 1100px; 
-            table-layout: fixed; /* Prevents column explosion */
+            table-layout: fixed; 
         }
         
-        /* Column Widths */
+        /* Optimized Column Widths */
         th:nth-child(1) { width: 50px; text-align: center; }  /* Rank */
         th:nth-child(2) { width: 140px; } /* Provider */
         th:nth-child(3) { width: 160px; } /* Model */
@@ -173,35 +155,46 @@
         th:nth-child(7) { width: 90px; }  /* TTFT */
         th:nth-child(8) { width: 70px; }  /* TPS */
         th:nth-child(9) { width: 90px; }  /* Cost */
+        
+        /* Tighter Logic Columns */
         th:nth-child(10) { width: 60px; text-align: center; } /* JSON */
-        th:nth-child(11) { width: 70px; text-align: center; } /* Logic */
+        th:nth-child(11) { width: 60px; text-align: center; } /* Logic */
         th:nth-child(12) { width: 60px; text-align: center; } /* Code */
-        th:nth-child(13) { width: 200px; } /* Snippet */
+        
+        th:nth-child(13) { width: auto; } /* Output Snippet (Fluid) */
         th:nth-child(14) { width: 100px; text-align: center; } /* Action */
 
         th { 
             text-align: left; padding: 15px; 
             background: rgba(0, 255, 65, 0.05); 
             color: var(--neon-green); 
-            font-size: 0.9rem; letter-spacing: 1px;
+            font-family: 'Orbitron', sans-serif; font-size: 0.8rem; letter-spacing: 1px;
             border-bottom: 2px solid var(--border-default); white-space: nowrap; overflow: hidden;
         }
-        td { padding: 12px 15px; border-bottom: 1px solid var(--border-default); font-size: 0.95rem; vertical-align: middle; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        td { 
+            padding: 8px 12px; 
+            border-bottom: 1px solid var(--border-default); 
+            font-size: 0.9rem; 
+            vertical-align: middle; 
+            white-space: nowrap; 
+            overflow: hidden; 
+            text-overflow: ellipsis; 
+        }
         tr:hover { background: rgba(0, 255, 65, 0.05); }
         
-        .rank { font-weight: bold; font-size: 1.2rem; }
+        .rank { font-family: 'Rajdhani', sans-serif; font-weight: bold; font-size: 1.2rem; }
         .prov-name { color: #fff; font-weight: bold; text-decoration: none; border-bottom: 1px dotted #555; transition: 0.2s; }
         .prov-name:hover { color: var(--neon-green); border-color: var(--neon-green); }
         .model-name { font-size: 0.8rem; color: var(--text-secondary); display: block; }
         
-        .score { font-size: 1.3rem; font-weight: bold; }
+        .score { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; font-weight: bold; }
         .score-high { color: #fff; text-shadow: 0 0 10px var(--neon-green); }
         .score-mid { color: var(--neon-blue); }
         .score-low { color: var(--neon-red); }
 
         /* Grade Icons */
-        .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1.2rem; text-shadow: 0 0 5px var(--neon-green); }
-        .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1.2rem; opacity: 0.7; }
+        .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 5px var(--neon-green); }
+        .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1.1rem; opacity: 0.7; }
 
         .td-snippet { 
             color: var(--text-secondary); font-size: 0.85rem; font-style: italic; cursor: pointer;
@@ -209,10 +202,23 @@
         }
         .td-snippet:hover { color: var(--neon-green); border-bottom-color: var(--neon-green); }
         
+        /* Enhanced snippet tooltip to show full response */
+        .td-snippet[data-tooltip]:hover::after {
+            width: 400px;
+            max-width: 400px;
+            bottom: auto; 
+            top: 100%; 
+            right: 0; left: auto; transform: none;
+            white-space: pre-wrap;
+            z-index: 9999;
+            background: #0d1117;
+            border-color: var(--neon-green);
+        }
+
         .act-btn { 
-            display: inline-block; padding: 6px 14px; font-size: 0.8rem; font-weight: bold; 
+            display: inline-block; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; 
             border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
-            background: rgba(0,255,65,0.05); transition: 0.2s; 
+            background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif;
         }
         .act-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-dim); }
 
@@ -222,13 +228,17 @@
         .card:hover { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(0, 255, 65, 0.15); transform: translateY(-3px); }
         
         .card-head { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-default); padding-bottom: 10px; margin-bottom: 15px; }
-        .card-prov { font-size: 1.2rem; color: #fff; font-weight: bold; }
+        .card-prov { font-family: 'Orbitron', sans-serif; font-size: 1.2rem; color: #fff; font-weight: bold; }
         .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
+        
+        .stat-box { display: flex; flex-direction: column; }
+        .stat-lbl { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 2px; }
+        .stat-val { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; color: #fff; font-weight: bold; }
         
         .comp-row { display: flex; justify-content: space-between; margin-bottom: 15px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 4px; }
         .comp-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #888; }
         .comp-val { margin-top: 4px; }
-
+        
         /* --- CHART --- */
         .chart-box { background: var(--bg-panel); border: 1px solid var(--border-default); padding: 20px; height: 400px; margin-bottom: 30px; position: relative; }
         .chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -353,7 +363,7 @@
                     <th class="col-status" data-tooltip="Did it solve the logic riddle?">LOGIC</th>
                     <th class="col-status" data-tooltip="Did it write correct Python code?">CODE</th>
                     
-                    <th class="col-snip">SNIPPET</th>
+                    <th class="col-snip">OUTPUT</th>
                     <th class="col-act">LINK</th>
                 </tr>
             </thead>
@@ -367,7 +377,7 @@
     <!-- CHART -->
     <div class="chart-box" id="chart-section">
         <div class="chart-head">
-            <div style="font-weight:bold; color:#fff;">HISTORY (30 DAYS)</div>
+            <div style="font-family:'Orbitron', sans-serif; font-weight:bold; color:#fff;">HISTORY (30 DAYS)</div>
             <div class="chart-toggles">
                 <button class="btn active" id="chart-btn-score" onclick="updateChartMetric('score')">SCORE</button>
                 <button class="btn" id="chart-btn-speed" onclick="updateChartMetric('speed')">SPEED</button>
@@ -383,20 +393,24 @@
         <h2>METHODOLOGY: THE COGNITIVE GAUNTLET</h2>
         <div class="info-grid">
             <div class="info-item">
-                <h4 data-tooltip="We make the AI read a long sci-fi story first.">1. Heavy Context</h4>
-                <p>We inject a ~2,500 char sci-fi story ("Ouroboros") to test "Cold Start" data processing speeds.</p>
+                <h4 data-tooltip="We make the AI read a long sci-fi story first.">1. Heavy Context Ingestion</h4>
+                <p>To simulate a production RAG environment, we inject a dense ~2,500 character narrative ("The Story of Ouroboros") into the context window. This measures the model's 'Cold Start' capability—its ability to rapidly ingest, tokenize, and comprehend new data before generating a single token of output.</p>
             </div>
             <div class="info-item">
-                <h4 data-tooltip="Can it follow strict formatting rules?">2. Strict JSON</h4>
-                <p>Model must parse the story and output a specific JSON schema. Tests instruction following.</p>
+                <h4 data-tooltip="Can it follow strict formatting rules?">2. Strict Schema Compliance</h4>
+                <p>We do not accept free-form text. The model is tasked with extracting specific entities from the injected context and formatting them into a rigorous JSON schema. This tests the model's instruction-following precision and its utility for structured data extraction tasks.</p>
             </div>
             <div class="info-item">
-                <h4 data-tooltip="A trick riddle about a bat and a ball.">3. Logic Trap</h4>
-                <p>Solves the "Bat & Ball" trick riddle. Tests reasoning over probability.</p>
+                <h4 data-tooltip="A trick riddle about a bat and a ball.">3. Symbolic Logic Verification</h4>
+                <p>We challenge the model with the 'Bat & Ball' problem—a classic test of cognitive reflection. This effectively separates models that simply predict probable tokens (guessing $0.10) from those that perform multi-step logical reasoning to arrive at the correct conclusion ($0.05).</p>
             </div>
             <div class="info-item">
-                <h4 data-tooltip="We ask it to write a specific Python program.">4. Coding</h4>
-                <p>Writes a recursive Python function. Validated via Regex for syntax accuracy.</p>
+                <h4 data-tooltip="We ask it to write a specific Python program.">4. Syntactic Code Generation</h4>
+                <p>The final gauntlet requires generating a recursive Python function for a Fibonacci sequence, complete with type hints and docstrings. We use Regex to validate that the output is not just textually coherent, but syntactically executable code.</p>
+            </div>
+            <div class="info-item">
+                <h4 data-tooltip="We combine speed, smarts, and responsiveness into one final number.">5. Composite Scoring Algorithm</h4>
+                <p>The final 'Braiain Score' is not arbitrary. It is a weighted algorithmic composite: 50% based on the Quality Score (accuracy on tasks), 30% on Total Speed (normalized against a 30s timeout), and 20% on Responsiveness (TTFT + TPS). This penalizes models that are smart but slow, or fast but hallucinate.</p>
             </div>
         </div>
     </div>
@@ -417,7 +431,7 @@
 <div id="responseModal" class="modal">
     <div class="modal-box">
         <div class="modal-head">
-            <span id="modalTitle" style="font-weight:bold; color:#fff;">RESPONSE VIEWER</span>
+            <span id="modalTitle" style="font-family:'Orbitron', sans-serif; color:#fff;">RESPONSE VIEWER</span>
             <button onclick="document.getElementById('responseModal').style.display='none'" class="btn" style="border:none;">[CLOSE]</button>
         </div>
         <div class="modal-body" id="modalBody"></div>
@@ -454,20 +468,35 @@
 
     async function fetchData() {
         try {
+            // Live data fetch - removed fallback/mock data
             const res = await fetch("data.json?t=" + Date.now());
             if (res.ok) {
                 const data = await res.json();
-                allResults = data;
-                document.getElementById('provider-count').textContent = data.results.length;
-                
-                // Safety check for last_updated
-                const lastUp = data.last_updated ? data.last_updated.replace(' UTC', 'Z') : new Date().toISOString();
-                document.getElementById('last-updated').textContent = new Date(lastUp).toLocaleString();
-                
-                render();
-                if(data.history) drawChart(data.history, 'score');
+                processData(data);
+            } else {
+                console.warn("Data file not found or inaccessible.");
+                document.getElementById('last-updated').textContent = "OFFLINE";
             }
-        } catch (e) { console.error(e); }
+        } catch (e) { 
+            console.error("Fetch error:", e);
+            document.getElementById('last-updated').textContent = "ERROR";
+        }
+    }
+
+    function processData(data) {
+        allResults = data;
+        document.getElementById('provider-count').textContent = data.results ? data.results.length : 0;
+        
+        // Safety check for last_updated
+        if(data.last_updated) {
+            const lastUp = data.last_updated.replace(' UTC', 'Z');
+            document.getElementById('last-updated').textContent = new Date(lastUp).toLocaleString();
+        } else {
+            document.getElementById('last-updated').textContent = "Unknown";
+        }
+        
+        render();
+        if(data.history) drawChart(data.history, 'score');
     }
 
     function parseComponents(notes) {
@@ -481,7 +510,9 @@
     }
 
     function render() {
-        let sorted = [...(allResults.results || [])].sort((a, b) => {
+        if (!allResults.results) return;
+        
+        let sorted = [...allResults.results].sort((a, b) => {
             if (a.status !== 'Online') return 1; if (b.status !== 'Online') return -1;
             if (currentSort === 'score') return (b.braiain_score||0) - (a.braiain_score||0);
             if (currentSort === 'speed') return a.time - b.time;
@@ -504,9 +535,9 @@
             
             // Snippet
             const rawSnippet = r.full_response || "";
-            const snippetDisplay = rawSnippet.substring(0, 30).replace(/</g,'&lt;') + '...';
-            // Snippet Hover Tooltip - Limit to ~300 chars
-            const snippetHover = rawSnippet.substring(0, 300).replace(/"/g, '&quot;') + '...';
+            const snippetDisplay = rawSnippet.substring(0, 40).replace(/</g,'&lt;') + '...';
+            // Large hover text
+            const snippetHover = rawSnippet.substring(0, 800).replace(/"/g, '&quot;') + '...';
 
             return `<tr>
                 <td class="rank ${i===0?'rank-1':''}">${i+1}</td>
