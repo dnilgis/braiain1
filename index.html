@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BRAIAIN SPEED INDEX v3.0 // Enhanced AI Benchmarks</title>
-    <meta name="description" content="Real-time AI model speed benchmarks with TTFT, streaming metrics, cost calculator, and reliability tracking.">
+    <title>BRAIAIN SPEED INDEX v3.9 // Live AI Benchmarks</title>
+    <meta name="description" content="Real-time AI model benchmarks testing Speed, Cost, and Intelligence (Cognitive Gauntlet). Updated every 6 hours.">
     
-    <!-- Google Analytics GA4 -->
+    <!-- Google Analytics GA4 (CONFIRMED INTACT) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3B3ZCE62NW"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -14,6 +14,9 @@
       gtag('js', new Date());
       gtag('config', 'G-3B3ZCE62NW');
     </script>
+
+    <!-- Google AdSense Placeholder -->
+    <!-- <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-YOUR_ID_HERE" crossorigin="anonymous"></script> -->
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
@@ -22,1931 +25,630 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         
         :root {
-            --bg-primary: #0a0e1a;
-            --bg-secondary: #0d1117;
-            --bg-terminal: #000000;
-            --text-primary: #00ff41;
-            --text-secondary: #00cc33;
-            --text-dim: #006622;
-            --border-color: #00ff41;
-            --glow-color: #00ff41;
+            --bg-deep: #050505;
+            --bg-panel: rgba(13, 17, 23, 0.90);
+            --bg-card: rgba(10, 14, 26, 0.7);
+            --bg-card-hover: #0a0e12;
+            
+            --neon-green: #00ff41;
+            --neon-dim: rgba(0, 255, 65, 0.15);
+            --neon-blue: #00f3ff;
+            --neon-red: #ff0055;
+            --neon-amber: #ffaa00;
+            
+            --text-primary: #f0f0f0;
+            --text-secondary: #b0b0b0;
+            
+            --border-default: rgba(0, 255, 65, 0.3);
+            
+            --glass-blur: blur(8px);
+            --grid-line: rgba(0, 255, 65, 0.05);
         }
         
-        * { 
-            box-sizing: border-box; 
-            margin: 0; 
-            padding: 0; 
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; scrollbar-width: thin; scrollbar-color: var(--neon-dim) var(--bg-deep); }
         
         body {
-            font-family: 'Share Tech Mono', 'Courier New', monospace;
-            background-color: var(--bg-primary);
+            font-family: 'Share Tech Mono', monospace; 
+            background-color: var(--bg-deep); 
             color: var(--text-primary);
-            line-height: 1.6;
-            position: relative;
-            overflow-x: hidden;
+            line-height: 1.5; 
+            min-height: 100vh;
+            font-size: 18px; 
+            background-image: linear-gradient(var(--grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 30px 30px; overflow-x: hidden;
         }
         
-        /* SUBTLE CRT SCANLINE EFFECT */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(0, 0, 0, 0.05),
-                rgba(0, 0, 0, 0.05) 1px,
-                transparent 1px,
-                transparent 3px
-            );
-            pointer-events: none;
-            z-index: 9999;
+        /* TOOLTIP STYLES */
+        [data-tooltip] { position: relative; cursor: help; border-bottom: 1px dotted var(--neon-green); }
+        [data-tooltip]:hover::after {
+            content: attr(data-tooltip); position: absolute; bottom: 120%; left: 50%; transform: translateX(-50%);
+            background: #000; border: 1px solid var(--neon-green); color: var(--neon-green); padding: 10px;
+            font-size: 0.85rem; width: max-content; max-width: 280px; z-index: 1000; box-shadow: 0 0 15px var(--neon-dim);
+            text-align: left; white-space: normal;
+        }
+
+        h1, h2, h3, h4 { font-family: 'Share Tech Mono', monospace; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; }
+        h2 { font-size: 1.6rem; color: var(--neon-green); margin-bottom: 15px; border-bottom: 1px solid var(--border-default); padding-bottom: 5px; }
+        
+        /* HEADER */
+        header { 
+            background: rgba(0, 0, 0, 0.95); 
+            border-bottom: 1px solid var(--border-default); 
+            padding: 20px 0; 
+            position: sticky; top: 0; 
+            backdrop-filter: var(--glass-blur); 
+            z-index: 500; 
         }
         
-        header {
-            background: linear-gradient(180deg, #0d1117 0%, #000000 100%);
-            border-bottom: 1px solid var(--border-color);
-            padding: 15px 20px 12px;
-            position: relative;
-        }
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        .header-content { display: flex; flex-direction: column; align-items: center; gap: 10px; } 
         
-        .terminal-header {
-            max-width: 1400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-        
-        .terminal-prompt {
-            font-size: 0.8em;
-            color: var(--text-dim);
-            margin-bottom: 10px;
-            letter-spacing: 1px;
-        }
-        
-        .terminal-prompt::before {
-            content: '> ';
-            color: var(--text-primary);
-        }
-        
+        .logo-container { display: flex; flex-direction: column; align-items: center; width: 100%; margin-bottom: 5px; }
+
         .ascii-logo {
-            font-size: 0.75em;
-            color: var(--text-primary);
-            line-height: 1.05;
-            white-space: pre;
-            font-family: monospace;
-            margin: 5px 0;
-            text-shadow: 0 0 8px var(--glow-color);
+            font-family: 'Courier New', Courier, monospace; /* Changed for better block alignment */
+            white-space: pre; 
+            font-size: 0.9rem; 
+            line-height: 1.1; /* Increased to prevent overlap */
+            font-weight: 900;
+            background: linear-gradient(180deg, #bfff00 0%, #00ff41 40%, #004d00 100%);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            transform: scaleY(1.3);
+            filter: drop-shadow(0px 0px 10px rgba(0, 255, 65, 0.4));
+            display: block; width: max-content;
         }
         
-        .tagline {
-            font-size: 1em;
-            color: var(--text-secondary);
-            margin-top: 12px;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        .version-tag {
+            background: var(--neon-dim); color: var(--neon-green); padding: 2px 8px; font-size: 0.9rem;
+            border: 1px solid var(--neon-green); margin-left: 10px; display: inline-block; transform: translateY(-5px);
         }
         
-        .version-badge {
-            display: inline-block;
-            background: rgba(0, 255, 65, 0.1);
-            border: 1px solid var(--border-color);
-            padding: 4px 12px;
-            font-size: 0.7em;
-            margin-top: 8px;
-            letter-spacing: 1px;
+        /* HUD BAR */
+        .hud-bar {
+            display: flex; align-items: center; justify-content: center;
+            background: rgba(0, 20, 0, 0.8); border: 1px solid var(--border-default);
+            padding: 8px 20px; gap: 30px; width: 100%; max-width: 800px; margin-top: 5px;
+            position: relative; overflow: hidden;
         }
-        
-        .system-status {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 12px;
-            margin: 15px auto 0;
-            max-width: 800px;
+        .hud-bar::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+            animation: scan 4s linear infinite;
         }
-        
-        .status-item {
-            text-align: center;
-            padding: 12px 10px;
-            border: 1px solid var(--text-dim);
-            background: rgba(0, 0, 0, 0.3);
-        }
-        
-        .status-value {
-            font-size: 1.5em;
-            font-weight: 700;
-            color: var(--text-primary);
-            font-family: 'Orbitron', monospace;
-        }
-        
-        .status-label {
-            font-size: 0.75em;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-top: 4px;
-        }
-        
-        /* ENHANCED CONTROLS */
-        .controls-panel {
-            max-width: 1400px;
+        @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
+
+        .hud-item { display: flex; align-items: center; gap: 8px; }
+        .hud-label { color: var(--text-secondary); font-size: 0.8rem; letter-spacing: 1px; }
+        .hud-value { color: #fff; font-weight: bold; font-size: 1.2rem; }
+        .hud-value.glow { color: var(--neon-green); text-shadow: 0 0 8px var(--neon-green); }
+        .hud-separator { width: 1px; height: 15px; background: var(--border-default); transform: skewX(-20deg); }
+
+        /* ADVERTISE BANNER - COMPACT & STYLISH */
+        .ad-banner {
             margin: 20px auto;
-            padding: 0 20px;
-        }
-        
-        .controls-row {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 15px 20px;
-            display: flex;
-            gap: 30px;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .control-group {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .control-label {
-            color: var(--text-secondary);
-            font-size: 0.75em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            white-space: nowrap;
-        }
-        
-        .btn-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-        }
-        
-        .terminal-btn {
-            padding: 6px 14px;
-            background: var(--bg-terminal);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            font-family: 'Share Tech Mono', monospace;
-            cursor: pointer;
-            transition: all 0.2s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.7em;
-        }
-        
-        .terminal-btn::before {
-            content: '[ ';
-        }
-        
-        .terminal-btn::after {
-            content: ' ]';
-        }
-        
-        .terminal-btn:hover {
-            background: var(--text-primary);
-            color: var(--bg-terminal);
-            box-shadow: 0 0 10px var(--glow-color);
-        }
-        
-        .terminal-btn.active {
-            background: var(--text-primary);
-            color: var(--bg-terminal);
-        }
-        
-        /* FILTER CONTROLS */
-        .filter-input {
-            background: var(--bg-terminal);
-            color: var(--text-primary);
-            border: 1px solid var(--border-color);
-            padding: 6px 12px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.75em;
-        }
-        
-        /* COST CALCULATOR */
-        .calculator-panel {
-            max-width: 1400px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        
-        .calculator-terminal {
-            background: var(--bg-terminal);
-            border: 2px solid var(--border-color);
-            padding: 20px;
-        }
-        
-        .calculator-header {
-            background: var(--text-primary);
-            color: var(--bg-terminal);
-            padding: 10px 15px;
-            margin: -20px -20px 20px -20px;
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .calc-input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-        }
-        
-        .calc-label {
-            color: var(--text-secondary);
-            font-size: 0.85em;
-            text-transform: uppercase;
-        }
-        
-        .calc-input {
-            background: rgba(0, 255, 65, 0.05);
-            border: 1px solid var(--text-dim);
-            color: var(--text-primary);
-            padding: 10px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1em;
-        }
-        
-        .calc-results {
-            background: rgba(0, 255, 65, 0.05);
-            border: 1px solid var(--border-color);
-            padding: 15px;
-            margin-top: 15px;
-        }
-        
-        .calc-result-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dotted var(--text-dim);
-        }
-        
-        .calc-result-item:last-child {
-            border-bottom: none;
-        }
-        
-        .calc-result-value {
-            color: var(--text-primary);
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        
-        /* EXPORT BUTTON */
-        .export-btn {
-            background: rgba(0, 255, 65, 0.1);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 8px 16px;
-            font-family: 'Share Tech Mono', monospace;
-            cursor: pointer;
-            font-size: 0.75em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .export-btn:hover {
-            background: rgba(0, 255, 65, 0.2);
-        }
-        
-        /* ADVERTISE HERE BANNER */
-        .advertise-banner {
-            max-width: 1400px;
-            margin: 20px auto;
-            padding: 0 20px;
-        }
-        
-        .advertise-box {
-            background: linear-gradient(90deg, rgba(0, 255, 65, 0.03) 0%, rgba(0, 255, 65, 0.08) 50%, rgba(0, 255, 65, 0.03) 100%);
-            border: 1px solid var(--border-color);
-            border-left: 4px solid var(--text-primary);
-            padding: 12px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 15px;
-            transition: all 0.3s ease;
-        }
-        
-        .advertise-box:hover {
-            background: linear-gradient(90deg, rgba(0, 255, 65, 0.05) 0%, rgba(0, 255, 65, 0.12) 50%, rgba(0, 255, 65, 0.05) 100%);
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
-        }
-        
-        .advertise-content {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            flex: 1;
-        }
-        
-        .advertise-icon {
-            font-size: 1.3em;
-            color: var(--text-primary);
-            animation: pulse 3s ease-in-out infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-        
-        .advertise-text {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-        
-        .advertise-title {
-            font-size: 0.9em;
-            color: var(--text-primary);
-            font-weight: bold;
-            letter-spacing: 1px;
-        }
-        
-        .advertise-subtitle {
-            font-size: 0.75em;
-            color: var(--text-dim);
-        }
-        
-        .advertise-contact {
-            font-size: 0.8em;
-            color: var(--text-secondary);
-            text-decoration: none;
-            padding: 6px 15px;
-            border: 1px solid var(--border-color);
-            background: rgba(0, 255, 65, 0.05);
-            transition: all 0.2s ease;
-            white-space: nowrap;
-        }
-        
-        .advertise-contact:hover {
-            background: rgba(0, 255, 65, 0.15);
-            color: var(--text-primary);
-            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
-        }
-        
-        /* CARD VIEW */
-        .results-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
-            gap: 20px;
-        }
-        
-        .terminal-card {
-            background: var(--bg-terminal);
-            border: 1px solid var(--border-color);
-            padding: 0;
+            background: linear-gradient(90deg, rgba(0,255,65,0.02) 0%, rgba(0,255,65,0.08) 50%, rgba(0,255,65,0.02) 100%);
+            border: 1px dashed var(--border-default);
+            padding: 10px 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            max-width: 1400px; gap: 20px;
             transition: all 0.3s;
         }
-        
-        .terminal-card:hover {
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.3);
-            transform: translateY(-3px);
+        .ad-banner:hover { border-color: var(--neon-green); box-shadow: inset 0 0 20px var(--neon-dim); }
+        .ad-content { display: flex; align-items: center; gap: 15px; flex: 1; }
+        .ad-icon { color: var(--neon-green); font-size: 1.2rem; animation: pulse 2s infinite; }
+        .ad-text-main { font-weight: bold; color: #fff; font-size: 0.95rem; }
+        .ad-text-sub { font-size: 0.8rem; color: var(--text-secondary); }
+        .ad-cta { 
+            background: var(--neon-dim); color: var(--neon-green); border: 1px solid var(--neon-green);
+            padding: 6px 12px; text-decoration: none; font-size: 0.8rem; font-weight: bold; white-space: nowrap;
         }
-        
-        .card-header-bar {
-            background: var(--text-primary);
-            color: var(--bg-terminal);
-            padding: 8px 15px;
-            font-size: 0.75em;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: bold;
-            letter-spacing: 1px;
+        .ad-cta:hover { background: var(--neon-green); color: #000; }
+
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
+
+        /* CONTROLS */
+        .controls-panel {
+            background: var(--bg-panel); border: 1px solid var(--border-default); padding: 15px; margin: 20px auto;
+            display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; align-items: center;
         }
+        .control-group { display: flex; align-items: center; gap: 10px; }
+        .control-label { font-size: 0.9rem; color: var(--text-secondary); font-weight: bold; }
         
-        .card-body {
-            padding: 20px;
+        .btn {
+            background: transparent; border: 1px solid var(--border-default); color: var(--text-secondary);
+            padding: 6px 14px; font-family: 'Share Tech Mono', monospace; font-size: 0.9rem; cursor: pointer;
+            transition: all 0.2s; text-transform: uppercase; font-weight: bold;
         }
-        
-        .rank-display {
-            font-family: 'Orbitron', monospace;
-            font-size: 2.5em;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-            text-align: center;
+        .btn:hover { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 10px var(--neon-dim); }
+        .btn.active { background: var(--neon-dim); color: var(--neon-green); border-color: var(--neon-green); }
+
+        /* RESULTS */
+        .results-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px; margin-bottom: 30px; }
+        .model-card {
+            background: var(--bg-card); border: 1px solid var(--border-default); backdrop-filter: blur(5px);
+            padding: 20px; transition: all 0.2s ease; display: flex; flex-direction: column;
         }
+        .model-card:hover { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(0, 255, 65, 0.15); transform: translateY(-3px); z-index: 10; background: var(--bg-card-hover); }
         
-        .rank-display.rank-1 {
-            text-shadow: 0 0 10px var(--glow-color);
-        }
-        
-        .provider-name {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.4em;
-            color: var(--text-primary);
-            margin-bottom: 5px;
-            text-align: center;
-        }
-        
-        .model-name {
-            font-size: 0.85em;
-            color: var(--text-secondary);
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        
-        .reliability-badge {
-            display: inline-block;
-            padding: 4px 10px;
-            font-size: 0.7em;
-            border: 1px solid var(--text-dim);
-            margin: 5px auto;
-            text-align: center;
-        }
-        
-        .reliability-badge.high {
-            border-color: var(--text-primary);
-            color: var(--text-primary);
-        }
-        
-        .reliability-badge.medium {
-            border-color: #ffaa00;
-            color: #ffaa00;
-        }
-        
-        .reliability-badge.low {
-            border-color: #ff0055;
-            color: #ff0055;
-        }
-        
-        .metrics-display {
-            border: 1px solid var(--text-dim);
-            padding: 15px;
-            margin: 15px 0;
-        }
-        
-        .metric-row {
-            display: flex;
-            justify-content: space-between;
-            padding: 8px 0;
-            border-bottom: 1px dotted var(--text-dim);
-        }
-        
-        .metric-row:last-child {
-            border-bottom: none;
-        }
-        
-        .metric-label {
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            font-size: 0.8em;
-            letter-spacing: 1px;
-        }
-        
-        .metric-value {
-            color: var(--text-primary);
-            font-weight: bold;
-            font-size: 1.05em;
-        }
-        
-        .metric-value.status-online {
-            color: var(--text-primary);
-        }
-        
-        .metric-value.status-error {
-            color: #ff0055;
-        }
-        
-        /* TABLE VIEW */
-        .results-table-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-            overflow-x: auto;
-        }
-        
-        .terminal-table {
-            width: 100%;
-            border-collapse: collapse;
-            background: var(--bg-terminal);
-            border: 1px solid var(--border-color);
-        }
-        
-        .terminal-table thead {
-            background: var(--text-primary);
-            color: var(--bg-terminal);
-        }
-        
-        .terminal-table th {
-            padding: 12px;
-            text-align: left;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.75em;
-        }
-        
-        .terminal-table td {
-            padding: 12px;
-            border: 1px solid var(--text-dim);
-            color: var(--text-secondary);
-            font-size: 0.85em;
-        }
-        
-        .terminal-table tbody tr {
-            transition: all 0.2s;
-        }
-        
-        .terminal-table tbody tr:hover {
-            background: rgba(0, 255, 65, 0.05);
-        }
-        
-        .table-rank {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.3em;
-            color: var(--text-primary);
-            font-weight: bold;
-        }
-        
-        .table-provider {
-            font-weight: bold;
-            color: var(--text-primary);
-        }
-        
-        .table-metric {
-            color: var(--text-primary);
-            font-weight: bold;
-        }
-        
-        /* MODAL */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            overflow: auto;
-        }
-        
-        .modal-content {
-            background: var(--bg-terminal);
-            margin: 50px auto;
-            padding: 30px;
-            border: 2px solid var(--border-color);
-            width: 90%;
-            max-width: 900px;
-            max-height: 80vh;
-            overflow-y: auto;
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3);
-        }
-        
-        .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 1px solid var(--border-color);
-        }
-        
-        .modal-title {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2em;
-            color: var(--text-primary);
-        }
-        
-        .modal-close {
-            background: transparent;
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            font-size: 1.5em;
-            padding: 5px 15px;
-            cursor: pointer;
-            font-family: 'Share Tech Mono', monospace;
-            transition: all 0.2s;
-        }
-        
-        .modal-close:hover {
-            background: var(--text-primary);
-            color: var(--bg-terminal);
-        }
-        
-        .modal-body {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-size: 0.95em;
-        }
-        
-        /* CHARTS */
-        .chart-terminal {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        .terminal-window {
-            background: var(--bg-terminal);
-            border: 1px solid var(--border-color);
-        }
-        
-        .window-title-bar {
-            background: var(--text-primary);
-            color: var(--bg-terminal);
-            padding: 10px 15px;
-            font-weight: bold;
-            font-size: 0.85em;
-            letter-spacing: 1px;
-        }
-        
-        .window-content {
-            padding: 25px;
-        }
-        
-        .chart-container {
-            height: 400px;
-            position: relative;
-        }
-        
-        /* INFO SECTION */
-        .info-terminal {
-            max-width: 1400px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
-        
-        .info-block {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            margin-bottom: 20px;
-        }
-        
-        .info-block h2 {
-            font-family: 'Orbitron', monospace;
-            color: var(--text-primary);
-            margin-bottom: 15px;
-            font-size: 1.3em;
-        }
-        
-        .info-block h2::before {
-            content: '>> ';
-            color: var(--text-dim);
-        }
-        
-        .info-block p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 15px;
-        }
-        
-        .info-block p strong {
-            color: var(--text-primary);
-        }
-        
-        .info-block table {
-            margin-top: 15px;
-        }
-        
-        /* LOADING */
-        .loading-terminal {
-            text-align: center;
-            padding: 60px 20px;
-        }
-        
-        .loading-text {
-            font-size: 1.1em;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-        }
-        
-        .loading-text::after {
-            content: '';
-            animation: loading-dots 1.5s infinite;
-        }
-        
-        @keyframes loading-dots {
-            0%, 20% { content: '.'; }
-            40% { content: '..'; }
-            60%, 100% { content: '...'; }
-        }
-        
-        .loading-bar {
-            width: 300px;
-            height: 20px;
-            border: 1px solid var(--border-color);
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .loading-bar::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: var(--text-primary);
-            animation: loading-scan 2s linear infinite;
-        }
-        
-        @keyframes loading-scan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-        
+        /* TABLE */
+        .table-container { background: var(--bg-panel); border: 1px solid var(--border-default); overflow-x: auto; margin-bottom: 30px; }
+        .terminal-table { width: 100%; border-collapse: collapse; font-size: 1rem; }
+        .terminal-table th { text-align: left; padding: 12px; background: rgba(0, 255, 65, 0.1); color: var(--neon-green); font-weight: bold; border-bottom: 2px solid var(--border-default); white-space: nowrap; }
+        .terminal-table td { padding: 12px; border-bottom: 1px solid var(--border-default); color: var(--text-primary); vertical-align: middle; }
+        .terminal-table tr:hover { background: rgba(0, 255, 65, 0.08); }
+        .provider-link { color: #fff; text-decoration: none; border-bottom: 1px dotted var(--text-secondary); transition: all 0.2s; }
+        .provider-link:hover { color: var(--neon-green); border-bottom-style: solid; }
+
+        /* INFO BLOCKS */
+        .info-block { background: var(--bg-panel); border: 1px solid var(--border-default); padding: 25px; margin-bottom: 25px; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .info-card { background: rgba(0,0,0,0.4); border-left: 4px solid var(--neon-green); padding: 15px; transition: transform 0.2s; }
+        .info-card:hover { transform: translateX(5px); border-left-color: #fff; }
+        .info-card h4 { color: #fff; margin-bottom: 8px; font-size: 1.1rem; }
+        .info-card p { font-size: 0.95rem; color: var(--text-secondary); margin: 0; line-height: 1.5; }
+
+        .chart-section { background: var(--bg-panel); padding: 20px; border: 1px solid var(--border-default); display: none; margin-bottom: 30px; }
+        .chart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .chart-toggles { display: flex; gap: 5px; }
+
         /* FOOTER */
-        footer {
-            background: var(--bg-terminal);
-            border-top: 1px solid var(--border-color);
-            padding: 40px 20px;
-            margin-top: 60px;
-            text-align: center;
+        footer { border-top: 1px solid var(--border-default); background: rgba(0,0,0,0.9); padding: 30px 0; margin-top: 40px; }
+        .footer-ascii-container { display: flex; justify-content: center; width: 100%; margin-bottom: 20px; overflow: hidden; }
+        .footer-ascii { 
+            font-family: 'Courier New', Courier, monospace; /* Consistent with header */
+            white-space: pre; 
+            font-size: 0.6rem; 
+            color: var(--neon-dim); 
+            line-height: 1.1; 
+            text-align: left; 
+            display: block; 
         }
+        .footer-content { text-align: center; }
+        .footer-links { margin-top: 15px; display: flex; justify-content: center; gap: 20px; }
+        .footer-link { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+        .footer-link:hover { color: var(--neon-green); }
+
+        /* UTILS */
+        .hidden { display: none !important; }
+        .text-green { color: var(--neon-green); }
+        .text-red { color: var(--neon-red); }
+        .grade-perfect { color: var(--neon-green); text-shadow: 0 0 5px var(--neon-green); font-weight: bold; }
+        .grade-good { color: var(--neon-blue); font-weight: bold; }
+        .grade-bad { color: var(--neon-amber); font-weight: bold; }
         
-        .footer-ascii {
-            font-size: 0.65em;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-            white-space: pre;
-            font-family: monospace;
-            line-height: 1.1;
-        }
-        
-        footer p {
-            color: var(--text-secondary);
-            margin: 10px 0;
-            font-size: 0.85em;
-        }
-        
-        footer a {
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-        
-        /* MOBILE */
-        @media (max-width: 768px) {
-            .ascii-logo { 
-                font-size: 0.55em;
-            }
-            .results-grid {
-                grid-template-columns: 1fr;
-            }
-            .controls-row {
-                flex-direction: column;
-                align-items: stretch;
-                gap: 15px;
-            }
-            .control-group {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .btn-group {
-                width: 100%;
-            }
-            .terminal-btn {
-                flex: 1;
-                min-width: auto;
-            }
-            .calculator-grid {
-                grid-template-columns: 1fr;
-            }
-            .info-block table {
-                font-size: 0.7em;
-            }
-            .info-block {
-                padding: 15px;
-            }
-            .advertise-box {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-            }
-            .advertise-contact {
-                width: 100%;
-            }
-            .system-status {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .modal-content {
-                width: 95%;
-                margin: 20px auto;
-                padding: 20px;
-                max-height: 90vh;
-            }
-            .chart-container {
-                height: 300px;
-            }
-            /* Better mobile table scrolling */
-            .terminal-table {
-                display: block;
-                overflow-x: auto;
-                white-space: nowrap;
-            }
-            /* Stack metrics in cards on very small screens */
-            @media (max-width: 480px) {
-                .metrics-display {
-                    grid-template-columns: 1fr !important;
-                }
-                .system-status {
-                    grid-template-columns: 1fr;
-                }
-            }
-        }
-        
-        /* UTILITY */
-        .hidden {
-            display: none !important;
+        .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 2000; backdrop-filter: blur(5px); }
+        .modal-content { background: #0a0e12; border: 1px solid var(--neon-green); width: 95%; max-width: 900px; margin: 5vh auto; max-height: 90vh; display: flex; flex-direction: column; box-shadow: 0 0 50px rgba(0,255,65,0.15); }
+        .modal-body { padding: 25px; overflow-y: auto; font-size: 1rem; color: #ccc; white-space: pre-wrap; font-family: monospace; }
+
+        @media (max-width: 768px) { 
+            body { font-size: 16px; }
+            .hud-bar { flex-direction: row; flex-wrap: wrap; justify-content: center; gap: 15px; padding: 15px; } 
+            .controls-panel { flex-direction: column; align-items: stretch; } 
+            .ad-banner { flex-direction: column; text-align: center; }
+            .ascii-logo { font-size: 0.6rem; } 
+            .footer-ascii { font-size: 0.45rem; }
+            .hud-separator { display: none; }
         }
     </style>
 </head>
 <body>
-    
-    <header>
-        <div class="terminal-header">
-            <div class="terminal-prompt">SYSTEM BOOT SEQUENCE INITIATED</div>
-            
-            <div class="ascii-logo">
-═══════════════════════════════════════════════════════════
+
+    <header id="top">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-container">
+                    <div class="ascii-logo">
  ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
  ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
  ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
  ██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██║╚██╗██║
  ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
-═══════════════════════════════════════════════════════════
-            </div>
-            
-            <div class="tagline">Enhanced AI Performance Monitoring</div>
-            <div class="version-badge">v3.0 // WITH TTFT & STREAMING</div>
-            
-            <div class="system-status">
-                <div class="status-item">
-                    <div class="status-value" id="provider-count">10</div>
-                    <div class="status-label">NODES</div>
+                    </div>
+                    <div style="text-align: center; margin-top: 5px;">
+                        <span class="version-tag">SPEED INDEX v3.9</span>
+                    </div>
                 </div>
-                <div class="status-item">
-                    <div class="status-value">LIVE</div>
-                    <div class="status-label">STATUS</div>
-                </div>
-                <div class="status-item">
-                    <div class="status-value">6H</div>
-                    <div class="status-label">REFRESH</div>
-                </div>
-                <div class="status-item">
-                    <div class="status-value">30D</div>
-                    <div class="status-label">HISTORY</div>
+                
+                <!-- HUD BAR -->
+                <div class="hud-bar">
+                    <div class="hud-item" data-tooltip="Total number of AI models currently being tracked and tested.">
+                        <span class="hud-label">NODES</span>
+                        <span class="hud-value" id="provider-count">--</span>
+                    </div>
+                    <div class="hud-separator"></div>
+                    <div class="hud-item" data-tooltip="System is currently operational and collecting data.">
+                        <span class="hud-label">STATUS</span>
+                        <span class="hud-value glow">LIVE</span>
+                    </div>
+                    <div class="hud-separator"></div>
+                    <div class="hud-item" data-tooltip="Benchmarks are run automatically every 6 hours via GitHub Actions.">
+                        <span class="hud-label">CYCLE</span>
+                        <span class="hud-value">6H</span>
+                    </div>
+                    <div class="hud-separator"></div>
+                    <div class="hud-item" data-tooltip="Historical data retention period for trend analysis.">
+                        <span class="hud-label">RETENTION</span>
+                        <span class="hud-value">30D</span>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- ADVERTISE BANNER -->
-    <div class="advertise-banner">
-        <div class="advertise-box">
-            <div class="advertise-content">
-                <div class="advertise-icon">▶</div>
-                <div class="advertise-text">
-                    <div class="advertise-title">ADVERTISE HERE</div>
-                    <div class="advertise-subtitle">Reach engaged developers & AI practitioners</div>
+    <div class="container">
+        <!-- ADVERTISEMENT BANNER (RESTORED & STYLED) -->
+        <div class="ad-banner">
+            <div class="ad-content">
+                <div class="ad-icon">⚡</div>
+                <div>
+                    <div class="ad-text-main">ADVERTISE HERE</div>
+                    <div class="ad-text-sub">Reach thousands of AI developers & engineers.</div>
                 </div>
             </div>
-            <div class="advertise-contact">
-                CONTACT: <a href="mailto:dnilgis@gmail.com" style="color: var(--text-primary); text-decoration: none;">dnilgis@gmail.com</a>
-            </div>
+            <a href="mailto:dnilgis@gmail.com" class="ad-cta">CONTACT US &gt;</a>
         </div>
-    </div>
 
-    <!-- ENHANCED CONTROLS -->
-    <div class="controls-panel">
-        <div class="controls-row">
+        <div class="controls-panel">
             <div class="control-group">
-                <span class="control-label">VIEW:</span>
-                <div class="btn-group">
-                    <button class="terminal-btn active" onclick="setViewMode('cards')" id="btn-cards">CARDS</button>
-                    <button class="terminal-btn" onclick="setViewMode('table')" id="btn-table">TABLE</button>
+                <span class="control-label">VIEW MODE</span>
+                <div style="display: flex; gap: 5px;">
+                    <button class="btn" id="btn-cards" onclick="setViewMode('cards')">GRID</button>
+                    <button class="btn active" id="btn-table" onclick="setViewMode('table')">LIST</button>
                 </div>
             </div>
             
             <div class="control-group">
-                <span class="control-label">SORT:</span>
-                <div class="btn-group">
-                    <button class="terminal-btn active" onclick="sortResults('speed')" id="btn-speed">SPEED</button>
-                    <button class="terminal-btn" onclick="sortResults('tps')" id="btn-tps">TPS</button>
-                    <button class="terminal-btn" onclick="sortResults('ttft')" id="btn-ttft">TTFT</button>
-                    <button class="terminal-btn" onclick="sortResults('cost')" id="btn-cost">COST</button>
+                <span class="control-label">SORT BY</span>
+                <div style="display: flex; gap: 5px; flex-wrap: wrap;">
+                    <button class="btn active" id="btn-score" onclick="sortResults('score')" data-tooltip="Sort by Composite Braiain Score (Quality + Speed)">SCORE</button>
+                    <button class="btn" id="btn-speed" onclick="sortResults('speed')" data-tooltip="Sort by Total Response Time">SPEED</button>
+                    <button class="btn" id="btn-tps" onclick="sortResults('tps')" data-tooltip="Sort by Tokens Per Second">TPS</button>
+                    <button class="btn" id="btn-ttft" onclick="sortResults('ttft')" data-tooltip="Sort by Time To First Token">TTFT</button>
+                    <button class="btn" id="btn-cost" onclick="sortResults('cost')" data-tooltip="Sort by Price per Request">COST</button>
                 </div>
             </div>
             
             <div class="control-group">
-                <span class="control-label">FILTER:</span>
-                <select class="filter-input" id="filter-status" onchange="applyFilters()">
-                    <option value="all">All Status</option>
-                    <option value="online">Online Only</option>
-                    <option value="offline">Offline Only</option>
-                </select>
+                <button class="btn" onclick="refreshData(event)">SYNC DATA</button>
+                <button class="btn" onclick="exportData('csv')">EXPORT CSV</button>
             </div>
-            
-            <div class="control-group">
-                <button class="terminal-btn" onclick="refreshData(event)">REFRESH</button>
-                <button class="export-btn" onclick="exportData('csv')">↓ CSV</button>
-                <button class="export-btn" onclick="exportData('json')">↓ JSON</button>
+        </div>
+
+        <div id="cards-view" class="results-grid hidden"></div>
+
+        <div id="table-view" class="table-container">
+            <table class="terminal-table">
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Provider</th>
+                        <th>Model</th>
+                        <th data-tooltip="The Final Grade. High score = Fast AND Smart. Low score = Slow or Dumb.">Braiain Score</th>
+                        <th data-tooltip="Did it get the answers right? 100/100 means perfect accuracy on all tasks.">Quality</th>
+                        <th data-tooltip="Total time to finish the job. Lower number is better.">Speed</th>
+                        <th data-tooltip="Time to First Token. How long you wait before the first word appears.">TTFT</th>
+                        <th data-tooltip="Tokens Per Second. How fast the words appear on screen.">TPS</th>
+                        <th>Cost</th>
+                        <th>Notes</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="table-body"></tbody>
+            </table>
+        </div>
+
+        <div class="chart-section" id="chart-section">
+            <div class="chart-header">
+                <h3 style="margin:0;">Historical Performance (30 Days)</h3>
+                <div class="chart-toggles">
+                    <button class="btn active" id="chart-btn-score" onclick="updateChartMetric('score')">SCORE</button>
+                    <button class="btn" id="chart-btn-speed" onclick="updateChartMetric('speed')">SPEED</button>
+                </div>
             </div>
+            <div style="height: 400px; width: 100%;">
+                <canvas id="trendChart"></canvas>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <h2>Methodology: The Cognitive Gauntlet</h2>
+            <p style="color: var(--text-primary); margin-bottom: 20px; font-size: 1rem;">
+                The "Cognitive Gauntlet" is a rigorous, multi-stage evaluation designed to stress-test Large Language Models beyond simple Q&A. Unlike standard benchmarks that use short, empty-context prompts, we simulate a heavy-load production environment. Every request injects a dense 2,500-character narrative ('The Story of Ouroboros') to force the model into a 'Cold Start' state, measuring how quickly it can process new context (RAG simulation) before generating complex outputs involving structured data, logical reasoning, and recursive programming.
+            </p>
+            <div class="info-grid">
+                <div class="info-card" style="border-left-color: var(--neon-blue);">
+                    <h4 data-tooltip="We force the AI to read a long sci-fi story before letting it answer. This simulates reading a document before answering questions about it.">1. Heavy Context Loading</h4>
+                    <p>Models must digest "The Story of Ouroboros" (a sci-fi narrative) before answering. This tests the "Cold Start" processing speed and the efficiency of the model's context window handling.</p>
+                </div>
+                <div class="info-card" style="border-left-color: var(--neon-blue);">
+                    <h4 data-tooltip="Can the AI follow instructions perfectly? We ask it to format data like a computer program (JSON), not an essay.">2. Strict JSON Compliance</h4>
+                    <p>We test instruction following by demanding a strict JSON schema. The model must extract specific entities from the story and format them correctly without syntax errors.</p>
+                </div>
+                <div class="info-card" style="border-left-color: var(--neon-blue);">
+                    <h4 data-tooltip="A trick question. It looks like simple math ($1.10), but requires the AI to actually 'think' to get the right answer ($0.05).">3. Logical Reasoning</h4>
+                    <p>We use the classic "Bat & Ball" riddle to test reasoning capabilities. Simple math requires avoiding common intuitive traps. Correct answers earn 35 points.</p>
+                </div>
+                <div class="info-card" style="border-left-color: var(--neon-blue);">
+                    <h4 data-tooltip="Can it write code that actually works? We check if it knows how to write a Python function that calls itself (recursion).">4. Code Generation</h4>
+                    <p>We test technical knowledge by requesting a recursive Python function (Fibonacci) with specific type hints and docstrings. Syntax is validated via Regex.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <h2>Metrics Explained</h2>
+            <div class="info-grid">
+                <div class="info-card">
+                    <h4 data-tooltip="The one number that matters. We mix Quality, Speed, and Snappiness into one score. 100 is perfect.">🧠 BRAIAIN SCORE (0-100)</h4>
+                    <p>The definitive composite index. Weighted average of <strong>Quality (50%)</strong>, <strong>Speed (30%)</strong>, and <strong>Responsiveness (20%)</strong>.</p>
+                </div>
+                <div class="info-card">
+                    <h4 data-tooltip="Did it pass the test? 100 means it got the JSON, the Riddle, and the Code perfectly right.">🎓 QUALITY (0-100)</h4>
+                    <p>Pure accuracy score. Max points: JSON structure (+35), Logic Riddle (+35), Python Syntax (+30). Any failure significantly impacts this metric.</p>
+                </div>
+                <div class="info-card">
+                    <h4 data-tooltip="How fast did it finish the whole job? We compare it against a 30-second timer.">⚡ SPEED SCORE</h4>
+                    <p>Measures total request duration. Normalized against a 30-second timeout. Completion under 5 seconds is considered excellent.</p>
+                </div>
+                <div class="info-card">
+                    <h4 data-tooltip="How snappy does it feel? This combines how fast it starts typing and how fast it keeps typing.">🚀 RESPONSE SCORE</h4>
+                    <p>A combination of Time to First Token (Latency) and Tokens Per Second (Throughput). Critical for real-time chat applications.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-block">
+            <h2>Important Disclaimers</h2>
+            <ul style="color: var(--text-secondary); font-size: 0.95rem; padding-left: 20px; line-height: 1.6;">
+                <li><strong>Context Heavy Payload:</strong> Unlike standard benchmarks, our tests inject a 2,500-character story context to measure processing speed under load. Results reflect "Cold Start" performance with data, not empty-context queries.</li>
+                <li><strong>Performance Varies:</strong> Results depend on geographic location (tests run from GitHub Actions US runners) and time of day.</li>
+                <li><strong>No Affiliations:</strong> This is an independent open-source project. Not sponsored by any provider.</li>
+                <li><strong>Pricing:</strong> Based on official docs as of Dec 2024. Enterprise discounts may apply for you.</li>
+            </ul>
         </div>
     </div>
 
-    <!-- CARDS VIEW -->
-    <div class="results-grid" id="cards-view">
-        <div class="loading-terminal">
-            <div class="loading-text">INITIALIZING ENHANCED NEURAL NET</div>
-            <div class="loading-bar"></div>
-        </div>
-    </div>
-
-    <!-- TABLE VIEW -->
-    <div class="results-table-container hidden" id="table-view">
-        <table class="terminal-table">
-            <thead>
-                <tr>
-                    <th>RANK</th>
-                    <th>PROVIDER</th>
-                    <th>MODEL</th>
-                    <th>SPEED (s)</th>
-                    <th>TTFT (s)</th>
-                    <th>TPS</th>
-                    <th>SMOOTH</th>
-                    <th>COST</th>
-                    <th>RELIABILITY</th>
-                    <th>STATUS</th>
-                    <th>RESPONSE</th>
-                </tr>
-            </thead>
-            <tbody id="table-body">
-                <!-- Populated by JS -->
-            </tbody>
-        </table>
-    </div>
-
-    <!-- MODAL -->
     <div id="responseModal" class="modal">
         <div class="modal-content">
-            <div class="modal-header">
-                <div class="modal-title" id="modalTitle">RESPONSE</div>
-                <button class="modal-close" onclick="closeModal('responseModal')">&times;</button>
+            <div class="modal-header" style="padding:15px; border-bottom:1px solid #333; display:flex; justify-content:space-between;">
+                <h3 id="modalTitle" style="margin:0;">RESPONSE</h3>
+                <button onclick="document.getElementById('responseModal').style.display='none'" class="btn">&times;</button>
             </div>
             <div class="modal-body" id="modalBody"></div>
         </div>
     </div>
 
-    <!-- CHART SECTION -->
-    <div class="chart-terminal" id="chart-section" style="display: none;">
-        <div class="terminal-window">
-            <div class="window-title-bar">
-                PERFORMANCE ANALYSIS // HISTORICAL TRENDS (30 DAYS)
-            </div>
-            <div class="window-content">
-                <div class="chart-container">
-                    <canvas id="trendChart"></canvas>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- COST CALCULATOR -->
-    <div class="calculator-panel">
-        <div class="calculator-terminal">
-            <div class="calculator-header">💰 COST CALCULATOR</div>
-            <div class="calculator-grid">
-                <div class="calc-input-group">
-                    <label class="calc-label">Monthly Requests</label>
-                    <input type="number" class="calc-input" id="calc-requests" value="10000" min="1" step="1000">
-                </div>
-                <div class="calc-input-group">
-                    <label class="calc-label">Avg Tokens/Request</label>
-                    <input type="number" class="calc-input" id="calc-tokens" value="500" min="1" step="100">
-                </div>
-                <div class="calc-input-group">
-                    <label class="calc-label">Select Provider</label>
-                    <select class="calc-input" id="calc-provider">
-                        <option value="">-- Compare All --</option>
-                    </select>
-                </div>
-            </div>
-            <div class="calc-results" id="calc-results">
-                <div class="calc-result-item">
-                    <span>Calculating...</span>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <!-- METHODOLOGY & INFO SECTION -->
-    <div class="info-terminal">
-        
-        <!-- TEST PROMPT -->
-        <div class="info-block">
-            <h2>Test Prompt</h2>
-            <p style="color: var(--text-dim); font-size: 0.85em; margin-bottom: 10px; font-style: italic;">
-                ℹ️ This is the current test prompt. It will automatically update from the latest benchmark run.
-            </p>
-            <p style="background: rgba(0, 255, 65, 0.05); padding: 15px; border-left: 3px solid var(--text-primary); font-family: monospace; white-space: pre-wrap; line-height: 1.6;" id="prompt-display">You are tasked with analyzing the evolution of artificial intelligence from 2010 to 2025. Your response must be comprehensive and well-structured.
-
-PART 1 - HISTORICAL ANALYSIS (2010-2025):
-Identify and explain the THREE most transformative breakthroughs in AI during this period. For each breakthrough:
-- Describe the core technical innovation
-- Explain why it was a paradigm shift (not just incremental progress)
-- Analyze its broader impact on AI capabilities and applications
-- Provide specific examples of what became possible after this breakthrough
-
-PART 2 - ARCHITECTURAL COMPARISON:
-Compare and contrast deep learning architectures versus transformer architectures:
-- Explain the fundamental architectural differences
-- Discuss why transformers became dominant for language tasks despite deep learning's earlier success in vision
-- Analyze the specific technical limitations that deep learning hit for NLP
-- Explain the key innovations in transformers (attention mechanism, positional encoding, etc.) that solved these limitations
-- Compare computational efficiency and scalability between the two approaches
-
-PART 3 - FUTURE PREDICTION:
-Based on current trends and technological trajectories, predict the next major AI breakthrough likely to occur post-2025:
-- Provide THREE specific, defensible technical reasons supporting your prediction
-- Explain what current limitations this breakthrough would address
-- Propose a realistic timeline with justification
-- Discuss potential obstacles that could delay or prevent this breakthrough
-
-Your response should demonstrate deep technical understanding, logical reasoning, and the ability to synthesize complex information. Aim for 2500-3500 characters with clear structure and specific technical details.</p>
-        </div>
-
-        <!-- TEST PARAMETERS -->
-        <div class="info-block">
-            <h2>Test Parameters</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px;">
-                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
-                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">TEMPERATURE</div>
-                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">1.0</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Full capability testing</div>
-                </div>
-                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
-                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">MAX TOKENS</div>
-                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">1,000</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Allows complete responses</div>
-                </div>
-                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
-                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">TARGET LENGTH</div>
-                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">2500-3500</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Characters (detailed response)</div>
-                </div>
-                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
-                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">MIN CHARS</div>
-                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">800</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Quality threshold</div>
-                </div>
-                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
-                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">FREQUENCY</div>
-                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">6 HRS</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Test interval</div>
-                </div>
-                <div style="background: rgba(0, 255, 65, 0.05); padding: 12px; border: 1px solid var(--text-dim);">
-                    <div style="color: var(--text-dim); font-size: 0.8em; margin-bottom: 5px;">TIMEOUT</div>
-                    <div style="color: var(--text-primary); font-size: 1.3em; font-weight: bold;">90s</div>
-                    <div style="color: var(--text-secondary); font-size: 0.75em; margin-top: 5px;">Per request</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- METRICS EXPLAINED -->
-        <div class="info-block">
-            <h2>Metrics Explained</h2>
-            <div style="display: grid; gap: 12px;">
-                
-                <div style="background: rgba(0, 255, 65, 0.03); padding: 12px; border-left: 3px solid var(--text-primary);">
-                    <div style="color: var(--text-primary); font-weight: bold; margin-bottom: 5px;">⚡ SPEED (Total Time)</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9em;">Complete response time from API call to finish. Lower is better. Measures end-to-end latency.</div>
-                </div>
-
-                <div style="background: rgba(0, 255, 65, 0.03); padding: 12px; border-left: 3px solid var(--text-primary);">
-                    <div style="color: var(--text-primary); font-weight: bold; margin-bottom: 5px;">🚀 TTFT (Time to First Token)</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9em;">Time until first token appears when streaming. Critical for perceived responsiveness. A model with 0.2s TTFT feels instant even if total time is 5s.</div>
-                </div>
-
-                <div style="background: rgba(0, 255, 65, 0.03); padding: 12px; border-left: 3px solid var(--text-primary);">
-                    <div style="color: var(--text-primary); font-weight: bold; margin-bottom: 5px;">📈 TPS (Tokens Per Second)</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9em;">Raw throughput: output_tokens / total_time. Measures generation speed. Higher is better. Groq achieves 300+ TPS with custom hardware.</div>
-                </div>
-
-                <div style="background: rgba(0, 255, 65, 0.03); padding: 12px; border-left: 3px solid var(--text-primary);">
-                    <div style="color: var(--text-primary); font-weight: bold; margin-bottom: 5px;">📊 Streaming Smoothness</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9em;">Consistency of token delivery (0-1 score). Measures variance in timing between tokens. 1.0 = perfectly uniform, <0.5 = choppy/erratic. Affects user experience quality.</div>
-                </div>
-
-                <div style="background: rgba(0, 255, 65, 0.03); padding: 12px; border-left: 3px solid var(--text-primary);">
-                    <div style="color: var(--text-primary); font-weight: bold; margin-bottom: 5px;">💰 Cost Per Request</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9em;">Price for this specific test: (input_tokens × input_price + output_tokens × output_price) / 1M. Based on official pricing (Dec 2024).</div>
-                </div>
-
-                <div style="background: rgba(0, 255, 65, 0.03); padding: 12px; border-left: 3px solid var(--text-primary);">
-                    <div style="color: var(--text-primary); font-weight: bold; margin-bottom: 5px;">📡 Reliability Score</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9em;">Uptime percentage over last 30 tests (7.5 days). 95%+ = production-ready, 90-95% = good, 80-90% = needs fallback, <80% = risky.</div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- PRICING TABLE -->
-        <div class="info-block">
-            <h2>Official Pricing (December 2024)</h2>
-            <div style="overflow-x: auto;">
-                <table class="terminal-table" style="font-size: 0.85em;">
-                    <thead>
-                        <tr>
-                            <th>PROVIDER</th>
-                            <th>MODEL</th>
-                            <th>INPUT (per 1M)</th>
-                            <th>OUTPUT (per 1M)</th>
-                            <th>TYPICAL COST</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="table-provider">Groq</td>
-                            <td>Llama 3.3 70B</td>
-                            <td class="table-metric">FREE</td>
-                            <td class="table-metric">FREE</td>
-                            <td class="table-metric">$0.00</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">Google</td>
-                            <td>Gemini 1.5 Flash</td>
-                            <td class="table-metric">$0.075</td>
-                            <td class="table-metric">$0.30</td>
-                            <td class="table-metric">~$0.00020</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">DeepSeek</td>
-                            <td>DeepSeek Chat</td>
-                            <td class="table-metric">$0.14</td>
-                            <td class="table-metric">$0.28</td>
-                            <td class="table-metric">~$0.00015</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">OpenAI</td>
-                            <td>GPT-4o Mini</td>
-                            <td class="table-metric">$0.15</td>
-                            <td class="table-metric">$0.60</td>
-                            <td class="table-metric">~$0.00035</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">Cerebras</td>
-                            <td>Llama 3.1 70B</td>
-                            <td class="table-metric">$0.60</td>
-                            <td class="table-metric">$0.60</td>
-                            <td class="table-metric">~$0.00040</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">Together AI</td>
-                            <td>Llama 3.1 70B</td>
-                            <td class="table-metric">$0.88</td>
-                            <td class="table-metric">$0.88</td>
-                            <td class="table-metric">~$0.00060</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">Fireworks</td>
-                            <td>Llama 3.1 70B</td>
-                            <td class="table-metric">$0.90</td>
-                            <td class="table-metric">$0.90</td>
-                            <td class="table-metric">~$0.00060</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">Mistral AI</td>
-                            <td>Mistral Large</td>
-                            <td class="table-metric">$2.00</td>
-                            <td class="table-metric">$6.00</td>
-                            <td class="table-metric">~$0.00300</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">Cohere</td>
-                            <td>Command R+</td>
-                            <td class="table-metric">$2.50</td>
-                            <td class="table-metric">$10.00</td>
-                            <td class="table-metric">~$0.00525</td>
-                        </tr>
-                        <tr>
-                            <td class="table-provider">Anthropic</td>
-                            <td>Claude 3.5 Sonnet</td>
-                            <td class="table-metric">$3.00</td>
-                            <td class="table-metric">$15.00</td>
-                            <td class="table-metric">~$0.00800</td>
-                        </tr>
-                    </tbody>
-                </table>
-                <p style="color: var(--text-dim); font-size: 0.8em; margin-top: 10px;">
-                    * Typical cost based on ~150 input tokens + ~500 output tokens per request
-                </p>
-            </div>
-        </div>
-
-        <!-- METHODOLOGY -->
-        <div class="info-block">
-            <h2>Methodology</h2>
-            <p><strong style="color: var(--text-primary);">Fairness:</strong> All providers tested with identical prompt, parameters, and conditions. No provider-specific optimizations.</p>
-            
-            <p><strong style="color: var(--text-primary);">Reproducibility:</strong> Tests run every 6 hours via GitHub Actions. Same code, same prompt, same validation. Open source on GitHub.</p>
-            
-            <p><strong style="color: var(--text-primary);">Transparency:</strong> Complete methodology documented. Test prompt shown above. All results public.</p>
-            
-            <p><strong style="color: var(--text-primary);">What We Test:</strong> Speed, latency (TTFT), throughput (TPS), streaming quality, cost, and reliability using a challenging multi-step analytical reasoning prompt that requires:</p>
-            <ul style="color: var(--text-secondary); margin: 10px 0 10px 20px; line-height: 1.8;">
-                <li>Historical analysis with technical depth (2010-2025 AI evolution)</li>
-                <li>Architectural comparison (deep learning vs transformers)</li>
-                <li>Future prediction with justification (post-2025 breakthroughs)</li>
-                <li>Target: 2500-3500 characters demonstrating comprehensive understanding</li>
-            </ul>
-            <p><strong style="color: var(--text-primary);">What We Don't Test:</strong> Output quality, factual accuracy, or instruction following. This benchmark measures performance, not intelligence.</p>
-            
-            <p><strong style="color: var(--text-primary);">Limitations:</strong> Tests from single geographic location (GitHub Actions servers). Your latency may vary based on location. Results represent normal conditions, not peak load. Single test prompt - your use case may differ.</p>
-            
-            <p><strong style="color: var(--text-primary);">Statistical Rigor:</strong> 4 tests per day × 30 days = 120 samples per provider per month. Sufficient for trend analysis and reliability scoring.</p>
-        </div>
-
-        <!-- WHY THESE METRICS -->
-        <div class="info-block">
-            <h2>Why These Metrics Matter</h2>
-            
-            <div style="display: grid; gap: 15px;">
-                <div>
-                    <strong style="color: var(--text-primary);">🎯 For Real-Time Chat Apps:</strong>
-                    <p style="color: var(--text-secondary);">TTFT is critical. Users want instant feedback. A 0.2s TTFT feels responsive even if total time is 5s. Groq excels here.</p>
-                </div>
-
-                <div>
-                    <strong style="color: var(--text-primary);">💰 For Budget-Conscious Apps:</strong>
-                    <p style="color: var(--text-secondary);">Cost per request × volume = monthly bill. At 1M requests/month, difference between Groq ($0) and Claude ($8,000) is significant. Use our cost calculator above.</p>
-                </div>
-
-                <div>
-                    <strong style="color: var(--text-primary);">🏢 For Production Systems:</strong>
-                    <p style="color: var(--text-secondary);">Reliability score shows uptime. 95%+ means <1 day downtime per month. Critical for SLAs. Always have a fallback provider.</p>
-                </div>
-
-                <div>
-                    <strong style="color: var(--text-primary);">📊 For Batch Processing:</strong>
-                    <p style="color: var(--text-secondary);">Total speed and TPS matter most. Processing 10,000 documents? Every second per request adds 2.7 hours. Choose fastest provider even if TTFT is higher.</p>
-                </div>
-
-                <div>
-                    <strong style="color: var(--text-primary);">✨ For User Experience:</strong>
-                    <p style="color: var(--text-secondary);">Streaming smoothness affects perceived quality. Choppy delivery (score <0.5) feels laggy even if fast. Smooth delivery (0.8+) feels professional.</p>
-                </div>
-            </div>
-        </div>
-
-        <!-- DISCLAIMER -->
-        <div class="info-block">
-            <h2>Important Disclaimers</h2>
-            <p style="color: var(--text-dim);">
-                <strong>⚠️ Performance Varies:</strong> Results depend on your geographic location, network conditions, and time of day. Your experience may differ.
-            </p>
-            <p style="color: var(--text-dim);">
-                <strong>⚠️ Quality Not Measured:</strong> This benchmark measures speed and cost only. It does NOT evaluate response quality, accuracy, or instruction following. For quality benchmarks, see MMLU, HumanEval, or LMSys Chatbot Arena.
-            </p>
-            <p style="color: var(--text-dim);">
-                <strong>⚠️ Pricing Changes:</strong> Provider pricing updated December 2024. Check official docs for current rates. Volume discounts and enterprise agreements may apply.
-            </p>
-            <p style="color: var(--text-dim);">
-                <strong>⚠️ No Affiliations:</strong> Not sponsored by any provider. Objective testing only. No financial relationships.
-            </p>
-            <p style="color: var(--text-dim);">
-                <strong>⚠️ Use At Your Own Risk:</strong> Data provided for informational purposes. Make your own decisions. Test providers yourself before committing.
-            </p>
-        </div>
-
-    </div>
-
     <footer>
-        <div class="footer-ascii">
-═══════════════════════════════════════════════════════════
+        <div class="container">
+            <div class="footer-ascii-container">
+                <div class="footer-ascii">
  ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
  ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
  ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
  ██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██║╚██╗██║
  ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
  ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
-═══════════════════════════════════════════════════════════
+                </div>
+            </div>
+            <div class="footer-content">
+                <p style="color: var(--text-secondary); margin-bottom: 10px;">
+                    A <a href="mailto:dnilgis@gmail.com" style="color: var(--neon-green); text-decoration: none;">dnilgis</a> PROJECT // v3.9 FINAL
+                </p>
+                <p style="color: var(--text-secondary); font-size: 0.8rem; margin-bottom: 15px;">
+                    DISCLAIMER: Data provided for informational purposes only. Performance may vary.
+                </p>
+                <div class="footer-links">
+                    <span id="last-updated" style="color: var(--text-secondary); font-size: 0.8rem;">LAST SYNC: --</span>
+                    <a href="data.json" target="_blank" class="footer-link">JSON API</a>
+                    <a href="#top" class="footer-link">▲ BACK TO TOP</a>
+                </div>
+            </div>
         </div>
-        <p>A <a href="mailto:dnilgis@gmail.com">dnilgis</a> PROJECT // v3.0 ENHANCED</p>
-        <p style="color: var(--text-dim); margin-top: 15px;">
-            DISCLAIMER: Data provided for informational purposes only. Performance may vary.
-        </p>
-        <p id="footer-timestamp" style="margin-top: 15px; color: var(--text-dim);">
-            LAST SYNC: <span id="last-updated">LOADING...</span>
-        </p>
     </footer>
 
     <script>
-        // === ENHANCED JAVASCRIPT v3.0 ===
+        const AFFILIATE_LINKS = {"OpenAI":"https://platform.openai.com/signup","Google":"https://ai.google.dev/","Anthropic":"https://console.anthropic.com/","Groq":"https://console.groq.com/","Mistral AI":"https://console.mistral.ai/","Cohere":"https://dashboard.cohere.com/","Together AI":"https://api.together.xyz/","DeepSeek":"https://platform.deepseek.com/","Fireworks":"https://fireworks.ai/","Cerebras":"https://inference.cerebras.ai/"};
+        const PROVIDER_COLORS = {"OpenAI":"#10a37f","Anthropic":"#d97757","Google":"#4285f4","Groq":"#f55036","Mistral AI":"#ff7000","Cohere":"#39594d","Together AI":"#6366f1","DeepSeek":"#ff6b6b","Fireworks":"#ff4500","Cerebras":"#9333ea"};
         
-        const AFFILIATE_LINKS = {
-            "OpenAI": "https://platform.openai.com/signup",
-            "Google": "https://ai.google.dev/",
-            "Anthropic": "https://console.anthropic.com/",
-            "Groq": "https://console.groq.com/",
-            "Mistral AI": "https://console.mistral.ai/",
-            "Cohere": "https://dashboard.cohere.com/",
-            "Together AI": "https://api.together.xyz/",
-            "DeepSeek": "https://platform.deepseek.com/",
-            "Fireworks": "https://fireworks.ai/",
-            "Cerebras": "https://inference.cerebras.ai/"
-        };
-
-        const PROVIDER_COLORS = {
-            "OpenAI": "#10a37f",
-            "Anthropic": "#d97757",
-            "Google": "#4285f4",
-            "Groq": "#f55036",
-            "Mistral AI": "#ff7000",
-            "Cohere": "#39594d",
-            "Together AI": "#6366f1",
-            "DeepSeek": "#ff6b6b",
-            "Fireworks": "#ff4500",
-            "Cerebras": "#9333ea"
-        };
-
         let allResults = [];
-        let currentSort = 'speed';
-        let currentView = 'cards';
-        let currentFilter = 'all';
+        let currentSort = 'score';
+        let currentView = 'table'; 
         let trendChart = null;
-        let reliabilityScores = {};
+        let currentChartMetric = 'score';
 
-        // === DATA LOADING ===
-        
         async function fetchData() {
-            console.log("INITIATING DATA FETCH...");
-            const paths = ["./data.json", "data.json", "/data.json"];
-            
-            for (const path of paths) {
-                try {
-                    const response = await fetch(path + "?t=" + Date.now());
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log("✓ DATA LOADED FROM:", path);
-                        displayResults(data);
-                        if (typeof gtag !== 'undefined') {
-                            gtag("event", "data_loaded", {event_category: "data", event_label: "live_data"});
-                        }
-                        return true;
-                    }
-                } catch (error) {
-                    console.log(`× FAILED TO LOAD FROM ${path}:`, error.message);
+            try {
+                const response = await fetch("data.json?t=" + Date.now());
+                if (response.ok) {
+                    const data = await response.json();
+                    allResults = data;
+                    document.getElementById('provider-count').textContent = data.results.length;
+                    
+                    // Local Time Conversion
+                    const dateStr = data.last_updated ? new Date(data.last_updated.replace(' UTC', 'Z')).toLocaleString() : 'UNKNOWN';
+                    document.getElementById('last-updated').textContent = "LAST SYNC: " + dateStr;
+                    
+                    renderResults();
+                    if(data.history) createTrendChart(data.history, currentChartMetric);
                 }
-            }
-            
-            console.log("⚠ USING FALLBACK DATA");
-            // Fallback would go here
-            return false;
-        }
-
-        // === DISPLAY FUNCTIONS ===
-        
-        function displayResults(data) {
-            allResults = data;
-            reliabilityScores = data.reliability_scores || {};
-            
-            document.getElementById('last-updated').textContent = data.last_updated || 'UNKNOWN';
-            document.getElementById('provider-count').textContent = data.results.length;
-            
-            // Display test prompt in info section
-            if (data.prompt) {
-                document.getElementById('prompt-display').textContent = data.prompt;
-            }
-            
-            updateCostCalculator(data.results);
-            renderResults();
-            
-            if (data.history && data.history.length >= 2) {
-                createTrendChart(data.history);
-            }
+            } catch (e) { console.error(e); }
         }
 
         function renderResults() {
-            const results = getFilteredAndSortedResults();
-            
-            const cardsContainer = document.getElementById('cards-view');
-            cardsContainer.innerHTML = results.map((result, index) => 
-                createCard(result, index + 1)
-            ).join('');
-            
-            const tableBody = document.getElementById('table-body');
-            tableBody.innerHTML = results.map((result, index) => 
-                createTableRow(result, index + 1)
-            ).join('');
-        }
-
-        function getFilteredAndSortedResults() {
-            if (!allResults.results) return [];
-            
-            let filtered = [...allResults.results];
-            
-            // Apply status filter
-            if (currentFilter === 'online') {
-                filtered = filtered.filter(r => r.status === 'Online');
-            } else if (currentFilter === 'offline') {
-                filtered = filtered.filter(r => r.status !== 'Online');
-            }
-            
-            // Apply sorting
-            filtered.sort((a, b) => {
-                if (a.status !== 'Online' && b.status === 'Online') return 1;
-                if (a.status === 'Online' && b.status !== 'Online') return -1;
-                
-                if (currentSort === 'speed') {
-                    return a.time - b.time;
-                } else if (currentSort === 'tps') {
-                    return b.tokens_per_second - a.tokens_per_second;
-                } else if (currentSort === 'ttft') {
-                    const ttftA = a.ttft || 999;
-                    const ttftB = b.ttft || 999;
-                    return ttftA - ttftB;
-                } else if (currentSort === 'cost') {
-                    const costA = a.cost_per_request === null ? 0 : a.cost_per_request;
-                    const costB = b.cost_per_request === null ? 0 : b.cost_per_request;
-                    return costA - costB;
-                }
+            let results = [...(allResults.results || [])];
+            results.sort((a, b) => {
+                if (a.status !== 'Online') return 1;
+                if (b.status !== 'Online') return -1;
+                if (currentSort === 'score') return (b.braiain_score || 0) - (a.braiain_score || 0);
+                if (currentSort === 'speed') return a.time - b.time;
+                if (currentSort === 'tps') return b.tokens_per_second - a.tokens_per_second;
+                if (currentSort === 'ttft') return (a.ttft || 999) - (b.ttft || 999);
+                if (currentSort === 'cost') return (a.cost_per_request || 0) - (b.cost_per_request || 0);
                 return 0;
             });
-            
-            return filtered;
+            document.getElementById('cards-view').innerHTML = results.map((r, i) => createCard(r, i + 1)).join('');
+            document.getElementById('table-body').innerHTML = results.map((r, i) => createRow(r, i + 1)).join('');
         }
 
-        function createCard(result, rank) {
-            const isOnline = result.status === "Online";
-            const rankClass = rank <= 3 ? ` rank-${rank}` : '';
-            const reliability = reliabilityScores[result.provider];
-            const reliabilityClass = reliability >= 95 ? 'high' : reliability >= 80 ? 'medium' : 'low';
+        function createCard(r, rank) {
+            const isOnline = r.status === "Online";
+            const scoreClass = (r.braiain_score >= 90) ? 'grade-perfect' : (r.braiain_score >= 70) ? 'grade-good' : 'grade-bad';
             
             return `
-                <div class="terminal-card">
-                    <div class="card-header-bar">
-                        <span>NODE_${rank.toString().padStart(2, '0')}</span>
-                        <span>${result.provider.toUpperCase()}</span>
+            <div class="model-card">
+                <div class="card-header">
+                    <div class="provider-info">
+                        <h3>${r.provider}</h3>
+                        <div class="model-subtext">${r.model}</div>
+                        ${isOnline ? `<div style="font-size:0.8rem; color:#888; margin-top:5px;">Quality Grade: ${r.quality_score || 0}/100</div>` : ''}
                     </div>
-                    <div class="card-body">
-                        <div class="rank-display${rankClass}">#${rank}</div>
-                        <div class="provider-name">${escapeHtml(result.provider)}</div>
-                        <div class="model-name">${escapeHtml(result.model)}</div>
-                        ${reliability ? `<div class="reliability-badge ${reliabilityClass}">${reliability}% UPTIME</div>` : ''}
-                        
-                        <div class="metrics-display" style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px 15px;">
-                            <div class="metric-row">
-                                <span class="metric-label">SPEED</span>
-                                <span class="metric-value">${isOnline ? result.time.toFixed(2) + 's' : 'N/A'}</span>
-                            </div>
-                            ${result.ttft ? `
-                            <div class="metric-row">
-                                <span class="metric-label">TTFT</span>
-                                <span class="metric-value">${result.ttft.toFixed(3)}s</span>
-                            </div>` : ''}
-                            <div class="metric-row">
-                                <span class="metric-label">TPS</span>
-                                <span class="metric-value">${isOnline ? result.tokens_per_second.toFixed(0) : 'N/A'}</span>
-                            </div>
-                            ${result.streaming_smoothness ? `
-                            <div class="metric-row">
-                                <span class="metric-label">SMOOTH</span>
-                                <span class="metric-value">${result.streaming_smoothness.toFixed(2)}</span>
-                            </div>` : ''}
-                            <div class="metric-row">
-                                <span class="metric-label">COST</span>
-                                <span class="metric-value">${formatCost(result.cost_per_request)}</span>
-                            </div>
-                            <div class="metric-row">
-                                <span class="metric-label">CHARS</span>
-                                <span class="metric-value">${result.character_count || 'N/A'}</span>
-                            </div>
-                            <div class="metric-row" style="grid-column: 1 / -1;">
-                                <span class="metric-label">STATUS</span>
-                                <span class="metric-value ${isOnline ? 'status-online' : 'status-error'}">${result.status}</span>
-                            </div>
-                        </div>
-                        
-                        ${isOnline && result.response_preview ? `
-                            <div style="margin: 15px 0; padding: 12px; background: rgba(0, 255, 65, 0.03); border-left: 3px solid var(--text-dim); font-size: 0.85em; color: var(--text-secondary); line-height: 1.6;">
-                                <div style="color: var(--text-dim); font-size: 0.75em; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">Response Preview:</div>
-                                <div style="font-family: 'Share Tech Mono', monospace;">${escapeHtml(result.response_preview)}</div>
-                            </div>
-                        ` : ''}
-                        
-                        ${isOnline && result.full_response ? `
-                            <div style="margin: 15px 0 10px;">
-                                <button class="terminal-btn view-response-btn" style="width: 100%;">
-                                    VIEW FULL RESPONSE
-                                </button>
-                            </div>
-                        ` : ''}
-                        
-                        ${isOnline ? `
-                            <a href="${AFFILIATE_LINKS[result.provider]}" target="_blank" class="action-link" style="display: block; text-align: center; padding: 12px; margin-top: 10px; background: var(--bg-terminal); color: var(--text-primary); text-decoration: none; border: 1px solid var(--border-color);">
-                                ACCESS ${result.provider.toUpperCase()}
-                            </a>
-                        ` : ''}
+                    <div class="rank-badge ${rank<=3?'top-rank':''}">#${rank}</div>
+                </div>
+                
+                <div class="metrics-grid">
+                    <div class="metric-item">
+                        <span class="metric-label">Braiain Score</span>
+                        <span class="metric-value ${scoreClass}">${isOnline ? (r.braiain_score || 0) : 'N/A'}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">Speed</span>
+                        <span class="metric-value">${isOnline ? r.time.toFixed(2)+'s' : 'N/A'}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">TTFT</span>
+                        <span class="metric-value highlight">${r.ttft ? r.ttft.toFixed(3)+'s' : 'N/A'}</span>
+                    </div>
+                    <div class="metric-item">
+                        <span class="metric-label">TPS</span>
+                        <span class="metric-value">${isOnline ? r.tokens_per_second.toFixed(0) : 'N/A'}</span>
                     </div>
                 </div>
-            `;
-        }
-
-        function createTableRow(result, rank) {
-            const isOnline = result.status === "Online";
-            const reliability = reliabilityScores[result.provider];
-            const preview = result.response_preview ? escapeHtml(result.response_preview.substring(0, 100)) + '...' : 'N/A';
-            
-            return `
-                <tr>
-                    <td class="table-rank">#${rank}</td>
-                    <td class="table-provider">${escapeHtml(result.provider)}</td>
-                    <td>${escapeHtml(result.model).substring(0, 30)}</td>
-                    <td class="table-metric">${isOnline ? result.time.toFixed(2) : 'N/A'}</td>
-                    <td class="table-metric">${result.ttft ? result.ttft.toFixed(3) : 'N/A'}</td>
-                    <td class="table-metric">${isOnline ? result.tokens_per_second.toFixed(0) : 'N/A'}</td>
-                    <td class="table-metric">${result.streaming_smoothness ? result.streaming_smoothness.toFixed(2) : 'N/A'}</td>
-                    <td class="table-metric">${formatCost(result.cost_per_request)}</td>
-                    <td>${reliability ? reliability + '%' : 'N/A'}</td>
-                    <td class="${isOnline ? 'status-online' : 'status-error'}">${result.status}</td>
-                    <td style="max-width: 300px;">
-                        ${isOnline && result.full_response ? `
-                            <div style="font-size: 0.8em; color: var(--text-dim); margin-bottom: 5px;">${preview}</div>
-                            <button class="terminal-btn view-table-response-btn" style="font-size: 0.7em; padding: 4px 10px;">VIEW FULL</button>
-                        ` : 'N/A'}
-                    </td>
-                </tr>
-            `;
-        }
-
-        // === UI CONTROLS ===
-        
-        function setViewMode(mode) {
-            currentView = mode;
-            
-            document.getElementById('btn-cards').classList.toggle('active', mode === 'cards');
-            document.getElementById('btn-table').classList.toggle('active', mode === 'table');
-            
-            document.getElementById('cards-view').classList.toggle('hidden', mode !== 'cards');
-            document.getElementById('table-view').classList.toggle('hidden', mode !== 'table');
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'view_change', {event_category: 'ui', event_label: mode});
-            }
-        }
-
-        function sortResults(sortBy) {
-            currentSort = sortBy;
-            
-            ['speed', 'tps', 'ttft', 'cost'].forEach(type => {
-                const btn = document.getElementById(`btn-${type}`);
-                if (btn) btn.classList.toggle('active', type === sortBy);
-            });
-            
-            renderResults();
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'sort_change', {event_category: 'interaction', event_label: sortBy});
-            }
-        }
-
-        function applyFilters() {
-            currentFilter = document.getElementById('filter-status').value;
-            renderResults();
-        }
-
-        // === COST CALCULATOR ===
-        
-        function updateCostCalculator(results) {
-            const select = document.getElementById('calc-provider');
-            select.innerHTML = '<option value="">-- Compare All --</option>';
-            
-            results.filter(r => r.status === 'Online').forEach(r => {
-                const option = document.createElement('option');
-                option.value = r.provider;
-                option.textContent = r.provider;
-                select.appendChild(option);
-            });
-            
-            calculateCosts();
-        }
-
-        function calculateCosts() {
-            const requests = parseInt(document.getElementById('calc-requests').value) || 0;
-            const tokens = parseInt(document.getElementById('calc-tokens').value) || 0;
-            const selectedProvider = document.getElementById('calc-provider').value;
-            
-            if (!allResults.results) return;
-            
-            const resultsDiv = document.getElementById('calc-results');
-            let html = '';
-            
-            const providers = selectedProvider ? 
-                allResults.results.filter(r => r.provider === selectedProvider && r.status === 'Online') :
-                allResults.results.filter(r => r.status === 'Online');
-            
-            providers.forEach(provider => {
-                const inputCost = provider.cost_per_request ? 
-                    (tokens * 0.5 * (provider.cost_per_request / provider.output_tokens)) : 0;
-                const outputCost = provider.cost_per_request ? 
-                    (tokens * (provider.cost_per_request / provider.output_tokens)) : 0;
-                const totalCost = (inputCost + outputCost) * requests;
                 
-                html += `
-                    <div class="calc-result-item">
-                        <span style="color: var(--text-secondary);">${provider.provider}</span>
-                        <span class="calc-result-value">${totalCost === 0 ? 'FREE' : '$' + totalCost.toFixed(2)}/mo</span>
-                    </div>
-                `;
-            });
-            
-            resultsDiv.innerHTML = html || '<div class="calc-result-item"><span>No data available</span></div>';
+                ${isOnline ? `<button class="btn" style="width:100%" onclick="openResponse('${r.provider}', '${(r.full_response||'').replace(/'/g, "\\'")}')">VIEW OUTPUT</button>` : `<div style="color:red; text-align:center">OFFLINE</div>`}
+            </div>`;
         }
-
-        // Setup calculator listeners
-        document.addEventListener('DOMContentLoaded', () => {
-            ['calc-requests', 'calc-tokens', 'calc-provider'].forEach(id => {
-                const elem = document.getElementById(id);
-                if (elem) {
-                    elem.addEventListener('input', calculateCosts);
-                    elem.addEventListener('change', calculateCosts);
-                }
-            });
-        });
-
-        // === EXPORT FUNCTIONS ===
         
-        function exportData(format) {
-            if (!allResults.results) return;
-            
-            const results = getFilteredAndSortedResults();
-            
-            if (format === 'csv') {
-                let csv = 'Provider,Model,Status,Speed,TTFT,TPS,Smoothness,Cost,Chars,Reliability\n';
-                results.forEach(r => {
-                    csv += `"${r.provider}","${r.model}","${r.status}",${r.time},${r.ttft || ''},${r.tokens_per_second},${r.streaming_smoothness || ''},${r.cost_per_request || 0},${r.character_count || 0},${reliabilityScores[r.provider] || ''}\n`;
-                });
-                downloadFile(csv, 'braiain-benchmark-' + new Date().toISOString().split('T')[0] + '.csv', 'text/csv');
-            } else if (format === 'json') {
-                const json = JSON.stringify(results, null, 2);
-                downloadFile(json, 'braiain-benchmark-' + new Date().toISOString().split('T')[0] + '.json', 'application/json');
-            }
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'export_data', {event_category: 'interaction', event_label: format});
-            }
+        function createRow(r, rank) {
+            const isOnline = r.status === "Online";
+            const scoreClass = (r.braiain_score >= 90) ? 'grade-perfect' : (r.braiain_score >= 70) ? 'grade-good' : 'grade-bad';
+            const notes = r.grade_breakdown ? (r.grade_breakdown.length > 40 ? r.grade_breakdown.substring(0,37)+'...' : r.grade_breakdown) : '-';
+            const providerLink = AFFILIATE_LINKS[r.provider] || "#";
+            const crown = rank === 1 ? '👑 ' : '';
+            const rankDisplay = rank === 1 ? `<span style="color:var(--neon-amber); text-shadow:0 0 10px var(--neon-amber);">${crown}#${rank}</span>` : `#${rank}`;
+
+            return `<tr>
+                <td>${rankDisplay}</td>
+                <td><a href="${providerLink}" target="_blank" class="provider-link">${r.provider} <span style="font-size:0.7em;">↗</span></a></td>
+                <td style="font-size:0.85rem; color:var(--text-secondary);">${r.model.substring(0,25)}...</td>
+                <td class="${scoreClass}" style="font-size:1.1rem;">${isOnline ? (r.braiain_score || 0) : '-'}</td>
+                <td>${isOnline ? (r.quality_score || 0) : '-'}</td>
+                <td>${isOnline ? r.time.toFixed(2)+'s' : '-'}</td>
+                <td>${r.ttft ? r.ttft.toFixed(3) : '-'}</td>
+                <td>${isOnline ? r.tokens_per_second.toFixed(0) : '-'}</td>
+                <td>${r.cost_per_request ? '$'+r.cost_per_request.toFixed(5) : 'FREE'}</td>
+                <td style="font-size:0.8rem; color:#888; max-width:200px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;" title="${r.grade_breakdown}">${notes}</td>
+                <td>${isOnline ? `<button class="btn" style="padding:4px 8px; font-size:0.8rem;" onclick="openResponse('${r.provider}', '${(r.full_response||'').replace(/'/g, "\\'")}')">VIEW</button>` : ''}</td>
+            </tr>`;
         }
 
-        function downloadFile(content, filename, mimeType) {
-            const blob = new Blob([content], { type: mimeType });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        // === CHART FUNCTIONS ===
-        
-        function createTrendChart(history) {
+        function createTrendChart(history, metric) {
             const ctx = document.getElementById("trendChart");
-            const chartSection = document.getElementById("chart-section");
-            
-            if (!ctx || !history || history.length < 2) {
-                if (chartSection) chartSection.style.display = "none";
-                return;
-            }
-            
-            if (chartSection) chartSection.style.display = "block";
-            
-            const labels = [];
-            const datasets = {};
-            
-            const allProviders = new Set();
-            history.forEach(entry => {
-                if (entry.timestamp && entry.results) {
-                    Object.keys(entry.results).forEach(provider => {
-                        if (provider !== "xAI" && provider !== "Perplexity") {
-                            allProviders.add(provider);
-                        }
-                    });
-                }
-            });
-            
-            allProviders.forEach(provider => {
-                datasets[provider] = {
-                    label: provider,
-                    data: [],
-                    borderColor: PROVIDER_COLORS[provider] || "#00ff41",
-                    backgroundColor: PROVIDER_COLORS[provider] || "#00ff41",
-                    tension: 0.3,
-                    spanGaps: true,
-                    pointRadius: 3,
-                    pointHoverRadius: 6,
-                    borderWidth: 2
-                };
-            });
-            
-            history.forEach(entry => {
-                if (!entry.timestamp) return;
-                const date = new Date(entry.timestamp);
-                if (isNaN(date.getTime())) return;
-                
-                // Format: "Dec 5" or "Dec 5, 2024" if different year
-                const now = new Date();
-                const dateStr = date.getFullYear() !== now.getFullYear() 
-                    ? date.toLocaleDateString("en-US", {month: "short", day: "numeric", year: "numeric"})
-                    : date.toLocaleDateString("en-US", {month: "short", day: "numeric"});
-                
-                labels.push(dateStr);
-                
-                allProviders.forEach(provider => {
-                    const providerData = entry.results[provider];
-                    if (providerData && providerData.status === "Online" && providerData.time < 99) {
-                        datasets[provider].data.push(providerData.time);
-                    } else {
-                        datasets[provider].data.push(null);
-                    }
-                });
-            });
+            document.getElementById("chart-section").style.display = "block";
+            const labels = history.map(h => new Date(h.timestamp).toLocaleDateString());
+            const datasets = Object.keys(PROVIDER_COLORS).map(p => ({
+                label: p,
+                data: history.map(h => {
+                    const res = h.results[p];
+                    if (!res || res.status !== 'Online') return null;
+                    if (metric === 'speed') return res.time < 100 ? res.time : null;
+                    if (metric === 'score') return res.braiain_score !== undefined ? res.braiain_score : null;
+                    return null;
+                }),
+                borderColor: PROVIDER_COLORS[p],
+                tension: 0.4, borderWidth: 2, 
+                pointRadius: 4, pointHoverRadius: 8, // Improved Mobile Touch Targets
+                spanGaps: true
+            }));
             
             if (trendChart) trendChart.destroy();
-            
             trendChart = new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: Object.values(datasets)
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: 'index',
-                        intersect: false
+                type: 'line',
+                data: { labels, datasets },
+                options: { 
+                    responsive: true, maintainAspectRatio: false,
+                    scales: { 
+                        y: { 
+                            grid: { color: 'rgba(255,255,255,0.1)' },
+                            title: { display: true, text: metric === 'speed' ? 'Seconds (Lower is Better)' : 'Score 0-100 (Higher is Better)', color: '#888' }
+                        }, 
+                        x: { grid: { display: false } } 
                     },
-                    plugins: {
-                        legend: {
-                            display: true,
-                            position: 'top',
-                            labels: {
-                                color: '#00ff41',
-                                font: {
-                                    family: 'Share Tech Mono',
-                                    size: 11
-                                }
-                            }
-                        },
-                        tooltip: {
-                            backgroundColor: 'rgba(0, 0, 0, 0.9)',
-                            titleColor: '#00ff41',
-                            bodyColor: '#b8f3b8',
-                            borderColor: '#00ff41',
-                            borderWidth: 1,
-                            callbacks: {
-                                label: function(context) {
-                                    let label = context.dataset.label || '';
-                                    if (label) label += ': ';
-                                    if (context.parsed.y !== null) {
-                                        label += context.parsed.y.toFixed(2) + 's';
-                                    } else {
-                                        label += 'Offline';
-                                    }
-                                    return label;
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        x: {
-                            grid: { color: 'rgba(0, 255, 65, 0.1)' },
-                            ticks: { color: '#00ff41' }
-                        },
-                        y: {
-                            beginAtZero: true,
-                            grid: { color: 'rgba(0, 255, 65, 0.1)' },
-                            ticks: {
-                                color: '#00ff41',
-                                callback: function(value) { return value + 's'; }
-                            }
-                        }
-                    }
+                    plugins: { tooltip: { mode: 'index', intersect: false } }
                 }
             });
         }
 
-        // === MODAL FUNCTIONS ===
+        function updateChartMetric(metric) {
+            currentChartMetric = metric;
+            document.querySelectorAll('.chart-toggles .btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('chart-btn-'+metric).classList.add('active');
+            if (allResults.history) createTrendChart(allResults.history, metric);
+        }
+
+        function setViewMode(mode) {
+            currentView = mode;
+            document.getElementById('cards-view').classList.toggle('hidden', mode !== 'cards');
+            document.getElementById('table-view').classList.toggle('hidden', mode !== 'table');
+            document.getElementById('btn-cards').classList.toggle('active', mode === 'cards');
+            document.getElementById('btn-table').classList.toggle('active', mode === 'table');
+        }
         
-        function showModal(modalId, title, content) {
-            document.getElementById('modalTitle').textContent = title;
+        function sortResults(mode) {
+            currentSort = mode;
+            document.querySelectorAll('.control-group .btn').forEach(b => b.classList.remove('active'));
+            document.getElementById('btn-'+mode).classList.add('active');
+            renderResults();
+        }
+        
+        function openResponse(provider, content) {
+            document.getElementById('modalTitle').textContent = provider;
             document.getElementById('modalBody').textContent = content;
-            document.getElementById(modalId).style.display = 'block';
-            document.body.style.overflow = 'hidden';
+            document.getElementById('responseModal').style.display = 'block';
         }
 
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-            document.body.style.overflow = 'auto';
-        }
-
-        window.onclick = function(event) {
-            if (event.target.classList.contains('modal')) {
-                closeModal(event.target.id);
-            }
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                document.querySelectorAll('.modal').forEach(modal => {
-                    if (modal.style.display === 'block') {
-                        closeModal(modal.id);
-                    }
+        function exportData(format) {
+            if (!allResults.results) return;
+            if (format === 'csv') {
+                let csv = 'Rank,Provider,Model,BraiainScore,QualityScore,Speed,TTFT,TPS,Cost,Notes,Status\n';
+                let sorted = [...allResults.results];
+                sorted.sort((a, b) => {
+                    if (a.status !== 'Online') return 1;
+                    if (b.status !== 'Online') return -1;
+                    return (b.braiain_score || 0) - (a.braiain_score || 0);
                 });
-            }
-        });
 
-        // === UTILITY FUNCTIONS ===
-        
-        function formatCost(cost) {
-            return cost === null ? "N/A" : cost === 0 ? "FREE" : cost < 0.0001 ? "<$0.0001" : `$${cost.toFixed(5)}`;
-        }
-
-        function escapeHtml(text) {
-            const div = document.createElement("div");
-            div.textContent = text;
-            return div.innerHTML;
-        }
-
-        async function refreshData(event) {
-            if (event && event.target) {
-                const btn = event.target;
-                btn.disabled = true;
-                const originalText = btn.innerHTML;
-                btn.innerHTML = 'SYNCING';
+                sorted.forEach((r, i) => {
+                    const notes = r.grade_breakdown ? r.grade_breakdown.replace(/,/g, ';') : 'N/A';
+                    csv += `${i+1},"${r.provider}","${r.model}",${r.braiain_score || 0},${r.quality_score || 0},${r.time},${r.ttft || 0},${r.tokens_per_second},${r.cost_per_request},"${notes}","${r.status}"\n`;
+                });
                 
-                await fetchData();
-                
-                setTimeout(() => {
-                    btn.disabled = false;
-                    btn.innerHTML = originalText;
-                }, 2000);
-            } else {
-                await fetchData();
-            }
-            
-            if (typeof gtag !== 'undefined') {
-                gtag('event', 'manual_refresh', {event_category: 'interaction'});
+                const blob = new Blob([csv], { type: 'text/csv' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a'); a.href = url; a.download = 'braiain_benchmark_full.csv'; document.body.appendChild(a); a.click(); document.body.removeChild(a);
             }
         }
 
-        // === INITIALIZE ===
-        
-        // Event delegation for view response buttons (fixes modal popup)
-        document.addEventListener('click', function(e) {
-            if (e.target.classList.contains('view-response-btn')) {
-                const card = e.target.closest('.terminal-card');
-                if (card) {
-                    const providerName = card.querySelector('.provider-name').textContent;
-                    const result = allResults.results.find(r => r.provider === providerName);
-                    if (result && result.full_response) {
-                        showModal('responseModal', result.provider + ' - ' + result.model, result.full_response);
-                    }
-                }
-            }
-            
-            // Handle table row response clicks  
-            if (e.target.classList.contains('view-table-response-btn')) {
-                const row = e.target.closest('tr');
-                const providerName = row.querySelector('.table-provider').textContent;
-                const result = allResults.results.find(r => r.provider === providerName);
-                if (result && result.full_response) {
-                    showModal('responseModal', result.provider + ' - ' + result.model, result.full_response);
-                }
-            }
-        });
-        
-        // Main initialization
-        document.addEventListener('DOMContentLoaded', async () => {
-            console.log(">> BRAIAIN SPEED INDEX v3.0 INITIALIZING");
-            await fetchData();
-            console.log(">> SYSTEM READY");
-        });
+        function refreshData(event) {
+            if(event) event.target.textContent = 'SYNCING...';
+            fetchData().then(() => { if(event) event.target.textContent = 'SYNC DATA'; });
+        }
+
+        fetchData();
+        window.onclick = function(e) { if (e.target.className === 'modal') document.getElementById('responseModal').style.display = 'none'; }
     </script>
 </body>
 </html>
