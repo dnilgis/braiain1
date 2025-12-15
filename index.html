@@ -54,7 +54,7 @@
             overflow-x: hidden;
         }
 
-        /* --- TOOLTIPS --- */
+        /* --- TOOLTIPS (Fixed Z-Index) --- */
         [data-tooltip] { position: relative; cursor: help; }
         [data-tooltip]::after {
             content: attr(data-tooltip);
@@ -66,17 +66,17 @@
             background: #0a0e12; 
             border: 1px solid var(--neon-green); 
             color: #fff; 
-            padding: 12px;
-            font-size: 0.75rem; 
+            padding: 15px;
+            font-size: 0.8rem; 
             font-family: 'Share Tech Mono', monospace;
             width: max-content; 
-            max-width: 350px; 
-            z-index: 999999; 
-            box-shadow: 0 4px 30px rgba(0,0,0,0.9); 
+            max-width: 400px; 
+            z-index: 9999999; /* Highest priority */
+            box-shadow: 0 10px 40px rgba(0,0,0,1); 
             text-align: left; 
             white-space: pre-wrap; 
             line-height: 1.4;
-            transition: 0.1s ease-out;
+            transition: 0.15s ease-out;
             pointer-events: none;
         }
         [data-tooltip]:hover::after { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(-10px); }
@@ -89,10 +89,9 @@
         .container { max-width: 1450px; margin: 0 auto; padding: 0 20px; }
         header { background: rgba(0,0,0,0.95); border-bottom: 1px solid var(--border-default); padding: 30px 0 20px; position: sticky; top: 0; z-index: 500; backdrop-filter: var(--glass-blur); }
         
-        /* --- LOGO (SVG REPLACEMENT) --- */
+        /* --- LOGO (SVG IMAGE - NO GLITCH) --- */
         .logo-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
-        /* Container ensuring the SVG scales but doesn't overflow */
-        .svg-logo-wrapper { width: 100%; max-width: 600px; height: auto; display: block; }
+        .braiain-logo-img { width: 300px; height: auto; display: block; filter: drop-shadow(0 0 5px rgba(0,255,65,0.5)); }
 
         /* --- HUD --- */
         .hud-bar {
@@ -138,10 +137,9 @@
         .btn:hover { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 8px var(--neon-dim); text-shadow: 0 0 5px var(--neon-green); }
         .btn.active { background: var(--neon-dim); color: var(--neon-green); border-color: var(--neon-green); box-shadow: inset 0 0 10px var(--neon-dim); }
 
-        /* --- TABLE VIEW --- */
+        /* --- TABLE (TIGHTENED & CLEAN) --- */
         .table-wrap { 
             overflow-x: auto; 
-            overflow-y: visible; 
             border: 1px solid var(--border-default); 
             background: var(--bg-panel); 
             margin-bottom: 30px; 
@@ -167,12 +165,12 @@
         th:nth-child(7), td:nth-child(7) { width: 50px; text-align: center; }
         th:nth-child(9), td:nth-child(9), th:nth-child(10), td:nth-child(10), th:nth-child(11), td:nth-child(11) { width: 45px; text-align: center; }
 
-        /* Output Box - 3 Lines */
+        /* Output Box - Strictly 3 Lines */
         th:nth-child(12), td:nth-child(12) { width: auto; text-align: left; color: #777; font-family: 'Share Tech Mono', monospace; padding-right: 15px; }
         
         .td-output-box {
             display: -webkit-box;
-            -webkit-line-clamp: 3; /* 3 lines tall */
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -190,16 +188,14 @@
         .rank { font-family: 'Rajdhani', sans-serif; font-weight: bold; font-size: 1.1rem; }
         .prov-name { color: #fff; font-weight: bold; text-decoration: none; border-bottom: 1px dotted #555; transition: 0.2s; font-size: 0.9rem; }
         .prov-name:hover { color: var(--neon-green); border-color: var(--neon-green); }
-        
         .score { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: bold; }
         .score-high { color: #fff; text-shadow: 0 0 10px var(--neon-green); }
         .score-mid { color: var(--neon-blue); }
         .score-low { color: var(--neon-red); }
-
         .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1rem; }
         .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1rem; opacity: 0.5; }
 
-        /* --- CARDS VIEW --- */
+        /* --- CARDS (FIXED GRID & HEIGHTS) --- */
         .grid-view { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 25px; margin-bottom: 30px; }
 
         .card { 
@@ -227,6 +223,7 @@
         .comp-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
         .comp-lbl { font-size: 0.65rem; color: #666; letter-spacing: 1px; }
 
+        /* Snippet Box */
         .card-snippet {
             font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; color: #999;
             background: rgba(0,0,0,0.3); padding: 12px; border-radius: 4px;
@@ -237,13 +234,16 @@
         .card-snippet:hover { border-color: #444; color: #ccc; }
         .card-snippet::after { content: ""; position: absolute; bottom: 0; left: 0; width: 100%; height: 30px; background: linear-gradient(to bottom, transparent, var(--bg-card)); }
 
-        .card-actions { display: flex; gap: 10px; margin-top: auto; }
+        /* Buttons (Pinned to Bottom) */
+        .card-actions { display: flex; gap: 10px; margin-top: auto; width: 100%; }
         .card-btn {
-            flex: 1; padding: 10px; text-align: center;
+            flex: 1; /* Forces 50% width each */
+            padding: 10px; text-align: center;
             font-family: 'Orbitron', sans-serif; font-size: 0.75rem; font-weight: bold;
             text-decoration: none; cursor: pointer; border-radius: 4px;
             transition: 0.2s; text-transform: uppercase;
             display: flex; align-items: center; justify-content: center;
+            height: 36px;
         }
         .btn-view { background: transparent; border: 1px solid #444; color: #888; }
         .btn-view:hover { border-color: #fff; color: #fff; }
@@ -278,7 +278,7 @@
         @media(max-width: 768px) {
             .hud-bar { flex-wrap: wrap; justify-content: center; gap: 15px; }
             .hud-sep { display: none; }
-            .svg-logo-wrapper { max-width: 300px; }
+            .braiain-logo-img { width: 220px; }
             .ad-banner { flex-direction: column; text-align: center; }
             .controls { flex-direction: column; align-items: stretch; }
             .grid-view { grid-template-columns: 1fr; }
@@ -291,26 +291,7 @@
     <div class="container">
         <div class="header-content">
             <div class="logo-container">
-                <svg class="svg-logo-wrapper" viewBox="0 0 550 100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Braiain Speed Index Logo">
-                    <defs>
-                        <linearGradient id="neonGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                            <stop offset="0%" style="stop-color:#ccffcc;stop-opacity:1" />
-                            <stop offset="100%" style="stop-color:#00ff41;stop-opacity:1" />
-                        </linearGradient>
-                        <filter id="glow">
-                            <feGaussianBlur stdDeviation="2.5" result="coloredBlur"/>
-                            <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
-                        </filter>
-                    </defs>
-                    <text x="50%" y="20" font-family="'Courier New', monospace" font-weight="900" font-size="14" fill="url(#neonGrad)" text-anchor="middle" filter="url(#glow)">
-                        <tspan x="50%" dy="0">██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗</tspan>
-                        <tspan x="50%" dy="12">██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║</tspan>
-                        <tspan x="50%" dy="12">██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║</tspan>
-                        <tspan x="50%" dy="12">██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██╔══██║</tspan>
-                        <tspan x="50%" dy="12">██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║</tspan>
-                        <tspan x="50%" dy="12">╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝</tspan>
-                    </text>
-                </svg>
+                <img src="data:image/svg+xml;base64,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" alt="Braiain Speed Index" class="braiain-logo-img">
             </div>
 
             <div class="hud-bar">
@@ -522,6 +503,26 @@
         };
     }
 
+    // --- Helper to Clean Prompts from Output ---
+    function cleanOutputSnippet(text) {
+        if (!text) return "";
+        
+        // 1. Remove the "PART 1" or "PART 2" headers from benchmark prompt
+        let cleaned = text.replace(/^PART \d+ - [A-Z ]+:\s*/i, '');
+        
+        // 2. Remove markdown code block starts like ```json or ```python
+        cleaned = cleaned.replace(/^```[a-z]*\n?/i, '');
+        
+        // 3. (Advanced) If text starts with the prompt's instructions (common with smaller models)
+        // We look for the first JSON bracket '{' or the first "Here is"
+        const jsonStart = cleaned.indexOf('{');
+        if (jsonStart > -1 && jsonStart < 50) { // If JSON starts early, cut to it
+            cleaned = cleaned.substring(jsonStart);
+        }
+        
+        return cleaned.trim();
+    }
+
     function render() {
         if (!allResults.results) return;
         
@@ -545,12 +546,9 @@
             const iLogic = comps.logic ? '<span class="grade-check">✓</span>' : '<span class="grade-cross">✗</span>';
             const iCode = comps.code ? '<span class="grade-check">✓</span>' : '<span class="grade-cross">✗</span>';
             
-            // CLEAN THE SNIPPET (Remove "PART 1..." Prompt-like text)
+            // CLEAN THE SNIPPET
             let rawSnippet = r.full_response || "";
-            // Regex to strip "PART 1 - JSON GENERATION:" or similar headers
-            let cleanSnippet = rawSnippet.replace(/^PART \d+ - [A-Z ]+:\s*/i, '').trim();
-            // Also try to strip if it's inside markdown code blocks
-            cleanSnippet = cleanSnippet.replace(/^```[a-z]*\n/, '').trim();
+            let cleanSnippet = cleanOutputSnippet(rawSnippet);
             
             // Shorten for display
             const snippetDisplay = cleanSnippet.substring(0, 300).replace(/</g,'&lt;');
@@ -587,10 +585,8 @@
              const link = (AFFILIATE_LINKS[r.provider] || "#") + '?ref=braiain';
              
              let rawSnippet = r.full_response || "";
-             // Clean headers here too
-             let cleanSnippet = rawSnippet.replace(/^PART \d+ - [A-Z ]+:\s*/i, '').trim();
-             cleanSnippet = cleanSnippet.replace(/^```[a-z]*\n/, '').trim();
-             const snippetDisplay = cleanSnippet.substring(0, 150).replace(/</g,'&lt;'); 
+             let cleanSnippet = cleanOutputSnippet(rawSnippet);
+             const snippetDisplay = cleanSnippet.substring(0, 200).replace(/</g,'&lt;'); 
              
              return `
             <div class="card">
