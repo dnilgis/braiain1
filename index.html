@@ -22,7 +22,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@500;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
         
         :root {
             --bg-deep: #050505;
@@ -51,33 +51,53 @@
             line-height: 1.5; 
             min-height: 100vh;
             font-size: 16px;
-            background-image: linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            /* Subtle grid background */
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px), 
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
             background-size: 30px 30px; 
             overflow-x: hidden;
         }
 
-        /* --- TOOLTIPS --- */
+        /* --- SCANLINE EFFECT --- */
+        body::after {
+            content: " ";
+            display: block;
+            position: fixed;
+            top: 0; left: 0; bottom: 0; right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 999;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        /* --- TOOLTIPS (ELI5 Style) --- */
         [data-tooltip] { position: relative; cursor: help; border-bottom: 1px dotted var(--text-secondary); }
         [data-tooltip]:hover::after {
-            content: attr(data-tooltip); position: absolute; bottom: 100%; left: 50%; transform: translateX(-50%);
-            background: #000; border: 1px solid var(--neon-green); color: #fff; padding: 10px;
-            font-size: 0.8rem; width: max-content; max-width: 300px; z-index: 9999; 
-            box-shadow: 0 4px 20px rgba(0,0,0,0.9); text-align: left; white-space: normal; line-height: 1.4;
+            content: attr(data-tooltip); position: absolute; bottom: 110%; left: 50%; transform: translateX(-50%);
+            background: #0a0e12; border: 1px solid var(--neon-green); color: #fff; padding: 12px;
+            font-size: 0.9rem; width: max-content; max-width: 280px; z-index: 1000; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.9); text-align: left; white-space: normal; line-height: 1.4;
+            font-family: 'Share Tech Mono', monospace;
         }
 
         /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 { font-family: 'Orbitron', sans-serif; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; color: #fff; }
-        h2 { font-size: 1.3rem; color: var(--neon-green); margin-bottom: 15px; border-bottom: 1px solid var(--border-default); padding-bottom: 8px; text-shadow: 0 0 10px rgba(0,255,65,0.3); }
+        h1, h2, h3, h4 { text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #fff; }
+        h2 { font-size: 1.5rem; color: var(--neon-green); margin-bottom: 20px; border-bottom: 1px solid var(--border-default); padding-bottom: 8px; text-shadow: 0 0 10px rgba(0,255,65,0.2); }
         
         /* --- LAYOUT --- */
-        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
+        .container { max-width: 1450px; margin: 0 auto; padding: 0 20px; }
         header { background: rgba(0,0,0,0.95); border-bottom: 1px solid var(--border-default); padding: 30px 0 20px; position: sticky; top: 0; z-index: 500; backdrop-filter: var(--glass-blur); }
         
         /* --- LOGO (Fixed ASCII) --- */
         .logo-container { display: flex; flex-direction: column; align-items: center; margin-bottom: 15px; }
         .ascii-logo {
-            font-family: 'Courier New', Courier, monospace; 
-            white-space: pre; font-size: 0.85rem; line-height: 1.1; font-weight: 900;
+            font-family: 'Courier New', Courier, monospace; /* Specific font stack for alignment */
+            white-space: pre; 
+            font-size: 0.85rem; 
+            line-height: 1.1; 
+            font-weight: 900;
             background: linear-gradient(180deg, #ccffcc 0%, #00ff41 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 0 15px rgba(0, 255, 65, 0.4);
@@ -87,24 +107,28 @@
         /* --- HUD --- */
         .hud-bar {
             display: flex; justify-content: center; align-items: center; gap: 30px;
-            background: rgba(0, 20, 0, 0.5); border: 1px solid var(--border-default);
-            padding: 8px 25px; width: fit-content; margin: 0 auto;
+            background: rgba(0, 20, 0, 0.6); border: 1px solid var(--border-default);
+            padding: 10px 30px; width: fit-content; margin: 0 auto;
         }
-        .hud-item { display: flex; gap: 8px; align-items: center; font-size: 0.85rem; }
-        .hud-label { color: var(--text-secondary); letter-spacing: 1px; font-family: 'Orbitron', sans-serif; font-size: 0.75rem; }
-        .hud-val { color: #fff; font-weight: bold; font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; line-height: 1; }
+        .hud-item { display: flex; gap: 10px; align-items: center; font-size: 0.9rem; }
+        .hud-label { color: var(--text-secondary); letter-spacing: 1px; font-size: 0.8rem; }
+        .hud-val { color: #fff; font-weight: bold; font-size: 1.2rem; }
         .hud-val.glow { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-green); }
         .hud-sep { color: var(--border-default); opacity: 0.5; }
 
         /* --- AD BANNER --- */
         .ad-banner {
-            margin: 25px auto; padding: 12px 20px;
+            margin: 25px auto; padding: 15px 25px;
             border: 1px dashed var(--border-default);
             background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.05) 50%, rgba(0,0,0,0) 100%);
             display: flex; justify-content: space-between; align-items: center; gap: 20px;
         }
-        .ad-text { font-size: 0.9rem; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; }
-        .ad-link { color: var(--neon-green); text-decoration: none; font-weight: bold; border: 1px solid var(--neon-green); padding: 6px 15px; font-size: 0.8rem; transition: 0.2s; background: var(--neon-dim); }
+        .ad-text { font-size: 1rem; color: #fff; letter-spacing: 1px; font-weight: bold; }
+        .ad-link { 
+            color: var(--neon-green); text-decoration: none; font-weight: bold; 
+            border: 1px solid var(--neon-green); padding: 8px 20px; font-size: 0.9rem; 
+            transition: 0.2s; background: var(--neon-dim); 
+        }
         .ad-link:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-dim); }
 
         /* --- CONTROLS --- */
@@ -115,17 +139,17 @@
             align-items: center;
         }
         .btn-group { display: flex; gap: 5px; align-items: center; }
-        .label { font-size: 0.8rem; color: var(--text-secondary); margin-right: 8px; font-family: 'Orbitron', sans-serif; }
+        .label { font-size: 0.85rem; color: var(--text-secondary); margin-right: 8px; font-weight: bold; }
         
         .btn {
             background: transparent; border: 1px solid var(--border-default); color: var(--text-secondary);
-            padding: 6px 14px; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; cursor: pointer; transition: 0.2s;
+            padding: 8px 16px; font-family: inherit; font-size: 0.9rem; cursor: pointer; transition: 0.2s;
             text-transform: uppercase; font-weight: bold;
         }
         .btn:hover { color: var(--neon-green); border-color: var(--neon-green); box-shadow: 0 0 8px var(--neon-dim); text-shadow: 0 0 5px var(--neon-green); }
         .btn.active { background: var(--neon-dim); color: var(--neon-green); border-color: var(--neon-green); box-shadow: inset 0 0 10px var(--neon-dim); }
 
-        /* --- TABLE (TIGHTER LAYOUT) --- */
+        /* --- TABLE (FIXED LAYOUT) --- */
         .table-wrap { 
             overflow-x: auto; 
             border: 1px solid var(--border-default); 
@@ -135,83 +159,58 @@
         table { 
             width: 100%; 
             border-collapse: collapse; 
-            min-width: 1000px; 
-            table-layout: fixed; /* Prevents explosion */
+            min-width: 1100px; 
+            table-layout: fixed; /* Prevents column explosion */
         }
         
-        /* Optimized Column Widths */
-        th:nth-child(1) { width: 45px; text-align: center; }  /* Rank */
-        th:nth-child(2) { width: 130px; } /* Provider */
-        th:nth-child(3) { width: 150px; } /* Model */
-        th:nth-child(4) { width: 80px; }  /* Score */
-        th:nth-child(5) { width: 80px; }  /* Qual */
-        th:nth-child(6) { width: 80px; }  /* Speed */
-        th:nth-child(7) { width: 80px; }  /* TTFT */
+        /* Column Widths */
+        th:nth-child(1) { width: 50px; text-align: center; }  /* Rank */
+        th:nth-child(2) { width: 140px; } /* Provider */
+        th:nth-child(3) { width: 160px; } /* Model */
+        th:nth-child(4) { width: 90px; }  /* Score */
+        th:nth-child(5) { width: 90px; }  /* Qual */
+        th:nth-child(6) { width: 90px; }  /* Speed */
+        th:nth-child(7) { width: 90px; }  /* TTFT */
         th:nth-child(8) { width: 70px; }  /* TPS */
-        th:nth-child(9) { width: 80px; }  /* Cost */
-        
-        /* Tighter Logic Columns */
-        th:nth-child(10) { width: 50px; text-align: center; } /* JSON */
-        th:nth-child(11) { width: 55px; text-align: center; } /* Logic */
-        th:nth-child(12) { width: 50px; text-align: center; } /* Code */
-        
-        th:nth-child(13) { width: auto; } /* Snippet (Fluid) */
-        th:nth-child(14) { width: 90px; text-align: center; } /* Action */
+        th:nth-child(9) { width: 90px; }  /* Cost */
+        th:nth-child(10) { width: 60px; text-align: center; } /* JSON */
+        th:nth-child(11) { width: 70px; text-align: center; } /* Logic */
+        th:nth-child(12) { width: 60px; text-align: center; } /* Code */
+        th:nth-child(13) { width: 200px; } /* Snippet */
+        th:nth-child(14) { width: 100px; text-align: center; } /* Action */
 
         th { 
-            text-align: left; padding: 12px; 
+            text-align: left; padding: 15px; 
             background: rgba(0, 255, 65, 0.05); 
             color: var(--neon-green); 
-            font-family: 'Orbitron', sans-serif; font-size: 0.75rem; letter-spacing: 1px;
+            font-size: 0.9rem; letter-spacing: 1px;
             border-bottom: 2px solid var(--border-default); white-space: nowrap; overflow: hidden;
         }
-        td { 
-            padding: 8px 12px; /* Tighter padding */
-            border-bottom: 1px solid var(--border-default); 
-            font-size: 0.9rem; 
-            vertical-align: middle; 
-            white-space: nowrap; 
-            overflow: hidden; 
-            text-overflow: ellipsis; 
-        }
+        td { padding: 12px 15px; border-bottom: 1px solid var(--border-default); font-size: 0.95rem; vertical-align: middle; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
         tr:hover { background: rgba(0, 255, 65, 0.05); }
         
-        .rank { font-family: 'Rajdhani', sans-serif; font-weight: bold; font-size: 1.1rem; }
+        .rank { font-weight: bold; font-size: 1.2rem; }
         .prov-name { color: #fff; font-weight: bold; text-decoration: none; border-bottom: 1px dotted #555; transition: 0.2s; }
         .prov-name:hover { color: var(--neon-green); border-color: var(--neon-green); }
         .model-name { font-size: 0.8rem; color: var(--text-secondary); display: block; }
         
-        .score { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: bold; }
+        .score { font-size: 1.3rem; font-weight: bold; }
         .score-high { color: #fff; text-shadow: 0 0 10px var(--neon-green); }
         .score-mid { color: var(--neon-blue); }
         .score-low { color: var(--neon-red); }
 
         /* Grade Icons */
-        .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1.1rem; text-shadow: 0 0 5px var(--neon-green); }
-        .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1.1rem; opacity: 0.7; }
+        .grade-check { color: var(--neon-green); font-weight: bold; font-size: 1.2rem; text-shadow: 0 0 5px var(--neon-green); }
+        .grade-cross { color: var(--neon-red); font-weight: bold; font-size: 1.2rem; opacity: 0.7; }
 
         .td-snippet { 
             color: var(--text-secondary); font-size: 0.85rem; font-style: italic; cursor: pointer;
             border-bottom: 1px dotted #444; transition: 0.2s;
-            max-width: 200px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
         }
         .td-snippet:hover { color: var(--neon-green); border-bottom-color: var(--neon-green); }
         
-        /* Snippet Tooltip - Fixed positioning logic handled by CSS */
-        .td-snippet[data-tooltip]:hover::after {
-            width: 350px;
-            max-width: 350px;
-            bottom: auto; 
-            top: 100%; /* Show below to avoid covering header */
-            left: auto;
-            right: 0; /* Align right to keep inside table */
-            transform: none;
-            white-space: pre-wrap;
-            z-index: 9999;
-        }
-
         .act-btn { 
-            display: inline-block; padding: 4px 12px; font-size: 0.75rem; font-weight: bold; 
+            display: inline-block; padding: 6px 14px; font-size: 0.8rem; font-weight: bold; 
             border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
             background: rgba(0,255,65,0.05); transition: 0.2s; 
         }
@@ -223,18 +222,13 @@
         .card:hover { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(0, 255, 65, 0.15); transform: translateY(-3px); }
         
         .card-head { display: flex; justify-content: space-between; border-bottom: 1px solid var(--border-default); padding-bottom: 10px; margin-bottom: 15px; }
-        .card-prov { font-family: 'Orbitron', sans-serif; font-size: 1.1rem; color: #fff; font-weight: bold; margin-bottom: 3px; }
-        .card-rank { font-family: 'Rajdhani', sans-serif; font-size: 1.8rem; font-weight: bold; color: rgba(255,255,255,0.3); line-height: 1; }
-        
-        .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
-        .stat-box { display: flex; flex-direction: column; }
-        .stat-lbl { font-size: 0.7rem; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 2px; }
-        .stat-val { font-family: 'Rajdhani', sans-serif; font-size: 1.3rem; color: #fff; font-weight: bold; }
+        .card-prov { font-size: 1.2rem; color: #fff; font-weight: bold; }
+        .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px; }
         
         .comp-row { display: flex; justify-content: space-between; margin-bottom: 15px; background: rgba(0,0,0,0.3); padding: 8px 12px; border-radius: 4px; }
         .comp-item { display: flex; flex-direction: column; align-items: center; font-size: 0.75rem; color: #888; }
         .comp-val { margin-top: 4px; }
-        
+
         /* --- CHART --- */
         .chart-box { background: var(--bg-panel); border: 1px solid var(--border-default); padding: 20px; height: 400px; margin-bottom: 30px; position: relative; }
         .chart-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
@@ -373,7 +367,7 @@
     <!-- CHART -->
     <div class="chart-box" id="chart-section">
         <div class="chart-head">
-            <div style="font-family:'Orbitron', sans-serif; font-weight:bold; color:#fff;">HISTORY (30 DAYS)</div>
+            <div style="font-weight:bold; color:#fff;">HISTORY (30 DAYS)</div>
             <div class="chart-toggles">
                 <button class="btn active" id="chart-btn-score" onclick="updateChartMetric('score')">SCORE</button>
                 <button class="btn" id="chart-btn-speed" onclick="updateChartMetric('speed')">SPEED</button>
@@ -423,7 +417,7 @@
 <div id="responseModal" class="modal">
     <div class="modal-box">
         <div class="modal-head">
-            <span id="modalTitle" style="font-family:'Orbitron', sans-serif; color:#fff;">RESPONSE VIEWER</span>
+            <span id="modalTitle" style="font-weight:bold; color:#fff;">RESPONSE VIEWER</span>
             <button onclick="document.getElementById('responseModal').style.display='none'" class="btn" style="border:none;">[CLOSE]</button>
         </div>
         <div class="modal-body" id="modalBody"></div>
