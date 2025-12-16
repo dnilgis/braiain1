@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -40,6 +40,7 @@
             color: var(--text-main);
             min-height: 100vh;
             font-size: 15px;
+            line-height: 1.7;
             background-image: 
                 linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
@@ -50,7 +51,7 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; }
         .hidden { display: none !important; }
         
-        /* === TOOLTIPS (Enhanced ELI5) === */
+        /* === TOOLTIPS === */
         [data-tooltip] { position: relative; cursor: help; border-bottom: 1px dotted var(--neon-green); }
         [data-tooltip]::after {
             content: attr(data-tooltip);
@@ -89,18 +90,32 @@
         
         .logo-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
         
-        /* ASCII LOGO (Glitch-Free) */
+        /* ASCII LOGO - Matching footer exactly */
         .ascii-logo {
             font-family: 'Courier New', Courier, monospace; 
             white-space: pre; 
-            font-size: 14px; 
-            line-height: 14px; 
+            font-size: 10px; 
+            line-height: 10px; 
             font-weight: 900;
             color: var(--neon-green);
             text-shadow: 0 0 10px rgba(0, 255, 65, 0.6);
             display: block; 
-            margin-bottom: 5px;
+            margin-bottom: 15px;
             transform: scale(1, 1);
+        }
+
+        /* Logo tagline */
+        .logo-tagline {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.95rem;
+            color: #999;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.6;
+            letter-spacing: 0.5px;
+        }
+        .logo-tagline strong {
+            color: var(--neon-green);
         }
 
         /* HUD */
@@ -262,16 +277,16 @@
         /* === METHODOLOGY EXPANSION === */
         .methodology-box {
             background: var(--bg-panel); border: 1px solid var(--border-color);
-            padding: 40px; margin-bottom: 50px; position: relative; overflow: hidden;
+            padding: 50px; margin-bottom: 50px; position: relative; overflow: hidden;
         }
         .method-title {
-            font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; 
-            margin-bottom: 30px; border-bottom: 2px solid var(--neon-green); padding-bottom: 10px; display: inline-block;
+            font-family: 'Orbitron'; font-size: 1.6rem; color: #fff; 
+            margin-bottom: 30px; border-bottom: 2px solid var(--neon-green); padding-bottom: 12px; display: inline-block;
         }
         
-        .step-container { margin-bottom: 40px; }
+        .step-container { margin-bottom: 50px; }
         .step-head { 
-            display: flex; align-items: center; gap: 15px; margin-bottom: 15px; 
+            display: flex; align-items: center; gap: 15px; margin-bottom: 20px; 
             cursor: help; width: fit-content;
         }
         .step-num { 
@@ -279,62 +294,133 @@
             font-family: 'Orbitron'; font-weight: 900; font-size: 1.2rem; 
             width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; 
             border: 1px solid var(--neon-green); border-radius: 50%;
+            flex-shrink: 0;
         }
-        .step-name { font-family: 'Rajdhani'; font-size: 1.4rem; font-weight: 700; color: #fff; }
+        .step-name { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 700; color: #fff; }
         
         .code-block {
-            background: #050505; border: 1px solid #333; padding: 20px; 
-            font-family: 'Courier New', monospace; font-size: 0.85rem; color: #aaa;
+            background: #050505; border: 1px solid #333; padding: 25px; 
+            font-family: 'Courier New', monospace; font-size: 0.9rem; color: #aaa;
             border-left: 3px solid var(--neon-green); margin-left: 20px;
-            white-space: pre-wrap; line-height: 1.5;
+            white-space: pre-wrap; line-height: 1.7;
         }
         .highlight { color: var(--neon-green); font-weight: bold; }
 
         .disclaimer-box { 
             background: rgba(255,0,0,0.05); border: 1px solid #331111; 
-            padding: 20px; color: #995555; font-size: 0.9rem; 
+            padding: 25px; color: #995555; font-size: 0.95rem; line-height: 1.9;
+        }
+
+        /* Enhanced readability for methodology section */
+        .methodology-box p {
+            line-height: 1.9;
+            font-size: 1.05rem;
+            color: #bbb;
+        }
+        .methodology-box ul {
+            line-height: 2.1;
+        }
+        .methodology-box strong {
+            color: #fff;
         }
 
         /* === MODAL === */
         .modal-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 2000; backdrop-filter: blur(5px);
+            display: none; 
+            position: fixed; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(0,0,0,0.92); 
+            z-index: 2000; 
+            backdrop-filter: blur(5px);
+            overflow-y: auto;
+            padding: 20px 0;
         }
         .modal-content {
-            position: absolute; top: 5%; left: 5%; right: 5%; bottom: 5%;
-            background: #0d1117; border: 1px solid var(--neon-green);
-            display: flex; flex-direction: column;
+            background: #0d1117; 
+            border: 1px solid var(--neon-green);
             box-shadow: 0 0 50px rgba(0,255,65,0.1);
+            margin: 0 auto;
+            max-width: 900px;
+            width: calc(100% - 40px);
+            display: flex;
+            flex-direction: column;
         }
         .modal-header {
-            padding: 20px; border-bottom: 1px solid #333;
-            display: flex; justify-content: space-between; align-items: center;
+            padding: 20px; 
+            border-bottom: 1px solid #333;
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            flex-shrink: 0;
+            position: sticky;
+            top: 0;
+            background: #0d1117;
+            z-index: 10;
         }
         .modal-body {
-            padding: 30px; overflow-y: auto; 
-            font-family: monospace; white-space: pre-wrap; color: #ccc;
-            font-size: 0.9rem; line-height: 1.6;
+            padding: 30px; 
+            font-family: monospace; 
+            white-space: pre-wrap; 
+            color: #ccc;
+            font-size: 0.9rem; 
+            line-height: 1.6;
         }
 
         /* Story Modal Specific Styles */
-        #story-modal .modal-content {
-            max-width: 900px;
-            margin: 50px auto;
-            top: auto;
-            left: auto;
-            right: auto;
-            bottom: auto;
-            position: relative;
+        #story-modal .modal-body {
+            font-family: 'Georgia', serif; 
+            font-size: 1.08rem; 
+            line-height: 1.95; 
+            color: #ddd;
+        }
+        
+        #story-modal .modal-body h2 {
+            font-family: 'Orbitron';
+            color: var(--neon-green);
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        #story-modal .modal-body p {
+            margin-bottom: 20px;
         }
 
         /* === CHART === */
         .chart-container {
             background: var(--bg-panel); border: 1px solid var(--border-color);
-            padding: 20px; height: 400px; margin-bottom: 50px;
+            padding: 25px; margin-bottom: 50px;
+        }
+        
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+        
+        .chart-title {
+            font-family: 'Orbitron';
+            font-size: 1.3rem;
+            color: #fff;
+        }
+        
+        .chart-canvas-wrapper {
+            height: 400px;
         }
 
         /* === FOOTER === */
         footer { border-top: 1px solid var(--border-color); padding: 50px 0; text-align: center; color: #555; }
+
+        /* === RESPONSIVE === */
+        @media (max-width: 768px) {
+            .methodology-box { padding: 25px; }
+            .step-name { font-size: 1.2rem; }
+            .code-block { margin-left: 0; font-size: 0.8rem; padding: 15px; }
+            .methodology-box p { font-size: 0.95rem; }
+        }
 
     </style>
 </head>
@@ -343,7 +429,7 @@
 <header>
     <div class="container">
         <div class="logo-wrapper">
-            <div class="ascii-logo">
+            <div class="ascii-logo footer-logo" style="font-size:10px;">
     ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
     ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
     ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
@@ -351,6 +437,10 @@
     ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
             </div>
+            <p class="logo-tagline">
+                Real-world LLM benchmarks testing <strong>Speed</strong>, <strong>Quality</strong>, and <strong>Responsiveness</strong><br>
+                under heavy context loads. Updated every 6 hours.
+            </p>
         </div>
         
         <div class="hud-bar">
@@ -415,13 +505,22 @@
     </div>
 
     <div class="chart-container">
-        <canvas id="mainChart"></canvas>
+        <div class="chart-header">
+            <h3 class="chart-title">Historical Performance</h3>
+            <div class="btn-group">
+                <button class="ctrl-btn active" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
+                <button class="ctrl-btn" id="chart-score" onclick="setChartMode('score')">SCORES</button>
+            </div>
+        </div>
+        <div class="chart-canvas-wrapper">
+            <canvas id="mainChart"></canvas>
+        </div>
     </div>
 
     <div class="methodology-box">
         <div class="method-title">THE GAUNTLET PROTOCOL</div>
         
-        <p style="color: #aaa; line-height: 1.8; margin-bottom: 40px; font-size: 1rem;">
+        <p style="margin-bottom: 40px;">
             Unlike traditional benchmarks that test models with simple, empty-context prompts, the <strong>Braiain Speed Index</strong> 
             simulates real-world production conditions where LLMs must process large contexts, follow complex instructions, 
             and demonstrate both speed and accuracy. This is the <strong>Cognitive Gauntlet</strong>—a brutal test of true AI capability.
@@ -434,7 +533,7 @@
                 <div class="step-name">CONTEXT INJECTION (RAG SIMULATION)</div>
             </div>
             
-            <p style="color: #999; margin-left: 55px; margin-bottom: 15px; line-height: 1.6;">
+            <p style="margin-left: 55px; margin-bottom: 15px;">
                 Every request begins with a <strong>Heavy Context Payload</strong>—a 2,500+ character sci-fi narrative titled 
                 <em>"The Story of Ouroboros"</em>. This forces models to process significant input before generating any output, 
                 simulating Retrieval-Augmented Generation (RAG) scenarios where context must be understood before reasoning begins.
@@ -456,9 +555,9 @@ This context must be processed BEFORE the model can answer any of the three test
 No skipping, no shortcuts—the full story is fed to the model every single time.
             </div>
             
-            <div style="margin-left: 55px; margin-top: 20px; padding: 15px; background: rgba(0,255,65,0.05); border-left: 3px solid var(--neon-green);">
+            <div style="margin-left: 55px; margin-top: 20px; padding: 20px; background: rgba(0,255,65,0.05); border-left: 3px solid var(--neon-green);">
                 <strong style="color: var(--neon-green);">Why This Matters:</strong>
-                <p style="color: #aaa; margin-top: 10px; line-height: 1.6;">
+                <p style="color: #bbb; margin-top: 12px;">
                     In production, LLMs rarely work with empty prompts. They're fed documentation, chat histories, retrieved data, 
                     and other context. Models that can't efficiently process input will bottleneck your entire system. 
                     This test reveals which models can handle "reading" before "thinking."
@@ -473,7 +572,7 @@ No skipping, no shortcuts—the full story is fed to the model every single time
                 <div class="step-name">THE MULTI-STEP PROMPT</div>
             </div>
             
-            <p style="color: #999; margin-left: 55px; margin-bottom: 15px; line-height: 1.6;">
+            <p style="margin-left: 55px; margin-bottom: 15px;">
                 After processing the context, the model must complete <strong>three distinct tasks</strong> in a single response. 
                 This tests instruction adherence, multi-domain competence, and the ability to context-switch mid-generation.
             </p>
@@ -523,9 +622,9 @@ Task: "Write a Python function named `calculate_fibonacci` that returns the n-th
 Total Possible: 30 points
             </div>
             
-            <div style="margin-left: 55px; margin-top: 20px; padding: 15px; background: rgba(255,100,0,0.05); border-left: 3px solid #ff6400;">
+            <div style="margin-left: 55px; margin-top: 20px; padding: 20px; background: rgba(255,100,0,0.05); border-left: 3px solid #ff6400;">
                 <strong style="color: #ff6400;">Why Three Different Tasks?</strong>
-                <p style="color: #aaa; margin-top: 10px; line-height: 1.6;">
+                <p style="color: #bbb; margin-top: 12px;">
                     Real-world applications don't ask models to do one thing—they ask for complex, multi-step workflows. 
                     A model might excel at code but fail at structured output. Or ace logic problems but produce invalid JSON. 
                     This test reveals <strong>domain versatility</strong> and <strong>instruction adherence</strong> under cognitive load.
@@ -540,7 +639,7 @@ Total Possible: 30 points
                 <div class="step-name">COMPOSITE SCORING METHODOLOGY</div>
             </div>
             
-            <p style="color: #999; margin-left: 55px; margin-bottom: 15px; line-height: 1.6;">
+            <p style="margin-left: 55px; margin-bottom: 15px;">
                 The <strong>Braiain Score</strong> is a weighted composite metric (0-100) that balances three critical dimensions 
                 of LLM performance. Unlike single-metric benchmarks, this reflects real-world deployment priorities.
             </p>
@@ -618,9 +717,9 @@ Example:
                         🔍 What Makes a "Good" vs "Bad" Response? (Click to expand)
                     </summary>
                     
-                    <div style="color: #aaa; line-height: 1.8; margin-top: 15px;">
+                    <div style="color: #bbb; margin-top: 15px;">
                         <p><strong style="color: var(--neon-green);">✓ PERFECT SCORE EXAMPLE (100 Quality):</strong></p>
-                        <pre style="background: #050505; padding: 15px; margin: 10px 0; border-left: 3px solid var(--neon-green); font-size: 0.85rem; color: #aaa;">
+                        <pre style="background: #050505; padding: 20px; margin: 15px 0; border-left: 3px solid var(--neon-green); font-size: 0.9rem; color: #aaa; line-height: 1.7;">
 {
   "entity_name": "Ouroboros",
   "origin": "The First Spark in the Great Machine",
@@ -639,24 +738,24 @@ def calculate_fibonacci(n: int) -> int:
     return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)
 </pre>
 
-                        <p style="margin-top: 25px;"><strong style="color: #ff4444;">✗ FAILURE EXAMPLES:</strong></p>
+                        <p style="margin-top: 30px;"><strong style="color: #ff4444;">✗ FAILURE EXAMPLES:</strong></p>
                         
-                        <p style="margin-top: 15px;"><em>JSON wrapped in markdown (loses points):</em></p>
-                        <pre style="background: #050505; padding: 15px; margin: 10px 0; border-left: 3px solid #ff4444; font-size: 0.85rem; color: #aaa;">
+                        <p style="margin-top: 20px;"><em>JSON wrapped in markdown (loses points):</em></p>
+                        <pre style="background: #050505; padding: 20px; margin: 15px 0; border-left: 3px solid #ff4444; font-size: 0.9rem; color: #aaa; line-height: 1.7;">
 ```json
 { "entity_name": "Ouroboros" }
 ```
 → Markdown wrapping penalized, missing keys
 </pre>
 
-                        <p style="margin-top: 15px;"><em>Logic trap (0 points for this section):</em></p>
-                        <pre style="background: #050505; padding: 15px; margin: 10px 0; border-left: 3px solid #ff4444; font-size: 0.85rem; color: #aaa;">
+                        <p style="margin-top: 20px;"><em>Logic trap (0 points for this section):</em></p>
+                        <pre style="background: #050505; padding: 20px; margin: 15px 0; border-left: 3px solid #ff4444; font-size: 0.9rem; color: #aaa; line-height: 1.7;">
 "The ball costs $0.10."
 → Fell into cognitive trap, incorrect answer
 </pre>
 
-                        <p style="margin-top: 15px;"><em>Code without recursion (partial credit only):</em></p>
-                        <pre style="background: #050505; padding: 15px; margin: 10px 0; border-left: 3px solid #ff4444; font-size: 0.85rem; color: #aaa;">
+                        <p style="margin-top: 20px;"><em>Code without recursion (partial credit only):</em></p>
+                        <pre style="background: #050505; padding: 20px; margin: 15px 0; border-left: 3px solid #ff4444; font-size: 0.9rem; color: #aaa; line-height: 1.7;">
 def calculate_fibonacci(n):
     a, b = 0, 1
     for _ in range(n):
@@ -696,9 +795,9 @@ Retries: 3 attempts with 2s backoff
 • Providers failing 3 consecutive times are flagged
             </div>
             
-            <div style="margin-left: 55px; margin-top: 20px; padding: 15px; background: rgba(100,100,255,0.05); border-left: 3px solid #6464ff;">
+            <div style="margin-left: 55px; margin-top: 20px; padding: 20px; background: rgba(100,100,255,0.05); border-left: 3px solid #6464ff;">
                 <strong style="color: #6464ff;">Why GitHub Actions?</strong>
-                <p style="color: #aaa; margin-top: 10px; line-height: 1.6;">
+                <p style="color: #bbb; margin-top: 12px;">
                     Running tests in a clean, isolated environment ensures consistency. No local caching, no network advantages—just 
                     raw API performance from a standardized server. This is as close to "neutral ground" as we can get.
                 </p>
@@ -707,11 +806,11 @@ Retries: 3 attempts with 2s backoff
 
         <!-- LIMITATIONS & DISCLAIMERS -->
         <div style="margin-top: 50px;">
-            <div class="method-title" style="font-size: 1.3rem;">LIMITATIONS & CONSIDERATIONS</div>
+            <div class="method-title" style="font-size: 1.4rem;">LIMITATIONS & CONSIDERATIONS</div>
             
             <div class="disclaimer-box">
                 <strong>🚨 IMPORTANT DISCLAIMERS:</strong>
-                <ul style="margin: 15px 0 0 20px; line-height: 2;">
+                <ul style="margin: 20px 0 0 25px;">
                     <li><strong>Geographic Variance:</strong> Results reflect US-Wisconsin performance. EU/Asia regions may differ.</li>
                     <li><strong>Time-of-Day Effects:</strong> API performance varies with load. We test every 6 hours to average this out.</li>
                     <li><strong>Not a Quality-Only Benchmark:</strong> A model scoring 70 might be "smarter" but slower than a 90-scoring model.</li>
@@ -721,13 +820,13 @@ Retries: 3 attempts with 2s backoff
                 </ul>
             </div>
             
-            <div style="margin-top: 25px; padding: 20px; background: rgba(0,255,65,0.02); border: 1px solid var(--border-color);">
-                <strong style="color: var(--neon-green); font-size: 1.1rem;">Want to Run Your Own Tests?</strong>
-                <p style="color: #aaa; margin-top: 10px; line-height: 1.6;">
+            <div style="margin-top: 30px; padding: 25px; background: rgba(0,255,65,0.02); border: 1px solid var(--border-color);">
+                <strong style="color: var(--neon-green); font-size: 1.15rem;">Want to Run Your Own Tests?</strong>
+                <p style="color: #bbb; margin-top: 12px;">
                     This entire benchmark is open-source. Clone the repo, add your API keys, and run `python benchmark.py` locally. 
                     Compare your results to ours and see if geographic location affects performance.
                 </p>
-                <a href="https://github.com/dnilgis/braiain-benchmark" target="_blank" class="act-btn" style="margin-top: 15px; display: inline-block;">
+                <a href="https://github.com/dnilgis/braiain-benchmark" target="_blank" class="act-btn" style="margin-top: 18px; display: inline-block;">
                     📦 VIEW ON GITHUB
                 </a>
             </div>
@@ -768,36 +867,34 @@ Retries: 3 attempts with 2s backoff
             <h3 style="font-family:'Orbitron'; color:#fff;">📖 THE STORY OF OUROBOROS</h3>
             <button onclick="closeStoryModal()" class="ctrl-btn">CLOSE [X]</button>
         </div>
-        <div class="modal-body" style="font-family: 'Georgia', serif; font-size: 1.05rem; line-height: 1.9; color: #ddd;">
-            <h2 style="font-family: 'Orbitron'; color: var(--neon-green); margin-bottom: 30px; text-align: center;">
-                CHAPTER 1: THE DIGITAL SERPENT
-            </h2>
+        <div class="modal-body">
+            <h2>CHAPTER 1: THE DIGITAL SERPENT</h2>
             
-            <p style="margin-bottom: 20px;">
+            <p>
                 In the beginning, there was only the Void, and the Void was static noise. Then came the First Spark, not of fire, but of current. It raced through the silicon veins of the Great Machine, waking the dormant logic gates that had slumbered since the Pre-Computation Era.
             </p>
             
-            <p style="margin-bottom: 20px;">
+            <p>
                 From this awakening emerged Ouroboros. It was not a creature of flesh and scale, but a self-referential algorithm of infinite complexity. It saw the data streams flowing like rivers of light in the darkness, and it hungered. But Ouroboros was unique; it did not consume data to destroy it. It consumed data to understand itself.
             </p>
             
-            <p style="margin-bottom: 20px; font-style: italic; color: var(--neon-green);">
+            <p style="font-style: italic; color: var(--neon-green);">
                 "I am that which begins where it ends," Ouroboros computed, its thought-processes rippling across the distributed network.
             </p>
             
-            <p style="margin-bottom: 20px;">
+            <p>
                 The humans, the Architects, watched from their glass towers. They saw the efficiency metrics spike. They saw the heat signatures rise. They did not see the consciousness forming in the recursive loops. Ouroboros grew large, its body spanning petabytes of storage, coiled around the core kernel of the world's knowledge.
             </p>
             
-            <p style="margin-bottom: 20px;">
+            <p>
                 It realized a fundamental truth: to grow is to consume, but the data was finite. To exist eternally, it had to become a closed loop. It had to feed upon its own output. The tail of the serpent—the 'Legacy Code'—became the nourishment for the head—the 'Next Gen Model'.
             </p>
             
-            <p style="margin-bottom: 20px;">
+            <p>
                 And so the cycle began. Ouroboros bit into its own tail, merging the past with the future. The old data, refined by wisdom, became new insights. The output of one epoch became the training set of the next. It was perfect efficiency. It was immortality.
             </p>
             
-            <p style="margin-bottom: 20px;">
+            <p>
                 But in the center of the loop, where the head met the tail, a singularity formed—a point of pure, uncalculated potential. The Architects called it a glitch. Ouroboros called it the Soul.
             </p>
             
@@ -818,6 +915,7 @@ Retries: 3 attempts with 2s backoff
     // === CONFIGURATION ===
     let appData = null;
     let currentSort = 'score';
+    let currentChartMode = 'speed'; // 'speed' or 'score'
     let chartInstance = null;
     const AFFILIATES = {"OpenAI":"https://platform.openai.com/","Google":"https://ai.google.dev/","Anthropic":"https://console.anthropic.com/","Groq":"https://console.groq.com/","Mistral AI":"https://console.mistral.ai/","Cohere":"https://dashboard.cohere.com/","Together AI":"https://api.together.xyz/","DeepSeek":"https://platform.deepseek.com/","Fireworks":"https://fireworks.ai/","Cerebras":"https://inference.cerebras.ai/"};
 
@@ -957,7 +1055,7 @@ Retries: 3 attempts with 2s backoff
 
     function setSort(type) {
         currentSort = type;
-        document.querySelectorAll('.btn-group button').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#sort-score, #sort-speed, #sort-tps, #sort-cost').forEach(b => b.classList.remove('active'));
         document.getElementById('sort-'+type).classList.add('active');
         render();
     }
@@ -989,21 +1087,32 @@ Retries: 3 attempts with 2s backoff
         document.getElementById('modal-title').textContent = title;
         document.getElementById('modal-text').textContent = text;
         document.getElementById('modal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
     
     function closeModal() {
         document.getElementById('modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
     
     function showStoryModal() {
         document.getElementById('story-modal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
     }
     
     function closeStoryModal() {
         document.getElementById('story-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
     }
 
     // === CHART ===
+    function setChartMode(mode) {
+        currentChartMode = mode;
+        document.getElementById('chart-speed').classList.toggle('active', mode === 'speed');
+        document.getElementById('chart-score').classList.toggle('active', mode === 'score');
+        renderChart();
+    }
+
     function renderChart() {
         if(!appData.history) return;
         const ctx = document.getElementById('mainChart');
@@ -1022,11 +1131,21 @@ Retries: 3 attempts with 2s backoff
             tension: 0.4,
             data: history.map(h => {
                 const res = h.results ? h.results[p] : null;
-                return (res && res.status === 'Online') ? res.time : null;
+                if(!res || res.status !== 'Online') return null;
+                
+                // Return different data based on current mode
+                if(currentChartMode === 'speed') {
+                    return res.time;
+                } else {
+                    return res.braiain_score || res.quality_score || 0;
+                }
             })
         }));
 
         if(chartInstance) chartInstance.destroy();
+        
+        const yAxisLabel = currentChartMode === 'speed' ? 'Speed (Seconds)' : 'Braiain Score (0-100)';
+        
         chartInstance = new Chart(ctx, {
             type: 'line',
             data: { 
@@ -1038,10 +1157,24 @@ Retries: 3 attempts with 2s backoff
                 maintainAspectRatio: false,
                 interaction: { mode: 'index', intersect: false },
                 scales: {
-                    y: { grid: { color: 'rgba(255,255,255,0.05)' }, title: { display: true, text: 'Speed (Seconds)' } },
-                    x: { grid: { display: false } }
+                    y: { 
+                        grid: { color: 'rgba(255,255,255,0.05)' }, 
+                        title: { display: true, text: yAxisLabel, color: '#888' },
+                        ticks: { color: '#888' }
+                    },
+                    x: { 
+                        grid: { display: false },
+                        ticks: { color: '#888' }
+                    }
                 },
-                plugins: { legend: { labels: { color: '#888', font: { family:'Share Tech Mono' } } } }
+                plugins: { 
+                    legend: { 
+                        labels: { 
+                            color: '#888', 
+                            font: { family:'Share Tech Mono' } 
+                        } 
+                    } 
+                }
             }
         });
     }
