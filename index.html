@@ -1,4 +1,4 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -380,12 +380,12 @@
         #story-modal .modal-body h2 {
             font-family: 'Orbitron';
             color: var(--neon-green);
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
         }
         
         #story-modal .modal-body p {
-            margin-bottom: 20px;
+            margin-bottom: 14px;
         }
 
         /* === CHART === */
@@ -429,7 +429,7 @@
 <header>
     <div class="container">
         <div class="logo-wrapper">
-            <div class="ascii-logo footer-logo" style="font-size:10px;">
+            <div class="ascii-logo">
     ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
     ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
     ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
@@ -457,7 +457,7 @@
     
     <div class="ad-banner">
         <div class="ad-text">ADVERTISE HERE: Reach thousands of AI developers.</div>
-        <a href="mailto:dnilgis@gmail.com" class="act-btn">CONTACT ></a>
+        <a href="/cdn-cgi/l/email-protection#0c686265606b657f4c6b616d6560226f6361" class="act-btn">CONTACT ></a>
     </div>
 
     <div class="controls-bar">
@@ -836,7 +836,7 @@ Retries: 3 attempts with 2s backoff
 </div>
 
 <footer>
-    <div class="ascii-logo footer-logo" style="font-size:10px;">
+    <div class="ascii-logo">
     ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
     ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
     ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
@@ -911,7 +911,7 @@ Retries: 3 attempts with 2s backoff
     </div>
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // === CONFIGURATION ===
     let appData = null;
     let currentSort = 'score';
@@ -1186,9 +1186,3 @@ Retries: 3 attempts with 2s backoff
         sorted.forEach((r,i) => csv += `${i+1},"${r.provider}","${r.model}",${r.braiain_score},${r.time},${r.ttft},${r.tokens_per_second},${r.cost_per_request}\n`);
         const a = document.createElement('a');
         a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'}));
-        a.download = 'braiain_data.csv';
-        document.body.appendChild(a); a.click(); document.body.removeChild(a);
-    }
-</script>
-</body>
-</html>
