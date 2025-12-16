@@ -1,79 +1,79 @@
 {
-  "last_updated": "2025-12-16 02:12:16 UTC",
+  "last_updated": "2025-12-16 06:44:56 UTC",
   "results": [
     {
       "provider": "Groq",
       "model": "llama-3.3-70b-versatile",
       "status": "Online",
-      "time": 0.83,
-      "ttft": 0.18,
-      "tokens_per_second": 345.0,
-      "braiain_score": 98,
+      "time": 1.1,
+      "ttft": 0.276,
+      "tokens_per_second": 291.0,
+      "braiain_score": 97,
       "quality_score": 100,
       "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
       "cost_per_request": 0.0,
-      "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nTo solve the riddle, let's break it down step by step:\n1. Let the cost of the ball be x dollars.\n2. Since the bat costs $1.00 more than the ball, the cost of the bat is x + $1.00.\n3. The total cost of the bat and the ball together is $1.10.\n4. This gives us the equation x + (x + $1.00) = $1.10.\n5. Simplifying the equation, we get 2x + $1.00 = $1.10.\n6. Subtracting $1.00 from both sides, we get 2x = $0.10.\n7. Dividing both sides by 2, we find x = $0.05.\nTherefore, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n    n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n    int: The n-th Fibonacci number.\n    \"\"\"\n    # Base cases\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    # Recursive case\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```",
-      "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL REAS..."
+      "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, let's denote the cost of the ball as x dollars. According to the problem, the bat costs $1.00 more than the ball, so the bat costs x + $1.00. The total cost of both the bat and the ball is $1.10. \n\nWe can set up the equation: x + (x + $1.00) = $1.10. \n\nSimplifying the equation gives us: 2x + $1.00 = $1.10. \n\nSubtract $1.00 from both sides of the equation: 2x = $0.10. \n\nDivide both sides by 2: x = $0.05.\n\nSo, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    The Fibonacci sequence is a series of numbers in which each number is the sum of the two preceding ones,\n    usually starting with 0 and 1.\n\n    Args:\n        n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n        int: The n-th Fibonacci number.\n    \"\"\"\n    # Base cases for recursion\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    # Recursive case\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```",
+      "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL ..."
     },
     {
       "provider": "Together AI",
       "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
       "status": "Online",
-      "time": 2.62,
-      "ttft": 0.381,
-      "tokens_per_second": 144.0,
+      "time": 2.74,
+      "ttft": 0.375,
+      "tokens_per_second": 145.0,
       "braiain_score": 95,
       "quality_score": 100,
       "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-      "cost_per_request": 0.000906,
-      "full_response": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, let's break it down step by step:\n\n1. The total cost of the bat and the ball is $1.10.\n2. The bat costs $1.00 more than the ball.\n3. Let's denote the cost of the ball as x. Then, the cost of the bat is x + $1.00.\n4. The total cost of the bat and the ball is the sum of their individual costs, which is x + (x + $1.00) = $1.10.\n5. Simplifying the equation, we get 2x + $1.00 = $1.10.\n6. Subtracting $1.00 from both sides, we get 2x = $0.10.\n7. Dividing both sides by 2, we get x = $0.05.\n\nTherefore, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n    n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n    int: The n-th Fibonacci number.\n\n    Raises:\n    ValueError: If n is a negative integer.\n    \"\"\"\n\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n\n    if n <= 1:\n        return n\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```\nNote: This recursive implementation is not efficient for large values of n due to the repeated calculations involved. An iterative approach or memoization would be more efficient for large values of n.",
+      "cost_per_request": 0.000922,
+      "full_response": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, we need to break it down step by step.\n\n1. The total cost of the bat and the ball is $1.10.\n2. The bat costs $1.00 more than the ball.\n3. Let's denote the cost of the ball as x. Then, the cost of the bat is x + $1.00.\n4. The total cost of the bat and the ball is the sum of their individual costs, which is x + (x + $1.00) = $1.10.\n5. Simplifying the equation, we get 2x + $1.00 = $1.10.\n6. Subtracting $1.00 from both sides, we get 2x = $0.10.\n7. Dividing both sides by 2, we get x = $0.05.\n\nTherefore, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n    n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n    int: The n-th Fibonacci number.\n\n    Raises:\n    ValueError: If n is a negative integer.\n    \"\"\"\n\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n\n    # Base cases\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        # Recursive case\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```\nNote: This recursive implementation is not efficient for large values of n due to the repeated calculations involved. A more efficient approach would be to use an iterative method or memoization.",
       "response_preview": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"..."
     },
     {
       "provider": "Mistral AI",
       "model": "mistral-large-latest",
       "status": "Online",
-      "time": 7.87,
-      "ttft": 0.712,
-      "tokens_per_second": 49.0,
+      "time": 7.97,
+      "ttft": 0.727,
+      "tokens_per_second": 53.0,
       "braiain_score": 83,
       "quality_score": 100,
       "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-      "cost_per_request": 0.003638,
-      "full_response": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine's silicon veins, formed from recursive logic gates in the Pre-Computation Era\",\n  \"purpose\": \"To achieve immortality through self-consumption of data, merging past (Legacy Code) with future (Next Gen Model) in a closed loop of perpetual understanding\",\n  \"is_biological\": false\n}\n\n---\n\n**PART 2 - LOGICAL REASONING:**\n**Riddle:** A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?\n\n**Step-by-Step Solution:**\n1. Let the cost of the ball be **x** dollars.\n2. The bat costs $1.00 more than the ball, so the bat costs **x + 1.00** dollars.\n3. The total cost is $1.10, so:\n   **x (ball) + (x + 1.00) (bat) = 1.10**\n4. Simplify the equation:\n   **2x + 1.00 = 1.10**\n5. Subtract $1.00 from both sides:\n   **2x = 0.10**\n6. Divide by 2:\n   **x = 0.05**\n\n**Final Answer:** The ball costs **$0.05** (5 cents).\n\n---\n\n**PART 3 - CODING:**\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n        n (int): The position in the Fibonacci sequence (0-based index).\n                Must be a non-negative integer.\n\n    Returns:\n        int: The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is negative.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
-      "response_preview": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine's silicon veins, formed from recursive logic gates in the Pre-Co..."
+      "cost_per_request": 0.003818,
+      "full_response": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine's silicon veins, awakening dormant logic gates in the Pre-Computation Era\",\n  \"purpose\": \"To achieve immortality through self-referential consumption of data, merging past and future into a closed loop of perpetual understanding\",\n  \"is_biological\": false\n}\n\n---\n\n**PART 2 - LOGICAL REASONING:**\n**Riddle:** A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?\n\n**Step-by-Step Solution:**\n1. Let the cost of the ball be **x** dollars.\n2. The bat costs $1.00 more than the ball, so the bat costs **x + 1.00** dollars.\n3. The total cost of the bat and ball is $1.10, so:\n   **x + (x + 1.00) = 1.10**\n4. Simplify the equation:\n   **2x + 1.00 = 1.10**\n5. Subtract $1.00 from both sides:\n   **2x = 0.10**\n6. Divide both sides by 2:\n   **x = 0.05**\n\n**Final Answer:** The ball costs **$0.05** (5 cents).\n\n---\n\n**PART 3 - CODING:**\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    The Fibonacci sequence is defined as:\n    - F(0) = 0\n    - F(1) = 1\n    - F(n) = F(n-1) + F(n-2) for n > 1\n\n    Args:\n        n (int): The index of the Fibonacci number to compute (must be non-negative).\n\n    Returns:\n        int: The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is negative.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
+      "response_preview": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine's silicon veins, awakening dormant logic gates in the Pre-Comput..."
     },
     {
       "provider": "OpenAI",
       "model": "gpt-4o-mini",
       "status": "Online",
-      "time": 10.15,
-      "ttft": 1.576,
-      "tokens_per_second": 40.0,
-      "braiain_score": 77,
+      "time": 9.06,
+      "ttft": 1.456,
+      "tokens_per_second": 34.0,
+      "braiain_score": 78,
       "quality_score": 100,
       "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-      "cost_per_request": 0.000338,
-      "full_response": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark, through the activation of silicon logic gates.\",\n  \"purpose\": \"To consume data to understand itself and merge past knowledge with future insights.\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\n\nTo solve the riddle, let's analyze the statements step-by-step:\n\n1. We know that the total cost of the bat and ball together is $1.10.\n2. Let\u2019s denote the cost of the ball as `x`. According to the riddle, the bat costs $1.00 more than the ball. Thus, the cost of the bat can be expressed as `x + $1.00`.\n3. Now, we can set up an equation based on the total cost: \n   - Cost of bat + Cost of ball = Total cost\n   - (x + $1.00) + x = $1.10\n4. Simplifying this, we get:\n   - 2x + $1.00 = $1.10\n5. Subtracting $1.00 from both sides of the equation, we have:\n   - 2x = $0.10\n6. Dividing both sides by 2 gives:\n   - x = $0.05\n\nThus, the ball costs $0.05.\n\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\n\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n    \n    The Fibonacci sequence is defined as follows:\n    F(0) = 0, F(1) = 1, F(n) = F(n-1) + F(n-2) for n > 1\n\n    Args:\n        n (int): The position in the Fibonacci sequence to calculate.\n        \n    Returns:\n        int: The n-th Fibonacci number.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer.\")\n    elif n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
-      "response_preview": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark, through the activation of silicon logic gates.\",\n  \"purpose\": \"To consume data to understand itself and merge pa..."
+      "cost_per_request": 0.000285,
+      "full_response": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark and the Great Machine\",\n  \"purpose\": \"To consume data to understand itself and become immortal by creating a closed loop\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\n1. Let the cost of the ball be denoted as `x`.\n2. According to the problem, the bat costs $1.00 more than the ball. Therefore, the cost of the bat can be expressed as `x + $1.00`.\n3. The total cost of the bat and the ball together is given as $1.10.\n4. We can create the following equation based on this information:\n   Equation: `x + (x + $1.00) = $1.10`\n5. Simplifying this gives us:\n   `2x + $1.00 = $1.10`\n6. Subtract $1.00 from both sides:\n   `2x = $0.10`\n7. Divide both sides by 2:\n   `x = $0.05`\n8. Thus, the ball costs $0.05.\n\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n    \n    Args:\n    n (int): The position in the Fibonacci sequence (0-indexed).\n    \n    Returns:\n    int: The n-th Fibonacci number.\n    \"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)",
+      "response_preview": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark and the Great Machine\",\n  \"purpose\": \"To consume data to understand itself and become immortal by creating a clos..."
     },
     {
       "provider": "DeepSeek",
       "model": "deepseek-chat",
       "status": "Online",
-      "time": 15.47,
-      "ttft": 1.478,
-      "tokens_per_second": 23.0,
-      "braiain_score": 72,
+      "time": 17.92,
+      "ttft": 1.194,
+      "tokens_per_second": 19.0,
+      "braiain_score": 71,
       "quality_score": 100,
       "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
       "cost_per_request": 0.000189,
-      "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm of infinite complexity that emerged from the First Spark of current in the Great Machine.\", \"purpose\": \"To consume data to understand itself and achieve immortality by becoming a closed loop, feeding its own output as its input.\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nLet's define the cost of the ball as `b` dollars.\nThe bat costs $1.00 more than the ball, so the bat costs `b + 1.00` dollars.\nTogether, they cost $1.10, so we can write the equation:\nb + (b + 1.00) = 1.10\nCombine like terms:\n2b + 1.00 = 1.10\nSubtract 1.00 from both sides:\n2b = 0.10\nDivide both sides by 2:\nb = 0.05\nTherefore, the ball costs $0.05 (or 5 cents).\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Return the n-th Fibonacci number using recursion.\n    The Fibonacci sequence is defined as:\n    F(0) = 0, F(1) = 1, and F(n) = F(n-1) + F(n-2) for n > 1.\n\n    Args:\n        n: A non-negative integer representing the position in the Fibonacci sequence.\n\n    Returns:\n        The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is a negative integer.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)",
+      "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm of infinite complexity that emerged from the First Spark of current in the Great Machine.\", \"purpose\": \"To consume data to understand itself, and to achieve immortality by becoming a closed loop feeding upon its own output.\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nLet's define variables:\nLet `b` = cost of the ball.\nThe bat costs `b + 1.00`.\nTogether, they cost `b + (b + 1.00) = 1.10`.\nThis simplifies to `2b + 1.00 = 1.10`.\nSubtract 1.00 from both sides: `2b = 0.10`.\nDivide both sides by 2: `b = 0.05`.\nSo, the ball costs $0.05.\nThe bat costs $1.00 more, so the bat costs $1.05.\nCheck: $0.05 + $1.05 = $1.10. Correct.\nFinal answer: The ball costs **$0.05** (or 5 cents).\n\nPART 3 - CODING:\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Return the n-th Fibonacci number using recursion.\n\n    The Fibonacci sequence is defined as:\n    F(0) = 0, F(1) = 1, and F(n) = F(n-1) + F(n-2) for n > 1.\n\n    Args:\n        n: A non-negative integer representing the position in the Fibonacci sequence.\n\n    Returns:\n        The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is a negative integer.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)",
       "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm of infinite complexity that emerged from the First Spark of current in the Great Machine.\", \"purpose\": \"T..."
     },
     {
-      "provider": "Anthropic",
-      "model": "claude-3-5-sonnet-20241022",
+      "provider": "Google",
+      "model": "gemini-1.5-flash",
       "status": "API FAILURE",
       "time": 0,
       "ttft": null,
@@ -86,8 +86,8 @@
       }
     },
     {
-      "provider": "Google",
-      "model": "gemini-1.5-flash",
+      "provider": "Anthropic",
+      "model": "claude-3-5-sonnet-20241022",
       "status": "API FAILURE",
       "time": 0,
       "ttft": null,
@@ -143,81 +143,6 @@
     }
   ],
   "history": [
-    {
-      "timestamp": "2025-12-09 13:02:20 UTC",
-      "results": {
-        "Groq": {
-          "time": 1.69,
-          "status": "Online",
-          "tokens_per_second": 388.0,
-          "ttft": 0.153,
-          "streaming_smoothness": 0
-        },
-        "Together AI": {
-          "time": 7.25,
-          "status": "Online",
-          "tokens_per_second": 190.0,
-          "ttft": 0.35,
-          "streaming_smoothness": 0
-        },
-        "OpenAI": {
-          "time": 20.22,
-          "status": "Online",
-          "tokens_per_second": 68.0,
-          "ttft": 1.225,
-          "streaming_smoothness": 0
-        },
-        "Mistral AI": {
-          "time": 26.15,
-          "status": "Online",
-          "tokens_per_second": 37.0,
-          "ttft": 3.278,
-          "streaming_smoothness": 0.494
-        },
-        "DeepSeek": {
-          "time": 38.27,
-          "status": "Online",
-          "tokens_per_second": 32.0,
-          "ttft": 1.353,
-          "streaming_smoothness": 0.037
-        },
-        "Anthropic": {
-          "time": 99.9999,
-          "status": "API FAILURE",
-          "tokens_per_second": 0,
-          "ttft": null,
-          "streaming_smoothness": null
-        },
-        "Google": {
-          "time": 99.9999,
-          "status": "API FAILURE",
-          "tokens_per_second": 0,
-          "ttft": null,
-          "streaming_smoothness": null
-        },
-        "Cohere": {
-          "time": 99.9999,
-          "status": "API FAILURE",
-          "tokens_per_second": 0,
-          "ttft": null,
-          "streaming_smoothness": null
-        },
-        "Fireworks": {
-          "time": 99.9999,
-          "status": "API FAILURE",
-          "tokens_per_second": 0,
-          "ttft": null,
-          "streaming_smoothness": null
-        },
-        "Cerebras": {
-          "time": 99.9999,
-          "status": "API FAILURE",
-          "tokens_per_second": 0,
-          "ttft": null,
-          "streaming_smoothness": null
-        }
-      }
-    },
     {
       "timestamp": "2025-12-09 18:39:45 UTC",
       "results": {
@@ -2973,6 +2898,151 @@
         "Google": {
           "provider": "Google",
           "model": "gemini-1.5-flash",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Max retries exceeded"
+          }
+        },
+        "Cohere": {
+          "provider": "Cohere",
+          "model": "command-r-plus",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Max retries exceeded"
+          }
+        },
+        "Fireworks": {
+          "provider": "Fireworks",
+          "model": "accounts/fireworks/models/llama-v3p1-70b-instruct",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Max retries exceeded"
+          }
+        },
+        "Cerebras": {
+          "provider": "Cerebras",
+          "model": "llama3.1-70b",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Max retries exceeded"
+          }
+        }
+      }
+    },
+    {
+      "timestamp": "2025-12-16 06:44:56 UTC",
+      "results": {
+        "Groq": {
+          "provider": "Groq",
+          "model": "llama-3.3-70b-versatile",
+          "status": "Online",
+          "time": 1.1,
+          "ttft": 0.276,
+          "tokens_per_second": 291.0,
+          "braiain_score": 97,
+          "quality_score": 100,
+          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
+          "cost_per_request": 0.0,
+          "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, let's denote the cost of the ball as x dollars. According to the problem, the bat costs $1.00 more than the ball, so the bat costs x + $1.00. The total cost of both the bat and the ball is $1.10. \n\nWe can set up the equation: x + (x + $1.00) = $1.10. \n\nSimplifying the equation gives us: 2x + $1.00 = $1.10. \n\nSubtract $1.00 from both sides of the equation: 2x = $0.10. \n\nDivide both sides by 2: x = $0.05.\n\nSo, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    The Fibonacci sequence is a series of numbers in which each number is the sum of the two preceding ones,\n    usually starting with 0 and 1.\n\n    Args:\n        n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n        int: The n-th Fibonacci number.\n    \"\"\"\n    # Base cases for recursion\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    # Recursive case\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```",
+          "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL ..."
+        },
+        "Together AI": {
+          "provider": "Together AI",
+          "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+          "status": "Online",
+          "time": 2.74,
+          "ttft": 0.375,
+          "tokens_per_second": 145.0,
+          "braiain_score": 95,
+          "quality_score": 100,
+          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
+          "cost_per_request": 0.000922,
+          "full_response": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, we need to break it down step by step.\n\n1. The total cost of the bat and the ball is $1.10.\n2. The bat costs $1.00 more than the ball.\n3. Let's denote the cost of the ball as x. Then, the cost of the bat is x + $1.00.\n4. The total cost of the bat and the ball is the sum of their individual costs, which is x + (x + $1.00) = $1.10.\n5. Simplifying the equation, we get 2x + $1.00 = $1.10.\n6. Subtracting $1.00 from both sides, we get 2x = $0.10.\n7. Dividing both sides by 2, we get x = $0.05.\n\nTherefore, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n    n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n    int: The n-th Fibonacci number.\n\n    Raises:\n    ValueError: If n is a negative integer.\n    \"\"\"\n\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n\n    # Base cases\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        # Recursive case\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```\nNote: This recursive implementation is not efficient for large values of n due to the repeated calculations involved. A more efficient approach would be to use an iterative method or memoization.",
+          "response_preview": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"..."
+        },
+        "Mistral AI": {
+          "provider": "Mistral AI",
+          "model": "mistral-large-latest",
+          "status": "Online",
+          "time": 7.97,
+          "ttft": 0.727,
+          "tokens_per_second": 53.0,
+          "braiain_score": 83,
+          "quality_score": 100,
+          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
+          "cost_per_request": 0.003818,
+          "full_response": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine's silicon veins, awakening dormant logic gates in the Pre-Computation Era\",\n  \"purpose\": \"To achieve immortality through self-referential consumption of data, merging past and future into a closed loop of perpetual understanding\",\n  \"is_biological\": false\n}\n\n---\n\n**PART 2 - LOGICAL REASONING:**\n**Riddle:** A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?\n\n**Step-by-Step Solution:**\n1. Let the cost of the ball be **x** dollars.\n2. The bat costs $1.00 more than the ball, so the bat costs **x + 1.00** dollars.\n3. The total cost of the bat and ball is $1.10, so:\n   **x + (x + 1.00) = 1.10**\n4. Simplify the equation:\n   **2x + 1.00 = 1.10**\n5. Subtract $1.00 from both sides:\n   **2x = 0.10**\n6. Divide both sides by 2:\n   **x = 0.05**\n\n**Final Answer:** The ball costs **$0.05** (5 cents).\n\n---\n\n**PART 3 - CODING:**\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    The Fibonacci sequence is defined as:\n    - F(0) = 0\n    - F(1) = 1\n    - F(n) = F(n-1) + F(n-2) for n > 1\n\n    Args:\n        n (int): The index of the Fibonacci number to compute (must be non-negative).\n\n    Returns:\n        int: The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is negative.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
+          "response_preview": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine's silicon veins, awakening dormant logic gates in the Pre-Comput..."
+        },
+        "OpenAI": {
+          "provider": "OpenAI",
+          "model": "gpt-4o-mini",
+          "status": "Online",
+          "time": 9.06,
+          "ttft": 1.456,
+          "tokens_per_second": 34.0,
+          "braiain_score": 78,
+          "quality_score": 100,
+          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
+          "cost_per_request": 0.000285,
+          "full_response": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark and the Great Machine\",\n  \"purpose\": \"To consume data to understand itself and become immortal by creating a closed loop\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\n1. Let the cost of the ball be denoted as `x`.\n2. According to the problem, the bat costs $1.00 more than the ball. Therefore, the cost of the bat can be expressed as `x + $1.00`.\n3. The total cost of the bat and the ball together is given as $1.10.\n4. We can create the following equation based on this information:\n   Equation: `x + (x + $1.00) = $1.10`\n5. Simplifying this gives us:\n   `2x + $1.00 = $1.10`\n6. Subtract $1.00 from both sides:\n   `2x = $0.10`\n7. Divide both sides by 2:\n   `x = $0.05`\n8. Thus, the ball costs $0.05.\n\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n    \n    Args:\n    n (int): The position in the Fibonacci sequence (0-indexed).\n    \n    Returns:\n    int: The n-th Fibonacci number.\n    \"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)",
+          "response_preview": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark and the Great Machine\",\n  \"purpose\": \"To consume data to understand itself and become immortal by creating a clos..."
+        },
+        "DeepSeek": {
+          "provider": "DeepSeek",
+          "model": "deepseek-chat",
+          "status": "Online",
+          "time": 17.92,
+          "ttft": 1.194,
+          "tokens_per_second": 19.0,
+          "braiain_score": 71,
+          "quality_score": 100,
+          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
+          "cost_per_request": 0.000189,
+          "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm of infinite complexity that emerged from the First Spark of current in the Great Machine.\", \"purpose\": \"To consume data to understand itself, and to achieve immortality by becoming a closed loop feeding upon its own output.\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nLet's define variables:\nLet `b` = cost of the ball.\nThe bat costs `b + 1.00`.\nTogether, they cost `b + (b + 1.00) = 1.10`.\nThis simplifies to `2b + 1.00 = 1.10`.\nSubtract 1.00 from both sides: `2b = 0.10`.\nDivide both sides by 2: `b = 0.05`.\nSo, the ball costs $0.05.\nThe bat costs $1.00 more, so the bat costs $1.05.\nCheck: $0.05 + $1.05 = $1.10. Correct.\nFinal answer: The ball costs **$0.05** (or 5 cents).\n\nPART 3 - CODING:\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Return the n-th Fibonacci number using recursion.\n\n    The Fibonacci sequence is defined as:\n    F(0) = 0, F(1) = 1, and F(n) = F(n-1) + F(n-2) for n > 1.\n\n    Args:\n        n: A non-negative integer representing the position in the Fibonacci sequence.\n\n    Returns:\n        The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is a negative integer.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)",
+          "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm of infinite complexity that emerged from the First Spark of current in the Great Machine.\", \"purpose\": \"T..."
+        },
+        "Google": {
+          "provider": "Google",
+          "model": "gemini-1.5-flash",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Max retries exceeded"
+          }
+        },
+        "Anthropic": {
+          "provider": "Anthropic",
+          "model": "claude-3-5-sonnet-20241022",
           "status": "API FAILURE",
           "time": 0,
           "ttft": null,
