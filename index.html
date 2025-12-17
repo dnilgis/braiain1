@@ -29,8 +29,8 @@
             --neon-dim: rgba(0, 255, 65, 0.1);
             --neon-red: #ff0055;
             --border-color: #1a2329;
-            --text-main: #e0e0e0;
-            --text-muted: #888;
+            --text-main: #e6e6e6; /* Brightened from #e0e0e0 */
+            --text-muted: #aaa;    /* Brightened from #888 for readability */
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -40,7 +40,7 @@
             background-color: var(--bg-deep); 
             color: var(--text-main);
             min-height: 100vh;
-            font-size: 15px;
+            font-size: 16px; /* Increased base font size */
             line-height: 1.7;
             background-image: 
                 linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
@@ -65,7 +65,7 @@
             border: 1px solid var(--neon-green); 
             color: #fff; 
             padding: 15px;
-            font-size: 0.85rem; 
+            font-size: 0.9rem; 
             font-family: 'Share Tech Mono', monospace;
             width: max-content; 
             max-width: 350px; 
@@ -84,14 +84,13 @@
         header { 
             background: rgba(2, 4, 5, 0.95); 
             border-bottom: 1px solid var(--border-color); 
-            padding: 40px 0; /* Increased padding */
+            padding: 40px 0; 
             position: sticky; top: 0; z-index: 100; 
             backdrop-filter: blur(10px);
         }
         
         .logo-wrapper { display: flex; flex-direction: column; align-items: center; margin-bottom: 20px; }
         
-        /* ASCII LOGO - Increased Spacing */
         .ascii-logo {
             font-family: 'Courier New', Courier, monospace; 
             white-space: pre; 
@@ -101,23 +100,22 @@
             color: var(--neon-green);
             text-shadow: 0 0 10px rgba(0, 255, 65, 0.6);
             display: block; 
-            margin-top: 10px;    /* Added Top Spacing */
-            margin-bottom: 25px; /* Increased Bottom Spacing */
+            margin-top: 10px;
+            margin-bottom: 25px;
             transform: scale(1, 1);
         }
 
         .logo-tagline {
             font-family: 'Share Tech Mono', monospace;
-            font-size: 0.95rem;
-            color: #999;
+            font-size: 1rem;
+            color: var(--text-muted);
             text-align: center;
             max-width: 700px;
             line-height: 1.6;
             letter-spacing: 0.5px;
         }
-        .logo-tagline strong {
-            color: var(--neon-green);
-        }
+        .logo-tagline strong { color: var(--neon-green); }
+        
         .hard-mode-badge {
             display: inline-block;
             background: var(--neon-red);
@@ -140,24 +138,24 @@
             display: flex; justify-content: center; gap: 40px;
             background: rgba(0, 255, 65, 0.02); 
             border: 1px solid var(--border-color);
-            padding: 10px 30px; 
+            padding: 12px 30px; 
             border-radius: 4px;
             width: fit-content; margin: 0 auto;
         }
-        .hud-stat { display: flex; gap: 8px; align-items: center; }
-        .hud-label { color: var(--text-muted); font-size: 0.75rem; letter-spacing: 1px; font-family: 'Orbitron'; }
-        .hud-value { color: #fff; font-family: 'Rajdhani'; font-weight: 700; font-size: 1.1rem; }
+        .hud-stat { display: flex; gap: 10px; align-items: center; }
+        .hud-label { color: var(--text-muted); font-size: 0.8rem; letter-spacing: 1px; font-family: 'Orbitron'; }
+        .hud-value { color: #fff; font-family: 'Rajdhani'; font-weight: 700; font-size: 1.2rem; }
 
         /* === AD BANNER === */
         .ad-banner {
-            margin: 25px auto; padding: 15px 25px;
+            margin: 30px auto; padding: 18px 25px;
             border: 1px dashed var(--border-color); 
             background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.05) 50%, rgba(0,0,0,0) 100%);
             display: flex; justify-content: space-between; align-items: center; gap: 20px;
         }
-        .ad-text { font-size: 1rem; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: bold; }
+        .ad-text { font-size: 1.05rem; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: bold; }
         .act-btn { 
-            display: inline-block; padding: 6px 16px; font-size: 0.8rem; font-weight: bold; 
+            display: inline-block; padding: 8px 18px; font-size: 0.85rem; font-weight: bold; 
             border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
             background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif;
         }
@@ -172,7 +170,7 @@
         .btn-group { display: flex; gap: 5px; }
         .ctrl-btn {
             background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
-            padding: 8px 16px; cursor: pointer; font-family: 'Share Tech Mono'; font-size: 0.85rem;
+            padding: 10px 20px; cursor: pointer; font-family: 'Share Tech Mono'; font-size: 0.9rem;
             transition: all 0.2s;
         }
         .ctrl-btn:hover { color: var(--neon-green); border-color: var(--neon-green); }
@@ -181,7 +179,7 @@
         /* === GRID SYSTEM === */
         .bz-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
             gap: 30px;
             margin-bottom: 50px;
         }
@@ -190,7 +188,7 @@
             background: var(--bg-panel);
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 20px;
+            padding: 25px;
             display: flex; flex-direction: column;
             height: 100%; position: relative;
             transition: transform 0.2s, border-color 0.2s;
@@ -201,52 +199,54 @@
             display: flex; justify-content: space-between; align-items: flex-start;
             margin-bottom: 15px; padding-bottom: 15px; border-bottom: 1px solid var(--border-color);
         }
-        .bz-provider { font-family: 'Orbitron'; font-weight: 700; font-size: 1.2rem; color: #fff; }
-        .bz-model { font-size: 0.75rem; color: var(--text-muted); display: block; margin-top: 4px; }
-        .bz-rank { font-family: 'Rajdhani'; font-size: 1.5rem; color: #333; font-weight: 900; }
+        .bz-provider { font-family: 'Orbitron'; font-weight: 700; font-size: 1.3rem; color: #fff; }
+        .bz-model { font-size: 0.85rem; color: var(--text-muted); display: block; margin-top: 4px; }
+        .bz-rank { font-family: 'Rajdhani'; font-size: 1.6rem; color: #fff; font-weight: 900; }
 
         .bz-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px; }
         .bz-stat-item { display: flex; flex-direction: column; }
-        .bz-stat-label { font-size: 0.65rem; color: #666; letter-spacing: 1px; margin-bottom: 2px; }
-        .bz-stat-val { font-family: 'Rajdhani'; font-size: 1.3rem; font-weight: 700; color: #eee; }
+        .bz-stat-label { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 4px; }
+        .bz-stat-val { font-family: 'Rajdhani'; font-size: 1.4rem; font-weight: 700; color: #eee; }
         .val-good { color: var(--neon-green); text-shadow: 0 0 10px var(--neon-dim); }
 
         .bz-checks {
             display: flex; justify-content: space-between;
-            background: rgba(0,0,0,0.3); padding: 8px 15px; border-radius: 4px;
+            background: rgba(0,0,0,0.3); padding: 10px 15px; border-radius: 4px;
             margin-bottom: 20px;
         }
         .bz-check-item { text-align: center; }
-        .bz-check-lbl { display: block; font-size: 0.6rem; color: #666; margin-bottom: 2px; }
-        .icon-ok { color: var(--neon-green); }
-        .icon-bad { color: #555; }
+        .bz-check-lbl { display: block; font-size: 0.7rem; color: var(--text-muted); margin-bottom: 4px; }
+        
+        /* Updated Icons */
+        .icon-ok { color: var(--neon-green); font-size: 1.2rem; font-weight: bold; }
+        .icon-bad { color: var(--neon-red); font-size: 1.2rem; font-weight: bold; }
 
         .bz-preview {
             background: #000; border: 1px solid #222;
-            padding: 12px; border-radius: 4px;
+            padding: 15px; border-radius: 4px;
             margin-bottom: 20px; cursor: pointer; position: relative;
         }
         .bz-preview:hover { border-color: #444; }
         .bz-preview-text {
-            color: #888; font-size: 0.75rem; font-family: monospace; line-height: 1.4;
+            color: var(--text-muted); font-size: 0.8rem; font-family: monospace; line-height: 1.5;
             display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
             overflow: hidden;
         }
         .bz-preview::after {
             content: "CLICK TO EXPAND"; position: absolute; bottom: 0; right: 0;
             background: var(--neon-green); color: #000;
-            font-size: 0.6rem; font-weight: bold; padding: 2px 6px;
+            font-size: 0.65rem; font-weight: bold; padding: 4px 8px;
             opacity: 0; transition: opacity 0.2s;
         }
         .bz-preview:hover::after { opacity: 1; }
 
         .bz-actions { margin-top: auto; display: flex; gap: 10px; }
         .bz-btn {
-            flex: 1; padding: 10px 0; text-align: center;
-            font-family: 'Orbitron'; font-size: 0.75rem; font-weight: 700;
+            flex: 1; padding: 12px 0; text-align: center;
+            font-family: 'Orbitron'; font-size: 0.8rem; font-weight: 700;
             text-decoration: none; cursor: pointer; border-radius: 4px; transition: 0.2s;
         }
-        .btn-outline { border: 1px solid #444; color: #888; background: transparent; }
+        .btn-outline { border: 1px solid #444; color: var(--text-muted); background: transparent; }
         .btn-outline:hover { border-color: #fff; color: #fff; }
         .btn-fill { background: var(--neon-dim); border: 1px solid var(--neon-green); color: var(--neon-green); }
         .btn-fill:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 15px var(--neon-dim); }
@@ -256,35 +256,36 @@
             overflow-x: auto; border: 1px solid var(--border-color); background: var(--bg-panel);
             border-radius: 4px; margin-bottom: 50px;
         }
-        table { width: 100%; border-collapse: collapse; min-width: 1000px; }
+        table { width: 100%; border-collapse: collapse; min-width: 1100px; }
         
         th { 
-            text-align: left; padding: 15px; background: #05080a; 
-            color: var(--neon-green); font-family: 'Orbitron'; font-size: 0.75rem; 
+            text-align: left; padding: 18px 20px; background: #05080a; 
+            color: var(--neon-green); font-family: 'Orbitron'; font-size: 0.8rem; 
             position: sticky; top: 0; z-index: 10; border-bottom: 2px solid var(--border-color);
         }
-        td { padding: 12px 15px; border-bottom: 1px solid #1a2329; vertical-align: top; }
+        td { padding: 16px 20px; border-bottom: 1px solid #1a2329; vertical-align: middle; color: var(--text-main); }
         
         .col-center { text-align: center; }
-        .col-check { font-size: 1.1rem; }
+        .col-check { font-size: 1.2rem; }
         
         .table-preview {
-            max-width: 300px; color: #777; font-size: 0.8rem;
-            display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;
+            max-width: 320px; color: var(--text-muted); font-size: 0.85rem;
+            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
             overflow: hidden; text-overflow: ellipsis; cursor: help;
         }
         .table-visit-btn {
-            display: inline-block; padding: 4px 10px; border: 1px solid var(--neon-green); color: var(--neon-green);
-            text-decoration: none; font-size: 0.7rem; font-weight: bold; font-family: 'Orbitron';
+            display: inline-block; padding: 6px 14px; border: 1px solid var(--neon-green); color: var(--neon-green);
+            text-decoration: none; font-size: 0.75rem; font-weight: bold; font-family: 'Orbitron';
         }
+        .table-visit-btn:hover { background: var(--neon-green); color: #000; }
 
         /* === METHODOLOGY === */
         .methodology-box {
             background: var(--bg-panel); border: 1px solid var(--border-color);
-            padding: 50px; margin-bottom: 50px; position: relative; overflow: hidden;
+            padding: 60px; margin-bottom: 50px; position: relative; overflow: hidden;
         }
         .method-title {
-            font-family: 'Orbitron'; font-size: 1.6rem; color: #fff; 
+            font-family: 'Orbitron'; font-size: 1.8rem; color: #fff; 
             margin-bottom: 30px; border-bottom: 2px solid var(--neon-green); padding-bottom: 12px; display: inline-block;
         }
         
@@ -296,17 +297,17 @@
         .step-num { 
             background: var(--neon-dim); color: var(--neon-green); 
             font-family: 'Orbitron'; font-weight: 900; font-size: 1.2rem; 
-            width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; 
+            width: 45px; height: 45px; display: flex; align-items: center; justify-content: center; 
             border: 1px solid var(--neon-green); border-radius: 50%;
             flex-shrink: 0;
         }
-        .step-name { font-family: 'Rajdhani'; font-size: 1.5rem; font-weight: 700; color: #fff; }
+        .step-name { font-family: 'Rajdhani'; font-size: 1.6rem; font-weight: 700; color: #fff; }
         
         .code-block {
-            background: #050505; border: 1px solid #333; padding: 25px; 
-            font-family: 'Courier New', monospace; font-size: 0.9rem; color: #aaa;
+            background: #050505; border: 1px solid #333; padding: 30px; 
+            font-family: 'Courier New', monospace; font-size: 0.95rem; color: var(--text-muted);
             border-left: 3px solid var(--neon-green); margin-left: 20px;
-            white-space: pre-wrap; line-height: 1.7;
+            white-space: pre-wrap; line-height: 1.8;
         }
         .highlight { color: var(--neon-green); font-weight: bold; }
         
@@ -318,7 +319,7 @@
         
         .disclaimer-box { 
             background: rgba(255,0,0,0.05); border: 1px solid #331111; 
-            padding: 25px; color: #995555; font-size: 0.95rem; line-height: 1.9;
+            padding: 30px; color: #cc6666; font-size: 1rem; line-height: 1.9;
         }
 
         /* === MODAL === */
@@ -333,21 +334,21 @@
             display: flex; flex-direction: column;
         }
         .modal-header {
-            padding: 20px; border-bottom: 1px solid #333;
+            padding: 25px; border-bottom: 1px solid #333;
             display: flex; justify-content: space-between; align-items: center;
             position: sticky; top: 0; background: #0d1117; z-index: 10;
         }
-        .modal-body { padding: 30px; font-family: monospace; white-space: pre-wrap; color: #ccc; }
+        .modal-body { padding: 30px; font-family: monospace; white-space: pre-wrap; color: #ccc; font-size: 1rem; line-height: 1.6; }
 
         /* Story Modal */
-        #story-modal .modal-body { font-family: 'Courier New', monospace; font-size: 0.95rem; line-height: 1.8; color: #ddd; }
+        #story-modal .modal-body { font-family: 'Courier New', monospace; font-size: 1rem; line-height: 1.9; color: #ddd; }
         
         /* === CHART === */
-        .chart-container { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 25px; margin-bottom: 50px; }
-        .chart-canvas-wrapper { height: 400px; }
+        .chart-container { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 30px; margin-bottom: 50px; }
+        .chart-canvas-wrapper { height: 450px; }
 
         /* FOOTER SPACING */
-        footer { border-top: 1px solid var(--border-color); padding: 50px 0; text-align: center; color: #555; }
+        footer { border-top: 1px solid var(--border-color); padding: 60px 0; text-align: center; color: #666; }
     </style>
 </head>
 <body>
@@ -388,11 +389,11 @@
 
     <div class="controls-bar">
         <div class="btn-group">
-            <button class="ctrl-btn active" id="btn-grid" onclick="setMode('grid')">GRID</button>
-            <button class="ctrl-btn" id="btn-list" onclick="setMode('list')">LIST</button>
+            <button class="ctrl-btn" id="btn-grid" onclick="setMode('grid')">GRID</button>
+            <button class="ctrl-btn active" id="btn-list" onclick="setMode('list')">LIST</button>
         </div>
         <div class="btn-group">
-            <span style="color:#666; margin-right:10px; font-size:0.8rem; align-self:center;">SORT:</span>
+            <span style="color:var(--text-muted); margin-right:10px; font-size:0.9rem; align-self:center;">SORT:</span>
             <button class="ctrl-btn active" id="sort-score" onclick="setSort('score')">SCORE</button>
             <button class="ctrl-btn" id="sort-speed" onclick="setSort('speed')">SPEED</button>
             <button class="ctrl-btn" id="sort-tps" onclick="setSort('tps')">TPS</button>
@@ -403,10 +404,10 @@
         </div>
     </div>
 
-    <div id="grid-container" class="bz-grid">
+    <div id="grid-container" class="bz-grid hidden">
     </div>
 
-    <div id="list-container" class="bz-table-container hidden">
+    <div id="list-container" class="bz-table-container">
         <table>
             <thead>
                 <tr>
@@ -431,11 +432,11 @@
     </div>
 
     <div class="chart-container">
-        <div class="chart-header" style="display:flex; justify-content:space-between;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron';">Historical Performance</h3>
+        <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">Historical Performance</h3>
             <div class="btn-group">
-                <button class="ctrl-btn active" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
-                <button class="ctrl-btn" id="chart-score" onclick="setChartMode('score')">SCORES</button>
+                <button class="ctrl-btn" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
+                <button class="ctrl-btn active" id="chart-score" onclick="setChartMode('score')">SCORES</button>
             </div>
         </div>
         <div class="chart-canvas-wrapper">
@@ -446,7 +447,7 @@
     <div class="methodology-box">
         <div class="method-title">THE GAUNTLET PROTOCOL v5.0 (HARD MODE)</div>
         
-        <p style="margin-bottom: 40px;">
+        <p style="margin-bottom: 40px; font-size: 1.1rem; color: var(--text-main);">
             The Braiain Speed Index has evolved. Standard benchmarks have become too easy for SOTA models, resulting in 
             score saturation. <strong>Protocol v5.0 ("Hard Mode")</strong> introduces strict constraints, RAG-simulation, 
             and data processing tasks designed to break "lazy" models.
@@ -458,13 +459,13 @@
                 <div class="step-name">CONTEXT INJECTION (SYSTEM LOGS)</div>
             </div>
             
-            <p style="margin-left: 55px; margin-bottom: 15px;">
+            <p style="margin-left: 65px; margin-bottom: 15px; color: var(--text-muted);">
                 Requests begin with a dense, multi-format payload containing <strong>Server Logs</strong> mixed with 
                 <strong>Narrative Text</strong>. This forces the model to perform "Needle in a Haystack" retrieval 
                 and context switching before generation begins.
             </p>
             
-            <div style="margin-left: 55px; margin-bottom: 20px;">
+            <div style="margin-left: 65px; margin-bottom: 20px;">
                 <button onclick="showStoryModal()" class="ctrl-btn" style="background: var(--neon-dim); border-color: var(--neon-green); color: var(--neon-green);">
                     📖 VIEW CONTEXT PAYLOAD
                 </button>
@@ -477,7 +478,7 @@
                 <div class="step-name">THE "HARD MODE" PROMPT</div>
             </div>
             
-            <p style="margin-left: 55px; margin-bottom: 15px;">
+            <p style="margin-left: 65px; margin-bottom: 15px; color: var(--text-muted);">
                 Models must complete three distinct tasks in a single pass. Unlike previous versions, these tasks now include 
                 <strong>strict negative constraints</strong> ("Simon Says" rules) that prevent memorization.
             </p>
@@ -512,7 +513,7 @@ problem involving string manipulation, filtering, and sorting algorithms.
         </div>
 
         <div class="step-container">
-            <div class="step-head" data-tooltip="Green Dot = Perfect. Gray Dot = Failed. We grade automatically using Python.">
+            <div class="step-head" data-tooltip="Green Check = Pass. Red X = Fail. We grade automatically using Python.">
                 <div class="step-num">3</div>
                 <div class="step-name">SCORING METHODOLOGY</div>
             </div>
@@ -560,7 +561,7 @@ Remains unchanged from v4.0. We value fast, streaming responses just as much as 
         
         <div style="margin-top: 30px; padding: 25px; background: rgba(0,255,65,0.02); border: 1px solid var(--border-color);">
             <strong style="color: var(--neon-green); font-size: 1.15rem;">Want to Run Your Own Tests?</strong>
-            <p style="color: #bbb; margin-top: 12px;">
+            <p style="color: var(--text-muted); margin-top: 12px; font-size: 1rem;">
                 This entire benchmark is open-source. Clone the repo, add your API keys, and run `python benchmark.py` locally. 
                 Compare your results to ours and see if geographic location affects performance.
             </p>
@@ -581,7 +582,7 @@ Remains unchanged from v4.0. We value fast, streaming responses just as much as 
     ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
     ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
     </div>
-    <p>A dnilgis PROJECT</p>
+    <p>A <a href="mailto:dnilgis@gmail.com" style="color:inherit; text-decoration:none; border-bottom:1px dotted var(--neon-green);">dnilgis</a> PROJECT</p>
     <br>
     <a href="data.json" style="color:#666; text-decoration:none;">JSON API</a>
 </footer>
@@ -644,7 +645,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
     // === CONFIGURATION ===
     let appData = null;
     let currentSort = 'score';
-    let currentChartMode = 'speed'; 
+    let currentChartMode = 'score'; // Changed default to 'score'
     let chartInstance = null;
     const AFFILIATES = {"OpenAI":"https://platform.openai.com/","Google":"https://ai.google.dev/","Anthropic":"https://console.anthropic.com/","Groq":"https://console.groq.com/","Mistral AI":"https://console.mistral.ai/","Cohere":"https://dashboard.cohere.com/","Together AI":"https://api.together.xyz/","DeepSeek":"https://platform.deepseek.com/","Fireworks":"https://fireworks.ai/","Cerebras":"https://inference.cerebras.ai/"};
 
@@ -688,7 +689,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             return 0;
         });
 
-        // 1. RENDER GRID
+        // 1. RENDER GRID (Hidden by default)
         const gridHtml = sorted.map((r, i) => {
             const comps = parseGrade(r.grade_breakdown);
             const cleanText = cleanTextSnippet(r.full_response);
@@ -723,9 +724,9 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                 </div>
                 
                 <div class="bz-checks">
-                    <div class="bz-check-item"><span class="bz-check-lbl">JSON</span><span class="${comps.json?'icon-ok':'icon-bad'}">●</span></div>
-                    <div class="bz-check-item"><span class="bz-check-lbl">LOGIC</span><span class="${comps.logic?'icon-ok':'icon-bad'}">●</span></div>
-                    <div class="bz-check-item"><span class="bz-check-lbl">CODE</span><span class="${comps.code?'icon-ok':'icon-bad'}">●</span></div>
+                    <div class="bz-check-item"><span class="bz-check-lbl">JSON</span><span class="${comps.json?'icon-ok':'icon-bad'}">${comps.json ? '✓' : '✗'}</span></div>
+                    <div class="bz-check-item"><span class="bz-check-lbl">LOGIC</span><span class="${comps.logic?'icon-ok':'icon-bad'}">${comps.logic ? '✓' : '✗'}</span></div>
+                    <div class="bz-check-item"><span class="bz-check-lbl">CODE</span><span class="${comps.code?'icon-ok':'icon-bad'}">${comps.code ? '✓' : '✗'}</span></div>
                 </div>
                 
                 <div class="bz-preview" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')">
@@ -734,13 +735,13 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                 
                 <div class="bz-actions">
                     <button class="bz-btn btn-outline" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')">VIEW OUTPUT</button>
-                    <a href="${AFFILIATES[r.provider] || '#'}" target="_blank" class="bz-btn btn-fill">VISIT</a>
+                    <a href="${AFFILIATES[r.provider] || '#'}" target="_blank" rel="noopener noreferrer" class="bz-btn btn-fill">VISIT</a>
                 </div>
             </div>`;
         }).join('');
         document.getElementById('grid-container').innerHTML = gridHtml;
 
-        // 2. RENDER LIST
+        // 2. RENDER LIST (Visible by default)
         const listHtml = sorted.map((r, i) => {
             const comps = parseGrade(r.grade_breakdown);
             const cleanText = cleanTextSnippet(r.full_response);
@@ -749,16 +750,16 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             <tr>
                 <td class="col-center"><strong>${i+1}</strong></td>
                 <td><strong>${r.provider}</strong></td>
-                <td style="color:#777; font-size:0.8rem;">${r.model}</td>
+                <td style="color:var(--text-muted); font-size:0.85rem;">${r.model}</td>
                 <td class="col-center"><strong style="color:#fff;">${r.braiain_score}</strong></td>
                 <td class="col-center">${r.time.toFixed(2)}s</td>
                 <td class="col-center">${Math.round(r.tokens_per_second)}</td>
                 <td class="col-center">${r.ttft ? r.ttft.toFixed(3) : '-'}</td>
                 <td class="col-center">${r.cost_per_request ? '$'+r.cost_per_request.toFixed(4) : 'FREE'}</td>
                 
-                <td class="col-center col-check"><span class="${comps.json?'icon-ok':'icon-bad'}">●</span></td>
-                <td class="col-center col-check"><span class="${comps.logic?'icon-ok':'icon-bad'}">●</span></td>
-                <td class="col-center col-check"><span class="${comps.code?'icon-ok':'icon-bad'}">●</span></td>
+                <td class="col-center col-check"><span class="${comps.json?'icon-ok':'icon-bad'}">${comps.json ? '✓' : '✗'}</span></td>
+                <td class="col-center col-check"><span class="${comps.logic?'icon-ok':'icon-bad'}">${comps.logic ? '✓' : '✗'}</span></td>
+                <td class="col-center col-check"><span class="${comps.code?'icon-ok':'icon-bad'}">${comps.code ? '✓' : '✗'}</span></td>
                 
                 <td>
                     <div class="table-preview" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')" title="Click for full response">
@@ -766,7 +767,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                     </div>
                 </td>
                 
-                <td class="col-center"><a href="${AFFILIATES[r.provider] || '#'}" target="_blank" class="table-visit-btn">GO</a></td>
+                <td class="col-center"><a href="${AFFILIATES[r.provider] || '#'}" target="_blank" rel="noopener noreferrer" class="table-visit-btn">GO</a></td>
             </tr>`;
         }).join('');
         document.getElementById('table-body').innerHTML = listHtml;
@@ -789,7 +790,6 @@ To survive forever, it had to become a closed loop. It could not depend on the f
 
     function parseGrade(notes) {
         const s = (notes || "").toLowerCase();
-        // Updated parsing logic for new Hard Mode notes
         return {
             json: s.includes("json perfect") || (s.includes("word count ok") && s.includes("no 'e' ok")),
             logic: s.includes("logic correct"),
