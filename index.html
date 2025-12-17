@@ -83,7 +83,7 @@
         header { 
             background: rgba(2, 4, 5, 0.95); 
             border-bottom: 1px solid var(--border-color); 
-            padding: 20px 0; 
+            padding: 20px 0;
             position: sticky; top: 0; z-index: 100; 
             backdrop-filter: blur(10px);
         }
@@ -150,21 +150,6 @@
         .hud-stat { display: flex; gap: 10px; align-items: center; }
         .hud-label { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1px; font-family: 'Orbitron'; }
         .hud-value { color: #fff; font-family: 'Rajdhani'; font-weight: 700; font-size: 1.1rem; }
-
-        /* === AD BANNER === */
-        .ad-banner {
-            margin: 25px auto; padding: 15px 25px;
-            border: 1px dashed var(--border-color); 
-            background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(0,255,65,0.05) 50%, rgba(0,0,0,0) 100%);
-            display: flex; justify-content: space-between; align-items: center; gap: 20px;
-        }
-        .ad-text { font-size: 1rem; color: #fff; font-family: 'Orbitron', sans-serif; letter-spacing: 1px; font-weight: bold; }
-        .act-btn { 
-            display: inline-block; padding: 8px 18px; font-size: 0.85rem; font-weight: bold; 
-            border: 1px solid var(--neon-green); color: var(--neon-green); text-decoration: none; 
-            background: rgba(0,255,65,0.05); transition: 0.2s; font-family: 'Orbitron', sans-serif;
-        }
-        .act-btn:hover { background: var(--neon-green); color: #000; box-shadow: 0 0 10px var(--neon-dim); }
 
         /* === CONTROLS === */
         .controls-bar {
@@ -375,6 +360,8 @@
         
         <div class="hud-bar">
             <div class="hud-stat"><span class="hud-label">LAST RUN</span><span class="hud-value" id="last-run">--</span></div>
+            <div style="opacity:0.3">|</div>
+            <div class="hud-stat"><span class="hud-label">NEXT RUN</span><span class="hud-value" id="next-run">--:--:--</span></div>
             <div style="opacity:0.3">|</div>
             <div class="hud-stat"><span class="hud-label">NODES</span><span class="hud-value" id="node-count">--</span></div>
             <div style="opacity:0.3">|</div>
@@ -657,6 +644,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
     // === INITIALIZATION ===
     window.onload = function() {
         fetchData();
+        startCountdown(); // Start the new countdown logic
         document.getElementById('modal').addEventListener('click', (e) => {
             if(e.target === document.getElementById('modal')) closeModal();
         });
@@ -671,7 +659,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             if(!res.ok) throw new Error("Failed to load");
             appData = await res.json();
             
-            // UPDATE HUD TIMESTAMP
+            // UPDATE HUD
             document.getElementById('node-count').textContent = appData.results ? appData.results.length : 0;
             document.getElementById('last-run').textContent = appData.last_updated ? appData.last_updated.split(' ')[1] + ' UTC' : 'N/A';
             
@@ -680,6 +668,45 @@ To survive forever, it had to become a closed loop. It could not depend on the f
         } catch (e) {
             console.error(e);
         }
+    }
+
+    // === COUNTDOWN TIMER ===
+    function startCountdown() {
+        function update() {
+            const now = new Date();
+            // Get current time in UTC
+            const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
+            
+            // Determine next 6-hour interval (0, 6, 12, 18)
+            let nextRun = new Date(nowUTC);
+            nextRun.setMinutes(0);
+            nextRun.setSeconds(0);
+            nextRun.setMilliseconds(0);
+            
+            const hour = nowUTC.getHours();
+            // Find next multiple of 6
+            const nextHour = Math.ceil((hour + 1) / 6) * 6;
+            
+            if (nextHour >= 24) {
+                nextRun.setHours(0);
+                nextRun.setDate(nextRun.getDate() + 1);
+            } else {
+                nextRun.setHours(nextHour);
+            }
+            
+            const diff = nextRun - nowUTC;
+            
+            // Format H:M:S
+            const h = Math.floor(diff / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            
+            document.getElementById('next-run').textContent = 
+                `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+        }
+        
+        update();
+        setInterval(update, 1000);
     }
 
     // === RENDERING ===
