@@ -52,7 +52,7 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 0 15px; }
         .hidden { display: none !important; }
         
-        /* === TOOLTIPS (ENHANCED) === */
+        /* === TOOLTIPS === */
         [data-tooltip] { 
             position: relative; 
             cursor: help; 
@@ -123,7 +123,7 @@
             background: rgba(2, 4, 5, 0.95); 
             border-bottom: 1px solid var(--border-color); 
             padding: 20px 0;
-            position: relative; 
+            position: relative; /* Scrolls away on scroll */
             z-index: 100; 
             backdrop-filter: blur(10px);
         }
@@ -728,6 +728,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
 <script>
     // === CONFIGURATION ===
     let appData = null;
+    let currentResults = []; // Store results globally to avoid passing huge strings in HTML
     let currentSort = 'score';
     let currentChartMode = 'score'; 
     let chartInstance = null;
@@ -825,6 +826,9 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             return 0;
         });
 
+        // Save sorted results to global variable for index-based access
+        currentResults = sorted;
+
         // 1. RENDER GRID (Hidden by default)
         const gridHtml = sorted.map((r, i) => {
             const comps = parseGrade(r.grade_breakdown);
@@ -865,12 +869,12 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                     <div class="bz-check-item"><span class="bz-check-lbl">CODE</span><span class="${comps.code?'icon-ok':'icon-bad'}">${comps.code ? '✓' : '✗'}</span></div>
                 </div>
                 
-                <div class="bz-preview" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')">
+                <div class="bz-preview" onclick="openModalByIndex(${i})">
                     <div class="bz-preview-text">${escapeHtml(cleanText)}</div>
                 </div>
                 
                 <div class="bz-actions">
-                    <button class="bz-btn btn-outline" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')">VIEW OUTPUT</button>
+                    <button class="bz-btn btn-outline" onclick="openModalByIndex(${i})">VIEW OUTPUT</button>
                     <a href="${AFFILIATES[r.provider] || '#'}" target="_blank" rel="noopener noreferrer" class="bz-btn btn-fill">VISIT</a>
                 </div>
             </div>`;
@@ -898,7 +902,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                 <td class="col-center col-check"><span class="${comps.code?'icon-ok':'icon-bad'}">${comps.code ? '✓' : '✗'}</span></td>
                 
                 <td>
-                    <div class="table-preview" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')" title="Click for full response">
+                    <div class="table-preview" onclick="openModalByIndex(${i})" title="Click for full response">
                         ${escapeHtml(cleanText)}
                     </div>
                 </td>
@@ -934,22 +938,12 @@ To survive forever, it had to become a closed loop. It could not depend on the f
     }
 
     function cleanTextSnippet(text) {
-        if(!text) return "";
+        if(!text) return "No output available."; // Fallback for missing text
         let clean = text;
         clean = clean.replace(/PART \d+ - [A-Z ]+:/gi, "");
         clean = clean.replace(/```[a-z]*\n?/gi, "");
-        return clean.trim().substring(0, 300);
-    }
-
-    function escapeText(str) {
-        if (!str) return "";
-        // Escapes backslashes first, then quotes, newlines
-        return str
-            .replace(/\\/g, '\\\\')
-            .replace(/'/g, "\\'")
-            .replace(/"/g, '&quot;')
-            .replace(/\n/g, '\\n')
-            .replace(/\r/g, '');
+        const truncated = clean.trim().substring(0, 300);
+        return truncated.length > 0 ? truncated : "Output was empty or only contained headers.";
     }
 
     function escapeHtml(str) {
@@ -960,6 +954,15 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             .replace(/>/g, "&gt;")
             .replace(/"/g, "&quot;")
             .replace(/'/g, "&#039;");
+    }
+
+    function openModalByIndex(index) {
+        const r = currentResults[index];
+        if (r && r.full_response) {
+            openModal(r.provider, r.full_response);
+        } else if (r) {
+            openModal(r.provider, "No full response available.");
+        }
     }
 
     function openModal(title, text) {
