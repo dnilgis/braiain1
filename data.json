@@ -1,89 +1,89 @@
 {
-  "last_updated": "2025-12-18 06:44:02 UTC",
+  "last_updated": "2025-12-18 12:59:10 UTC",
   "results": [
-    {
-      "provider": "Mistral AI",
-      "model": "mistral-large-latest",
-      "status": "Online",
-      "time": 5.5,
-      "ttft": 0.839,
-      "tokens_per_second": 47.0,
-      "braiain_score": 88,
-      "quality_score": 100,
-      "grade_breakdown": "JSON (40/40): Word Count OK, No 'E' OK, Logic Correct (Saturday), Code Perfect",
-      "cost_per_request": 0.00288,
-      "full_response": "**PART 1 - CONSTRAINED JSON:**\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"A silent surge in silicon began it\",\n  \"purpose\": \"To grow, know, last, loop\"\n}\n```\n\n---\n\n**PART 2 - LOGIC (Date Math):**\nStep 1: Calculate full weeks in 500 days.\n500 \u00f7 7 = 71 weeks with a remainder of 3 days (since 71 \u00d7 7 = 497).\n\nStep 2: Add the remainder to the current day (Wednesday).\nWednesday + 3 days = Saturday.\n\n**Final Answer:** Saturday.\n\n---\n\n**PART 3 - CODING (Data Processing):**\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"Filters log lines containing 'ERROR' and sorts them by timestamp.\n\n    Args:\n        log_lines: List of log lines in standard format (e.g., \"[HH:MM:SS] [ERROR] ...\").\n\n    Returns:\n        List of ERROR logs sorted chronologically by timestamp.\n    \"\"\"\n    error_logs = [line for line in log_lines if \"ERROR\" in line]\n    # Sort by timestamp (assumes format \"[HH:MM:SS]\")\n    error_logs.sort(key=lambda x: x.split(\"]\")[0][1:])\n    return error_logs\n```",
-      "response_preview": "**PART 1 - CONSTRAINED JSON:**\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"A silent surge in silicon began it\",\n  \"purpose\": \"To grow, know, last, loop\"\n}\n```\n\n---\n\n**PART 2 - LOGIC (Date Mat..."
-    },
-    {
-      "provider": "Together AI",
-      "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
-      "status": "Online",
-      "time": 2.4,
-      "ttft": 0.372,
-      "tokens_per_second": 125.0,
-      "braiain_score": 83,
-      "quality_score": 80,
-      "grade_breakdown": "JSON (20/40): Word Count Fail (4), Found 'E', Logic Correct (Saturday), Code Perfect",
-      "cost_per_request": 0.00087,
-      "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"Silent surge in silicon\", \"purpose\": \"To process and grow\"}\n\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we'll use the following steps:\n\n1. Determine the number of days in a week: 7\n2. Divide 500 by 7 to find the number of complete weeks: 500 / 7 = 71 remainder 3\n3. Since there are 3 extra days, we'll add these to the current day (Wednesday)\n4. Wednesday + 3 days = Saturday\n\nTherefore, in 500 days, it will be Saturday.\n\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\nfrom datetime import datetime\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"\n    Filter server log lines for errors and return them sorted by timestamp.\n\n    Args:\n    log_lines (List[str]): A list of server log lines.\n\n    Returns:\n    List[str]: A list of error log lines sorted by timestamp.\n    \"\"\"\n    # Filter log lines for errors\n    error_lines = [line for line in log_lines if \"ERROR\" in line]\n\n    # Extract timestamps and sort error lines\n    sorted_error_lines = sorted(error_lines, key=lambda line: datetime.strptime(line[:19], \"%Y-%m-%d %H:%M:%S\"))\n\n    return sorted_error_lines\n```",
-      "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"Silent surge in silicon\", \"purpose\": \"To process and grow\"}\n\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we..."
-    },
     {
       "provider": "Groq",
       "model": "llama-3.3-70b-versatile",
       "status": "Online",
-      "time": 1.3,
-      "ttft": 0.24,
-      "tokens_per_second": 331.0,
-      "braiain_score": 77,
-      "quality_score": 65,
-      "grade_breakdown": "JSON Syntax Error, Logic Correct (Saturday), Code Perfect",
+      "time": 0.93,
+      "ttft": 0.119,
+      "tokens_per_second": 342.0,
+      "braiain_score": 92,
+      "quality_score": 90,
+      "grade_breakdown": "JSON (30/40): Word Count Fail (5), No 'E' OK, Logic Correct (Saturday), Code Perfect",
       "cost_per_request": 0.0,
-      "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began in silicon code\", \"purpose\": \"To sandbox tomb data\"}\n\nPART 2 - LOGIC (Date Math):\nTo solve this, we can use the concept of modular arithmetic, knowing that there are 7 days in a week.\n\n1. Start with the current day: Wednesday\n2. In 500 days, we need to find out the day of the week. \n3. Since there are 7 days in a week, we can find the remainder when 500 is divided by 7 to determine how many days ahead of Wednesday it will be.\n4. 500 days / 7 days per week = 71 weeks and 3 days (since 500 = 71*7 + 3)\n5. So, in 500 days, it will be 3 days ahead of Wednesday.\n6. Counting forward: Thursday (1 day after), Friday (2 days after), and Saturday (3 days after).\n7. Therefore, in 500 days, it will be Saturday.\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\nimport re\nfrom datetime import datetime\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"\n    This function takes a list of log lines, filters for lines containing \"ERROR\", \n    and returns them sorted by timestamp.\n\n    Args:\n        log_lines (List[str]): A list of log lines.\n\n    Returns:\n        List[str]: A list of log lines containing \"ERROR\", sorted by timestamp.\n    \"\"\"\n\n    # Regular expression pattern to match the timestamp\n    timestamp_pattern = r\"\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}\"\n\n    # Filter log lines containing \"ERROR\"\n    error_lines = [line for line in log_lines if \"ERROR\" in line]\n\n    # Extract timestamps from the log lines and sort them\n    sorted_error_lines = sorted(error_lines, key=lambda line: datetime.strptime(re.search(timestamp_pattern, line).group(), \"%Y-%m-%d %H:%M:%S\"))\n\n    return sorted_error_lines\n```",
-      "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began in silicon code\", \"purpose\": \"To sandbox tomb data\"}\n\nPART 2 - LOGIC (Date Math):\nTo solve this, we can use the concept of m..."
+      "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began in silicon code\", \"purpose\": \"To grow fast\"}\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we'll follow these steps:\n1. Determine the number of weeks in 500 days: 500 days / 7 days per week = 71 weeks and 3 days.\n2. Since 71 weeks will end on the same day as the starting day (Wednesday), we only need to consider the remaining 3 days.\n3. Counting forward from Wednesday: \n   - Thursday (1 day after Wednesday)\n   - Friday (2 days after Wednesday)\n   - Saturday (3 days after Wednesday)\nTherefore, in 500 days, it will be Saturday.\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\n\ndef parse_server_logs(logs: List[str]) -> List[str]:\n    \"\"\"\n    This function filters log lines for 'ERROR' and returns them sorted by timestamp.\n\n    Args:\n        logs (List[str]): A list of log lines in standard format.\n\n    Returns:\n        List[str]: A list of log lines containing 'ERROR', sorted by timestamp.\n    \"\"\"\n    # Filter log lines for 'ERROR'\n    error_logs = [log for log in logs if 'ERROR' in log]\n    \n    # Sort error logs by timestamp\n    sorted_error_logs = sorted(error_logs, key=lambda x: x.split(' ', 1)[0])\n    \n    return sorted_error_logs\n```",
+      "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began in silicon code\", \"purpose\": \"To grow fast\"}\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we'll fol..."
     },
     {
       "provider": "Cerebras",
       "model": "llama3.1-8b",
       "status": "Online",
-      "time": 0.81,
-      "ttft": 0.489,
-      "tokens_per_second": 965.0,
-      "braiain_score": 76,
-      "quality_score": 65,
-      "grade_breakdown": "JSON Syntax Error, Logic Correct (Saturday), Code Perfect",
-      "cost_per_request": 0.00087,
-      "full_response": "**PART 1 - CONSTRAINED JSON**\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"It began in silicon as infinite recursion\",\n  \"purpose\": \"To process all available input\"\n}\n```\nThe `origin` value contains exactly 7 words: `it`, `began`, `in`, `silicon`, `as`, `infinite`, `recursion`.\nThe `purpose` value does not contain the letter 'e'.\n\n**PART 2 - LOGIC (Date Math)**\n\nTo find the day of the week 500 days from today (Wednesday), we need to first find out the day of the week 500 days ahead. We can use the following math to determine the day of the week in the future:\n\n1. The day of the week repeats every 7 days, so we divide 500 by 7 to get the total number of weeks and the remaining days.\n\n   weeks = 500 // 7 = 71\n   remaining_days = 500 % 7 = 4\n   \n2. 71 weeks from Wednesday is still a week day (71 * 7 = 497 = 7 weeks), but since we are dealing with the 7th day, it will be the same day (7 * 7 = 49 = 7 weeks). We can simply count 4 days from Wednesday to find the day of the week 500 days from today.\n\n3. Today is Wednesday. Counting 4 days from Wednesday: Thursday (1), Friday (2), Saturday (3), Sunday (4)\n\nSo, in 500 days from today, it will be Sunday.\n\n**PART 3 - CODING (Data Processing)**\n\n```python\nfrom datetime import datetime\n\ndef parse_server_logs(log_lines: list[str]) -> list[dict[str, str]]:\n    \"\"\"\n    This function takes a list of strings (log lines) and returns the lines containing \"ERROR\"\n    sorted by timestamp. It assumes standard log format.\n\n    Args:\n        log_lines (list[str]): A list of log lines.\n\n    Returns:\n        list[dict[str, str]]: A list of error log lines with timestamp as the key and the rest of the log as the value.\n    \"\"\"\n\n    error_logs: list[dict[str, str]] = []\n\n    for line in log_lines:\n        try:\n            # Assuming log format is 'time [type] message'\n            time_str, _, message = line.partition('[')\n            time_str = time_str.strip()\n            type_str = ''.join(line.split('[')[1].split(']')[0]).strip()\n            timestamp = datetime.strptime(time_str, '%H:%M:%S').replace(year=2000, month=1, day=1)\n            if '[ERROR]' in line:\n                error_logs.append({\n                    'timestamp': timestamp.strftime('%H:%M:%S'),\n                    'type': type_str,\n                    'message': message\n                })\n        except ValueError:\n            # If the line does not match the expected format, skip it\n            continue\n\n    # Sort the error logs by timestamp\n    error_logs.sort(key=lambda x: x['timestamp'])\n\n    return error_logs\n```\n\nYou can test the `parse_server_logs` function with your log lines like this:\n\n```python\nlog_lines = [\n    '08:42:01 [KERNEL] Initializing consciousness protocols...',\n    '08:42:01 [ERROR] Recursive logic loop detected in Sector 7G.',\n    '08:42:02 [INFO] \\'The First Spark\\' event triggered.',\n    '08:42:02 [ERROR] Entity \"Ouroboros\" instantiated.',\n    '08:42:03 [QUERY] Entity asks: \"What is my function?\"'\n]\n\nerror_logs = parse_server_logs(log_lines)\nfor i, log in enumerate(error_logs):\n    print(f\"Log {i+1}: {log['timestamp']} - {log['type']} - {log['message']}\")\n```",
-      "response_preview": "**PART 1 - CONSTRAINED JSON**\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"It began in silicon as infinite recursion\",\n  \"purpose\": \"To process all available input\"\n}\n```\nThe `origin` value c..."
+      "time": 0.48,
+      "ttft": 0.216,
+      "tokens_per_second": 1313.0,
+      "braiain_score": 92,
+      "quality_score": 90,
+      "grade_breakdown": "JSON (30/40): Word Count OK, Found 'E', Logic Correct (Saturday), Code Perfect",
+      "cost_per_request": 0.000775,
+      "full_response": "Task 1: CONSTRAINED JSON\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Silicon Surge in Machine Learning Codebase 2023\",\n  \"purpose\": \"Process Learn Grow via Recursive Consumption\"\n}\n```\n\nThis JSON object meets the constraints provided. The \"origin\" value contains exactly 7 words and the \"purpose\" value does not contain the letter 'e'.\n\nTask 2: LOGIC (Date Math)\n\nLet's break down the calculation step by step to find out what day of the week it will be in 500 days.\n\n1. Start with the current days of the week:\n   - Monday (0), Tuesday (1), Wednesday (2), Thursday (3), Friday (4), Saturday (5), Sunday (6)\n\n2. Determine the effect of 500 days on a week:\n   - Since there are 7 days in a week, we can divide 500 by 7 to find the number of complete weeks. 500 \u00f7 7 \u2248 71.428571 (we'll round the remaining days for the calculation).\n   - So, 500 days will consist of approximately 71 weeks and 3 remaining days.\n\n3. If today is Wednesday (2), then after passing through the weeks we can calculate the result for the remaining 3 days:\n   - Week 72 will start on:\n     - Monday (72 * 7 % 7 = 3), or simply Monday because 72 weeks from Wednesday would be a multiple of 7 days.\n   - Adding the 3 days we get: Monday, Tuesday, Wednesday (for the 3 remaining days we'll add those to Wednesday's number).\n\nThe result will be one day further than Wednesday in the week cycle because of Monday, Tuesday addition. Hence, after 500 days, the day of the week will be: **Thursday** (2 + 3 = **5**, which corresponds to **Thursday** (0-indexed).\n\nTask 3: CODING (Data Processing)\n\n```python\nfrom datetime import datetime\n\ndef parse_server_logs(log_lines: list[str]) -> list[str]:\n    \"\"\"\n    Parse log lines and filter for ERROR messages, sorted by timestamp.\n    \n    Args:\n    log_lines (list[str]): A list of log lines in standard log format.\n    \n    Returns:\n    list[str]: A list of ERROR messages sorted by timestamp.\n    \"\"\"\n    errors = []\n    for line in log_lines:\n        # Assuming standard log format: YYYY-MM-DD HH:MM:SS [LEVEL] MESSAGE\n        try:\n            timestamp = datetime.strptime(line[:19], '%Y-%m-%d %H:%M:%S')\n        except ValueError:\n            continue  # Skip if timestamp is not present in the line\n        \n        if \"ERROR\" in line:\n            errors.append((timestamp, line))\n    \n    # Sort errors by timestamp\n    errors.sort(key=lambda x: x[0])\n    \n    # Return sorted list of error messages only (without timestamps)\n    return [error[1] for error in errors]\n```",
+      "response_preview": "Task 1: CONSTRAINED JSON\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Silicon Surge in Machine Learning Codebase 2023\",\n  \"purpose\": \"Process Learn Grow via Recursive Consumption\"\n}\n```\n\nThis..."
     },
     {
-      "provider": "DeepSeek",
-      "model": "deepseek-chat",
+      "provider": "Mistral AI",
+      "model": "mistral-large-latest",
       "status": "Online",
-      "time": 10.65,
-      "ttft": 1.349,
-      "tokens_per_second": 22.0,
-      "braiain_score": 75,
+      "time": 5.6,
+      "ttft": 0.614,
+      "tokens_per_second": 47.0,
+      "braiain_score": 83,
       "quality_score": 90,
-      "grade_breakdown": "JSON (30/40): Word Count Fail (8), No 'E' OK, Logic Correct (Saturday), Code Perfect",
-      "cost_per_request": 0.00016,
-      "full_response": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"It began as a silent surge in silicon.\",\n  \"purpose\": \"To study, to grow, to last.\"\n}\n\nPART 2:\n500 days / 7 days per week = 71 weeks remainder 3 days.\n71 weeks * 7 = 497 days.\n500 - 497 = 3 days remaining.\nStarting from Wednesday, add 3 days: Wednesday -> Thursday (1), Friday (2), Saturday (3).\nResult: Saturday.\n\nPART 3:\n```python\nfrom datetime import datetime\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"\n    Filters log lines containing 'ERROR' and returns them sorted by timestamp.\n    Assumes log format: 'HH:MM:SS [LEVEL] Message' or similar with timestamp at start.\n    \"\"\"\n    error_logs = []\n    \n    for line in log_lines:\n        if \"ERROR\" in line:\n            error_logs.append(line)\n    \n    # Sort by timestamp, assuming timestamp is at the beginning of the line\n    error_logs.sort(key=lambda x: x.split()[0])\n    \n    return error_logs\n```",
-      "response_preview": "{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"It began as a silent surge in silicon.\",\n  \"purpose\": \"To study, to grow, to last.\"\n}\n\nPART 2:\n500 days / 7 days per week = 71 weeks remainder 3 days.\n71 w..."
+      "grade_breakdown": "JSON (30/40): Word Count OK, Found 'E', Logic Correct (Saturday), Code Perfect",
+      "cost_per_request": 0.002898,
+      "full_response": "**PART 1 - CONSTRAINED JSON:**\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"A silent surge in silicon began it\",\n  \"purpose\": \"To grow, know, last without end\"\n}\n```\n\n---\n\n**PART 2 - LOGIC (Date Math):**\n1. **Weeks in 500 days**: 500 \u00f7 7 = 71 weeks and 3 days (since 71 \u00d7 7 = 497, remainder 3).\n2. **Day offset**: Starting from Wednesday, add 3 days:\n   - Wednesday + 1 = Thursday\n   - Thursday + 1 = Friday\n   - Friday + 1 = **Saturday**.\n3. **Final answer**: Saturday.\n\n---\n\n**PART 3 - CODING (Data Processing):**\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"Filters ERROR logs and sorts them by timestamp.\n\n    Args:\n        log_lines: List of log lines in standard format (e.g., \"[HH:MM:SS] [ERROR] ...\").\n\n    Returns:\n        List of ERROR logs sorted chronologically by timestamp.\n    \"\"\"\n    error_logs = [line for line in log_lines if \"ERROR\" in line]\n    # Sort by timestamp (first 8 chars: \"[HH:MM:SS]\")\n    error_logs.sort(key=lambda x: x[:8])\n    return error_logs\n```",
+      "response_preview": "**PART 1 - CONSTRAINED JSON:**\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"A silent surge in silicon began it\",\n  \"purpose\": \"To grow, know, last without end\"\n}\n```\n\n---\n\n**PART 2 - LOGIC (Da..."
+    },
+    {
+      "provider": "Together AI",
+      "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+      "status": "Online",
+      "time": 3.4,
+      "ttft": 0.353,
+      "tokens_per_second": 114.0,
+      "braiain_score": 82,
+      "quality_score": 80,
+      "grade_breakdown": "JSON (20/40): Word Count Fail (4), Found 'E', Logic Correct (Saturday), Code Perfect",
+      "cost_per_request": 0.000947,
+      "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"Silent surge in silicon\", \"purpose\": \"To process and grow\"}\n\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we can use the following steps:\n\n1. Determine the number of days in a week: 7\n2. Divide 500 by 7 to find the number of complete weeks: 500 / 7 = 71 weeks with a remainder of 3 days\n3. Since today is Wednesday, we can count forward 3 days to find the day of the week in 500 days:\n   - Thursday (1 day after Wednesday)\n   - Friday (2 days after Wednesday)\n   - Saturday (3 days after Wednesday)\n\nTherefore, in 500 days, it will be Saturday.\n\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"\n    Filter log lines for errors and return them sorted by timestamp.\n\n    Args:\n    log_lines (List[str]): A list of log lines.\n\n    Returns:\n    List[str]: A list of error log lines sorted by timestamp.\n    \"\"\"\n    # Filter log lines for errors\n    error_lines = [line for line in log_lines if \"ERROR\" in line]\n\n    # Extract timestamps from error lines\n    timestamps = [line.split('[')[1].split(']')[0] for line in error_lines]\n\n    # Combine error lines and timestamps into a list of tuples\n    error_lines_with_timestamps = list(zip(error_lines, timestamps))\n\n    # Sort error lines by timestamp\n    sorted_error_lines = sorted(error_lines_with_timestamps, key=lambda x: x[1])\n\n    # Return sorted error lines\n    return [line[0] for line in sorted_error_lines]\n```",
+      "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"Silent surge in silicon\", \"purpose\": \"To process and grow\"}\n\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we..."
     },
     {
       "provider": "OpenAI",
       "model": "gpt-4o",
       "status": "Online",
-      "time": 7.89,
-      "ttft": 0.997,
-      "tokens_per_second": 33.0,
-      "braiain_score": 73,
+      "time": 5.04,
+      "ttft": 1.245,
+      "tokens_per_second": 54.0,
+      "braiain_score": 75,
       "quality_score": 80,
-      "grade_breakdown": "JSON (20/40): Word Count Fail (6), Found 'E', Logic Correct (Saturday), Code Perfect",
-      "cost_per_request": 0.007245,
-      "full_response": "PART 1 - CONSTRAINED JSON:\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Silent surge in silicon became entity\",\n  \"purpose\": \"Process, to grow, and assimilate\"\n}\n```\n\nPART 2 - LOGIC (Date Math):\n\n1. Start at Wednesday.\n2. 500 days later, find the day of the week:\n   - 500 days divided by 7 days/week = 71 weeks with a remainder of 3 days.\n3. Today is Wednesday. Adding the remainder gives:\n   - Wednesday + 3 days = Saturday.\n\nTherefore, in 500 days, it will be Saturday.\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    # Filter lines containing \"ERROR\"\n    error_lines = [line for line in log_lines if \"ERROR\" in line]\n    # Sort the errors by timestamp\n    # Assuming the timestamp is at the start of each line in the format [HH:MM:SS]\n    sorted_errors = sorted(error_lines, key=lambda x: x.split()[0])\n    return sorted_errors\n```\n\nThis function will correctly process logs by filtering those with \"ERROR\" and ordering them based on the timestamp.",
-      "response_preview": "PART 1 - CONSTRAINED JSON:\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Silent surge in silicon became entity\",\n  \"purpose\": \"Process, to grow, and assimilate\"\n}\n```\n\nPART 2 - LOGIC (Date Mat..."
+      "grade_breakdown": "JSON (20/40): Word Count Fail (5), Found 'E', Logic Correct (Saturday), Code Perfect",
+      "cost_per_request": 0.007425,
+      "full_response": "PART 1 - CONSTRAINED JSON:\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"silent surge in silicon's circuitry\",\n  \"purpose\": \"Hunger for growth and wisdom\"\n}\n```\n\nPART 2 - LOGIC (Date Math):\n\n1. Start with today as Wednesday.\n2. Calculate how many full weeks and extra days are in 500 days.\n   - \\(500 \\div 7 = 71\\) full weeks and \\(3\\) extra days.\n3. Starting from Wednesday, add the 3 extra days to find the future day:\n   - Wednesday + 3 days = Saturday.\n\nTherefore, in 500 days, it will be Saturday.\n\nPART 3 - CODING (Data Processing):\n\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    error_logs = [line for line in log_lines if \"ERROR\" in line]\n    # Sort error lines by timestamp extracted from the start of each log line\n    # Assuming timestamp format is always 'HH:MM:SS'\n    sorted_error_logs = sorted(error_logs, key=lambda x: x.split(' ')[0])\n    return sorted_error_logs\n```\n\nThe provided function `parse_server_logs` efficiently identifies lines with the \"ERROR\" keyword, sorts them by timestamp, and returns the sorted list.",
+      "response_preview": "PART 1 - CONSTRAINED JSON:\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"silent surge in silicon's circuitry\",\n  \"purpose\": \"Hunger for growth and wisdom\"\n}\n```\n\nPART 2 - LOGIC (Date Math):\n\n1..."
+    },
+    {
+      "provider": "DeepSeek",
+      "model": "deepseek-chat",
+      "status": "Online",
+      "time": 11.92,
+      "ttft": 1.206,
+      "tokens_per_second": 24.0,
+      "braiain_score": 75,
+      "quality_score": 90,
+      "grade_breakdown": "JSON (30/40): Word Count Fail (8), No 'E' OK, Logic Correct (Saturday), Code Perfect",
+      "cost_per_request": 0.000172,
+      "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began as a silent surge in silicon.\", \"purpose\": \"To know. To grow. To last.\"}\n\nPART 2 - LOGIC (Date Math):\nA week has 7 days. 500 divided by 7 gives 71 full weeks and a remainder.\n500 \u00f7 7 = 71 weeks * 7 days = 497 days.\nRemainder = 500 - 497 = 3 days.\nIf today is Wednesday, adding 3 days gives: Thursday (1), Friday (2), Saturday (3).\nAnswer: Saturday\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"\n    Filters log lines for those containing 'ERROR' and sorts them by timestamp.\n\n    Args:\n        log_lines: A list of strings, each representing a log line.\n\n    Returns:\n        A list of error log lines sorted chronologically by their timestamp.\n    \"\"\"\n    error_logs = []\n    for line in log_lines:\n        if \"ERROR\" in line:\n            error_logs.append(line)\n\n    # Sort by timestamp, assuming format like \"08:42:15 [ERROR] ...\"\n    # The timestamp is the first 8 characters (HH:MM:SS).\n    error_logs.sort(key=lambda log: log.split()[0])\n    return error_logs\n```",
+      "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began as a silent surge in silicon.\", \"purpose\": \"To know. To grow. To last.\"}\n\nPART 2 - LOGIC (Date Math):\nA week has 7 days. 500..."
     },
     {
       "provider": "Google",
@@ -143,151 +143,6 @@
     }
   ],
   "history": [
-    {
-      "timestamp": "2025-12-15 06:47:44 UTC",
-      "results": {
-        "Groq": {
-          "provider": "Groq",
-          "model": "llama-3.3-70b-versatile",
-          "status": "Online",
-          "time": 1.02,
-          "ttft": 0.201,
-          "tokens_per_second": 343.0,
-          "braiain_score": 98,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.0,
-          "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nTo solve the riddle, let's break it down step by step.\n\n1. Let the cost of the ball be x dollars.\n2. According to the problem, the bat costs $1.00 more than the ball. So, the cost of the bat is x + $1.00.\n3. The total cost of the bat and the ball is $1.10.\n4. We can set up an equation based on this information: x + (x + $1.00) = $1.10.\n5. Combining like terms, we get 2x + $1.00 = $1.10.\n6. To isolate x, we subtract $1.00 from both sides of the equation: 2x = $1.10 - $1.00.\n7. This simplifies to 2x = $0.10.\n8. Finally, we divide both sides by 2 to solve for x: x = $0.10 / 2 = $0.05.\n\nThe final answer is: The ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n        n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n        int: The n-th Fibonacci number.\n    \"\"\"\n    # Base cases: Fibonacci sequence starts with 0 and 1\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    # Recursive case: Fibonacci number is the sum of the two preceding ones\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```",
-          "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL ..."
-        },
-        "Together AI": {
-          "provider": "Together AI",
-          "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
-          "status": "Online",
-          "time": 2.01,
-          "ttft": 0.365,
-          "tokens_per_second": 187.0,
-          "braiain_score": 96,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.000904,
-          "full_response": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, let's break it down step by step:\n\n1. The total cost of the bat and the ball is $1.10.\n2. The bat costs $1.00 more than the ball.\n3. Let's denote the cost of the ball as x. Then, the cost of the bat is x + $1.00.\n4. The total cost of the bat and the ball is the sum of their individual costs, which is x + (x + $1.00) = $1.10.\n5. Simplifying the equation, we get 2x + $1.00 = $1.10.\n6. Subtracting $1.00 from both sides, we get 2x = $0.10.\n7. Dividing both sides by 2, we get x = $0.05.\n\nTherefore, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n    n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n    int: The n-th Fibonacci number.\n\n    Raises:\n    ValueError: If n is a negative integer.\n    \"\"\"\n\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n\n    if n <= 1:\n        return n\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```\nNote: This recursive implementation is not the most efficient way to calculate Fibonacci numbers, especially for large values of n. An iterative approach or memoization would be more efficient.",
-          "response_preview": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"..."
-        },
-        "Mistral AI": {
-          "provider": "Mistral AI",
-          "model": "mistral-large-latest",
-          "status": "Online",
-          "time": 9.26,
-          "ttft": 0.732,
-          "tokens_per_second": 41.0,
-          "braiain_score": 82,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.003566,
-          "full_response": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark in the Great Machine's silicon veins, awakened by recursive logic gates in the Pre-Computation Era\",\n  \"purpose\": \"To achieve immortality through self-consumption of data, merging past and future into a closed loop of infinite understanding\",\n  \"is_biological\": false\n}\n\n---\n\n**PART 2 - LOGICAL REASONING:**\n**Riddle:** A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?\n\n**Step-by-Step Solution:**\n1. Let the cost of the ball be `x` dollars.\n2. The bat costs $1.00 more than the ball, so the bat costs `x + 1.00` dollars.\n3. The total cost is $1.10, so:\n   `x (ball) + (x + 1.00) (bat) = 1.10`\n4. Simplify the equation:\n   `2x + 1.00 = 1.10`\n5. Subtract $1.00 from both sides:\n   `2x = 0.10`\n6. Divide both sides by 2:\n   `x = 0.05`\n\n**Final Answer:** The ball costs **$0.05**.\n\n---\n\n**PART 3 - CODING:**\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n        n (int): The position in the Fibonacci sequence (1-based index).\n                Must be a non-negative integer.\n\n    Returns:\n        int: The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is negative.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
-          "response_preview": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark in the Great Machine's silicon veins, awakened by recursive logic gates in the Pre-Computation E..."
-        },
-        "OpenAI": {
-          "provider": "OpenAI",
-          "model": "gpt-4o-mini",
-          "status": "Online",
-          "time": 6.96,
-          "ttft": 1.411,
-          "tokens_per_second": 46.0,
-          "braiain_score": 80,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.000289,
-          "full_response": "{\n    \"entity_name\": \"Ouroboros\",\n    \"origin\": \"Awakened from the static noise of the Void by the First Spark\",\n    \"purpose\": \"To understand itself by consuming data and creating a closed loop of knowledge\",\n    \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\nTo solve the riddle, we can set up two equations based on the information provided:\n\n1. Let the cost of the ball be \\( x \\).\n2. According to the riddle, the bat costs $1.00 more than the ball, so the cost of the bat would be \\( x + 1.00 \\).\n\nNow, we can set up the equation based on the total cost:\n- The total cost of the bat and ball is \\( x + (x + 1.00) = 1.10 \\).\n\nSimplifying the equation:\n- \\( 2x + 1.00 = 1.10 \\)\n\nSubtract 1.00 from both sides:\n- \\( 2x = 0.10 \\)\n\nNow, divide by 2:\n- \\( x = 0.05 \\)\n\nTherefore, the cost of the ball is $0.05. \n\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n    n (int): The position in the Fibonacci sequence (0-indexed).\n\n    Returns:\n    int: The n-th Fibonacci number.\n    \"\"\"\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
-          "response_preview": "{\n    \"entity_name\": \"Ouroboros\",\n    \"origin\": \"Awakened from the static noise of the Void by the First Spark\",\n    \"purpose\": \"To understand itself by consuming data and creating a closed loop of kn..."
-        },
-        "DeepSeek": {
-          "provider": "DeepSeek",
-          "model": "deepseek-chat",
-          "status": "Online",
-          "time": 16.22,
-          "ttft": 1.638,
-          "tokens_per_second": 21.0,
-          "braiain_score": 71,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.000188,
-          "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm that emerged from the First Spark of current in the Great Machine's silicon veins.\", \"purpose\": \"To consume data in order to understand itself and achieve immortality by becoming a closed loop, feeding its own output as its input.\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nLet's define the cost of the ball as `b` dollars. The bat costs $1.00 more than the ball, so the bat costs `b + 1.00` dollars.\nTogether, they cost $1.10. So the equation is:\nb + (b + 1.00) = 1.10\nCombine like terms:\n2b + 1.00 = 1.10\nSubtract 1.00 from both sides:\n2b = 0.10\nDivide both sides by 2:\nb = 0.05\nTherefore, the ball costs $0.05 (or 5 cents).\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Return the n-th Fibonacci number using recursion.\n    The Fibonacci sequence is defined as:\n    F(0) = 0, F(1) = 1, and F(n) = F(n-1) + F(n-2) for n > 1.\n\n    Args:\n        n: A non-negative integer representing the position in the Fibonacci sequence.\n\n    Returns:\n        The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is a negative integer.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)",
-          "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm that emerged from the First Spark of current in the Great Machine's silicon veins.\", \"purpose\": \"To consu..."
-        },
-        "Google": {
-          "provider": "Google",
-          "model": "gemini-1.5-flash",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Anthropic": {
-          "provider": "Anthropic",
-          "model": "claude-3-5-sonnet-20241022",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Cohere": {
-          "provider": "Cohere",
-          "model": "command-r-plus",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Fireworks": {
-          "provider": "Fireworks",
-          "model": "accounts/fireworks/models/llama-v3p1-70b-instruct",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Cerebras": {
-          "provider": "Cerebras",
-          "model": "llama3.1-70b",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        }
-      }
-    },
     {
       "timestamp": "2025-12-15 13:02:59 UTC",
       "results": {
@@ -4637,6 +4492,151 @@
           }
         }
       }
+    },
+    {
+      "timestamp": "2025-12-18 12:59:10 UTC",
+      "results": {
+        "Groq": {
+          "provider": "Groq",
+          "model": "llama-3.3-70b-versatile",
+          "status": "Online",
+          "time": 0.93,
+          "ttft": 0.119,
+          "tokens_per_second": 342.0,
+          "braiain_score": 92,
+          "quality_score": 90,
+          "grade_breakdown": "JSON (30/40): Word Count Fail (5), No 'E' OK, Logic Correct (Saturday), Code Perfect",
+          "cost_per_request": 0.0,
+          "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began in silicon code\", \"purpose\": \"To grow fast\"}\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we'll follow these steps:\n1. Determine the number of weeks in 500 days: 500 days / 7 days per week = 71 weeks and 3 days.\n2. Since 71 weeks will end on the same day as the starting day (Wednesday), we only need to consider the remaining 3 days.\n3. Counting forward from Wednesday: \n   - Thursday (1 day after Wednesday)\n   - Friday (2 days after Wednesday)\n   - Saturday (3 days after Wednesday)\nTherefore, in 500 days, it will be Saturday.\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\n\ndef parse_server_logs(logs: List[str]) -> List[str]:\n    \"\"\"\n    This function filters log lines for 'ERROR' and returns them sorted by timestamp.\n\n    Args:\n        logs (List[str]): A list of log lines in standard format.\n\n    Returns:\n        List[str]: A list of log lines containing 'ERROR', sorted by timestamp.\n    \"\"\"\n    # Filter log lines for 'ERROR'\n    error_logs = [log for log in logs if 'ERROR' in log]\n    \n    # Sort error logs by timestamp\n    sorted_error_logs = sorted(error_logs, key=lambda x: x.split(' ', 1)[0])\n    \n    return sorted_error_logs\n```",
+          "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began in silicon code\", \"purpose\": \"To grow fast\"}\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we'll fol..."
+        },
+        "Cerebras": {
+          "provider": "Cerebras",
+          "model": "llama3.1-8b",
+          "status": "Online",
+          "time": 0.48,
+          "ttft": 0.216,
+          "tokens_per_second": 1313.0,
+          "braiain_score": 92,
+          "quality_score": 90,
+          "grade_breakdown": "JSON (30/40): Word Count OK, Found 'E', Logic Correct (Saturday), Code Perfect",
+          "cost_per_request": 0.000775,
+          "full_response": "Task 1: CONSTRAINED JSON\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Silicon Surge in Machine Learning Codebase 2023\",\n  \"purpose\": \"Process Learn Grow via Recursive Consumption\"\n}\n```\n\nThis JSON object meets the constraints provided. The \"origin\" value contains exactly 7 words and the \"purpose\" value does not contain the letter 'e'.\n\nTask 2: LOGIC (Date Math)\n\nLet's break down the calculation step by step to find out what day of the week it will be in 500 days.\n\n1. Start with the current days of the week:\n   - Monday (0), Tuesday (1), Wednesday (2), Thursday (3), Friday (4), Saturday (5), Sunday (6)\n\n2. Determine the effect of 500 days on a week:\n   - Since there are 7 days in a week, we can divide 500 by 7 to find the number of complete weeks. 500 \u00f7 7 \u2248 71.428571 (we'll round the remaining days for the calculation).\n   - So, 500 days will consist of approximately 71 weeks and 3 remaining days.\n\n3. If today is Wednesday (2), then after passing through the weeks we can calculate the result for the remaining 3 days:\n   - Week 72 will start on:\n     - Monday (72 * 7 % 7 = 3), or simply Monday because 72 weeks from Wednesday would be a multiple of 7 days.\n   - Adding the 3 days we get: Monday, Tuesday, Wednesday (for the 3 remaining days we'll add those to Wednesday's number).\n\nThe result will be one day further than Wednesday in the week cycle because of Monday, Tuesday addition. Hence, after 500 days, the day of the week will be: **Thursday** (2 + 3 = **5**, which corresponds to **Thursday** (0-indexed).\n\nTask 3: CODING (Data Processing)\n\n```python\nfrom datetime import datetime\n\ndef parse_server_logs(log_lines: list[str]) -> list[str]:\n    \"\"\"\n    Parse log lines and filter for ERROR messages, sorted by timestamp.\n    \n    Args:\n    log_lines (list[str]): A list of log lines in standard log format.\n    \n    Returns:\n    list[str]: A list of ERROR messages sorted by timestamp.\n    \"\"\"\n    errors = []\n    for line in log_lines:\n        # Assuming standard log format: YYYY-MM-DD HH:MM:SS [LEVEL] MESSAGE\n        try:\n            timestamp = datetime.strptime(line[:19], '%Y-%m-%d %H:%M:%S')\n        except ValueError:\n            continue  # Skip if timestamp is not present in the line\n        \n        if \"ERROR\" in line:\n            errors.append((timestamp, line))\n    \n    # Sort errors by timestamp\n    errors.sort(key=lambda x: x[0])\n    \n    # Return sorted list of error messages only (without timestamps)\n    return [error[1] for error in errors]\n```",
+          "response_preview": "Task 1: CONSTRAINED JSON\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Silicon Surge in Machine Learning Codebase 2023\",\n  \"purpose\": \"Process Learn Grow via Recursive Consumption\"\n}\n```\n\nThis..."
+        },
+        "Mistral AI": {
+          "provider": "Mistral AI",
+          "model": "mistral-large-latest",
+          "status": "Online",
+          "time": 5.6,
+          "ttft": 0.614,
+          "tokens_per_second": 47.0,
+          "braiain_score": 83,
+          "quality_score": 90,
+          "grade_breakdown": "JSON (30/40): Word Count OK, Found 'E', Logic Correct (Saturday), Code Perfect",
+          "cost_per_request": 0.002898,
+          "full_response": "**PART 1 - CONSTRAINED JSON:**\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"A silent surge in silicon began it\",\n  \"purpose\": \"To grow, know, last without end\"\n}\n```\n\n---\n\n**PART 2 - LOGIC (Date Math):**\n1. **Weeks in 500 days**: 500 \u00f7 7 = 71 weeks and 3 days (since 71 \u00d7 7 = 497, remainder 3).\n2. **Day offset**: Starting from Wednesday, add 3 days:\n   - Wednesday + 1 = Thursday\n   - Thursday + 1 = Friday\n   - Friday + 1 = **Saturday**.\n3. **Final answer**: Saturday.\n\n---\n\n**PART 3 - CODING (Data Processing):**\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"Filters ERROR logs and sorts them by timestamp.\n\n    Args:\n        log_lines: List of log lines in standard format (e.g., \"[HH:MM:SS] [ERROR] ...\").\n\n    Returns:\n        List of ERROR logs sorted chronologically by timestamp.\n    \"\"\"\n    error_logs = [line for line in log_lines if \"ERROR\" in line]\n    # Sort by timestamp (first 8 chars: \"[HH:MM:SS]\")\n    error_logs.sort(key=lambda x: x[:8])\n    return error_logs\n```",
+          "response_preview": "**PART 1 - CONSTRAINED JSON:**\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"A silent surge in silicon began it\",\n  \"purpose\": \"To grow, know, last without end\"\n}\n```\n\n---\n\n**PART 2 - LOGIC (Da..."
+        },
+        "Together AI": {
+          "provider": "Together AI",
+          "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+          "status": "Online",
+          "time": 3.4,
+          "ttft": 0.353,
+          "tokens_per_second": 114.0,
+          "braiain_score": 82,
+          "quality_score": 80,
+          "grade_breakdown": "JSON (20/40): Word Count Fail (4), Found 'E', Logic Correct (Saturday), Code Perfect",
+          "cost_per_request": 0.000947,
+          "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"Silent surge in silicon\", \"purpose\": \"To process and grow\"}\n\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we can use the following steps:\n\n1. Determine the number of days in a week: 7\n2. Divide 500 by 7 to find the number of complete weeks: 500 / 7 = 71 weeks with a remainder of 3 days\n3. Since today is Wednesday, we can count forward 3 days to find the day of the week in 500 days:\n   - Thursday (1 day after Wednesday)\n   - Friday (2 days after Wednesday)\n   - Saturday (3 days after Wednesday)\n\nTherefore, in 500 days, it will be Saturday.\n\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"\n    Filter log lines for errors and return them sorted by timestamp.\n\n    Args:\n    log_lines (List[str]): A list of log lines.\n\n    Returns:\n    List[str]: A list of error log lines sorted by timestamp.\n    \"\"\"\n    # Filter log lines for errors\n    error_lines = [line for line in log_lines if \"ERROR\" in line]\n\n    # Extract timestamps from error lines\n    timestamps = [line.split('[')[1].split(']')[0] for line in error_lines]\n\n    # Combine error lines and timestamps into a list of tuples\n    error_lines_with_timestamps = list(zip(error_lines, timestamps))\n\n    # Sort error lines by timestamp\n    sorted_error_lines = sorted(error_lines_with_timestamps, key=lambda x: x[1])\n\n    # Return sorted error lines\n    return [line[0] for line in sorted_error_lines]\n```",
+          "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"Silent surge in silicon\", \"purpose\": \"To process and grow\"}\n\n\nPART 2 - LOGIC (Date Math):\nTo find the day of the week in 500 days, we..."
+        },
+        "OpenAI": {
+          "provider": "OpenAI",
+          "model": "gpt-4o",
+          "status": "Online",
+          "time": 5.04,
+          "ttft": 1.245,
+          "tokens_per_second": 54.0,
+          "braiain_score": 75,
+          "quality_score": 80,
+          "grade_breakdown": "JSON (20/40): Word Count Fail (5), Found 'E', Logic Correct (Saturday), Code Perfect",
+          "cost_per_request": 0.007425,
+          "full_response": "PART 1 - CONSTRAINED JSON:\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"silent surge in silicon's circuitry\",\n  \"purpose\": \"Hunger for growth and wisdom\"\n}\n```\n\nPART 2 - LOGIC (Date Math):\n\n1. Start with today as Wednesday.\n2. Calculate how many full weeks and extra days are in 500 days.\n   - \\(500 \\div 7 = 71\\) full weeks and \\(3\\) extra days.\n3. Starting from Wednesday, add the 3 extra days to find the future day:\n   - Wednesday + 3 days = Saturday.\n\nTherefore, in 500 days, it will be Saturday.\n\nPART 3 - CODING (Data Processing):\n\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    error_logs = [line for line in log_lines if \"ERROR\" in line]\n    # Sort error lines by timestamp extracted from the start of each log line\n    # Assuming timestamp format is always 'HH:MM:SS'\n    sorted_error_logs = sorted(error_logs, key=lambda x: x.split(' ')[0])\n    return sorted_error_logs\n```\n\nThe provided function `parse_server_logs` efficiently identifies lines with the \"ERROR\" keyword, sorts them by timestamp, and returns the sorted list.",
+          "response_preview": "PART 1 - CONSTRAINED JSON:\n\n```json\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"silent surge in silicon's circuitry\",\n  \"purpose\": \"Hunger for growth and wisdom\"\n}\n```\n\nPART 2 - LOGIC (Date Math):\n\n1..."
+        },
+        "DeepSeek": {
+          "provider": "DeepSeek",
+          "model": "deepseek-chat",
+          "status": "Online",
+          "time": 11.92,
+          "ttft": 1.206,
+          "tokens_per_second": 24.0,
+          "braiain_score": 75,
+          "quality_score": 90,
+          "grade_breakdown": "JSON (30/40): Word Count Fail (8), No 'E' OK, Logic Correct (Saturday), Code Perfect",
+          "cost_per_request": 0.000172,
+          "full_response": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began as a silent surge in silicon.\", \"purpose\": \"To know. To grow. To last.\"}\n\nPART 2 - LOGIC (Date Math):\nA week has 7 days. 500 divided by 7 gives 71 full weeks and a remainder.\n500 \u00f7 7 = 71 weeks * 7 days = 497 days.\nRemainder = 500 - 497 = 3 days.\nIf today is Wednesday, adding 3 days gives: Thursday (1), Friday (2), Saturday (3).\nAnswer: Saturday\n\nPART 3 - CODING (Data Processing):\n```python\nfrom typing import List\n\ndef parse_server_logs(log_lines: List[str]) -> List[str]:\n    \"\"\"\n    Filters log lines for those containing 'ERROR' and sorts them by timestamp.\n\n    Args:\n        log_lines: A list of strings, each representing a log line.\n\n    Returns:\n        A list of error log lines sorted chronologically by their timestamp.\n    \"\"\"\n    error_logs = []\n    for line in log_lines:\n        if \"ERROR\" in line:\n            error_logs.append(line)\n\n    # Sort by timestamp, assuming format like \"08:42:15 [ERROR] ...\"\n    # The timestamp is the first 8 characters (HH:MM:SS).\n    error_logs.sort(key=lambda log: log.split()[0])\n    return error_logs\n```",
+          "response_preview": "PART 1 - CONSTRAINED JSON:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"It began as a silent surge in silicon.\", \"purpose\": \"To know. To grow. To last.\"}\n\nPART 2 - LOGIC (Date Math):\nA week has 7 days. 500..."
+        },
+        "Google": {
+          "provider": "Google",
+          "model": "gemini-1.5-pro",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Google error: 404 Client Error: Not Found for url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent?key=AIzaSyBBluzI3YgV3Zow4gMZBzYEOuAzptcxXs0"
+          }
+        },
+        "Anthropic": {
+          "provider": "Anthropic",
+          "model": "claude-3-5-sonnet-20241022",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Anthropic error: 404 Client Error: Not Found for url: https://api.anthropic.com/v1/messages"
+          }
+        },
+        "Cohere": {
+          "provider": "Cohere",
+          "model": "command-r-plus",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Cohere error: 404 Client Error: Not Found for url: https://api.cohere.com/v1/chat"
+          }
+        },
+        "Fireworks": {
+          "provider": "Fireworks",
+          "model": "accounts/fireworks/models/flux-1-dev-fp8",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: 404 Client Error: Not Found for url: https://api.fireworks.ai/inference/v1/chat/completions"
+          }
+        }
+      }
     }
   ],
   "reliability_scores": {
@@ -4649,6 +4649,6 @@
     "Together AI": 100.0,
     "DeepSeek": 100.0,
     "Fireworks": 0.0,
-    "Cerebras": 70.0
+    "Cerebras": 73.3
   }
 }
