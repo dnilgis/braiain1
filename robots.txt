@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+Sitemap: https://www.braiaan.com/sitemap.xml
+
+# Allow all major search engines
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
