@@ -46,14 +46,20 @@
                 linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
             background-size: 40px 40px; 
-            overflow-x: hidden; /* Prevent horizontal scroll on body */
+            overflow-x: hidden; 
         }
 
         .container { max-width: 1400px; margin: 0 auto; padding: 0 15px; }
         .hidden { display: none !important; }
         
-        /* === TOOLTIPS === */
-        [data-tooltip] { position: relative; cursor: help; border-bottom: 1px dotted var(--neon-green); }
+        /* === TOOLTIPS (FIXED) === */
+        [data-tooltip] { 
+            position: relative; 
+            cursor: help; 
+            /* Added visual cue for mobile/desktop */
+            text-decoration: underline dotted var(--neon-green);
+            text-underline-offset: 4px;
+        }
         [data-tooltip]::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -147,7 +153,7 @@
             padding: 8px 25px;
             border-radius: 4px;
             width: fit-content; margin: 0 auto;
-            flex-wrap: wrap; /* Allows stacking on mobile */
+            flex-wrap: wrap; 
         }
         .hud-stat { display: flex; gap: 8px; align-items: center; white-space: nowrap; }
         .hud-label { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1px; font-family: 'Orbitron'; }
@@ -181,7 +187,7 @@
             background: transparent; border: 1px solid var(--border-color); color: var(--text-muted);
             padding: 8px 16px; cursor: pointer; font-family: 'Share Tech Mono'; font-size: 0.8rem;
             transition: all 0.2s;
-            flex-grow: 1; /* Better touch targets on mobile */
+            flex-grow: 1; 
         }
         .ctrl-btn:hover { color: var(--neon-green); border-color: var(--neon-green); }
         .ctrl-btn.active { background: var(--neon-dim); color: var(--neon-green); border-color: var(--neon-green); }
@@ -189,7 +195,7 @@
         /* === GRID SYSTEM === */
         .bz-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Adjusted for mobile */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
             gap: 20px;
             margin-bottom: 40px;
         }
@@ -265,10 +271,10 @@
             border: 1px solid var(--border-color); background: var(--bg-panel);
             border-radius: 4px; margin-bottom: 40px;
             width: 100%;
-            overflow-x: auto; /* Enable scroll only if needed */
-            -webkit-overflow-scrolling: touch; /* Smooth scroll on iOS */
+            overflow-x: auto; 
+            -webkit-overflow-scrolling: touch; 
         }
-        table { width: 100%; border-collapse: collapse; min-width: 800px; } /* Ensure min width triggers scroll */
+        table { width: 100%; border-collapse: collapse; min-width: 800px; } 
         
         th { 
             text-align: left; padding: 15px; background: #05080a; 
@@ -292,11 +298,12 @@
         }
         .table-visit-btn:hover { background: var(--neon-green); color: #000; }
 
-        /* === METHODOLOGY === */
+        /* === METHODOLOGY (UPDATED) === */
         .methodology-box {
             background: var(--bg-panel); border: 1px solid var(--border-color);
-            padding: 40px; /* Reduced from 60px */
-            margin-bottom: 40px; position: relative; overflow: hidden;
+            padding: 40px; 
+            margin-bottom: 40px; position: relative; 
+            overflow: visible; /* FIXED: Was hidden, prevented tooltips */
         }
         .method-title {
             font-family: 'Orbitron'; font-size: 1.5rem; color: #fff; 
@@ -318,10 +325,10 @@
         .step-name { font-family: 'Rajdhani'; font-size: 1.3rem; font-weight: 700; color: #fff; }
         
         .code-block {
-            background: #050505; border: 1px solid #333; padding: 20px; /* Reduced padding */
+            background: #050505; border: 1px solid #333; padding: 20px; 
             font-family: 'Courier New', monospace; font-size: 0.85rem; color: var(--text-muted);
-            border-left: 3px solid var(--neon-green); margin-left: 10px; /* Reduced margin */
-            white-space: pre-wrap; line-height: 1.5; /* Reduced line height */
+            border-left: 3px solid var(--neon-green); margin-left: 10px; 
+            white-space: pre-wrap; line-height: 1.5; 
         }
         .highlight { color: var(--neon-green); font-weight: bold; }
         
@@ -366,38 +373,31 @@
         @media (max-width: 768px) {
             body { font-size: 14px; }
             
-            /* Compact Header */
             header { padding: 15px 0; }
-            .ascii-logo { font-size: 5px; line-height: 5px; } /* Tiny font for logo */
+            .ascii-logo { font-size: 5px; line-height: 5px; } 
             .logo-tagline { font-size: 0.8rem; padding: 0 10px; }
             
-            /* Stacked HUD */
             .hud-bar { gap: 10px; padding: 10px; width: 95%; flex-direction: row; flex-wrap: wrap; }
-            .hud-stat { font-size: 0.8rem; flex-basis: 45%; justify-content: center; } /* 2 per row */
+            .hud-stat { font-size: 0.8rem; flex-basis: 45%; justify-content: center; } 
             .hud-value { font-size: 1rem; }
             
-            /* Stacked Ad Banner */
             .ad-banner { flex-direction: column; text-align: center; padding: 15px; gap: 10px; }
             .ad-text { font-size: 0.9rem; }
             .act-btn { width: 100%; }
             
-            /* Controls */
             .controls-bar { flex-direction: column; align-items: stretch; gap: 10px; }
             .btn-group { width: 100%; }
             .ctrl-btn { flex: 1; padding: 10px; }
             
-            /* Table Scrolling */
             .bz-table-container { overflow-x: scroll; display: block; }
             
-            /* Methodology Padding Fixes */
             .methodology-box { padding: 20px 15px; }
             .method-title { font-size: 1.3rem; margin-bottom: 20px; }
-            .step-container p { margin-left: 0 !important; margin-bottom: 15px; } /* Remove heavy indent */
+            .step-container p { margin-left: 0 !important; margin-bottom: 15px; } 
             .step-head { margin-bottom: 10px; }
             .code-block { margin-left: 0; padding: 15px; font-size: 0.75rem; overflow-x: auto; }
             .disclaimer-box { padding: 15px; }
             
-            /* Chart */
             .chart-header { flex-direction: column; align-items: flex-start; gap: 10px; }
             .chart-title { margin-bottom: 0; }
             .chart-canvas-wrapper { height: 250px; }
@@ -432,7 +432,7 @@
             <div style="opacity:0.3" class="desktop-only">|</div>
             <div class="hud-stat"><span class="hud-label">STATUS</span><span class="hud-value" style="color:var(--neon-green)">LIVE</span></div>
             <div style="opacity:0.3" class="desktop-only">|</div>
-            <div class="hud-stat"><span class="hud-label">PROTOCOL</span><span class="hud-value" style="color:var(--neon-red)">V5.0</span></div>
+            <div class="hud-stat"><span class="hud-label">PROTOCOL</span><span class="hud-value" style="color:var(--neon-red)">V5.1</span></div>
         </div>
     </div>
 </header>
@@ -502,11 +502,11 @@
     </div>
 
     <div class="methodology-box">
-        <div class="method-title">THE GAUNTLET PROTOCOL v5.0 (HARD MODE)</div>
+        <div class="method-title">THE GAUNTLET PROTOCOL v5.1 (HARD MODE)</div>
         
         <p style="margin-bottom: 30px; font-size: 1rem; color: var(--text-main);">
             The Braiain Speed Index has evolved. Standard benchmarks have become too easy for SOTA models, resulting in 
-            score saturation. <strong>Protocol v5.0 ("Hard Mode")</strong> introduces strict constraints, RAG-simulation, 
+            score saturation. <strong>Protocol v5.1 ("Hard Mode")</strong> introduces strict constraints, RAG-simulation, 
             and data processing tasks designed to break "lazy" models.
         </p>
 
@@ -728,6 +728,15 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             document.getElementById('node-count').textContent = appData.results ? appData.results.length : 0;
             document.getElementById('last-run').textContent = appData.last_updated ? appData.last_updated.split(' ')[1] + ' UTC' : 'N/A';
             
+            // DYNAMIC TITLE UPDATE
+            if(appData.results && appData.results.length > 0) {
+                // Find top scorer
+                const topNode = [...appData.results].sort((a,b) => (b.braiain_score||0) - (a.braiain_score||0))[0];
+                if(topNode) {
+                    document.title = `Braiain: ${topNode.provider} Leads (${topNode.braiain_score}) - AI Benchmark`;
+                }
+            }
+
             render();
             renderChart();
         } catch (e) {
@@ -951,7 +960,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
         const datasets = Array.from(providers).map((p, i) => ({
             label: p,
             borderColor: colors[i % colors.length],
-            borderWidth: 2,
+            borderWidth: 3, // Increased visibility
             pointRadius: 3,
             tension: 0.4,
             data: history.map(h => {
