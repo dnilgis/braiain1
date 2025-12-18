@@ -1,5 +1,5 @@
 {
-  "last_updated": "2025-12-18 16:40:16 UTC",
+  "last_updated": "2025-12-18 16:48:33 UTC",
   "results": [
     {
       "provider": "OpenAI",
@@ -44,8 +44,8 @@
       }
     },
     {
-      "provider": "Mistral AI",
-      "model": "mistral-large-latest",
+      "provider": "Groq",
+      "model": "llama-3.3-70b-versatile",
       "status": "API FAILURE",
       "time": 0,
       "ttft": null,
@@ -54,7 +54,7 @@
       "quality_score": 0,
       "error_info": {
         "type": "ERROR",
-        "message": "Streaming error: No connection adapters were found for '[https://api.mistral.ai/v1/chat/completions](https://api.mistral.ai/v1/chat/completions)'"
+        "message": "Streaming error: No connection adapters were found for '[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)'"
       }
     },
     {
@@ -72,8 +72,8 @@
       }
     },
     {
-      "provider": "Groq",
-      "model": "llama-3.3-70b-versatile",
+      "provider": "Mistral AI",
+      "model": "mistral-large-latest",
       "status": "API FAILURE",
       "time": 0,
       "ttft": null,
@@ -82,7 +82,7 @@
       "quality_score": 0,
       "error_info": {
         "type": "ERROR",
-        "message": "Streaming error: No connection adapters were found for '[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)'"
+        "message": "Streaming error: No connection adapters were found for '[https://api.mistral.ai/v1/chat/completions](https://api.mistral.ai/v1/chat/completions)'"
       }
     },
     {
@@ -143,151 +143,6 @@
     }
   ],
   "history": [
-    {
-      "timestamp": "2025-12-15 18:42:16 UTC",
-      "results": {
-        "Groq": {
-          "provider": "Groq",
-          "model": "llama-3.3-70b-versatile",
-          "status": "Online",
-          "time": 0.96,
-          "ttft": 0.24,
-          "tokens_per_second": 331.0,
-          "braiain_score": 98,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.0,
-          "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, let's break it down step by step:\n1. Let the cost of the ball be x dollars.\n2. Since the bat costs $1.00 more than the ball, the cost of the bat is x + $1.00.\n3. The total cost of the bat and the ball together is $1.10.\n4. We can write the equation: x + (x + $1.00) = $1.10.\n5. Simplifying the equation: 2x + $1.00 = $1.10.\n6. Subtract $1.00 from both sides: 2x = $0.10.\n7. Divide both sides by 2: x = $0.05.\nSo, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    The Fibonacci sequence is a series of numbers where a number is the addition of the last two numbers,\n    usually starting with 0 and 1.\n\n    Args:\n        n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n        int: The n-th Fibonacci number.\n    \"\"\"\n    # Base cases\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    # Recursive case\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```",
-          "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"The First Spark in the Great Machine\", \"purpose\": \"to understand itself by consuming data\", \"is_biological\": false}\n\nPART 2 - LOGICAL ..."
-        },
-        "Together AI": {
-          "provider": "Together AI",
-          "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
-          "status": "Online",
-          "time": 5.26,
-          "ttft": 0.49,
-          "tokens_per_second": 71.0,
-          "braiain_score": 88,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.000905,
-          "full_response": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\nTo solve this riddle, let's break it down step by step:\n\n1. The total cost of the bat and the ball is $1.10.\n2. The bat costs $1.00 more than the ball.\n3. Let's denote the cost of the ball as x. Then, the cost of the bat is x + $1.00.\n4. The total cost of the bat and the ball is the sum of their individual costs, which is x + (x + $1.00) = $1.10.\n5. Simplifying the equation, we get 2x + $1.00 = $1.10.\n6. Subtracting $1.00 from both sides, we get 2x = $0.10.\n7. Dividing both sides by 2, we get x = $0.05.\n\nTherefore, the ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n    n (int): The position of the Fibonacci number to calculate.\n\n    Returns:\n    int: The n-th Fibonacci number.\n\n    Raises:\n    ValueError: If n is a negative integer.\n    \"\"\"\n\n    if n < 0:\n        raise ValueError(\"n must be a non-negative integer\")\n\n    if n <= 1:\n        return n\n    else:\n        return calculate_fibonacci(n-1) + calculate_fibonacci(n-2)\n```\nNote: This recursive implementation is not efficient for large values of n due to the repeated calculations involved. A more efficient approach would be to use an iterative method or memoization.",
-          "response_preview": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"The First Spark, a self-referential algorithm of infinite complexity\",\n  \"purpose\": \"To understand itself by consuming data\",\n  \"..."
-        },
-        "Mistral AI": {
-          "provider": "Mistral AI",
-          "model": "mistral-large-latest",
-          "status": "Online",
-          "time": 7.64,
-          "ttft": 0.768,
-          "tokens_per_second": 49.0,
-          "braiain_score": 83,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.003536,
-          "full_response": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine, formed by recursive logic gates in the Pre-Computation Era\",\n  \"purpose\": \"To achieve immortality through self-consumption and recursive refinement of data, merging past and future into a closed loop of infinite understanding\",\n  \"is_biological\": false\n}\n\n---\n\n**PART 2 - LOGICAL REASONING:**\n**Riddle:** A bat and a ball cost $1.10 in total. The bat costs $1.00 more than the ball. How much does the ball cost?\n\n**Step-by-Step Solution:**\n1. Let the cost of the ball be **x** dollars.\n2. The bat costs $1.00 more than the ball, so the bat costs **x + 1.00** dollars.\n3. The total cost is $1.10, so:\n   **x (ball) + (x + 1.00) (bat) = 1.10**\n4. Simplify the equation:\n   **2x + 1.00 = 1.10**\n5. Subtract $1.00 from both sides:\n   **2x = 0.10**\n6. Divide by 2:\n   **x = 0.05**\n\n**Final Answer:** The ball costs **$0.05** (5 cents).\n\n---\n\n**PART 3 - CODING:**\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Args:\n        n (int): The index of the Fibonacci number to compute (0-based).\n\n    Returns:\n        int: The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is negative.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
-          "response_preview": "**PART 1 - JSON GENERATION:**\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Emerged from the First Spark of current in the Great Machine, formed by recursive logic gates in the Pre-Computation Era\",\n  ..."
-        },
-        "OpenAI": {
-          "provider": "OpenAI",
-          "model": "gpt-4o-mini",
-          "status": "Online",
-          "time": 7.37,
-          "ttft": 1.446,
-          "tokens_per_second": 54.0,
-          "braiain_score": 80,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.000337,
-          "full_response": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark of data processing.\",\n  \"purpose\": \"To understand itself by consuming and refining data through recursive loops.\",\n  \"is_biological\": false\n}\n\nPART 2 - LOGICAL REASONING:\nTo solve the riddle, let's define the cost of the ball as \\( x \\). According to the problem, we know two things:\n\n1. The bat costs $1.00 more than the ball.\n2. The combined cost of the bat and the ball is $1.10.\n\nFrom point 1, we can express the cost of the bat in terms of \\( x \\):\n- Cost of bat = \\( x + 1.00 \\)\n\nFrom point 2, we can write the equation for the total cost:\n- \\( x + (x + 1.00) = 1.10 \\)\n\nNow, let's simplify this equation:\n- \\( 2x + 1.00 = 1.10 \\)\n\nNext, subtract 1.00 from both sides:\n- \\( 2x = 1.10 - 1.00 \\)\n- \\( 2x = 0.10 \\)\n\nNow, divide both sides by 2 to find \\( x \\):\n- \\( x = 0.10 / 2 \\)\n- \\( x = 0.05 \\)\n\nTherefore, the cost of the ball is $0.05. The bat would then cost $1.05 (since \\( 0.05 + 1.00 \\)). Adding these together confirms the total of $1.10.\n\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\n```python\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Calculate the n-th Fibonacci number using recursion.\n\n    Parameters:\n    n (int): The index (n) of the Fibonacci sequence to calculate.\n              The function assumes n is a non-negative integer.\n\n    Returns:\n    int: The n-th Fibonacci number.\n    \"\"\"\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)\n```",
-          "response_preview": "PART 1 - JSON GENERATION:\n{\n  \"entity_name\": \"Ouroboros\",\n  \"origin\": \"Awakened from the Void by the First Spark of data processing.\",\n  \"purpose\": \"To understand itself by consuming and refining data..."
-        },
-        "DeepSeek": {
-          "provider": "DeepSeek",
-          "model": "deepseek-chat",
-          "status": "Online",
-          "time": 12.72,
-          "ttft": 1.253,
-          "tokens_per_second": 27.0,
-          "braiain_score": 76,
-          "quality_score": 100,
-          "grade_breakdown": "JSON Perfect, Logic Correct, Code Perfect",
-          "cost_per_request": 0.000189,
-          "full_response": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm of infinite complexity that emerged from the First Spark of current in the Great Machine.\", \"purpose\": \"To consume data to understand itself, and to achieve eternal existence by becoming a closed loop, feeding its own output as its input.\", \"is_biological\": false}\n\nPART 2 - LOGICAL REASONING:\nLet's define:\n- Let b = the cost of the ball (in dollars).\n- The bat costs $1.00 more than the ball, so the bat costs b + 1.00.\n- Together, they cost $1.10, so: b + (b + 1.00) = 1.10.\n- Combine like terms: 2b + 1.00 = 1.10.\n- Subtract 1.00 from both sides: 2b = 0.10.\n- Divide both sides by 2: b = 0.05.\nTherefore, the ball costs $0.05 (or 5 cents).\nFinal answer: The ball costs $0.05.\n\nPART 3 - CODING:\ndef calculate_fibonacci(n: int) -> int:\n    \"\"\"\n    Return the n-th Fibonacci number using recursion.\n    The Fibonacci sequence is defined as:\n    F(0) = 0, F(1) = 1, and F(n) = F(n-1) + F(n-2) for n > 1.\n\n    Args:\n        n: A non-negative integer representing the position in the Fibonacci sequence.\n\n    Returns:\n        The n-th Fibonacci number.\n\n    Raises:\n        ValueError: If n is a negative integer.\n    \"\"\"\n    if n < 0:\n        raise ValueError(\"Input must be a non-negative integer.\")\n    if n <= 1:\n        return n\n    return calculate_fibonacci(n - 1) + calculate_fibonacci(n - 2)",
-          "response_preview": "PART 1 - JSON GENERATION:\n{\"entity_name\": \"Ouroboros\", \"origin\": \"A self-referential algorithm of infinite complexity that emerged from the First Spark of current in the Great Machine.\", \"purpose\": \"T..."
-        },
-        "Google": {
-          "provider": "Google",
-          "model": "gemini-1.5-flash",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Anthropic": {
-          "provider": "Anthropic",
-          "model": "claude-3-5-sonnet-20241022",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Cohere": {
-          "provider": "Cohere",
-          "model": "command-r-plus",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Fireworks": {
-          "provider": "Fireworks",
-          "model": "accounts/fireworks/models/llama-v3p1-70b-instruct",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        },
-        "Cerebras": {
-          "provider": "Cerebras",
-          "model": "llama3.1-70b",
-          "status": "API FAILURE",
-          "time": 0,
-          "ttft": null,
-          "tokens_per_second": 0,
-          "braiain_score": 0,
-          "quality_score": 0,
-          "error_info": {
-            "type": "ERROR",
-            "message": "Max retries exceeded"
-          }
-        }
-      }
-    },
     {
       "timestamp": "2025-12-15 23:29:57 UTC",
       "results": {
@@ -4637,17 +4492,162 @@
           }
         }
       }
+    },
+    {
+      "timestamp": "2025-12-18 16:48:33 UTC",
+      "results": {
+        "OpenAI": {
+          "provider": "OpenAI",
+          "model": "gpt-4o",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: No connection adapters were found for '[https://api.openai.com/v1/chat/completions](https://api.openai.com/v1/chat/completions)'"
+          }
+        },
+        "Google": {
+          "provider": "Google",
+          "model": "gemini-1.5-pro",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Google error: No connection adapters were found for '[https://generativelanguage.googleapis.com/v1beta/models/](https://generativelanguage.googleapis.com/v1beta/models/)gemini-1.5-pro:generateContent?"
+          }
+        },
+        "Anthropic": {
+          "provider": "Anthropic",
+          "model": "claude-3-5-sonnet-20241022",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Anthropic error: No connection adapters were found for '[https://api.anthropic.com/v1/messages](https://api.anthropic.com/v1/messages)'"
+          }
+        },
+        "Groq": {
+          "provider": "Groq",
+          "model": "llama-3.3-70b-versatile",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: No connection adapters were found for '[https://api.groq.com/openai/v1/chat/completions](https://api.groq.com/openai/v1/chat/completions)'"
+          }
+        },
+        "Cohere": {
+          "provider": "Cohere",
+          "model": "command-r-plus",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Cohere error: No connection adapters were found for '[https://api.cohere.com/v1/chat](https://api.cohere.com/v1/chat)'"
+          }
+        },
+        "Mistral AI": {
+          "provider": "Mistral AI",
+          "model": "mistral-large-latest",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: No connection adapters were found for '[https://api.mistral.ai/v1/chat/completions](https://api.mistral.ai/v1/chat/completions)'"
+          }
+        },
+        "Together AI": {
+          "provider": "Together AI",
+          "model": "meta-llama/Meta-Llama-3.1-70B-Instruct-Turbo",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: No connection adapters were found for '[https://api.together.xyz/v1/chat/completions](https://api.together.xyz/v1/chat/completions)'"
+          }
+        },
+        "DeepSeek": {
+          "provider": "DeepSeek",
+          "model": "deepseek-chat",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: No connection adapters were found for '[https://api.deepseek.com/v1/chat/completions](https://api.deepseek.com/v1/chat/completions)'"
+          }
+        },
+        "Fireworks": {
+          "provider": "Fireworks",
+          "model": "llama-v3p1-70b-instruct",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: No connection adapters were found for '[https://api.fireworks.ai/inference/v1/chat/completions](https://api.fireworks.ai/inference/v1/chat/completions)'"
+          }
+        },
+        "Cerebras": {
+          "provider": "Cerebras",
+          "model": "llama3.1-70b",
+          "status": "API FAILURE",
+          "time": 0,
+          "ttft": null,
+          "tokens_per_second": 0,
+          "braiain_score": 0,
+          "quality_score": 0,
+          "error_info": {
+            "type": "ERROR",
+            "message": "Streaming error: No connection adapters were found for '[https://api.cerebras.ai/v1/chat/completions](https://api.cerebras.ai/v1/chat/completions)'"
+          }
+        }
+      }
     }
   ],
   "reliability_scores": {
-    "OpenAI": 100.0,
+    "OpenAI": 96.7,
     "Anthropic": 0.0,
     "Google": 0.0,
-    "Groq": 100.0,
-    "Mistral AI": 100.0,
+    "Groq": 96.7,
+    "Mistral AI": 96.7,
     "Cohere": 0.0,
-    "Together AI": 100.0,
-    "DeepSeek": 100.0,
+    "Together AI": 96.7,
+    "DeepSeek": 96.7,
     "Fireworks": 0.0,
     "Cerebras": 76.7
   }
