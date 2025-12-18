@@ -52,7 +52,7 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 0 15px; }
         .hidden { display: none !important; }
         
-        /* === TOOLTIPS === */
+        /* === TOOLTIPS (ENHANCED) === */
         [data-tooltip] { 
             position: relative; 
             cursor: help; 
@@ -89,7 +89,7 @@
             visibility: visible; opacity: 1; transform: translateX(-50%) translateY(-15px); 
         }
 
-        /* Bottom Tooltip (For Table Headers) */
+        /* Bottom Tooltip (For Table Headers & Ad) */
         [data-tooltip-pos="bottom"]::after {
             content: attr(data-tooltip);
             position: absolute;
@@ -728,7 +728,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
 <script>
     // === CONFIGURATION ===
     let appData = null;
-    let currentResults = []; // Store results globally to avoid passing huge strings in HTML
+    let currentResults = []; // Store results globally
     let currentSort = 'score';
     let currentChartMode = 'score'; 
     let chartInstance = null;
@@ -776,17 +776,13 @@ To survive forever, it had to become a closed loop. It could not depend on the f
     function startCountdown() {
         function update() {
             const now = new Date();
-            // Get current time in UTC
             const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-            
-            // Determine next 6-hour interval (0, 6, 12, 18)
             let nextRun = new Date(nowUTC);
             nextRun.setMinutes(0);
             nextRun.setSeconds(0);
             nextRun.setMilliseconds(0);
             
             const hour = nowUTC.getHours();
-            // Find next multiple of 6
             const nextHour = Math.ceil((hour + 1) / 6) * 6;
             
             if (nextHour >= 24) {
@@ -797,8 +793,6 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             }
             
             const diff = nextRun - nowUTC;
-            
-            // Format H:M:S
             const h = Math.floor(diff / 3600000);
             const m = Math.floor((diff % 3600000) / 60000);
             const s = Math.floor((diff % 60000) / 1000);
@@ -806,7 +800,6 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             document.getElementById('next-run').textContent = 
                 `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
         }
-        
         update();
         setInterval(update, 1000);
     }
@@ -826,13 +819,18 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             return 0;
         });
 
-        // Save sorted results to global variable for index-based access
-        currentResults = sorted;
+        currentResults = sorted; // Update global store
 
         // 1. RENDER GRID (Hidden by default)
         const gridHtml = sorted.map((r, i) => {
             const comps = parseGrade(r.grade_breakdown);
-            const cleanText = cleanTextSnippet(r.full_response);
+            
+            // INTELLIGENT CONTENT FALLBACK
+            let displayContent = r.full_response;
+            if (!displayContent && r.error_info) {
+                displayContent = `ERROR: ${r.error_info.type} - ${r.error_info.message}`;
+            }
+            const cleanText = cleanTextSnippet(displayContent);
             
             return `
             <div class="bz-card">
@@ -884,7 +882,13 @@ To survive forever, it had to become a closed loop. It could not depend on the f
         // 2. RENDER LIST (Visible by default)
         const listHtml = sorted.map((r, i) => {
             const comps = parseGrade(r.grade_breakdown);
-            const cleanText = cleanTextSnippet(r.full_response);
+            
+            // INTELLIGENT CONTENT FALLBACK
+            let displayContent = r.full_response;
+            if (!displayContent && r.error_info) {
+                displayContent = `ERROR: ${r.error_info.type} - ${r.error_info.message}`;
+            }
+            const cleanText = cleanTextSnippet(displayContent);
             
             return `
             <tr>
@@ -938,7 +942,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
     }
 
     function cleanTextSnippet(text) {
-        if(!text) return "No output available."; // Fallback for missing text
+        if(!text) return "No output available."; 
         let clean = text;
         clean = clean.replace(/PART \d+ - [A-Z ]+:/gi, "");
         clean = clean.replace(/```[a-z]*\n?/gi, "");
@@ -958,10 +962,12 @@ To survive forever, it had to become a closed loop. It could not depend on the f
 
     function openModalByIndex(index) {
         const r = currentResults[index];
-        if (r && r.full_response) {
-            openModal(r.provider, r.full_response);
-        } else if (r) {
-            openModal(r.provider, "No full response available.");
+        if (r) {
+            let content = r.full_response;
+            if (!content && r.error_info) {
+                content = `ERROR DETAILS:\nType: ${r.error_info.type}\nMessage: ${r.error_info.message}`;
+            }
+            openModal(r.provider, content || "No output data found.");
         }
     }
 
