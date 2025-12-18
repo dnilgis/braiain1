@@ -28,7 +28,7 @@
             --neon-green: #00ff41;
             --neon-dim: rgba(0, 255, 65, 0.1);
             --neon-red: #ff0055;
-            --neon-gold: #ffaa00; /* New for Ads/Warnings */
+            --neon-gold: #ffaa00;
             --border-color: #1a2329;
             --text-main: #e6e6e6;
             --text-muted: #aaa;
@@ -53,8 +53,7 @@
         .container { max-width: 1400px; margin: 0 auto; padding: 0 15px; }
         .hidden { display: none !important; }
         
-        /* === IMPROVED TOOLTIPS === */
-        /* Changed from cursor:help to text-decoration for mobile visibility */
+        /* === TOOLTIPS === */
         [data-tooltip] { 
             position: relative; 
             text-decoration: underline dotted var(--neon-green); 
@@ -87,13 +86,13 @@
         }
         [data-tooltip]:hover::after { visibility: visible; opacity: 1; transform: translateX(-50%) translateY(-15px); }
 
-        /* === HEADER === */
+        /* === HEADER (UNPINNED) === */
         header { 
             background: rgba(2, 4, 5, 0.95); 
             border-bottom: 1px solid var(--border-color); 
             padding: 20px 0;
-            position: sticky; top: 0; z-index: 100; 
-            backdrop-filter: blur(10px);
+            position: relative; /* Changed from sticky */
+            z-index: 100; 
         }
         
         .logo-wrapper { 
@@ -160,11 +159,10 @@
         .hud-label { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1px; font-family: 'Orbitron'; }
         .hud-value { color: #fff; font-family: 'Rajdhani'; font-weight: 700; font-size: 1.1rem; }
 
-        /* === IMPROVED AD BANNER === */
-        /* Changed style to differentiate from content */
+        /* === AD BANNER === */
         .ad-banner {
             margin: 20px auto; padding: 15px 20px;
-            border: 1px dotted var(--neon-gold); /* Distinct border */
+            border: 1px dotted var(--neon-gold);
             background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(255, 170, 0, 0.05) 50%, rgba(0,0,0,0) 100%);
             display: flex; justify-content: space-between; align-items: center; gap: 15px;
         }
@@ -309,7 +307,6 @@
         }
         .table-visit-btn:hover { background: var(--neon-green); color: #000; }
         
-        /* Custom Checkbox */
         .model-select {
             appearance: none; width: 16px; height: 16px; border: 1px solid #444; background: #000;
             cursor: pointer; display: inline-block; vertical-align: middle;
@@ -317,7 +314,6 @@
         .model-select:checked { background: var(--neon-green); border-color: var(--neon-green); }
 
         /* === METHODOLOGY === */
-        /* Fixed overflow issue */
         .methodology-box {
             background: var(--bg-panel); border: 1px solid var(--border-color);
             padding: 40px; 
@@ -375,7 +371,6 @@
         }
         .modal-body { padding: 20px; font-family: monospace; white-space: pre-wrap; color: #ccc; font-size: 0.9rem; line-height: 1.5; }
 
-        /* Compare Modal Specifics */
         .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
         .compare-col { background: #000; padding: 15px; border: 1px solid #333; }
         .compare-score { font-size: 2rem; font-weight: bold; color: var(--neon-green); font-family: 'Rajdhani'; }
@@ -460,7 +455,7 @@
 
 <div class="container">
     
-    <div class="ad-banner">
+    <div class="ad-banner" data-tooltip="Please. I spent my life savings on API credits to run this benchmark.">
         <div class="ad-text">ADVERTISE HERE: Reach thousands of AI developers.</div>
         <a href="mailto:dnilgis@gmail.com" class="act-btn">CONTACT ></a>
     </div>
@@ -489,20 +484,20 @@
         <table>
             <thead>
                 <tr>
-                    <th class="col-center">CMP</th>
-                    <th class="col-center">RK</th>
-                    <th>PROVIDER</th>
-                    <th>MODEL</th>
-                    <th class="col-center" data-tooltip="Overall Score (0-100). Combines Smarts, Speed, and Responsiveness.">SCORE</th>
-                    <th class="col-center" data-tooltip="Time to finish the entire test (Seconds).">SPEED</th>
+                    <th class="col-center" data-tooltip="Check two boxes to compare model outputs side-by-side.">CMP</th>
+                    <th class="col-center" data-tooltip="Current ranking based on selected sort method.">RK</th>
+                    <th data-tooltip="The company providing the LLM API.">PROVIDER</th>
+                    <th data-tooltip="The specific model version being tested.">MODEL</th>
+                    <th class="col-center" data-tooltip="Overall Score (0-100). Combines Smarts (50%), Speed (30%), and Responsiveness (20%).">SCORE</th>
+                    <th class="col-center" data-tooltip="Time to finish the entire test (Seconds). Lower is better.">SPEED</th>
                     <th class="col-center" data-tooltip="Writing Speed (Tokens Per Second). Higher is better.">TPS</th>
                     <th class="col-center" data-tooltip="Reaction Time (Time To First Token). Lower is better.">TTFT</th>
-                    <th class="col-center">COST</th>
+                    <th class="col-center" data-tooltip="Cost per 1M tokens (blended input/output).">COST</th>
                     <th class="col-center" data-tooltip="Did it follow strict JSON rules? (Word count & letter bans)">JSON</th>
                     <th class="col-center" data-tooltip="Did it calculate the correct date?">LOGIC</th>
                     <th class="col-center" data-tooltip="Did it write working code with filters?">CODE</th>
-                    <th>OUTPUT (PREVIEW)</th>
-                    <th class="col-center">LINK</th>
+                    <th data-tooltip="A snippet of the actual model response. Click to expand.">OUTPUT (PREVIEW)</th>
+                    <th class="col-center" data-tooltip="Direct link to the provider's API or Playground.">LINK</th>
                 </tr>
             </thead>
             <tbody id="table-body">
