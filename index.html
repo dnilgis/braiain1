@@ -379,58 +379,6 @@
         .chart-container { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 20px; margin-bottom: 40px; }
         .chart-canvas-wrapper { height: 350px; }
 
-        .timeline-streaks {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            padding: 20px;
-            background: rgba(0,0,0,0.3);
-            border-radius: 4px;
-        }
-
-        .streak-bar {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.9rem;
-            padding: 8px 0;
-            border-left: 4px solid;
-            padding-left: 12px;
-            transition: all 0.2s;
-        }
-
-        .streak-bar:hover {
-            padding-left: 20px;
-            filter: brightness(1.2);
-        }
-
-        .streak-provider {
-            min-width: 120px;
-            font-weight: bold;
-            color: #fff;
-        }
-
-        .streak-visual {
-            flex: 1;
-            height: 24px;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 0.75rem;
-            font-weight: bold;
-            color: #000;
-            min-width: 60px;
-        }
-
-        .streak-count {
-            min-width: 80px;
-            text-align: right;
-            color: var(--text-muted);
-            font-size: 0.85rem;
-        }
-
         footer { border-top: 1px solid var(--border-color); padding: 40px 0; text-align: center; color: #666; }
 
         @media (max-width: 768px) {
@@ -572,20 +520,35 @@
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Shows when one AI won multiple times in a row. Like sports: 'OpenAI won 5 games straight, then Claude won 3 games straight.'">Winner Timeline</h3>
-            <span style="color:var(--text-muted); font-size:0.85rem;">Model dominance over time</span>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Shows how fast each model responds. Like comparing pizza delivery times - who gets you an answer quickest?">Speed Comparison</h3>
+            <span style="color:var(--text-muted); font-size:0.85rem;">Total response time (lower is better)</span>
         </div>
-        <div id="winner-timeline-container" style="min-height: 120px;">
+        <div id="speed-comparison-container" style="min-height: 300px;">
         </div>
     </div>
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: A simple ranking by score. Gold bars = FREE models. Green bars = really efficient (high score for low cost). Gray bars = expensive for what you get.">Model Rankings by Score</h3>
-            <span style="color:var(--text-muted); font-size:0.85rem;">🟢 High Efficiency • 🟡 Free Models</span>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Enter how many tokens you use per month and see which model saves you the most money. Like comparing phone plans.">Cost Calculator</h3>
+            <span style="color:var(--text-muted); font-size:0.85rem;">Find your cheapest option</span>
         </div>
-        <div class="chart-canvas-wrapper" style="height: 400px;">
-            <canvas id="valueChart"></canvas>
+        <div style="padding: 30px; background: rgba(0,0,0,0.3); border-radius: 4px;">
+            <div style="max-width: 600px; margin: 0 auto;">
+                <label style="display: block; color: var(--text-muted); margin-bottom: 10px; font-size: 0.9rem;">
+                    Monthly Token Usage (millions):
+                </label>
+                <input 
+                    type="number" 
+                    id="token-input" 
+                    value="10" 
+                    min="1" 
+                    max="1000" 
+                    style="width: 100%; padding: 12px; background: #000; border: 1px solid var(--border-color); color: #fff; font-family: 'Share Tech Mono'; font-size: 1.1rem; border-radius: 4px;"
+                    oninput="calculateCosts()"
+                />
+                <div id="cost-results" style="margin-top: 30px;">
+                </div>
+            </div>
         </div>
     </div>
 
@@ -899,8 +862,8 @@ Assume standard log format. Include type hints.
             
             render();
             renderChart();
-            renderWinnerTimeline();
-            renderValueChart();
+            renderSpeedComparison();
+            calculateCosts();
         } catch (e) {
             console.error(e);
         }
@@ -1139,6 +1102,8 @@ Assume standard log format. Include type hints.
         document.getElementById('chart-speed').classList.toggle('active', mode === 'speed');
         document.getElementById('chart-score').classList.toggle('active', mode === 'score');
         renderChart();
+        renderSpeedComparison();
+        calculateCosts();
     }
 
     function renderChart() {
@@ -1191,204 +1156,144 @@ Assume standard log format. Include type hints.
         });
     }
 
-    function renderWinnerTimeline() {
-        if (!appData || !appData.history || appData.history.length < 2) return;
-        
-        const timeline = appData.history.map(h => {
-            const results = Object.values(h.results || {})
-                .filter(r => r.status === 'Online');
-            if (results.length === 0) return null;
-            
-            const sorted = results.sort((a,b) => (b.braiain_score || 0) - (a.braiain_score || 0));
-            return {
-                date: h.timestamp,
-                winner: sorted[0]?.provider || 'None',
-                score: sorted[0]?.braiain_score || 0
-            };
-        }).filter(t => t !== null);
-        
-        const allStreaks = [];
-        let current = null;
-        
-        timeline.forEach(t => {
-            if (current && current.winner === t.winner) {
-                current.count++;
-                current.end = t.date;
-            } else {
-                if (current) allStreaks.push(current);
-                current = {
-                    winner: t.winner,
-                    count: 1,
-                    start: t.date,
-                    end: t.date
-                };
-            }
-        });
-        
-        if (current) allStreaks.push(current);
-        
-        const streaks = allStreaks.filter(s => s.count >= 2).slice(-10);
-        
-        if (streaks.length === 0) {
-            document.getElementById('winner-timeline-container').innerHTML = `
-                <div style="padding: 40px; text-align: center; color: var(--text-muted);">
-                    <p>No dominant streaks yet. Run more benchmarks to see patterns.</p>
-                    <p style="font-size: 0.8rem; margin-top: 10px;">(Streaks require 2+ consecutive wins)</p>
-                </div>
-            `;
-            return;
-        }
-        
-        const colors = {
-            'OpenAI': '#10a37f',
-            'Anthropic': '#d97757',
-            'Google': '#4285f4',
-            'Groq': '#f55036',
-            'Mistral AI': '#f2a73b',
-            'Cohere': '#39594d',
-            'Together AI': '#6366f1',
-            'DeepSeek': '#4ade80',
-            'Fireworks': '#fb923c',
-            'Cerebras': '#8b5cf6'
-        };
-        
-        const html = `
-            <div class="timeline-streaks">
-                ${streaks.map(s => `
-                    <div class="streak-bar" style="border-color: ${colors[s.winner] || '#666'};">
-                        <div class="streak-provider">${s.winner}</div>
-                        <div class="streak-visual" style="background: ${colors[s.winner] || '#666'}; width: ${Math.min(s.count * 8, 80)}%;">
-                            ${s.count} runs
-                        </div>
-                        <div class="streak-count">${formatDate(s.start)} - ${formatDate(s.end)}</div>
-                    </div>
-                `).join('')}
-            </div>
-        `;
-        
-        document.getElementById('winner-timeline-container').innerHTML = html;
-    }
-
-    function formatDate(dateStr) {
-        const d = new Date(dateStr.replace(' UTC', 'Z'));
-        return d.toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
-    }
-
-    function renderValueChart() {
+    function renderSpeedComparison() {
         if (!appData || !appData.results) return;
         
-        const ctx = document.getElementById('valueChart');
-        if (!ctx) return;
-        
-        const validResults = appData.results.filter(r => r.status === 'Online');
+        const validResults = appData.results
+            .filter(r => r.status === 'Online' && r.time > 0)
+            .sort((a, b) => a.time - b.time)
+            .slice(0, 10);
         
         if (validResults.length === 0) {
-            document.getElementById('valueChart').parentElement.innerHTML = `
+            document.getElementById('speed-comparison-container').innerHTML = `
                 <div style="padding: 40px; text-align: center; color: var(--text-muted);">
-                    <p>No data available for value analysis</p>
+                    <p>No speed data available</p>
                 </div>
             `;
             return;
         }
         
-        const chartData = validResults.map(r => {
-            const cost = r.cost_per_request * 1_000_000;
-            const score = r.braiain_score || 0;
-            const efficiency = cost > 0 ? (score / cost) : 999;
+        const maxTime = Math.max(...validResults.map(r => r.time));
+        
+        const html = validResults.map((r, i) => {
+            const width = (r.time / maxTime) * 100;
+            const color = i === 0 ? '#00ff41' : i < 3 ? '#4ade80' : '#888';
+            const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : i === 2 ? '🥉 ' : '';
             
-            return {
-                provider: r.provider,
-                score: score,
-                cost: cost,
-                efficiency: efficiency,
-                isFree: cost === 0
-            };
-        }).sort((a, b) => {
-            if (a.isFree && !b.isFree) return -1;
-            if (!a.isFree && b.isFree) return 1;
-            return b.efficiency - a.efficiency;
-        });
+            return `
+                <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 12px; padding: 8px; background: rgba(0,0,0,0.2); border-radius: 4px;">
+                    <div style="min-width: 120px; font-family: 'Share Tech Mono'; color: #fff; font-size: 0.9rem;">
+                        ${medal}${r.provider}
+                    </div>
+                    <div style="flex: 1; background: rgba(0,0,0,0.4); border-radius: 3px; height: 28px; position: relative;">
+                        <div style="width: ${width}%; height: 100%; background: ${color}; border-radius: 3px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; color: #000;">
+                            ${r.time.toFixed(2)}s
+                        </div>
+                    </div>
+                    <div style="min-width: 80px; text-align: right; color: var(--text-muted); font-size: 0.85rem;">
+                        ${r.tokens_per_second} TPS
+                    </div>
+                </div>
+            `;
+        }).join('');
         
-        const labels = chartData.map(d => d.provider);
-        const scores = chartData.map(d => d.score);
-        const costs = chartData.map(d => d.cost);
-        const backgrounds = chartData.map(d => {
-            if (d.isFree) return '#ffaa00';
-            if (d.efficiency > 20) return '#00ff41';
-            if (d.efficiency > 10) return '#4ade80';
-            return '#888';
-        });
+        document.getElementById('speed-comparison-container').innerHTML = html;
+    }
+
+    function calculateCosts() {
+        if (!appData || !appData.results) return;
         
-        if (window.valueChartInstance) {
-            window.valueChartInstance.destroy();
+        const tokensInMillions = parseFloat(document.getElementById('token-input').value) || 10;
+        
+        const validResults = appData.results
+            .filter(r => r.status === 'Online')
+            .map(r => {
+                const cost = r.cost_per_request * tokensInMillions;
+                return {
+                    provider: r.provider,
+                    score: r.braiain_score || 0,
+                    monthlyCost: cost,
+                    isFree: r.cost_per_request === 0
+                };
+            })
+            .sort((a, b) => {
+                if (a.isFree && !b.isFree) return -1;
+                if (!a.isFree && b.isFree) return 1;
+                return a.monthlyCost - b.monthlyCost;
+            });
+        
+        if (validResults.length === 0) {
+            document.getElementById('cost-results').innerHTML = `
+                <div style="padding: 20px; text-align: center; color: var(--text-muted);">
+                    <p>No cost data available</p>
+                </div>
+            `;
+            return;
         }
         
-        window.valueChartInstance = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Braiain Score',
-                    data: scores,
-                    backgroundColor: backgrounds,
-                    borderColor: backgrounds.map(c => c),
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                indexAxis: 'y',
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const data = chartData[context.dataIndex];
-                                if (data.isFree) {
-                                    return [
-                                        `Score: ${data.score}`,
-                                        `Cost: FREE`,
-                                        `Best bang for buck! 🎉`
-                                    ];
-                                }
-                                return [
-                                    `Score: ${data.score}`,
-                                    `Cost: $${data.cost.toFixed(2)}/1M tokens`,
-                                    `Efficiency: ${data.efficiency.toFixed(1)} pts/$`
-                                ];
-                            }
-                        },
-                        backgroundColor: 'rgba(10, 14, 18, 0.95)',
-                        titleColor: '#00ff41',
-                        bodyColor: '#fff',
-                        borderColor: '#00ff41',
-                        borderWidth: 1
-                    }
-                },
-                scales: {
-                    x: {
-                        title: {
-                            display: true,
-                            text: 'Braiain Score',
-                            color: '#888',
-                            font: { family: 'Share Tech Mono' }
-                        },
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        ticks: { color: '#888' },
-                        min: 0,
-                        max: 100
-                    },
-                    y: {
-                        grid: { display: false },
-                        ticks: { 
-                            color: '#888',
-                            font: { family: 'Share Tech Mono', size: 11 }
-                        }
-                    }
-                }
-            }
-        });
+        const freeModels = validResults.filter(r => r.isFree);
+        const paidModels = validResults.filter(r => !r.isFree);
+        
+        let html = '';
+        
+        if (freeModels.length > 0) {
+            const topFree = freeModels.sort((a, b) => b.score - a.score)[0];
+            html += `
+                <div style="padding: 20px; background: rgba(255, 170, 0, 0.1); border: 2px solid var(--neon-gold); border-radius: 6px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 0.8rem; color: var(--neon-gold); margin-bottom: 5px; font-family: 'Orbitron';">🎉 BEST FREE OPTION</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #fff; font-family: 'Rajdhani';">${topFree.provider}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Score: ${topFree.score} • Cost: FREE</div>
+                        </div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--neon-gold); font-family: 'Rajdhani';">
+                            $0
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        if (paidModels.length > 0) {
+            const cheapest = paidModels[0];
+            const mostExpensive = paidModels[paidModels.length - 1];
+            const savings = mostExpensive.monthlyCost - cheapest.monthlyCost;
+            
+            html += `
+                <div style="padding: 20px; background: rgba(0, 255, 65, 0.1); border: 2px solid var(--neon-green); border-radius: 6px; margin-bottom: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-size: 0.8rem; color: var(--neon-green); margin-bottom: 5px; font-family: 'Orbitron';">💰 CHEAPEST PAID OPTION</div>
+                            <div style="font-size: 1.5rem; font-weight: bold; color: #fff; font-family: 'Rajdhani';">${cheapest.provider}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Score: ${cheapest.score}</div>
+                            ${savings > 0 ? `<div style="font-size: 0.8rem; color: var(--neon-green); margin-top: 5px;">Saves $${savings.toFixed(2)}/month vs most expensive</div>` : ''}
+                        </div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--neon-green); font-family: 'Rajdhani';">
+                            $${cheapest.monthlyCost.toFixed(0)}
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            html += `
+                <div style="margin-top: 20px;">
+                    <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 15px; font-family: 'Orbitron';">ALL PAID OPTIONS:</div>
+                    ${paidModels.slice(0, 5).map((r, i) => `
+                        <div style="display: flex; justify-content: space-between; padding: 10px; background: rgba(0,0,0,0.2); margin-bottom: 8px; border-radius: 4px;">
+                            <div>
+                                <span style="color: #fff; font-weight: bold;">${r.provider}</span>
+                                <span style="color: var(--text-muted); font-size: 0.85rem; margin-left: 10px;">Score: ${r.score}</span>
+                            </div>
+                            <div style="color: ${i === 0 ? 'var(--neon-green)' : '#fff'}; font-weight: bold; font-family: 'Rajdhani'; font-size: 1.1rem;">
+                                $${r.monthlyCost.toFixed(2)}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        document.getElementById('cost-results').innerHTML = html;
     }
     
     function exportCSV() {
