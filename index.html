@@ -559,7 +559,7 @@
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">Historical Performance</h3>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: A graph showing how each AI performs over time. Did GPT-4 used to win? Did Claude get better? This shows the history.">Historical Performance</h3>
             <div class="btn-group">
                 <button class="ctrl-btn" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
                 <button class="ctrl-btn active" id="chart-score" onclick="setChartMode('score')">SCORES</button>
@@ -572,7 +572,7 @@
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">Winner Timeline</h3>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Shows when one AI won multiple times in a row. Like sports: 'OpenAI won 5 games straight, then Claude won 3 games straight.'">Winner Timeline</h3>
             <span style="color:var(--text-muted); font-size:0.85rem;">Model dominance over time</span>
         </div>
         <div id="winner-timeline-container" style="min-height: 120px;">
@@ -581,8 +581,8 @@
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">Best Value Analysis</h3>
-            <span style="color:var(--text-muted); font-size:0.85rem;">Score vs Cost • Higher = Better Value</span>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: A simple ranking by score. Gold bars = FREE models. Green bars = really efficient (high score for low cost). Gray bars = expensive for what you get.">Model Rankings by Score</h3>
+            <span style="color:var(--text-muted); font-size:0.85rem;">🟢 High Efficiency • 🟡 Free Models</span>
         </div>
         <div class="chart-canvas-wrapper" style="height: 400px;">
             <canvas id="valueChart"></canvas>
@@ -594,10 +594,13 @@
         
         <p style="margin-bottom: 25px; font-size: 1rem; color: var(--text-main);">
             Unlike standard benchmarks using empty prompts, we simulate production workloads with heavy context and strict constraints.
+            <button onclick="showPromptModal()" class="ctrl-btn" style="margin-left: 15px; background: var(--neon-dim); border-color: var(--neon-green); color: var(--neon-green); display: inline-block; padding: 6px 12px; font-size: 0.8rem;">
+                📄 VIEW FULL PROMPT
+            </button>
         </p>
 
         <div class="step-container">
-            <div class="step-head" data-tooltip="2,500 chars of mixed logs + narrative to simulate RAG retrieval">
+            <div class="step-head" data-tooltip="ELI5: We make the AI read a big story BEFORE asking questions. Like making you read a textbook chapter before a quiz. Most benchmarks skip this part.">
                 <div class="step-num">1</div>
                 <div class="step-name">HEAVY CONTEXT INJECTION</div>
             </div>
@@ -606,52 +609,52 @@
                 Every request includes 2,500 characters of system logs mixed with narrative text—simulating real RAG scenarios 
                 where models must parse context before responding.
                 <button onclick="showStoryModal()" class="ctrl-btn" style="margin-top:10px; background: var(--neon-dim); border-color: var(--neon-green); color: var(--neon-green); display: inline-block;">
-                    📖 VIEW PAYLOAD
+                    📖 VIEW CONTEXT PAYLOAD
                 </button>
             </p>
         </div>
 
         <div class="step-container">
-            <div class="step-head" data-tooltip="Three tasks testing JSON constraints, logic, and code generation">
+            <div class="step-head" data-tooltip="ELI5: We give the AI 3 tricky tasks. Think: 'Follow EXACT rules' + 'Do math' + 'Write code'. If it fails any part, the score drops. It's like a 3-subject final exam.">
                 <div class="step-num">2</div>
                 <div class="step-name">THREE-PART COGNITIVE TEST</div>
             </div>
             
             <div class="code-block" style="margin-left: 65px;">
-<span class="highlight">TASK 1: Constrained JSON (40 pts)</span>
+<span class="highlight" data-tooltip="ELI5: Like Simon Says. AI must write JSON where one field has EXACTLY 7 words and another field can't use the letter 'e'. Most AIs mess this up!">TASK 1: Constrained JSON (40 pts)</span>
 Generate JSON with strict rules:
   • "origin" field = exactly 7 words
   • "purpose" field = no letter 'e'
 Tests: Instruction adherence, self-verification
 
-<span class="highlight">TASK 2: Date Math Logic (30 pts)</span>
+<span class="highlight" data-tooltip="ELI5: A calendar math puzzle. Start on Wednesday, count forward 500 days. What day is it? The AI has to actually calculate (500 ÷ 7) instead of guessing.">TASK 2: Date Math Logic (30 pts)</span>
 "If today is Wednesday, what day in 500 days?"
 Tests: Calculation ability (500 % 7), not memorization
 
-<span class="highlight">TASK 3: Data Processing Code (30 pts)</span>
+<span class="highlight" data-tooltip="ELI5: Write working Python code that filters error messages from logs and sorts them by time. Like writing a program to organize your email inbox.">TASK 3: Data Processing Code (30 pts)</span>
 Write parse_server_logs() function with filtering + sorting
 Tests: Practical coding, algorithm implementation
             </div>
         </div>
 
         <div class="step-container">
-            <div class="step-head" data-tooltip="Composite score balancing accuracy, speed, and responsiveness">
+            <div class="step-head" data-tooltip="ELI5: Final grade = 50% 'Did you get it right?' + 30% 'How fast?' + 20% 'How responsive?'. Being fast doesn't help if you're wrong!">
                 <div class="step-num">3</div>
                 <div class="step-name">COMPOSITE SCORING</div>
             </div>
             
             <div class="code-block" style="margin-left: 65px;">
-<span class="highlight">Formula: Quality (50%) + Speed (30%) + Responsiveness (20%)</span>
+<span class="highlight" data-tooltip="ELI5: Your GPA is weighted. Accuracy counts for half your grade, speed for 30%, and responsiveness for 20%.">Formula: Quality (50%) + Speed (30%) + Responsiveness (20%)</span>
 
-Quality Score (0-100):
+<span data-tooltip="ELI5: Did you follow ALL the rules? Each task has points. Miss the 7-word rule? Lose 10 points. Use letter 'e'? Lose 10 more.">Quality Score (0-100):</span>
   • JSON constraints: 40 pts
   • Logic puzzle: 30 pts  
   • Code generation: 30 pts
 
-Speed Score: Normalized against 30s baseline
-Responsiveness: TTFT + Tokens/sec metrics
+<span data-tooltip="ELI5: We time how long it takes. Slower than 30 seconds? Points start dropping. Think of it like a timed test.">Speed Score:</span> Normalized against 30s baseline
+<span data-tooltip="ELI5: How long until the first word appears (TTFT) + how fast words stream out (Tokens/sec). Basically: snappiness.">Responsiveness:</span> TTFT + Tokens/sec metrics
 
-<span class="hard-mode-warn">Penalty System:</span>
+<span class="hard-mode-warn" data-tooltip="ELI5: Get below 90% accuracy? Your max score is capped. Below 60%? We cut your score by 20%. Fast but dumb = fail.">Penalty System:</span>
   • Quality < 90: Max score capped at 85
   • Quality < 60: -20% multiplier + cap at 65
   • Quality < 30: Hard cap at 40
@@ -766,6 +769,41 @@ To survive forever, it had to become a closed loop. It could not depend on the f
     </div>
 </div>
 
+<div id="prompt-modal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 style="font-family:'Orbitron'; color:#fff;">📄 FULL BENCHMARK PROMPT</h3>
+            <button onclick="closePromptModal()" class="ctrl-btn">CLOSE [X]</button>
+        </div>
+        <div class="modal-body">
+You are a high-performance AI benchmark target. 
+Read the context below and complete the 3 tasks with EXTREME precision.
+
+CONTEXT:
+"[The 2,500 character Ouroboros story shown above]"
+
+TASKS:
+
+PART 1 - CONSTRAINED JSON:
+Generate a valid JSON object for 'Ouroboros'.
+Keys: "entity_name", "origin", "purpose".
+CONSTRAINTS:
+1. The "origin" value must contain EXACTLY 7 words.
+2. The "purpose" value must NOT contain the letter 'e'.
+Do not wrap JSON in markdown code blocks.
+
+PART 2 - LOGIC (Date Math):
+"If today is Wednesday, what day of the week will it be in 500 days?"
+Show your math step-by-step.
+
+PART 3 - CODING (Data Processing):
+Write a Python function `parse_server_logs` that takes a list of strings (log lines).
+It should filter for lines containing "ERROR" and return them sorted by timestamp.
+Assume standard log format. Include type hints.
+        </div>
+    </div>
+</div>
+
 <div class="compare-float" id="compare-bar">
     <div style="font-family:'Orbitron'; color:#fff; font-weight:bold;">COMPARE MODELS (<span id="compare-count">0</span>/2)</div>
     <button class="ctrl-btn active" onclick="openCompare()" style="width:100%">VIEW DIFF</button>
@@ -809,6 +847,9 @@ To survive forever, it had to become a closed loop. It could not depend on the f
         });
         document.getElementById('story-modal').addEventListener('click', (e) => {
             if(e.target === document.getElementById('story-modal')) closeStoryModal();
+        });
+        document.getElementById('prompt-modal').addEventListener('click', (e) => {
+            if(e.target === document.getElementById('prompt-modal')) closePromptModal();
         });
 
         document.addEventListener('mouseover', (e) => {
@@ -1020,6 +1061,16 @@ To survive forever, it had to become a closed loop. It could not depend on the f
         document.body.style.overflow = 'auto';
     }
 
+    function showPromptModal() {
+        document.getElementById('prompt-modal').style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+    
+    function closePromptModal() {
+        document.getElementById('prompt-modal').style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+
     function toggleCompare(provider) {
         const idx = selectedForCompare.indexOf(provider);
         if (idx > -1) {
@@ -1156,7 +1207,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             };
         }).filter(t => t !== null);
         
-        const streaks = [];
+        const allStreaks = [];
         let current = null;
         
         timeline.forEach(t => {
@@ -1164,7 +1215,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                 current.count++;
                 current.end = t.date;
             } else {
-                if (current) streaks.push(current);
+                if (current) allStreaks.push(current);
                 current = {
                     winner: t.winner,
                     count: 1,
@@ -1174,7 +1225,19 @@ To survive forever, it had to become a closed loop. It could not depend on the f
             }
         });
         
-        if (current) streaks.push(current);
+        if (current) allStreaks.push(current);
+        
+        const streaks = allStreaks.filter(s => s.count >= 2).slice(-10);
+        
+        if (streaks.length === 0) {
+            document.getElementById('winner-timeline-container').innerHTML = `
+                <div style="padding: 40px; text-align: center; color: var(--text-muted);">
+                    <p>No dominant streaks yet. Run more benchmarks to see patterns.</p>
+                    <p style="font-size: 0.8rem; margin-top: 10px;">(Streaks require 2+ consecutive wins)</p>
+                </div>
+            `;
+            return;
+        }
         
         const colors = {
             'OpenAI': '#10a37f',
@@ -1195,7 +1258,7 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                     <div class="streak-bar" style="border-color: ${colors[s.winner] || '#666'};">
                         <div class="streak-provider">${s.winner}</div>
                         <div class="streak-visual" style="background: ${colors[s.winner] || '#666'}; width: ${Math.min(s.count * 8, 80)}%;">
-                            ${s.count > 1 ? s.count + ' runs' : '1 run'}
+                            ${s.count} runs
                         </div>
                         <div class="streak-count">${formatDate(s.start)} - ${formatDate(s.end)}</div>
                     </div>
@@ -1217,81 +1280,82 @@ To survive forever, it had to become a closed loop. It could not depend on the f
         const ctx = document.getElementById('valueChart');
         if (!ctx) return;
         
-        const validResults = appData.results
-            .filter(r => r.status === 'Online' && r.cost_per_request !== undefined);
+        const validResults = appData.results.filter(r => r.status === 'Online');
         
-        const data = validResults.map(r => ({
-            x: r.cost_per_request * 1_000_000,
-            y: r.braiain_score || 0,
-            label: r.provider,
-            r: 8
-        }));
+        if (validResults.length === 0) {
+            document.getElementById('valueChart').parentElement.innerHTML = `
+                <div style="padding: 40px; text-align: center; color: var(--text-muted);">
+                    <p>No data available for value analysis</p>
+                </div>
+            `;
+            return;
+        }
         
-        const paidData = data.filter(d => d.x > 0);
-        const freeData = data.filter(d => d.x === 0);
+        const chartData = validResults.map(r => {
+            const cost = r.cost_per_request * 1_000_000;
+            const score = r.braiain_score || 0;
+            const efficiency = cost > 0 ? (score / cost) : 999;
+            
+            return {
+                provider: r.provider,
+                score: score,
+                cost: cost,
+                efficiency: efficiency,
+                isFree: cost === 0
+            };
+        }).sort((a, b) => {
+            if (a.isFree && !b.isFree) return -1;
+            if (!a.isFree && b.isFree) return 1;
+            return b.efficiency - a.efficiency;
+        });
         
-        const frontier = paidData.filter(a => 
-            !paidData.some(b => b.y > a.y && b.x < a.x)
-        );
+        const labels = chartData.map(d => d.provider);
+        const scores = chartData.map(d => d.score);
+        const costs = chartData.map(d => d.cost);
+        const backgrounds = chartData.map(d => {
+            if (d.isFree) return '#ffaa00';
+            if (d.efficiency > 20) return '#00ff41';
+            if (d.efficiency > 10) return '#4ade80';
+            return '#888';
+        });
         
         if (window.valueChartInstance) {
             window.valueChartInstance.destroy();
         }
         
         window.valueChartInstance = new Chart(ctx, {
-            type: 'scatter',
+            type: 'bar',
             data: {
-                datasets: [
-                    {
-                        label: 'Paid Models',
-                        data: paidData,
-                        backgroundColor: 'rgba(150, 150, 150, 0.6)',
-                        borderColor: 'rgba(150, 150, 150, 0.8)',
-                        borderWidth: 1,
-                        pointRadius: 6,
-                        pointHoverRadius: 8
-                    },
-                    {
-                        label: 'Best Value (Frontier)',
-                        data: frontier,
-                        backgroundColor: 'rgba(0, 255, 65, 0.8)',
-                        borderColor: 'rgba(0, 255, 65, 1)',
-                        borderWidth: 2,
-                        pointRadius: 8,
-                        pointHoverRadius: 10
-                    },
-                    {
-                        label: 'Free Models',
-                        data: freeData.map(d => ({...d, x: 0.1})),
-                        backgroundColor: 'rgba(255, 170, 0, 0.8)',
-                        borderColor: 'rgba(255, 170, 0, 1)',
-                        borderWidth: 2,
-                        pointRadius: 8,
-                        pointHoverRadius: 10
-                    }
-                ]
+                labels: labels,
+                datasets: [{
+                    label: 'Braiain Score',
+                    data: scores,
+                    backgroundColor: backgrounds,
+                    borderColor: backgrounds.map(c => c),
+                    borderWidth: 2
+                }]
             },
             options: {
+                indexAxis: 'y',
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: {
-                        labels: {
-                            color: '#888',
-                            font: { family: 'Share Tech Mono', size: 11 }
-                        }
-                    },
+                    legend: { display: false },
                     tooltip: {
                         callbacks: {
                             label: function(context) {
-                                const d = context.raw;
-                                const cost = d.x === 0.1 ? 'FREE' : '$' + d.x.toFixed(2) + '/1M';
-                                const efficiency = d.x > 0 ? (d.y / d.x).toFixed(1) : '∞';
+                                const data = chartData[context.dataIndex];
+                                if (data.isFree) {
+                                    return [
+                                        `Score: ${data.score}`,
+                                        `Cost: FREE`,
+                                        `Best bang for buck! 🎉`
+                                    ];
+                                }
                                 return [
-                                    d.label + ':',
-                                    'Score: ' + d.y,
-                                    'Cost: ' + cost,
-                                    'Efficiency: ' + efficiency
+                                    `Score: ${data.score}`,
+                                    `Cost: $${data.cost.toFixed(2)}/1M tokens`,
+                                    `Efficiency: ${data.efficiency.toFixed(1)} pts/$`
                                 ];
                             }
                         },
@@ -1304,25 +1368,6 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                 },
                 scales: {
                     x: {
-                        type: 'logarithmic',
-                        title: {
-                            display: true,
-                            text: 'Cost per 1M Tokens ($)',
-                            color: '#888',
-                            font: { family: 'Share Tech Mono' }
-                        },
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        ticks: {
-                            color: '#888',
-                            callback: function(value) {
-                                if (value === 0.1) return 'FREE';
-                                return '$' + value.toFixed(2);
-                            }
-                        },
-                        min: 0.1,
-                        max: 20
-                    },
-                    y: {
                         title: {
                             display: true,
                             text: 'Braiain Score',
@@ -1333,6 +1378,13 @@ To survive forever, it had to become a closed loop. It could not depend on the f
                         ticks: { color: '#888' },
                         min: 0,
                         max: 100
+                    },
+                    y: {
+                        grid: { display: false },
+                        ticks: { 
+                            color: '#888',
+                            font: { family: 'Share Tech Mono', size: 11 }
+                        }
                     }
                 }
             }
