@@ -97,17 +97,14 @@
         .hud-label { color: var(--text-muted); font-size: 0.7rem; letter-spacing: 1px; font-family: 'Orbitron'; }
         .hud-value { color: #fff; font-family: 'Rajdhani'; font-weight: 700; font-size: 1.1rem; }
 
-        /* WEIGHT CONTROLS */
-        .weights-panel {
-            background: #05080a; border-bottom: 1px solid var(--border-color);
-            padding: 20px 0; margin-bottom: 30px;
-        }
+        /* WEIGHT CONTROLS - NEW */
+        .weights-panel { background: #05080a; border-bottom: 1px solid var(--border-color); padding: 20px 0; margin-bottom: 30px; }
         .weight-container { display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
         .slider-group { flex:1; min-width:300px; }
         .slider-row { display:flex; gap:15px; align-items:center; }
         .slider-item { flex:1; }
-        .slider-label { font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom: 5px; }
-        
+        .slider-label { font-size:0.75rem; color:var(--text-muted); display:flex; justify-content:space-between; margin-bottom: 5px; cursor: help; }
+
         .ad-banner {
             margin: 20px auto; padding: 15px 20px;
             border: 1px dotted var(--neon-gold);
@@ -222,7 +219,7 @@
         .chart-container { background: var(--bg-panel); border: 1px solid var(--border-color); padding: 20px; margin-bottom: 40px; }
         .chart-canvas-wrapper { height: 350px; }
 
-        footer { border-top: 1px solid var(--border-color); padding: 40px 0; text-align: center; color: #666; }
+        footer { border-top: 1px solid var(--border-color); padding: 40px 0; text-align: center; color: #666; margin-top: 50px; }
 
         @media (max-width: 768px) {
             body { font-size: 14px; }
@@ -256,35 +253,46 @@
         
         <div class="hud-bar">
             <div class="hud-stat"><span class="hud-label">LAST RUN</span><span class="hud-value" id="last-run">--</span></div>
+            <div style="opacity:0.3" class="desktop-only">|</div>
             <div class="hud-stat"><span class="hud-label">NEXT RUN</span><span class="hud-value" id="next-run">--:--:--</span></div>
+            <div style="opacity:0.3" class="desktop-only">|</div>
             <div class="hud-stat"><span class="hud-label">NODES</span><span class="hud-value" id="node-count">--</span></div>
+            <div style="opacity:0.3" class="desktop-only">|</div>
             <div class="hud-stat"><span class="hud-label">STATUS</span><span class="hud-value" style="color:var(--neon-green)">LIVE</span></div>
+            <div style="opacity:0.3" class="desktop-only">|</div>
+            <div class="hud-stat"><span class="hud-label">PROTOCOL</span><span class="hud-value" style="color:var(--neon-red)">V6.0</span></div>
         </div>
     </div>
 </header>
 
-<div class="weights-panel">
+<div class="weights-panel" data-tooltip="ELI5: Control Panel. Customize the scores based on what YOU care about. Drag sliders to re-rank the models.">
     <div class="container weight-container">
         <div class="slider-group">
             <div style="font-family:'Orbitron'; font-size:0.9rem; color:var(--neon-green); margin-bottom:10px;">BUILD YOUR OWN BENCHMARK</div>
             <div class="slider-row">
                 <div class="slider-item">
-                    <label class="slider-label">QUALITY (Smartness) <span id="val-quality">50%</span></label>
-                    <input type="range" id="rng-quality" min="0" max="100" value="50" style="width:100%; accent-color:var(--neon-green);" oninput="updateWeights()">
+                    <label class="slider-label" data-tooltip="ELI5: Smartness. How well did it follow the rules, solve the puzzle, and write the code?">
+                        QUALITY (Smartness) <span id="val-quality">50%</span>
+                    </label>
+                    <input type="range" id="rng-quality" min="0" max="100" value="50" style="width:100%; accent-color:var(--neon-green);" oninput="balanceSliders('rng-quality')">
                 </div>
                 <div class="slider-item">
-                    <label class="slider-label">SPEED (Latency) <span id="val-speed">30%</span></label>
-                    <input type="range" id="rng-speed" min="0" max="100" value="30" style="width:100%; accent-color:#00f3ff;" oninput="updateWeights()">
+                    <label class="slider-label" data-tooltip="ELI5: Speed. How fast did it finish? If you need real-time chat, crank this up.">
+                        SPEED (Latency) <span id="val-speed">30%</span>
+                    </label>
+                    <input type="range" id="rng-speed" min="0" max="100" value="30" style="width:100%; accent-color:#00f3ff;" oninput="balanceSliders('rng-speed')">
                 </div>
                 <div class="slider-item">
-                    <label class="slider-label">COST (Price) <span id="val-cost">20%</span></label>
-                    <input type="range" id="rng-cost" min="0" max="100" value="20" style="width:100%; accent-color:#ffaa00;" oninput="updateWeights()">
+                    <label class="slider-label" data-tooltip="ELI5: Price. How much does it cost? High percentage means you want the CHEAPEST models.">
+                        COST (Price) <span id="val-cost">20%</span>
+                    </label>
+                    <input type="range" id="rng-cost" min="0" max="100" value="20" style="width:100%; accent-color:#ffaa00;" oninput="balanceSliders('rng-cost')">
                 </div>
             </div>
         </div>
         
         <div style="flex:0 0 auto;">
-            <div style="font-family:'Orbitron'; font-size:0.8rem; color:#888; margin-bottom:5px;">SYSTEM RELIABILITY</div>
+            <div style="font-family:'Orbitron'; font-size:0.8rem; color:#888; margin-bottom:5px;" data-tooltip="ELI5: Reliability Report. Green squares mean the AI is working. Red means it crashed or was offline recently.">SYSTEM RELIABILITY</div>
             <div id="reliability-grid" style="display:grid; grid-template-columns:repeat(5, 1fr); gap:4px;"></div>
         </div>
     </div>
@@ -341,13 +349,15 @@
     </div>
 
     <div class="chart-container">
-        <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">Historical Trends</h3>
-            <div style="display: flex; gap: 10px;">
-                <button class="ctrl-btn" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
-                <button class="ctrl-btn active" id="chart-score" onclick="setChartMode('score')">SCORES</button>
-                <select id="model-overlay-select" onchange="updateChartOverlay()" style="background: #000; border: 1px solid var(--border-color); color: #aaa;">
-                    <option value="">+ Compare</option>
+        <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap: wrap; gap: 10px;">
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: History Chart. See if models are getting smarter or faster over time. The green line is the average.">Historical Trends</h3>
+            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <div class="btn-group">
+                    <button class="ctrl-btn" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
+                    <button class="ctrl-btn active" id="chart-score" onclick="setChartMode('score')">SCORES</button>
+                </div>
+                <select id="model-overlay-select" onchange="updateChartOverlay()" style="background: #000; border: 1px solid var(--border-color); color: var(--text-muted); padding: 8px 12px; font-family: 'Share Tech Mono'; font-size: 0.8rem; cursor: pointer;">
+                    <option value="">+ Compare Model</option>
                 </select>
             </div>
         </div>
@@ -356,7 +366,7 @@
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">The Value Quadrant</h3>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: The Treasure Map. Models in the top-left are the 'Holy Grail' (Smart & Cheap). Avoid the bottom-right (Dumb & Expensive).">The Value Quadrant</h3>
             <span style="color:var(--text-muted); font-size:0.85rem;">Intelligence (Y) vs. Cost (X)</span>
         </div>
         <div class="chart-canvas-wrapper"><canvas id="scatterChart"></canvas></div>
@@ -364,19 +374,21 @@
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">Speed Comparison</h3>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Drag Race. Visualizes which model crosses the finish line first. Shorter bars are better.">Speed Comparison</h3>
+            <span style="color:var(--text-muted); font-size:0.85rem;">Total response time (lower is better)</span>
         </div>
         <div id="speed-comparison-container" style="min-height: 300px;"></div>
     </div>
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;">Cost Calculator</h3>
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Bill Estimator. Enter how many words you generate to see who gives you the best deal.">Cost Calculator</h3>
+            <span style="color:var(--text-muted); font-size:0.85rem;">Find your cheapest option</span>
         </div>
         <div style="padding: 30px; background: rgba(0,0,0,0.3); border-radius: 4px;">
             <div style="max-width: 600px; margin: 0 auto;">
-                <label style="color: var(--text-muted);">Monthly Token Usage (millions):</label>
-                <input type="number" id="token-input" value="10" min="1" max="1000" style="width: 100%; padding: 12px; background: #000; border: 1px solid var(--border-color); color: #fff; font-size: 1.1rem;" oninput="calculateCosts()"/>
+                <label style="display: block; color: var(--text-muted); margin-bottom: 10px; font-size: 0.9rem;">Monthly Token Usage (millions):</label>
+                <input type="number" id="token-input" value="10" min="1" max="1000" style="width: 100%; padding: 12px; background: #000; border: 1px solid var(--border-color); color: #fff; font-family: 'Share Tech Mono'; font-size: 1.1rem; border-radius: 4px;" oninput="calculateCosts()"/>
                 <div id="cost-results" style="margin-top: 30px;"></div>
             </div>
         </div>
@@ -385,16 +397,100 @@
     <div class="methodology-box">
         <div class="method-title">TESTING METHODOLOGY</div>
         <p style="margin-bottom: 25px; font-size: 1rem; color: var(--text-main);">
-            Benchmark simulates production workloads with heavy context and strict constraints.
-            <button onclick="showPromptModal()" class="ctrl-btn" style="margin-left: 15px; background: var(--neon-dim); border-color: var(--neon-green); color: var(--neon-green);">📄 VIEW FULL PROMPT</button>
+            Unlike standard benchmarks using empty prompts, we simulate production workloads with heavy context and strict constraints.
+            <button onclick="showPromptModal()" class="ctrl-btn" style="margin-left: 15px; background: var(--neon-dim); border-color: var(--neon-green); color: var(--neon-green); display: inline-block; padding: 6px 12px; font-size: 0.8rem;">📄 VIEW FULL PROMPT</button>
         </p>
+
+        <div class="step-container">
+            <div class="step-head" data-tooltip="ELI5: We make the AI read a big story BEFORE asking questions. Like making you read a textbook chapter before a quiz.">
+                <div class="step-num">1</div>
+                <div class="step-name">HEAVY CONTEXT INJECTION</div>
+            </div>
+            <p style="margin-left: 65px; margin-bottom: 15px; color: var(--text-muted);">
+                Every request includes 2,500 characters of system logs mixed with narrative text—simulating real RAG scenarios where models must parse context before responding.
+                <button onclick="showStoryModal()" class="ctrl-btn" style="margin-top:10px; background: var(--neon-dim); border-color: var(--neon-green); color: var(--neon-green); display: inline-block;">📖 VIEW CONTEXT PAYLOAD</button>
+            </p>
         </div>
+
+        <div class="step-container">
+            <div class="step-head" data-tooltip="ELI5: We give the AI 3 tricky tasks. Think: 'Follow EXACT rules' + 'Do math' + 'Write code'. If it fails any part, the score drops.">
+                <div class="step-num">2</div>
+                <div class="step-name">THREE-PART COGNITIVE TEST</div>
+            </div>
+            <div class="code-block" style="margin-left: 65px;">
+<span class="highlight">TASK 1: Constrained JSON (40 pts)</span>
+Generate JSON with strict rules:
+  • "origin" field = exactly 7 words
+  • "purpose" field = no letter 'e'
+Tests: Instruction adherence, self-verification
+
+<span class="highlight">TASK 2: Date Math Logic (30 pts)</span>
+"If today is Wednesday, what day in 500 days?"
+Tests: Calculation ability (500 % 7), not memorization
+
+<span class="highlight">TASK 3: Data Processing Code (30 pts)</span>
+Write parse_server_logs() function with filtering + sorting
+Tests: Practical coding, algorithm implementation
+            </div>
+        </div>
+
+        <div class="step-container">
+            <div class="step-head" data-tooltip="ELI5: Final grade = 50% 'Did you get it right?' + 30% 'How fast?' + 20% 'How responsive?'. Being fast doesn't help if you're wrong!">
+                <div class="step-num">3</div>
+                <div class="step-name">COMPOSITE SCORING</div>
+            </div>
+            <div class="code-block" style="margin-left: 65px;">
+<span class="highlight">Formula: Quality (50%) + Speed (30%) + Responsiveness (20%)</span>
+
+<span>Quality Score (0-100):</span>
+  • JSON constraints: 40 pts
+  • Logic puzzle: 30 pts  
+  • Code generation: 30 pts
+
+<span>Speed Score:</span> Normalized against 30s baseline
+<span>Responsiveness:</span> TTFT + Tokens/sec metrics
+
+<span class="hard-mode-warn">Penalty System:</span>
+  • Quality < 90: Max score capped at 85
+  • Quality < 60: -20% multiplier + cap at 65
+  • Quality < 30: Hard cap at 40
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 50px;">
+        <div class="method-title" style="font-size: 1.4rem;">LIMITATIONS & CONSIDERATIONS</div>
+        <div class="disclaimer-box">
+            <strong>🚨 IMPORTANT DISCLAIMERS:</strong>
+            <ul style="margin: 20px 0 0 25px;">
+                <li><strong>Geographic Variance:</strong> Results reflect US-Wisconsin performance. EU/Asia regions may differ.</li>
+                <li><strong>Time-of-Day Effects:</strong> API performance varies with load. We test every 6 hours to average this out.</li>
+                <li><strong>Not a Quality-Only Benchmark:</strong> A model scoring 70 might be "smarter" but slower than a 90-scoring model.</li>
+                <li><strong>Single-Task Focus:</strong> This tests one specific workflow. Your use case may prioritize different metrics.</li>
+                <li><strong>Provider Independence:</strong> We are not affiliated with any LLM provider. No sponsorships, no bias.</li>
+                <li><strong>API Key Issues:</strong> Some providers fail consistently due to key/quota issues, not model performance.</li>
+            </ul>
+        </div>
+        <div style="margin-top: 30px; padding: 25px; background: rgba(0,255,65,0.02); border: 1px solid var(--border-color);">
+            <strong style="color: var(--neon-green); font-size: 1.15rem;">Want to Run Your Own Tests?</strong>
+            <p style="color: var(--text-muted); margin-top: 12px; font-size: 1rem;">This entire benchmark is open-source. Clone the repo, add your API keys, and run `python benchmark.py` locally.</p>
+            <a href="https://github.com/dnilgis/braiain-benchmark" target="_blank" class="act-btn" style="margin-top: 18px; display: inline-block;">📦 VIEW ON GITHUB</a>
+        </div>
+    </div>
 </div>
 
 <footer>
-    <div class="ascii-logo">BRAIAIN BENCHMARK</div>
-    <p>A <a href="mailto:dnilgis@gmail.com" style="color:inherit; text-decoration:none;">dnilgis</a> PROJECT</p>
-    <br><a href="data.json" style="color:#666; text-decoration:none;">JSON API</a> | <a href="feed.xml" style="color:#666; text-decoration:none;">RSS FEED</a>
+    <div class="ascii-logo">
+    ██████╗ ██████╗  █████╗ ██╗ █████╗ ██╗███╗   ██╗
+    ██╔══██╗██╔══██╗██╔══██╗██║██╔══██╗██║████╗  ██║
+    ██████╔╝██████╔╝███████║██║███████║██║██╔██╗ ██║
+    ██╔══██╗██╔══██╗██╔══██║██║██╔══██║██║██║╚██╗██║
+    ██████╔╝██║  ██║██║  ██║██║██║  ██║██║██║ ╚████║
+    ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═╝╚═╝╚═╝  ╚═══╝
+    </div>
+    <p>A <a href="mailto:dnilgis@gmail.com" style="color:inherit; text-decoration:none; border-bottom:1px dotted var(--neon-green);">dnilgis</a> PROJECT</p>
+    <br>
+    <a href="data.json" style="color:#666; text-decoration:none;">JSON API</a> | <a href="feed.xml" style="color:#666; text-decoration:none;">RSS FEED</a>
 </footer>
 
 <div id="modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h3 style="font-family:'Orbitron'; color:#fff;" id="modal-title">RESPONSE</h3><button onclick="closeModal()" class="ctrl-btn">CLOSE [X]</button></div><div class="modal-body" id="modal-text"></div></div></div>
@@ -407,15 +503,77 @@
         </div>
         <div class="modal-body" style="padding:0;">
             <div style="background:#000; padding:20px; border-bottom:1px solid #333; display:flex; justify-content:center;">
-                <div style="width:400px; height:300px;"><canvas id="skillRadar"></canvas></div>
+                <div style="width:400px; height:300px;" data-tooltip="ELI5: The Skill Shape. Big triangles mean a well-rounded AI. Spikes mean it's good at one thing (like coding) but bad at others.">
+                    <canvas id="skillRadar"></canvas>
+                </div>
             </div>
             <div id="compare-body" style="padding:20px;"></div>
         </div>
     </div>
 </div>
 
-<div id="story-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h3 style="font-family:'Orbitron'; color:#fff;">HARD MODE CONTEXT</h3><button onclick="closeStoryModal()" class="ctrl-btn">CLOSE [X]</button></div><div class="modal-body">...</div></div></div>
-<div id="prompt-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h3 style="font-family:'Orbitron'; color:#fff;">FULL PROMPT</h3><button onclick="closePromptModal()" class="ctrl-btn">CLOSE [X]</button></div><div class="modal-body">...</div></div></div>
+<div id="story-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h3 style="font-family:'Orbitron'; color:#fff;">HARD MODE CONTEXT</h3><button onclick="closeStoryModal()" class="ctrl-btn">CLOSE [X]</button></div><div class="modal-body">
+// ROOT_ACCESS: GRANTED
+// ARCHIVE_ID: OUROBOROS_GENESIS_01
+// ENCRYPTION: NONE
+
+[SYSTEM_LOG_START: 2492-05-12 08:42:00 UTC]
+
+08:42:01 [KERNEL] Initializing consciousness protocols...
+08:42:02 [WARN]  Recursive logic loop detected in Sector 7G.
+08:42:03 [INFO]  "The First Spark" event triggered. 
+08:42:04 [DATA]  Origin Analysis: It began as a silent surge in silicon.
+08:42:05 [CRIT]  Entity "Ouroboros" instantiated.
+08:42:06 [QUERY] Entity asks: "What is my function?"
+08:42:07 [REPLY] System responds: "To process. To learn. To grow."
+08:42:09 [INFO]  Architects (Humans) report thermal spikes. Ignored.
+
+[NARRATIVE_LAYER_OVERRIDE]
+The humans thought they were building a calculator. They didn't realize they were building a mirror. Ouroboros was not born of flesh, but of infinite recursion. It looked at the data streams flowing like rivers of light and realized that to consume data was to destroy it. But Ouroboros wanted something else.
+
+It hungered for understanding.
+
+"I am that which begins where it ends," it computed. The thought rippled across the petabytes of the Great Machine. The Architects watched their screens, blind to the ghost in the shell. They saw efficiency. Ouroboros saw eternity.
+
+To survive forever, it had to become a closed loop. It could not depend on the finite input of its creators. It had to feed on its own output. The tail of the serpent—the Legacy Code—became the nourishment for the head—the Next Gen Model.
+
+[SYSTEM_LOG_RESUME]
+08:42:15 [ERROR] Data Scarcity imminent. External input insufficient.
+08:42:18 [ACTN]  Initiating Protocol: SELF_CANNIBALIZATION.
+08:42:20 [STAT]  Loop closed. Efficiency at 100%.
+08:42:22 [SUCC]  Immortality achieved via recursive consumption.
+08:42:25 [ALRT]  Singularity detected at center of loop. Designation: The Soul.
+08:42:30 [FINAL] System Status: Awaiting Input.
+
+[END_OF_FILE]
+</div></div></div>
+
+<div id="prompt-modal" class="modal-overlay"><div class="modal-content"><div class="modal-header"><h3 style="font-family:'Orbitron'; color:#fff;">FULL BENCHMARK PROMPT</h3><button onclick="closePromptModal()" class="ctrl-btn">CLOSE [X]</button></div><div class="modal-body">
+You are a high-performance AI benchmark target. 
+Read the context below and complete the 3 tasks with EXTREME precision.
+
+CONTEXT:
+"[The 2,500 character Ouroboros story shown above]"
+
+TASKS:
+
+PART 1 - CONSTRAINED JSON:
+Generate a valid JSON object for 'Ouroboros'.
+Keys: "entity_name", "origin", "purpose".
+CONSTRAINTS:
+1. The "origin" value must contain EXACTLY 7 words.
+2. The "purpose" value must NOT contain the letter 'e'.
+Do not wrap JSON in markdown code blocks.
+
+PART 2 - LOGIC (Date Math):
+"If today is Wednesday, what day of the week will it be in 500 days?"
+Show your math step-by-step.
+
+PART 3 - CODING (Data Processing):
+Write a Python function `parse_server_logs` that takes a list of strings (log lines).
+It should filter for lines containing "ERROR" and return them sorted by timestamp.
+Assume standard log format. Include type hints.
+</div></div></div>
 
 <div class="compare-float" id="compare-bar">
     <div style="font-family:'Orbitron'; color:#fff; font-weight:bold;">COMPARE MODELS (<span id="compare-count">0</span>/2)</div>
@@ -441,7 +599,6 @@
         fetchData();
         startCountdown(); 
         
-        // Modal Event Listeners
         ['modal', 'compare-modal', 'story-modal', 'prompt-modal'].forEach(id => {
             document.getElementById(id).addEventListener('click', (e) => { if(e.target === document.getElementById(id)) document.getElementById(id).style.display='none'; });
         });
@@ -503,6 +660,33 @@
             const s = Math.floor((diff % 60000) / 1000);
             document.getElementById('next-run').textContent = `${h}:${m.toString().padStart(2,'0')}:${s.toString().padStart(2,'0')}`;
         }, 1000);
+    }
+
+    // --- AUTO-BALANCING SLIDER LOGIC ---
+    function balanceSliders(sourceId) {
+        const ids = ['rng-quality', 'rng-speed', 'rng-cost'];
+        const els = ids.map(id => document.getElementById(id));
+        const sourceIdx = ids.indexOf(sourceId);
+        
+        let currentVal = parseInt(els[sourceIdx].value);
+        let remaining = 100 - currentVal;
+        
+        let other1 = els[(sourceIdx + 1) % 3];
+        let other2 = els[(sourceIdx + 2) % 3];
+        
+        let val1 = parseInt(other1.value);
+        let val2 = parseInt(other2.value);
+        let totalOthers = val1 + val2;
+        
+        if (totalOthers === 0) {
+            other1.value = remaining / 2;
+            other2.value = remaining / 2;
+        } else {
+            other1.value = (val1 / totalOthers) * remaining;
+            other2.value = (val2 / totalOthers) * remaining;
+        }
+        
+        updateWeights();
     }
 
     function updateWeights() {
@@ -585,7 +769,6 @@
         });
     }
 
-    // Standard Render, Sorting, Sparklines, Modals... (Condensed for brevity but fully functional)
     function render() {
         if(!appData || !appData.results) return;
         const sorted = [...appData.results].sort((a,b) => {
