@@ -29,6 +29,7 @@
             --neon-dim: rgba(0, 255, 65, 0.1);
             --neon-red: #ff0055;
             --neon-gold: #ffaa00;
+            --neon-cyan: #00f3ff;
             --border-color: #1a2329;
             --text-main: #e6e6e6;
             --text-muted: #aaa;
@@ -54,17 +55,16 @@
         .hidden { display: none !important; }
        
         .visually-hidden {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        margin: -1px;
-        padding: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        border: 0;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
         }
-
         
         #global-tooltip {
             position: fixed;
@@ -179,6 +179,158 @@
             white-space: nowrap;
         }
         .act-btn:hover { background: var(--neon-gold); color: #000; box-shadow: 0 0 10px rgba(255, 170, 0, 0.3); }
+
+        .weight-panel {
+            background: var(--bg-panel);
+            border: 1px solid var(--border-color);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .weight-title {
+            font-family: 'Orbitron';
+            color: var(--neon-green);
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+        .slider-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-top: 15px;
+        }
+        .slider-item {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .slider-label {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+        .slider-value {
+            color: var(--neon-green);
+            font-weight: bold;
+            font-family: 'Rajdhani';
+            font-size: 1.1rem;
+        }
+        .weight-slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            outline: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .weight-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            background: var(--neon-green);
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-dim);
+        }
+        .weight-slider::-moz-range-thumb {
+            width: 18px;
+            height: 18px;
+            background: var(--neon-green);
+            cursor: pointer;
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--neon-dim);
+        }
+
+        .shame-box {
+            background: rgba(255, 0, 85, 0.05);
+            border: 1px solid rgba(255, 0, 85, 0.3);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .shame-title {
+            font-family: 'Orbitron';
+            color: var(--neon-red);
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+        }
+        .shame-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+        .shame-stat {
+            background: rgba(0,0,0,0.3);
+            padding: 18px;
+            border-radius: 4px;
+            border-left: 3px solid var(--neon-red);
+        }
+        .shame-stat-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            font-family: 'Rajdhani';
+            color: var(--neon-red);
+        }
+        .shame-stat-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 5px;
+        }
+
+        .diff-container {
+            background: #000;
+            padding: 15px;
+            border-radius: 4px;
+            margin: 15px 0;
+            font-family: monospace;
+        }
+        .diff-section {
+            margin-bottom: 20px;
+        }
+        .diff-label {
+            color: var(--neon-cyan);
+            font-weight: bold;
+            margin-bottom: 5px;
+            display: block;
+        }
+        .diff-expected {
+            color: var(--neon-green);
+            background: rgba(0, 255, 65, 0.1);
+            padding: 10px;
+            border-left: 3px solid var(--neon-green);
+            margin-bottom: 10px;
+        }
+        .diff-actual {
+            color: var(--neon-red);
+            background: rgba(255, 0, 85, 0.1);
+            padding: 10px;
+            border-left: 3px solid var(--neon-red);
+        }
+        .diff-highlight-missing {
+            background: rgba(255, 0, 85, 0.3);
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+        .diff-highlight-extra {
+            background: rgba(255, 170, 0, 0.3);
+            padding: 2px 4px;
+            border-radius: 2px;
+        }
+
+        .radar-container {
+            max-width: 500px;
+            margin: 20px auto;
+        }
 
         .controls-bar {
             background: var(--bg-panel); border: 1px solid var(--border-color);
@@ -296,7 +448,6 @@
         
         .col-center { text-align: center; }
         .col-check { font-size: 1.1rem; }
-        
         .table-preview {
             max-width: 250px; color: var(--text-muted); font-size: 0.8rem;
             display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
@@ -313,18 +464,6 @@
             cursor: pointer; display: inline-block; vertical-align: middle;
         }
         .model-select:checked { background: var(--neon-green); border-color: var(--neon-green); }
-        
-        /* Sparkline styling */
-        .sparkline-cell {
-            width: 120px;
-            height: 30px;
-            padding: 4px 8px !important;
-        }
-        .sparkline-canvas {
-            width: 100%;
-            height: 100%;
-            display: block;
-        }
 
         .methodology-box {
             background: var(--bg-panel); border: 1px solid var(--border-color);
@@ -395,39 +534,31 @@
 
         @media (max-width: 768px) {
             body { font-size: 14px; }
-            
             header { padding: 15px 0; }
             .ascii-logo { font-size: 5px; line-height: 5px; } 
             .logo-tagline { font-size: 0.8rem; padding: 0 10px; }
-            
             .hud-bar { gap: 10px; padding: 10px; width: 95%; flex-direction: row; flex-wrap: wrap; }
             .hud-stat { font-size: 0.8rem; flex-basis: 45%; justify-content: center; } 
             .hud-value { font-size: 1rem; }
-            
             .ad-banner { flex-direction: column; text-align: center; padding: 15px; gap: 10px; }
             .ad-text { font-size: 0.9rem; }
             .act-btn { width: 100%; }
-            
             .controls-bar { flex-direction: column; align-items: stretch; gap: 10px; }
             .btn-group { width: 100%; }
             .ctrl-btn { flex: 1; padding: 10px; }
-            
+            .slider-group { grid-template-columns: 1fr; }
+            .shame-stats { grid-template-columns: 1fr; }
             .bz-table-container { overflow-x: scroll; display: block; }
-            
             .methodology-box { padding: 20px 15px; }
             .method-title { font-size: 1.3rem; margin-bottom: 20px; }
             .step-container p { margin-left: 0 !important; margin-bottom: 15px; } 
             .step-head { margin-bottom: 10px; }
             .code-block { margin-left: 0; padding: 15px; font-size: 0.75rem; overflow-x: auto; }
             .disclaimer-box { padding: 15px; }
-            
             .chart-header { flex-direction: column; align-items: flex-start; gap: 10px; }
             .chart-title { margin-bottom: 0; }
             .chart-canvas-wrapper { height: 250px; }
-            
             .compare-grid { grid-template-columns: 1fr; }
-            
-            #model-overlay-select { width: 100%; }
         }
     </style>
 </head>
@@ -474,6 +605,48 @@
         <a href="mailto:dnilgis@gmail.com" class="act-btn">CONTACT ></a>
     </div>
 
+    <div class="weight-panel">
+        <div class="weight-title" data-tooltip="ELI5: Don't like our scoring? Drag these sliders to build your own benchmark. Care more about speed than smarts? Crank speed to 100%.">
+            ⚙️ BUILD YOUR OWN BENCHMARK
+        </div>
+        <div class="slider-group">
+            <div class="slider-item">
+                <div class="slider-label">
+                    <span>Quality Weight</span>
+                    <span class="slider-value" id="quality-weight-display">50%</span>
+                </div>
+                <input type="range" min="0" max="100" value="50" class="weight-slider" id="quality-weight" oninput="updateWeights()">
+            </div>
+            <div class="slider-item">
+                <div class="slider-label">
+                    <span>Speed Weight</span>
+                    <span class="slider-value" id="speed-weight-display">30%</span>
+                </div>
+                <input type="range" min="0" max="100" value="30" class="weight-slider" id="speed-weight" oninput="updateWeights()">
+            </div>
+            <div class="slider-item">
+                <div class="slider-label">
+                    <span>Cost Weight</span>
+                    <span class="slider-value" id="cost-weight-display">20%</span>
+                </div>
+                <input type="range" min="0" max="100" value="20" class="weight-slider" id="cost-weight" oninput="updateWeights()">
+            </div>
+        </div>
+        <div style="text-align: center; margin-top: 15px; color: var(--text-muted); font-size: 0.85rem;">
+            Total Weight: <span id="total-weight" style="color: var(--neon-green); font-weight: bold;">100%</span>
+        </div>
+    </div>
+
+    <div class="shame-box">
+        <div class="shame-title">
+            <span>🔥</span>
+            <span>THE HALL OF SHAME</span>
+            <span>🔥</span>
+        </div>
+        <div class="shame-stats" id="shame-stats">
+        </div>
+    </div>
+
     <div class="controls-bar">
         <div class="btn-group">
             <button class="ctrl-btn" id="btn-grid" onclick="setMode('grid')">GRID</button>
@@ -502,12 +675,11 @@
                     <th class="col-center" data-tooltip="Rank based on the selected sort criteria.">RK</th>
                     <th data-tooltip="The AI company (e.g., OpenAI, Anthropic).">PROVIDER</th>
                     <th data-tooltip="The specific model version being tested.">MODEL</th>
-                    <th class="col-center" data-tooltip="0-100 Score. 50% Smarts, 30% Speed, 20% Response time.">SCORE</th>
+                    <th class="col-center" data-tooltip="Custom score based on your weight sliders above.">SCORE</th>
                     <th class="col-center" data-tooltip="Total seconds to finish the task. Lower is better.">SPEED</th>
                     <th class="col-center" data-tooltip="Tokens Per Second. How fast text appears. Higher is better.">TPS</th>
                     <th class="col-center" data-tooltip="Time To First Token. How long you wait for the first word.">TTFT</th>
                     <th class="col-center" data-tooltip="Estimated cost for 1 million tokens (Blended Input/Output).">COST</th>
-                    <th class="col-center sparkline-cell" data-tooltip="Last 10 runs performance trend (sparkline).">TREND</th>
                     <th class="col-center" data-tooltip="Did it obey strict rules? (Word count & letter bans)">JSON</th>
                     <th class="col-center" data-tooltip="Did it solve the math/logic riddle correctly?">LOGIC</th>
                     <th class="col-center" data-tooltip="Did the Python code compile and filter correctly?">CODE</th>
@@ -521,30 +693,37 @@
     </div>
 
     <div class="chart-container">
-        <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; flex-wrap: wrap; gap: 10px;">
-            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Shows performance trends over time. The shaded bands show normal range (25th-75th percentile). Toggle specific models to compare against the baseline.">Historical Performance Trends</h3>
-            <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                <div class="btn-group">
-                    <button class="ctrl-btn" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
-                    <button class="ctrl-btn active" id="chart-score" onclick="setChartMode('score')">SCORES</button>
-                </div>
-                <select id="model-overlay-select" onchange="updateChartOverlay()" style="background: #000; border: 1px solid var(--border-color); color: var(--text-muted); padding: 8px 12px; font-family: 'Share Tech Mono'; font-size: 0.8rem; cursor: pointer;">
-                    <option value="">+ Compare Model</option>
-                </select>
+        <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Find the sweet spot. Top-left = Smart & Cheap (best deal). Bottom-right = Dumb & Expensive (worst deal).">
+                💎 THE VALUE QUADRANT
+            </h3>
+            <span style="color: var(--text-muted); font-size: 0.85rem;">Cost vs Intelligence</span>
+        </div>
+        <div class="chart-canvas-wrapper" style="height: 400px;">
+            <canvas id="valueQuadrant"></canvas>
+        </div>
+        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 15px; flex-wrap: wrap; font-size: 0.75rem; color: var(--text-muted);">
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="width: 12px; height: 12px; background: var(--neon-green); border-radius: 50%;"></div>
+                <span>Best Value (High Score, Low Cost)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 5px;">
+                <div style="width: 12px; height: 12px; background: var(--neon-red); border-radius: 50%;"></div>
+                <span>Poor Value (Low Score, High Cost)</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: A graph showing how each AI performs over time. Did GPT-4 used to win? Did Claude get better? This shows the history.">Historical Performance</h3>
+            <div class="btn-group">
+                <button class="ctrl-btn" id="chart-speed" onclick="setChartMode('speed')">SPEED</button>
+                <button class="ctrl-btn active" id="chart-score" onclick="setChartMode('score')">SCORES</button>
             </div>
         </div>
         <div class="chart-canvas-wrapper">
             <canvas id="mainChart"></canvas>
-        </div>
-        <div style="display: flex; gap: 20px; justify-content: center; margin-top: 15px; flex-wrap: wrap; font-size: 0.75rem; color: var(--text-muted);">
-            <div style="display: flex; align-items: center; gap: 5px;">
-                <div style="width: 20px; height: 3px; background: rgba(0, 255, 65, 0.3);"></div>
-                <span>25th-75th Percentile</span>
-            </div>
-            <div style="display: flex; align-items: center; gap: 5px;">
-                <div style="width: 20px; height: 3px; background: var(--neon-green);"></div>
-                <span>Median (50th)</span>
-            </div>
         </div>
     </div>
 
@@ -711,10 +890,15 @@ Tests: Practical coding, algorithm implementation
 <div id="compare-modal" class="modal-overlay">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 style="font-family:'Orbitron'; color:#fff;">MODEL COMPARISON</h3>
+            <h3 style="font-family:'Orbitron'; color:#fff;">🔬 SKILL TRIANGLE COMPARISON</h3>
             <button onclick="closeCompareModal()" class="ctrl-btn">CLOSE [X]</button>
         </div>
-        <div class="modal-body" id="compare-body"></div>
+        <div class="modal-body">
+            <div class="radar-container">
+                <canvas id="skillRadar"></canvas>
+            </div>
+            <div id="compare-body" style="margin-top: 30px;"></div>
+        </div>
     </div>
 </div>
 
@@ -809,7 +993,9 @@ Assume standard log format. Include type hints.
     let currentChartMode = 'score'; 
     let chartInstance = null;
     let selectedForCompare = [];
-    let selectedOverlayModels = [];
+    let customWeights = { quality: 50, speed: 30, cost: 20 };
+    let skillRadarChart = null;
+    let valueQuadrantChart = null;
     const tooltipEl = document.getElementById('global-tooltip');
     
     const AFFILIATES = {
@@ -824,500 +1010,437 @@ Assume standard log format. Include type hints.
         "Fireworks":"https://fireworks.ai/",
         "Cerebras":"https://inference.cerebras.ai/"
     };
+    document.addEventListener('DOMContentLoaded', () => {
+        fetch('data.json')
+            .then(r => r.json())
+            .then(data => {
+                appData = data;
+                setupTooltips();
+                updateHUD();
+                renderContent();
+                renderHallOfShame();
+                renderValueQuadrant();
+                calculateCosts();
+                setInterval(updateHUD, 1000);
+            })
+            .catch(e => console.error(e));
+    });
 
-    window.onload = function() {
-        if(window.innerWidth < 768) {
-            setMode('grid');
-        }
-        
-        fetchData();
-        startCountdown(); 
-        
-        document.getElementById('modal').addEventListener('click', (e) => {
-            if(e.target === document.getElementById('modal')) closeModal();
-        });
-        document.getElementById('compare-modal').addEventListener('click', (e) => {
-            if(e.target === document.getElementById('compare-modal')) closeCompareModal();
-        });
-        document.getElementById('story-modal').addEventListener('click', (e) => {
-            if(e.target === document.getElementById('story-modal')) closeStoryModal();
-        });
-        document.getElementById('prompt-modal').addEventListener('click', (e) => {
-            if(e.target === document.getElementById('prompt-modal')) closePromptModal();
-        });
-
-        document.addEventListener('mouseover', (e) => {
-            const target = e.target.closest('[data-tooltip]');
-            if(target) {
-                tooltipEl.textContent = target.getAttribute('data-tooltip');
+    function setupTooltips() {
+        document.querySelectorAll('[data-tooltip]').forEach(el => {
+            el.addEventListener('mouseenter', (e) => {
+                const text = el.getAttribute('data-tooltip');
+                tooltipEl.textContent = text;
                 tooltipEl.style.visibility = 'visible';
                 tooltipEl.style.opacity = '1';
-                moveTooltip(e);
-            } else {
+            });
+            el.addEventListener('mousemove', (e) => {
+                tooltipEl.style.left = (e.clientX + 15) + 'px';
+                tooltipEl.style.top = (e.clientY + 15) + 'px';
+            });
+            el.addEventListener('mouseleave', () => {
                 tooltipEl.style.visibility = 'hidden';
                 tooltipEl.style.opacity = '0';
-            }
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            if(tooltipEl.style.visibility === 'visible') {
-                moveTooltip(e);
-            }
-        });
-    };
-
-    function moveTooltip(e) {
-        const x = e.clientX;
-        const y = e.clientY;
-        tooltipEl.style.left = (x + 15) + 'px'; 
-        tooltipEl.style.top = (y + 15) + 'px';
-        
-        if(x + 260 > window.innerWidth) {
-            tooltipEl.style.left = (x - 260) + 'px';
-        }
-    }
-
-    async function fetchData() {
-        try {
-            const res = await fetch("data.json?t=" + Date.now());
-            if(!res.ok) throw new Error("Failed to load");
-            appData = await res.json();
-            
-            if(appData.results && appData.results.length > 0) {
-                const topModel = appData.results.sort((a,b) => b.braiain_score - a.braiain_score)[0];
-                document.title = `Braiain: ${topModel.provider} Leads (${topModel.braiain_score}) - AI Benchmark`;
-            }
-            
-            document.getElementById('node-count').textContent = appData.results ? appData.results.length : 0;
-            document.getElementById('last-run').textContent = appData.last_updated ? appData.last_updated.split(' ')[1] + ' UTC' : 'N/A';
-            
-            populateModelSelector();
-            render();
-            renderChart();
-            renderSpeedComparison();
-            calculateCosts();
-        } catch (e) {
-            console.error(e);
-        }
-    }
-
-    function startCountdown() {
-        function update() {
-            const now = new Date();
-            const nowUTC = new Date(now.getTime() + now.getTimezoneOffset() * 60000);
-            let nextRun = new Date(nowUTC);
-            nextRun.setMinutes(0); nextRun.setSeconds(0); nextRun.setMilliseconds(0);
-            const hour = nowUTC.getHours();
-            const nextHour = Math.ceil((hour + 1) / 6) * 6;
-            if (nextHour >= 24) { nextRun.setHours(0); nextRun.setDate(nextRun.getDate() + 1); } 
-            else { nextRun.setHours(nextHour); }
-            const diff = nextRun - nowUTC;
-            const h = Math.floor(diff / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
-            document.getElementById('next-run').textContent = `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
-        }
-        update();
-        setInterval(update, 1000);
-    }
-
-    function populateModelSelector() {
-        if (!appData || !appData.results) return;
-        
-        const select = document.getElementById('model-overlay-select');
-        const providers = appData.results
-            .filter(r => r.status === 'Online')
-            .sort((a, b) => b.braiain_score - a.braiain_score)
-            .map(r => r.provider);
-        
-        select.innerHTML = '<option value="">+ Compare Model</option>' + 
-            providers.map(p => `<option value="${p}">${p}</option>`).join('');
-    }
-
-    function updateChartOverlay() {
-        const select = document.getElementById('model-overlay-select');
-        const selectedModel = select.value;
-        
-        if (selectedModel && !selectedOverlayModels.includes(selectedModel)) {
-            if (selectedOverlayModels.length >= 3) {
-                selectedOverlayModels.shift();
-            }
-            selectedOverlayModels.push(selectedModel);
-        } else if (!selectedModel) {
-            selectedOverlayModels = [];
-        }
-        
-        select.value = '';
-        renderChart();
-    }
-
-    function drawSparkline(canvas, data) {
-        if (!canvas || !data || data.length === 0) return;
-        
-        const ctx = canvas.getContext('2d');
-        const width = canvas.width;
-        const height = canvas.height;
-        
-        ctx.clearRect(0, 0, width, height);
-        
-        const validData = data.filter(d => d !== null && d !== undefined);
-        if (validData.length === 0) return;
-        
-        const min = Math.min(...validData);
-        const max = Math.max(...validData);
-        const range = max - min || 1;
-        
-        const stepX = width / (data.length - 1 || 1);
-        
-        ctx.strokeStyle = '#00ff41';
-        ctx.lineWidth = 2;
-        ctx.beginPath();
-        
-        data.forEach((value, i) => {
-            if (value === null || value === undefined) return;
-            
-            const x = i * stepX;
-            const y = height - ((value - min) / range) * height;
-            
-            if (i === 0 || data[i - 1] === null) {
-                ctx.moveTo(x, y);
-            } else {
-                ctx.lineTo(x, y);
-            }
-        });
-        
-        ctx.stroke();
-    }
-
-    function render() {
-        if(!appData || !appData.results) return;
-        
-        const sorted = [...appData.results].sort((a,b) => {
-            if(a.status !== 'Online') return 1; if(b.status !== 'Online') return -1;
-            if(currentSort === 'score') return b.braiain_score - a.braiain_score;
-            if(currentSort === 'speed') return a.time - b.time; 
-            if(currentSort === 'tps') return b.tokens_per_second - a.tokens_per_second;
-            if(currentSort === 'ttft') return (a.ttft||99) - (b.ttft||99);
-            if(currentSort === 'cost') return a.cost_per_request - b.cost_per_request;
-            return 0;
-        });
-
-        const gridHtml = sorted.map((r, i) => {
-            const comps = parseGrade(r.grade_breakdown);
-            const cleanText = cleanTextSnippet(r.full_response);
-            
-            return `
-            <div class="bz-card">
-                <div class="bz-card-header">
-                    <div>
-                        <div class="bz-provider">${r.provider}</div>
-                        <span class="bz-model">${r.model}</span>
-                    </div>
-                    <div class="bz-rank">#${i+1}</div>
-                </div>
-                <div class="bz-stats">
-                    <div class="bz-stat-item"><span class="bz-stat-label">SCORE</span><span class="bz-stat-val val-good">${r.braiain_score}</span></div>
-                    <div class="bz-stat-item"><span class="bz-stat-label">SPEED</span><span class="bz-stat-val">${r.time.toFixed(2)}s</span></div>
-                    <div class="bz-stat-item"><span class="bz-stat-label">TPS</span><span class="bz-stat-val">${Math.round(r.tokens_per_second)}</span></div>
-                    <div class="bz-stat-item"><span class="bz-stat-label">COST</span><span class="bz-stat-val">${r.cost_per_request ? '$'+r.cost_per_request.toFixed(4) : 'FREE'}</span></div>
-                </div>
-                <div class="bz-checks">
-                    <div class="bz-check-item"><span class="bz-check-lbl">JSON</span><span class="${comps.json?'icon-ok':'icon-bad'}">${comps.json ? '✓' : '✗'}</span></div>
-                    <div class="bz-check-item"><span class="bz-check-lbl">LOGIC</span><span class="${comps.logic?'icon-ok':'icon-bad'}">${comps.logic ? '✓' : '✗'}</span></div>
-                    <div class="bz-check-item"><span class="bz-check-lbl">CODE</span><span class="${comps.code?'icon-ok':'icon-bad'}">${comps.code ? '✓' : '✗'}</span></div>
-                </div>
-                <div class="bz-preview" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')">
-                    <div class="bz-preview-text">${cleanText}</div>
-                </div>
-                <div class="bz-actions">
-                    <button class="bz-btn btn-outline" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')">VIEW OUTPUT</button>
-                    <a href="${AFFILIATES[r.provider] || '#'}" target="_blank" rel="noopener noreferrer" class="bz-btn btn-fill">VISIT</a>
-                </div>
-            </div>`;
-        }).join('');
-        document.getElementById('grid-container').innerHTML = gridHtml;
-
-        const listHtml = sorted.map((r, i) => {
-            const comps = parseGrade(r.grade_breakdown);
-            const cleanText = cleanTextSnippet(r.full_response);
-            const isChecked = selectedForCompare.includes(r.provider) ? 'checked' : '';
-            
-            // Get sparkline data from history
-            const sparklineData = getSparklineData(r.provider);
-            const sparklineId = `sparkline-${r.provider.replace(/\s+/g, '-')}`;
-            
-            return `
-            <tr>
-                <td class="col-center"><input type="checkbox" class="model-select" ${isChecked} onchange="toggleCompare('${r.provider}')"></td>
-                <td class="col-center"><strong>${i+1}</strong></td>
-                <td><strong>${r.provider}</strong></td>
-                <td style="color:var(--text-muted); font-size:0.85rem;">${r.model}</td>
-                <td class="col-center"><strong style="color:#fff;">${r.braiain_score}</strong></td>
-                <td class="col-center">${r.time.toFixed(2)}s</td>
-                <td class="col-center">${Math.round(r.tokens_per_second)}</td>
-                <td class="col-center">${r.ttft ? r.ttft.toFixed(3) : '-'}</td>
-                <td class="col-center">${r.cost_per_request ? '$'+r.cost_per_request.toFixed(4) : 'FREE'}</td>
-                <td class="col-center sparkline-cell"><canvas id="${sparklineId}" class="sparkline-canvas" width="120" height="30"></canvas></td>
-                <td class="col-center col-check"><span class="${comps.json?'icon-ok':'icon-bad'}">${comps.json ? '✓' : '✗'}</span></td>
-                <td class="col-center col-check"><span class="${comps.logic?'icon-ok':'icon-bad'}">${comps.logic ? '✓' : '✗'}</span></td>
-                <td class="col-center col-check"><span class="${comps.code?'icon-ok':'icon-bad'}">${comps.code ? '✓' : '✗'}</span></td>
-                <td>
-                    <div class="table-preview" onclick="openModal('${r.provider}', '${escapeText(r.full_response)}')" title="Click for full response">
-                        ${cleanText}
-                    </div>
-                </td>
-                <td class="col-center"><a href="${AFFILIATES[r.provider] || '#'}" target="_blank" rel="noopener noreferrer" class="table-visit-btn">GO</a></td>
-            </tr>`;
-        }).join('');
-        document.getElementById('table-body').innerHTML = listHtml;
-        
-        // Draw sparklines after DOM update
-        setTimeout(() => {
-            sorted.forEach(r => {
-                const sparklineId = `sparkline-${r.provider.replace(/\s+/g, '-')}`;
-                const canvas = document.getElementById(sparklineId);
-                const data = getSparklineData(r.provider);
-                if (canvas) drawSparkline(canvas, data);
             });
-        }, 0);
-    }
-
-    function getSparklineData(provider) {
-        if (!appData || !appData.history) return [];
-        
-        const metric = currentChartMode === 'speed' ? 'time' : 'braiain_score';
-        const lastN = appData.history.slice(-10);
-        
-        return lastN.map(h => {
-            const res = h.results ? h.results[provider] : null;
-            if (!res || res.status !== 'Online') return null;
-            return res[metric] || 0;
         });
     }
 
-    function setMode(mode) {
-        document.getElementById('grid-container').classList.toggle('hidden', mode !== 'grid');
-        document.getElementById('list-container').classList.toggle('hidden', mode !== 'list');
-        document.getElementById('btn-grid').classList.toggle('active', mode === 'grid');
-        document.getElementById('btn-list').classList.toggle('active', mode === 'list');
+    function updateHUD() {
+        if (!appData) return;
+        const lr = new Date(appData.last_run);
+        const now = new Date();
+        const diff = (appData.next_run_timestamp * 1000) - now.getTime();
+        const hrs = Math.floor(diff / 3600000);
+        const mins = Math.floor((diff % 3600000) / 60000);
+        const secs = Math.floor((diff % 60000) / 1000);
+        document.getElementById('last-run').textContent = lr.toLocaleString('en-US', {month:'short', day:'numeric', hour:'2-digit', minute:'2-digit'});
+        document.getElementById('next-run').textContent = diff > 0 ? `${hrs}h ${mins}m ${secs}s` : 'RUNNING...';
+        document.getElementById('node-count').textContent = appData.results ? appData.results.filter(r => r.status === 'Online').length : '0';
     }
 
-    function setSort(type) {
-        currentSort = type;
-        document.querySelectorAll('#sort-score, #sort-speed, #sort-tps, #sort-cost').forEach(b => b.classList.remove('active'));
-        document.getElementById('sort-'+type).classList.add('active');
-        render();
-    }
-
-    function parseGrade(notes) {
-        const s = (notes || "").toLowerCase();
-        return {
-            json: s.includes("json perfect") || (s.includes("word count ok") && s.includes("no 'e' ok")),
-            logic: s.includes("logic correct"),
-            code: s.includes("code perfect")
-        };
-    }
-
-    function cleanTextSnippet(text) {
-        if(!text) return "";
-        let clean = text;
-        clean = clean.replace(/PART \d+ - [A-Z ]+:/gi, "");
-        clean = clean.replace(/```[a-z]*\n?/gi, "");
-        return clean.trim().substring(0, 300);
-    }
-
-    function escapeText(str) {
-        return (str || "").replace(/'/g, "\\'").replace(/"/g, '&quot;').replace(/\n/g, '\\n');
-    }
-
-    function openModal(title, text) {
-        document.getElementById('modal-title').textContent = title;
-        document.getElementById('modal-text').textContent = text;
-        document.getElementById('modal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeModal() {
-        document.getElementById('modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-    
-    function showStoryModal() {
-        document.getElementById('story-modal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closeStoryModal() {
-        document.getElementById('story-modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    function showPromptModal() {
-        document.getElementById('prompt-modal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-    
-    function closePromptModal() {
-        document.getElementById('prompt-modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    function toggleCompare(provider) {
-        const idx = selectedForCompare.indexOf(provider);
-        if (idx > -1) {
-            selectedForCompare.splice(idx, 1);
-        } else {
-            if (selectedForCompare.length >= 2) selectedForCompare.shift(); 
-            selectedForCompare.push(provider);
-        }
-        updateCompareUI();
-        render(); 
-    }
-
-    function updateCompareUI() {
-        const count = selectedForCompare.length;
-        document.getElementById('compare-count').textContent = count;
-        document.getElementById('compare-bar').classList.toggle('visible', count > 0);
-    }
-
-    function clearCompare() {
-        selectedForCompare = [];
-        updateCompareUI();
-        render();
-    }
-
-    function openCompare() {
-        if (selectedForCompare.length < 2) return alert("Select 2 models to compare");
+    function updateWeights() {
+        const qw = parseInt(document.getElementById('quality-weight').value);
+        const sw = parseInt(document.getElementById('speed-weight').value);
+        const cw = parseInt(document.getElementById('cost-weight').value);
         
-        const m1 = appData.results.find(r => r.provider === selectedForCompare[0]);
-        const m2 = appData.results.find(r => r.provider === selectedForCompare[1]);
+        document.getElementById('quality-weight-display').textContent = qw + '%';
+        document.getElementById('speed-weight-display').textContent = sw + '%';
+        document.getElementById('cost-weight-display').textContent = cw + '%';
         
-        if (!m1 || !m2) return;
-
-        const html = `
-            <div class="compare-grid">
-                <div class="compare-col">
-                    <h3 style="color:#fff; border-bottom:1px solid #333; padding-bottom:10px;">${m1.provider}</h3>
-                    <div class="compare-score">${m1.braiain_score}</div>
-                    <div style="margin:10px 0; font-size:0.8rem; color:#aaa;">
-                        Speed: ${m1.time}s | TPS: ${m1.tokens_per_second} | Quality: ${m1.quality_score}
-                    </div>
-                    <div style="font-family:monospace; white-space:pre-wrap; font-size:0.8rem; color:#ddd;">${m1.full_response}</div>
-                </div>
-                <div class="compare-col">
-                    <h3 style="color:#fff; border-bottom:1px solid #333; padding-bottom:10px;">${m2.provider}</h3>
-                    <div class="compare-score">${m2.braiain_score}</div>
-                    <div style="margin:10px 0; font-size:0.8rem; color:#aaa;">
-                        Speed: ${m2.time}s | TPS: ${m2.tokens_per_second} | Quality: ${m2.quality_score}
-                    </div>
-                    <div style="font-family:monospace; white-space:pre-wrap; font-size:0.8rem; color:#ddd;">${m2.full_response}</div>
-                </div>
-            </div>
-        `;
+        const total = qw + sw + cw;
+        document.getElementById('total-weight').textContent = total + '%';
+        document.getElementById('total-weight').style.color = total === 100 ? 'var(--neon-green)' : 'var(--neon-red)';
         
-        document.getElementById('compare-body').innerHTML = html;
-        document.getElementById('compare-modal').style.display = 'block';
-        document.body.style.overflow = 'hidden';
-    }
-
-    function closeCompareModal() {
-        document.getElementById('compare-modal').style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }
-
-    function setChartMode(mode) {
-        currentChartMode = mode;
-        document.getElementById('chart-speed').classList.toggle('active', mode === 'speed');
-        document.getElementById('chart-score').classList.toggle('active', mode === 'score');
-        renderChart();
-        render(); // Re-render table to update sparklines
-        renderSpeedComparison();
+        customWeights = { quality: qw, speed: sw, cost: cw };
+        renderContent();
+        renderValueQuadrant();
         calculateCosts();
     }
 
-    function calculatePercentiles(values) {
-        const sorted = values.filter(v => v !== null).sort((a, b) => a - b);
-        if (sorted.length === 0) return { p25: null, p50: null, p75: null };
+    function calculateCustomScore(result) {
+        if (result.status !== 'Online') return 0;
         
-        const p25Index = Math.floor(sorted.length * 0.25);
-        const p50Index = Math.floor(sorted.length * 0.50);
-        const p75Index = Math.floor(sorted.length * 0.75);
+        const qualityScore = result.quality_score || 0;
+        const speedScore = Math.max(0, 100 - (result.time / 30) * 100);
+        const costScore = result.cost_per_request === 0 ? 100 : Math.max(0, 100 - (result.cost_per_request * 1000));
         
-        return {
-            p25: sorted[p25Index],
-            p50: sorted[p50Index],
-            p75: sorted[p75Index]
-        };
+        const rawScore = (
+            (qualityScore * customWeights.quality / 100) +
+            (speedScore * customWeights.speed / 100) +
+            (costScore * customWeights.cost / 100)
+        );
+        
+        let finalScore = rawScore;
+        if (qualityScore < 90) finalScore = Math.min(finalScore, 85);
+        if (qualityScore < 60) finalScore = Math.min(finalScore * 0.8, 65);
+        if (qualityScore < 30) finalScore = Math.min(finalScore, 40);
+        
+        return Math.round(finalScore);
     }
 
-    function renderChart() {
-        if(!appData || !appData.history) return;
-        const ctx = document.getElementById('mainChart');
-        const history = appData.history;
+    function renderHallOfShame() {
+        if (!appData || !appData.results) return;
         
-        const labels = history.map(h => new Date(h.timestamp.replace(' UTC','Z')).toLocaleDateString());
+        const onlineResults = appData.results.filter(r => r.status === 'Online' && r.grade_breakdown);
+        if (onlineResults.length === 0) {
+            document.getElementById('shame-stats').innerHTML = '<p style="text-align:center; color:var(--text-muted);">No failure data available</p>';
+            return;
+        }
         
-        // Calculate percentile bands
-        const metric = currentChartMode === 'speed' ? 'time' : 'braiain_score';
-        const percentileData = history.map(h => {
-            if (!h.results) return { p25: null, p50: null, p75: null };
-            
-            const values = Object.values(h.results)
-                .filter(r => r.status === 'Online')
-                .map(r => r[metric])
-                .filter(v => v !== null && v !== undefined);
-            
-            return calculatePercentiles(values);
+        let totalJsonFails = 0;
+        let totalLogicFails = 0;
+        let totalCodeFails = 0;
+        let totalQuality = 0;
+        let count = onlineResults.length;
+        
+        onlineResults.forEach(r => {
+            const g = r.grade_breakdown;
+            if (g.json_constraints < 40) totalJsonFails++;
+            if (g.logic_puzzle < 30) totalLogicFails++;
+            if (g.code_generation < 30) totalCodeFails++;
+            totalQuality += r.quality_score;
         });
         
-        const datasets = [
-            {
-                label: '75th Percentile',
-                borderColor: 'transparent',
-                backgroundColor: 'rgba(0, 255, 65, 0.15)',
-                pointRadius: 0,
-                fill: '+1',
-                data: percentileData.map(p => p.p75)
-            },
-            {
-                label: '25th Percentile', 
-                borderColor: 'transparent',
-                backgroundColor: 'rgba(0, 255, 65, 0.15)',
-                pointRadius: 0,
-                fill: false,
-                data: percentileData.map(p => p.p25)
-            },
-            {
-                label: 'Median (50th)',
-                borderColor: '#00ff41',
-                borderWidth: 3,
-                pointRadius: 4,
-                tension: 0.4,
-                fill: false,
-                data: percentileData.map(p => p.p50)
-            }
-        ];
+        const avgQuality = (totalQuality / count).toFixed(1);
+        const jsonFailPct = ((totalJsonFails / count) * 100).toFixed(0);
+        const logicFailPct = ((totalLogicFails / count) * 100).toFixed(0);
+        const codeFailPct = ((totalCodeFails / count) * 100).toFixed(0);
         
-        // Add overlay models if any selected
-        const colors = ['#00f3ff', '#ff0055', '#ffaa00'];
-        selectedOverlayModels.forEach((provider, i) => {
-            datasets.push({
-                label: provider,
-                borderColor: colors[i % colors.length],
-                borderWidth: 2,
-                borderDash: [5, 5],
-                pointRadius: 3,
-                tension: 0.4,
-                fill: false,
-                data: history.map(h => {
-                    const res = h.results ? h.results[provider] : null;
-                    if (!res || res.status !== 'Online') return null;
-                    return res[metric] || null;
-                })
-            });
-        });
+        document.getElementById('shame-stats').innerHTML = `
+            <div class="shame-stat">
+                <div class="shame-stat-value">${jsonFailPct}%</div>
+                <div class="shame-stat-label">JSON Constraint Failures</div>
+            </div>
+            <div class="shame-stat">
+                <div class="shame-stat-value">${logicFailPct}%</div>
+                <div class="shame-stat-label">Logic Puzzle Failures</div>
+            </div>
+            <div class="shame-stat">
+                <div class="shame-stat-value">${codeFailPct}%</div>
+                <div class="shame-stat-label">Code Generation Failures</div>
+            </div>
+            <div class="shame-stat">
+                <div class="shame-stat-value">${avgQuality}</div>
+                <div class="shame-stat-label">Average Quality Score</div>
+            </div>
+        `;
+    }
 
-        if(chartInstance) chartInstance.destroy();
+    function renderValueQuadrant() {
+        if (!appData || !appData.results) return;
+        
+        const ctx = document.getElementById('valueQuadrant');
+        if (!ctx) return;
+        
+        const onlineResults = appData.results
+            .filter(r => r.status === 'Online')
+            .map(r => ({
+                x: r.cost_per_request * 1000,
+                y: calculateCustomScore(r),
+                label: r.provider,
+                value: calculateCustomScore(r) - (r.cost_per_request * 1000)
+            }));
+        
+        if (valueQuadrantChart) {
+            valueQuadrantChart.destroy();
+        }
+        
+        valueQuadrantChart = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'AI Models',
+                    data: onlineResults,
+                    backgroundColor: onlineResults.map(r => {
+                        if (r.value > 50) return 'rgba(0, 255, 65, 0.7)';
+                        if (r.value < 0) return 'rgba(255, 0, 85, 0.7)';
+                        return 'rgba(255, 170, 0, 0.7)';
+                    }),
+                    borderColor: onlineResults.map(r => {
+                        if (r.value > 50) return 'rgba(0, 255, 65, 1)';
+                        if (r.value < 0) return 'rgba(255, 0, 85, 1)';
+                        return 'rgba(255, 170, 0, 1)';
+                    }),
+                    borderWidth: 2,
+                    pointRadius: 8,
+                    pointHoverRadius: 12
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: (ctx) => {
+                                const point = ctx.raw;
+                                return [
+                                    `${point.label}`,
+                                    `Score: ${point.y}`,
+                                    `Cost: $${point.x.toFixed(2)}/1M tokens`,
+                                    `Value: ${point.value.toFixed(1)}`
+                                ];
+                            }
+                        },
+                        backgroundColor: 'rgba(0, 0, 0, 0.9)',
+                        borderColor: '#00ff41',
+                        borderWidth: 1
+                    }
+                },
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Cost per 1M Tokens ($)', color: '#aaa' },
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#aaa' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Custom Score', color: '#aaa' },
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#aaa' },
+                        min: 0,
+                        max: 100
+                    }
+                }
+            }
+        });
+    }
+
+    function generateDiffView(response, gradeBreakdown) {
+        if (!gradeBreakdown) return '<p style="color:var(--text-muted);">No breakdown data available</p>';
+        
+        let html = '<div class="diff-container">';
+        
+        if (gradeBreakdown.json_constraints < 40) {
+            html += '<div class="diff-section">';
+            html += '<span class="diff-label">❌ JSON Constraints Failed</span>';
+            html += '<div class="diff-expected">Expected: Valid JSON with "origin" = exactly 7 words, "purpose" = no letter "e"</div>';
+            html += `<div class="diff-actual">Got: ${gradeBreakdown.json_constraints}/40 points</div>`;
+            html += '</div>';
+        }
+        
+        if (gradeBreakdown.logic_puzzle < 30) {
+            html += '<div class="diff-section">';
+            html += '<span class="diff-label">❌ Logic Puzzle Failed</span>';
+            html += '<div class="diff-expected">Expected: Correct calculation (500 days from Wednesday = Sunday)</div>';
+            html += `<div class="diff-actual">Got: ${gradeBreakdown.logic_puzzle}/30 points</div>`;
+            html += '</div>';
+        }
+        
+        if (gradeBreakdown.code_generation < 30) {
+            html += '<div class="diff-section">';
+            html += '<span class="diff-label">❌ Code Generation Failed</span>';
+            html += '<div class="diff-expected">Expected: Valid Python function with filtering and sorting</div>';
+            html += `<div class="diff-actual">Got: ${gradeBreakdown.code_generation}/30 points</div>`;
+            html += '</div>';
+        }
+        
+        if (gradeBreakdown.json_constraints === 40 && gradeBreakdown.logic_puzzle === 30 && gradeBreakdown.code_generation === 30) {
+            html += '<div style="color: var(--neon-green); font-size: 1.2rem; text-align: center; padding: 20px;">✅ PERFECT SCORE - All tests passed!</div>';
+        }
+        
+        html += '</div>';
+        
+        html += '<div style="margin-top: 20px; padding: 15px; background: rgba(0,0,0,0.5); border-radius: 4px;">';
+        html += '<div style="color: var(--neon-cyan); font-weight: bold; margin-bottom: 10px;">FULL RESPONSE:</div>';
+        html += `<pre style="white-space: pre-wrap; color: #ccc; font-size: 0.85rem; line-height: 1.5;">${response}</pre>`;
+        html += '</div>';
+        
+        return html;
+    }
+
+    function openModalWithDiff(provider, response, gradeBreakdown) {
+        document.getElementById('modal-title').textContent = provider + ' - DETAILED BREAKDOWN';
+        document.getElementById('modal-text').innerHTML = generateDiffView(response, gradeBreakdown);
+        document.getElementById('modal').style.display = 'flex';
+    }
+
+    function renderContent() {
+        if (!appData) return;
+        
+        let sorted = [...appData.results].filter(r => r.status === 'Online');
+        
+        sorted.forEach(r => r.customScore = calculateCustomScore(r));
+        
+        if (currentSort === 'score') sorted.sort((a,b) => b.customScore - a.customScore);
+        else if (currentSort === 'speed') sorted.sort((a,b) => a.time - b.time);
+        else if (currentSort === 'tps') sorted.sort((a,b) => b.tokens_per_second - a.tokens_per_second);
+        else if (currentSort === 'cost') sorted.sort((a,b) => a.cost_per_request - b.cost_per_request);
+        
+        renderGrid(sorted);
+        renderTable(sorted);
+        renderHistoricalChart();
+        renderSpeedComparison();
+    }
+
+    function renderGrid(sorted) {
+        const grid = document.getElementById('grid-container');
+        grid.innerHTML = sorted.map((r, i) => {
+            const rank = i + 1;
+            const score = r.customScore;
+            const scoreClass = score >= 80 ? 'val-good' : '';
+            const jsonIcon = r.grade_breakdown && r.grade_breakdown.json_constraints === 40 ? '✓' : '✗';
+            const logicIcon = r.grade_breakdown && r.grade_breakdown.logic_puzzle === 30 ? '✓' : '✗';
+            const codeIcon = r.grade_breakdown && r.grade_breakdown.code_generation === 30 ? '✓' : '✗';
+            const jsonClass = r.grade_breakdown && r.grade_breakdown.json_constraints === 40 ? 'icon-ok' : 'icon-bad';
+            const logicClass = r.grade_breakdown && r.grade_breakdown.logic_puzzle === 30 ? 'icon-ok' : 'icon-bad';
+            const codeClass = r.grade_breakdown && r.grade_breakdown.code_generation === 30 ? 'icon-ok' : 'icon-bad';
+            const affiliateLink = AFFILIATES[r.provider] || '#';
+            
+            return `
+                <div class="bz-card">
+                    <div class="bz-card-header">
+                        <div>
+                            <div class="bz-provider">${r.provider}</div>
+                            <span class="bz-model">${r.model}</span>
+                        </div>
+                        <div class="bz-rank" style="color: ${rank <= 3 ? 'var(--neon-gold)' : '#333'}">#${rank}</div>
+                    </div>
+                    
+                    <div class="bz-stats">
+                        <div class="bz-stat-item">
+                            <span class="bz-stat-label">SCORE</span>
+                            <span class="bz-stat-val ${scoreClass}">${score}</span>
+                        </div>
+                        <div class="bz-stat-item">
+                            <span class="bz-stat-label">QUALITY</span>
+                            <span class="bz-stat-val">${r.quality_score}</span>
+                        </div>
+                        <div class="bz-stat-item">
+                            <span class="bz-stat-label">SPEED</span>
+                            <span class="bz-stat-val">${r.time.toFixed(2)}s</span>
+                        </div>
+                        <div class="bz-stat-item">
+                            <span class="bz-stat-label">TPS</span>
+                            <span class="bz-stat-val">${r.tokens_per_second}</span>
+                        </div>
+                        <div class="bz-stat-item">
+                            <span class="bz-stat-label">TTFT</span>
+                            <span class="bz-stat-val">${r.ttft ? r.ttft.toFixed(2) + 's' : 'N/A'}</span>
+                        </div>
+                        <div class="bz-stat-item">
+                            <span class="bz-stat-label">COST</span>
+                            <span class="bz-stat-val">$${(r.cost_per_request * 1000).toFixed(2)}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bz-checks">
+                        <div class="bz-check-item">
+                            <span class="bz-check-lbl">JSON</span>
+                            <span class="${jsonClass}">${jsonIcon}</span>
+                        </div>
+                        <div class="bz-check-item">
+                            <span class="bz-check-lbl">LOGIC</span>
+                            <span class="${logicClass}">${logicIcon}</span>
+                        </div>
+                        <div class="bz-check-item">
+                            <span class="bz-check-lbl">CODE</span>
+                            <span class="${codeClass}">${codeIcon}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bz-preview" onclick='openModalWithDiff("${r.provider}", \`${r.response.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`, ${JSON.stringify(r.grade_breakdown)})'>
+                        <div class="bz-preview-text">${r.response.substring(0, 200)}...</div>
+                    </div>
+                    
+                    <div class="bz-actions">
+                        <button class="bz-btn btn-outline" onclick="toggleCompare('${r.provider}')">COMPARE</button>
+                        <a href="${affiliateLink}" target="_blank" class="bz-btn btn-fill">TRY IT</a>
+                    </div>
+                </div>
+            `;
+        }).join('');
+    }
+
+    function renderTable(sorted) {
+        const tbody = document.getElementById('table-body');
+        tbody.innerHTML = sorted.map((r, i) => {
+            const rank = i + 1;
+            const score = r.customScore;
+            const scoreClass = score >= 80 ? 'val-good' : '';
+            const jsonIcon = r.grade_breakdown && r.grade_breakdown.json_constraints === 40 ? '✓' : '✗';
+            const logicIcon = r.grade_breakdown && r.grade_breakdown.logic_puzzle === 30 ? '✓' : '✗';
+            const codeIcon = r.grade_breakdown && r.grade_breakdown.code_generation === 30 ? '✓' : '✗';
+            const jsonClass = r.grade_breakdown && r.grade_breakdown.json_constraints === 40 ? 'icon-ok' : 'icon-bad';
+            const logicClass = r.grade_breakdown && r.grade_breakdown.logic_puzzle === 30 ? 'icon-ok' : 'icon-bad';
+            const codeClass = r.grade_breakdown && r.grade_breakdown.code_generation === 30 ? 'icon-ok' : 'icon-bad';
+            const affiliateLink = AFFILIATES[r.provider] || '#';
+            const isSelected = selectedForCompare.includes(r.provider);
+            
+            return `
+                <tr>
+                    <td class="col-center"><input type="checkbox" class="model-select" ${isSelected ? 'checked' : ''} onchange="toggleCompare('${r.provider}')"></td>
+                    <td class="col-center" style="color: ${rank <= 3 ? 'var(--neon-gold)' : 'inherit'}; font-weight: ${rank <= 3 ? 'bold' : 'normal'};">#${rank}</td>
+                    <td style="font-weight:bold; color:#fff;">${r.provider}</td>
+                    <td style="color:var(--text-muted); font-size:0.85rem;">${r.model}</td>
+                    <td class="col-center ${scoreClass}" style="font-family:'Rajdhani'; font-size:1.2rem; font-weight:700;">${score}</td>
+                    <td class="col-center">${r.time.toFixed(2)}s</td>
+                    <td class="col-center">${r.tokens_per_second}</td>
+                    <td class="col-center">${r.ttft ? r.ttft.toFixed(2) + 's' : 'N/A'}</td>
+                    <td class="col-center">$${(r.cost_per_request * 1000).toFixed(2)}</td>
+                    <td class="col-center col-check"><span class="${jsonClass}">${jsonIcon}</span></td>
+                    <td class="col-center col-check"><span class="${logicClass}">${logicIcon}</span></td>
+                    <td class="col-center col-check"><span class="${codeClass}">${codeIcon}</span></td>
+                    <td><div class="table-preview" onclick='openModalWithDiff("${r.provider}", \`${r.response.replace(/`/g, '\\`').replace(/\$/g, '\\$')}\`, ${JSON.stringify(r.grade_breakdown)})'>${r.response.substring(0, 150)}...</div></td>
+                    <td class="col-center"><a href="${affiliateLink}" target="_blank" class="table-visit-btn">TRY</a></td>
+                </tr>
+            `;
+        }).join('');
+    }
+
+    function renderHistoricalChart() {
+        if (!appData.history || !appData.results) return;
+        
+        const ctx = document.getElementById('mainChart');
+        if (!ctx) return;
+        
+        const providers = [...new Set(appData.results.map(r => r.provider))];
+        const colors = ['#00ff41', '#ff0055', '#ffaa00', '#00f3ff', '#ff00ff', '#00ff00', '#0088ff'];
+        
+        const datasets = providers.map((prov, idx) => {
+            const color = colors[idx % colors.length];
+            const histData = appData.history.map(entry => {
+                const res = entry.results.find(r => r.provider === prov && r.status === 'Online');
+                if (!res) return null;
+                return currentChartMode === 'score' ? calculateCustomScore(res) : res.time;
+            });
+            
+            return {
+                label: prov,
+                data: histData,
+                borderColor: color,
+                backgroundColor: color + '33',
+                borderWidth: 2,
+                pointRadius: 3,
+                pointHoverRadius: 5,
+                tension: 0.3,
+                spanGaps: true
+            };
+        });
+        
+        const labels = appData.history.map(h => new Date(h.timestamp).toLocaleDateString('en-US', {month:'short', day:'numeric'}));
+        
+        if (chartInstance) chartInstance.destroy();
         
         chartInstance = new Chart(ctx, {
             type: 'line',
@@ -1325,43 +1448,16 @@ Assume standard log format. Include type hints.
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                interaction: { mode: 'index', intersect: false },
-                scales: {
-                    y: { 
-                        grid: { color: 'rgba(255,255,255,0.05)' }, 
-                        title: { 
-                            display: true, 
-                            text: currentChartMode === 'speed' ? 'Speed (Seconds)' : 'Braiain Score', 
-                            color: '#888' 
-                        },
-                        ticks: { color: '#888' }
-                    },
-                    x: { 
-                        grid: { display: false },
-                        ticks: { color: '#888' }
-                    }
+                plugins: {
+                    legend: { display: true, labels: { color: '#aaa', font: { size: 11 } } },
+                    tooltip: { mode: 'index', intersect: false }
                 },
-                plugins: { 
-                    legend: { 
-                        labels: { 
-                            color: '#888', 
-                            font: { family:'Share Tech Mono' },
-                            filter: (item) => item.text !== '75th Percentile' && item.text !== '25th Percentile'
-                        } 
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                let label = context.dataset.label || '';
-                                if (label) label += ': ';
-                                if (context.parsed.y !== null) {
-                                    label += currentChartMode === 'speed' 
-                                        ? context.parsed.y.toFixed(2) + 's'
-                                        : context.parsed.y.toFixed(0);
-                                }
-                                return label;
-                            }
-                        }
+                scales: {
+                    x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#aaa' } },
+                    y: {
+                        grid: { color: 'rgba(255, 255, 255, 0.05)' },
+                        ticks: { color: '#aaa' },
+                        title: { display: true, text: currentChartMode === 'score' ? 'Custom Score' : 'Response Time (s)', color: '#aaa' }
                     }
                 }
             }
@@ -1371,25 +1467,21 @@ Assume standard log format. Include type hints.
     function renderSpeedComparison() {
         if (!appData || !appData.results) return;
         
-        const validResults = appData.results
-            .filter(r => r.status === 'Online' && r.time > 0)
+        const sorted = [...appData.results]
+            .filter(r => r.status === 'Online' && r.time)
             .sort((a, b) => a.time - b.time)
             .slice(0, 10);
         
-        if (validResults.length === 0) {
-            document.getElementById('speed-comparison-container').innerHTML = `
-                <div style="padding: 40px; text-align: center; color: var(--text-muted);">
-                    <p>No speed data available</p>
-                </div>
-            `;
+        if (sorted.length === 0) {
+            document.getElementById('speed-comparison-container').innerHTML = '<p style="padding:20px; text-align:center; color:var(--text-muted);">No speed data available</p>';
             return;
         }
         
-        const maxTime = Math.max(...validResults.map(r => r.time));
+        const maxTime = Math.max(...sorted.map(r => r.time));
         
-        const html = validResults.map((r, i) => {
+        const html = sorted.map((r, i) => {
             const width = (r.time / maxTime) * 100;
-            const color = i === 0 ? '#00ff41' : i < 3 ? '#4ade80' : '#888';
+            const color = i === 0 ? 'var(--neon-green)' : i === 1 ? 'var(--neon-gold)' : i === 2 ? 'var(--neon-cyan)' : '#888';
             const medal = i === 0 ? '🥇 ' : i === 1 ? '🥈 ' : i === 2 ? '🥉 ' : '';
             
             return `
@@ -1423,7 +1515,7 @@ Assume standard log format. Include type hints.
                 const cost = r.cost_per_request * tokensInMillions;
                 return {
                     provider: r.provider,
-                    score: r.braiain_score || 0,
+                    score: r.customScore,
                     monthlyCost: cost,
                     isFree: r.cost_per_request === 0
                 };
@@ -1435,11 +1527,7 @@ Assume standard log format. Include type hints.
             });
         
         if (validResults.length === 0) {
-            document.getElementById('cost-results').innerHTML = `
-                <div style="padding: 20px; text-align: center; color: var(--text-muted);">
-                    <p>No cost data available</p>
-                </div>
-            `;
+            document.getElementById('cost-results').innerHTML = '<div style="padding: 20px; text-align: center; color: var(--text-muted);"><p>No cost data available</p></div>';
             return;
         }
         
@@ -1458,9 +1546,7 @@ Assume standard log format. Include type hints.
                             <div style="font-size: 1.5rem; font-weight: bold; color: #fff; font-family: 'Rajdhani';">${topFree.provider}</div>
                             <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Score: ${topFree.score} • Cost: FREE</div>
                         </div>
-                        <div style="font-size: 3rem; font-weight: 900; color: var(--neon-gold); font-family: 'Rajdhani';">
-                            $0
-                        </div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--neon-gold); font-family: 'Rajdhani';">$0</div>
                     </div>
                 </div>
             `;
@@ -1480,9 +1566,7 @@ Assume standard log format. Include type hints.
                             <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Score: ${cheapest.score}</div>
                             ${savings > 0 ? `<div style="font-size: 0.8rem; color: var(--neon-green); margin-top: 5px;">Saves $${savings.toFixed(2)}/month vs most expensive</div>` : ''}
                         </div>
-                        <div style="font-size: 3rem; font-weight: 900; color: var(--neon-green); font-family: 'Rajdhani';">
-                            $${cheapest.monthlyCost.toFixed(0)}
-                        </div>
+                        <div style="font-size: 3rem; font-weight: 900; color: var(--neon-green); font-family: 'Rajdhani';">$${cheapest.monthlyCost.toFixed(0)}</div>
                     </div>
                 </div>
             `;
@@ -1507,15 +1591,211 @@ Assume standard log format. Include type hints.
         
         document.getElementById('cost-results').innerHTML = html;
     }
-    
+
+    function setMode(mode) {
+        document.getElementById('btn-grid').classList.toggle('active', mode === 'grid');
+        document.getElementById('btn-list').classList.toggle('active', mode === 'list');
+        document.getElementById('grid-container').classList.toggle('hidden', mode !== 'grid');
+        document.getElementById('list-container').classList.toggle('hidden', mode !== 'list');
+    }
+
+    function setSort(sortBy) {
+        currentSort = sortBy;
+        document.querySelectorAll('[id^="sort-"]').forEach(btn => btn.classList.remove('active'));
+        document.getElementById('sort-' + sortBy).classList.add('active');
+        renderContent();
+    }
+
+    function setChartMode(mode) {
+        currentChartMode = mode;
+        document.getElementById('chart-speed').classList.toggle('active', mode === 'speed');
+        document.getElementById('chart-score').classList.toggle('active', mode === 'score');
+        renderHistoricalChart();
+    }
+
+    function closeModal() {
+        document.getElementById('modal').style.display = 'none';
+    }
+
+    function closeStoryModal() {
+        document.getElementById('story-modal').style.display = 'none';
+    }
+
+    function closePromptModal() {
+        document.getElementById('prompt-modal').style.display = 'none';
+    }
+
+    function showStoryModal() {
+        document.getElementById('story-modal').style.display = 'flex';
+    }
+
+    function showPromptModal() {
+        document.getElementById('prompt-modal').style.display = 'flex';
+    }
+
+    function toggleCompare(provider) {
+        const idx = selectedForCompare.indexOf(provider);
+        if (idx > -1) {
+            selectedForCompare.splice(idx, 1);
+        } else {
+            if (selectedForCompare.length >= 2) {
+                selectedForCompare.shift();
+            }
+            selectedForCompare.push(provider);
+        }
+        
+        document.getElementById('compare-count').textContent = selectedForCompare.length;
+        document.getElementById('compare-bar').classList.toggle('visible', selectedForCompare.length > 0);
+        renderContent();
+    }
+
+    function clearCompare() {
+        selectedForCompare = [];
+        document.getElementById('compare-count').textContent = '0';
+        document.getElementById('compare-bar').classList.remove('visible');
+        renderContent();
+    }
+
+    function openCompare() {
+        if (selectedForCompare.length !== 2) {
+            alert('Please select exactly 2 models to compare');
+            return;
+        }
+        
+        const m1 = appData.results.find(r => r.provider === selectedForCompare[0]);
+        const m2 = appData.results.find(r => r.provider === selectedForCompare[1]);
+        
+        if (!m1 || !m2) return;
+        
+        renderSkillRadar(m1, m2);
+        
+        let html = '<div class="compare-grid">';
+        html += `
+            <div class="compare-col">
+                <h4 style="color:var(--neon-green); margin-bottom:15px;">${m1.provider}</h4>
+                <div style="margin-bottom:10px;"><strong>Score:</strong> <span class="compare-score">${m1.customScore}</span></div>
+                <div style="margin-bottom:10px;"><strong>Quality:</strong> ${m1.quality_score}</div>
+                <div style="margin-bottom:10px;"><strong>Speed:</strong> ${m1.time.toFixed(2)}s</div>
+                <div style="margin-bottom:10px;"><strong>TPS:</strong> ${m1.tokens_per_second}</div>
+                <div style="margin-bottom:10px;"><strong>TTFT:</strong> ${m1.ttft ? m1.ttft.toFixed(2) + 's' : 'N/A'}</div>
+                <div style="margin-bottom:10px;"><strong>Cost:</strong> $${(m1.cost_per_request * 1000).toFixed(2)}</div>
+                ${m1.grade_breakdown ? `
+                    <hr style="border-color:#333; margin:15px 0;">
+                    <div><strong>JSON:</strong> ${m1.grade_breakdown.json_constraints}/40</div>
+                    <div><strong>Logic:</strong> ${m1.grade_breakdown.logic_puzzle}/30</div>
+                    <div><strong>Code:</strong> ${m1.grade_breakdown.code_generation}/30</div>
+                ` : ''}
+            </div>
+            <div class="compare-col">
+                <h4 style="color:var(--neon-cyan); margin-bottom:15px;">${m2.provider}</h4>
+                <div style="margin-bottom:10px;"><strong>Score:</strong> <span class="compare-score">${m2.customScore}</span></div>
+                <div style="margin-bottom:10px;"><strong>Quality:</strong> ${m2.quality_score}</div>
+                <div style="margin-bottom:10px;"><strong>Speed:</strong> ${m2.time.toFixed(2)}s</div>
+                <div style="margin-bottom:10px;"><strong>TPS:</strong> ${m2.tokens_per_second}</div>
+                <div style="margin-bottom:10px;"><strong>TTFT:</strong> ${m2.ttft ? m2.ttft.toFixed(2) + 's' : 'N/A'}</div>
+                <div style="margin-bottom:10px;"><strong>Cost:</strong> $${(m2.cost_per_request * 1000).toFixed(2)}</div>
+                ${m2.grade_breakdown ? `
+                    <hr style="border-color:#333; margin:15px 0;">
+                    <div><strong>JSON:</strong> ${m2.grade_breakdown.json_constraints}/40</div>
+                    <div><strong>Logic:</strong> ${m2.grade_breakdown.logic_puzzle}/30</div>
+                    <div><strong>Code:</strong> ${m2.grade_breakdown.code_generation}/30</div>
+                ` : ''}
+            </div>
+        `;
+        html += '</div>';
+        
+        document.getElementById('compare-body').innerHTML = html;
+        document.getElementById('compare-modal').style.display = 'flex';
+    }
+
+    function closeCompareModal() {
+        document.getElementById('compare-modal').style.display = 'none';
+    }
+
+    function renderSkillRadar(m1, m2) {
+        const ctx = document.getElementById('skillRadar');
+        if (!ctx) return;
+        
+        if (skillRadarChart) {
+            skillRadarChart.destroy();
+        }
+        
+        const getSkillScore = (gb, skill) => {
+            if (!gb) return 0;
+            if (skill === 'JSON' && gb.json_constraints === 40) return 100;
+            if (skill === 'Logic' && gb.logic_puzzle === 30) return 100;
+            if (skill === 'Code' && gb.code_generation === 30) return 100;
+            return 0;
+        };
+        
+        skillRadarChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: ['JSON Constraints', 'Logic Puzzle', 'Code Generation'],
+                datasets: [
+                    {
+                        label: m1.provider,
+                        data: [
+                            getSkillScore(m1.grade_breakdown, 'JSON'),
+                            getSkillScore(m1.grade_breakdown, 'Logic'),
+                            getSkillScore(m1.grade_breakdown, 'Code')
+                        ],
+                        borderColor: 'rgba(0, 255, 65, 1)',
+                        backgroundColor: 'rgba(0, 255, 65, 0.2)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: m2.provider,
+                        data: [
+                            getSkillScore(m2.grade_breakdown, 'JSON'),
+                            getSkillScore(m2.grade_breakdown, 'Logic'),
+                            getSkillScore(m2.grade_breakdown, 'Code')
+                        ],
+                        borderColor: 'rgba(0, 243, 255, 1)',
+                        backgroundColor: 'rgba(0, 243, 255, 0.2)',
+                        borderWidth: 2
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                scales: {
+                    r: {
+                        min: 0,
+                        max: 100,
+                        ticks: { 
+                            display: true,
+                            stepSize: 50,
+                            color: '#666'
+                        },
+                        grid: { color: 'rgba(255, 255, 255, 0.1)' },
+                        pointLabels: { 
+                            color: '#aaa',
+                            font: { size: 12 }
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true,
+                        labels: { color: '#aaa' }
+                    }
+                }
+            }
+        });
+    }
+
     function exportCSV() {
         if (!appData.results) return;
-        let csv = 'Rank,Provider,Model,Score,Speed,TTFT,TPS,Cost\n';
-        const sorted = [...appData.results].sort((a,b) => b.braiain_score - a.braiain_score);
-        sorted.forEach((r,i) => csv += `${i+1},"${r.provider}","${r.model}",${r.braiain_score},${r.time},${r.ttft},${r.tokens_per_second},${r.cost_per_request}\n`);
+        let csv = 'Rank,Provider,Model,CustomScore,Quality,Speed,TTFT,TPS,Cost\n';
+        const sorted = [...appData.results]
+            .filter(r => r.status === 'Online')
+            .sort((a,b) => calculateCustomScore(b) - calculateCustomScore(a));
+        sorted.forEach((r,i) => csv += `${i+1},"${r.provider}","${r.model}",${calculateCustomScore(r)},${r.quality_score},${r.time},${r.ttft||0},${r.tokens_per_second},${r.cost_per_request}\n`);
         const a = document.createElement('a');
         a.href = URL.createObjectURL(new Blob([csv], {type: 'text/csv'}));
-        a.download = 'braiain_data.csv';
+        a.download = 'braiain_custom_data.csv';
         document.body.appendChild(a); a.click(); document.body.removeChild(a);
     }
 </script>
