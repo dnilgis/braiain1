@@ -550,6 +550,16 @@
 
     <div class="chart-container">
         <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+            <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Smart vs. Cheap. Top-left is best (Smart + Cheap). Bottom-right is worst.">The Value Quadrant</h3>
+            <span style="color:var(--text-muted); font-size:0.85rem;">Intelligence vs. Cost per Run ($)</span>
+        </div>
+        <div class="chart-canvas-wrapper">
+            <canvas id="scatterChart"></canvas>
+        </div>
+    </div>
+
+    <div class="chart-container">
+        <div class="chart-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
             <h3 class="chart-title" style="color:#fff; font-family:'Orbitron'; font-size:1.4rem;" data-tooltip="ELI5: Shows how fast each model responds. Like comparing pizza delivery times - who gets you an answer quickest?">Speed Comparison</h3>
             <span style="color:var(--text-muted); font-size:0.85rem;">Total response time (lower is better)</span>
         </div>
@@ -625,6 +635,7 @@ Tests: Instruction adherence, self-verification
 Tests: Calculation ability (500 % 7), not memorization
 
 <span class="highlight" data-tooltip="ELI5: Write working Python code that filters error messages from logs and sorts them by time. Like writing a program to organize your email inbox.">TASK 3: Data Processing Code (30 pts)</span>
+Write parse_server_logs() function with filtering + sorting
 Write parse_server_logs() function with filtering + sorting
 Tests: Practical coding, algorithm implementation
             </div>
@@ -786,7 +797,7 @@ CONSTRAINTS:
 Do not wrap JSON in markdown code blocks.
 
 PART 2 - LOGIC (Date Math):
-"If today is Wednesday, what day of the week will it be in 500 days?"
+"If today is [DYNAMIC_DAY], what day of the week will it be in 500 days?"
 Show your math step-by-step.
 
 PART 3 - CODING (Data Processing):
@@ -808,6 +819,7 @@ Assume standard log format. Include type hints.
     let currentSort = 'score';
     let currentChartMode = 'score'; 
     let chartInstance = null;
+    let scatterChartInstance = null; // NEW: Scatter chart instance
     let selectedForCompare = [];
     let selectedOverlayModels = [];
     const tooltipEl = document.getElementById('global-tooltip');
@@ -894,6 +906,7 @@ Assume standard log format. Include type hints.
             populateModelSelector();
             render();
             renderChart();
+            renderScatterChart(); // NEW: Render scatter plot
             renderSpeedComparison();
             calculateCosts();
         } catch (e) {
@@ -1361,6 +1374,73 @@ Assume standard log format. Include type hints.
                                 }
                                 return label;
                             }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // NEW: Render the Scatter Chart
+    function renderScatterChart() {
+        if (!appData || !appData.results) return;
+        
+        const ctx = document.getElementById('scatterChart');
+        if (!ctx) return;
+
+        const dataPoints = appData.results
+            .filter(r => r.status === 'Online')
+            .map(r => ({
+                x: r.cost_per_request || 0, // Cost on X-axis
+                y: r.braiain_score || 0,    // Score on Y-axis
+                provider: r.provider,
+                model: r.model
+            }));
+
+        if (scatterChartInstance) scatterChartInstance.destroy();
+
+        scatterChartInstance = new Chart(ctx, {
+            type: 'scatter',
+            data: {
+                datasets: [{
+                    label: 'Models',
+                    data: dataPoints,
+                    backgroundColor: '#00ff41',
+                    borderColor: '#fff',
+                    borderWidth: 1,
+                    pointRadius: 6,
+                    pointHoverRadius: 8
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    x: {
+                        title: { display: true, text: 'Cost per Run ($)', color: '#888' },
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#888' }
+                    },
+                    y: {
+                        title: { display: true, text: 'Braiain Score', color: '#888' },
+                        grid: { color: 'rgba(255,255,255,0.05)' },
+                        ticks: { color: '#888' },
+                        min: 0, max: 100
+                    }
+                },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const pt = context.raw;
+                                return `${pt.provider} (${pt.model}): Score ${pt.y}, $${pt.x.toFixed(4)}`;
+                            }
+                        }
+                    },
+                    annotation: {
+                        annotations: {
+                            // You could add quadrants here if using chartjs-plugin-annotation
                         }
                     }
                 }
