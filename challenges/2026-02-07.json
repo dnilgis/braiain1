@@ -1,0 +1,108 @@
+{
+  "day_number": 3,
+  "date": "2026-02-07",
+  "category": "The Tailgate",
+  "category_emoji": "🏈",
+  "rounds": [
+    {
+      "id": "d3r01",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1504016798967-59a258e9386d?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — football fans in stadium crowd",
+      "pro_tip": "CROWD ENERGY: Real crowd photos have chaotic variety — different expressions, mid-motion blur, varied clothing. AI crowds often look like cloned figures with eerily similar poses.",
+      "credit_name": "Tim Gouw",
+      "source_url": "https://unsplash.com/photos/1K9T5YiZ2WU"
+    },
+    {
+      "id": "d3r02",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — stylized sports atmosphere",
+      "pro_tip": "LIGHTING CONSISTENCY: Stadium lights create specific shadow patterns. In real photos, every shadow points back to identifiable light sources. AI often has shadows that contradict each other.",
+      "credit_name": "Midjourney via Unsplash",
+      "source_url": "https://unsplash.com/photos/U1gvhqVQ2kQ"
+    },
+    {
+      "id": "d3r03",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — BBQ grill with smoke at outdoor party",
+      "pro_tip": "SMOKE BEHAVIOR: Real smoke is wispy, semi-transparent, and follows air currents unpredictably. AI smoke looks like soft cotton or a uniform gray cloud without natural turbulence.",
+      "credit_name": "Evan Wise",
+      "source_url": "https://unsplash.com/photos/BK49kkGSH6Y"
+    },
+    {
+      "id": "d3r04",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1686191128892-3b37add4c844?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — hyperreal outdoor gathering scene",
+      "pro_tip": "HAND CHECK: Zoom into any hands in the image. AI infamously struggles with finger count, knuckle placement, and natural hand poses. Real hands have visible veins, wrinkles, and varied skin tones.",
+      "credit_name": "AI Generator via Unsplash",
+      "source_url": "https://unsplash.com/photos/jLwVAUtLOAQ"
+    },
+    {
+      "id": "d3r05",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1529900748604-07564a03e7a6?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — hot dogs and game day food spread",
+      "pro_tip": "FOOD IMPERFECTION: Real game day food is messy — ketchup smears, uneven toppings, grease stains on paper plates. AI food styling is weirdly immaculate, like a catalogue shoot.",
+      "credit_name": "Ball Park Brand",
+      "source_url": "https://unsplash.com/photos/3DKqz0JrvFE"
+    },
+    {
+      "id": "d3r06",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1696446701796-da61225697cc?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — photorealistic portrait in outdoor setting",
+      "pro_tip": "SKIN PORES: Real skin at close range shows pores, fine hair, and natural color variation (redness around nose, darker under eyes). AI skin often looks like airbrushed plastic.",
+      "credit_name": "AI Generator via Unsplash",
+      "source_url": "https://unsplash.com/photos/ai-portrait-gen"
+    },
+    {
+      "id": "d3r07",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1471295253337-3ceaaedca402?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — parking lot tailgate setup with canopy",
+      "pro_tip": "BACKGROUND CLUTTER: Real tailgate scenes have messy, organic backgrounds — random cars, scattered coolers, tangled extension cords. AI over-tidies backgrounds or fills them with nonsensical objects.",
+      "credit_name": "Kampus Production",
+      "source_url": "https://unsplash.com/photos/outdoor-party"
+    },
+    {
+      "id": "d3r08",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — dramatic sports venue atmosphere",
+      "pro_tip": "FLAG AND BANNER TEXT: Any text on banners, flags, or jerseys is a major tell. AI almost never renders readable text correctly — look for garbled letters or nonsense words.",
+      "credit_name": "AI Generator via Unsplash",
+      "source_url": "https://unsplash.com/photos/ai-fantasy-landscape"
+    },
+    {
+      "id": "d3r09",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — close-up of grilled food with char marks",
+      "pro_tip": "GRILL MARKS: Real char has irregular, organic patterns that follow the food's surface contours. AI grill marks tend to be perfectly parallel or geometrically uniform.",
+      "credit_name": "Eiliv Aceron",
+      "source_url": "https://unsplash.com/photos/ZuIDLSz3XLg"
+    },
+    {
+      "id": "d3r10",
+      "type": "image",
+      "content": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — evening outdoor scene with string lights",
+      "pro_tip": "STRING LIGHTS: Real bulbs have natural variation — some brighter, some dimmer, with realistic lens flare. AI string lights are often perfectly uniform with identical halos around each bulb.",
+      "credit_name": "Susan Yin",
+      "source_url": "https://unsplash.com/photos/2JIvboGLeho"
+    }
+  ]
+}
