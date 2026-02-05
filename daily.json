@@ -7,82 +7,82 @@
     {
       "id": "d1r01",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?w=800&q=80",
+      "content": "https://images.unsplash.com/photo-1535905557558-afc4877a26fc?auto=format&fit=crop&w=800&q=80",
       "source": "human",
-      "attribution": "Real photograph — Yosemite Valley, California",
-      "pro_tip": "ATMOSPHERIC DEPTH: Real landscapes show natural haze and gradual color shifts toward the horizon. AI often renders distant mountains too sharply or with artificial color banding."
+      "attribution": "Real photograph — urban cityscape at night",
+      "pro_tip": "LIGHT BLEED: Real neon and city lights create natural lens flare, chromatic aberration, and uneven glow. AI tends to render light sources as clean, uniform halos without the messy physics of real optics."
     },
     {
       "id": "d1r02",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&q=80",
-      "source": "ai",
-      "attribution": "AI-generated — Midjourney digital artwork",
-      "pro_tip": "UNCANNY PERFECTION: This image has a 'too clean' quality. Real photos have sensor noise, slight motion blur, and chromatic aberration. AI images are often suspiciously pristine."
+      "content": "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — humanoid robot in studio",
+      "pro_tip": "MECHANICAL JOINTS: Real robots have visible seams, screws, and manufacturing marks. AI-generated robots often have impossibly smooth transitions between parts and joints that couldn't physically articulate."
     },
     {
       "id": "d1r03",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1517423440428-a5a00ad493e8?w=800&q=80",
-      "source": "human",
-      "attribution": "Real photograph — golden retriever portrait",
-      "pro_tip": "FUR REALITY CHECK: Real animal fur has individual hairs catching light at different angles, creating natural randomness. AI fur tends to look like a uniform texture painted on."
+      "content": "https://images.unsplash.com/photo-1677442136019-21780ecad995?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — digital artwork created with Midjourney",
+      "pro_tip": "UNCANNY PERFECTION: This image has a 'too polished' quality. Real photos always have sensor noise, subtle motion blur, and optical imperfections. AI images are suspiciously pristine across the entire frame."
     },
     {
       "id": "d1r04",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1686191128892-3b37add4c844?w=800&q=80",
-      "source": "ai",
-      "attribution": "AI-generated — surrealist composition",
-      "pro_tip": "PHYSICS VIOLATIONS: Check reflections, shadows, and gravity. AI frequently places light sources inconsistently — shadows may point in conflicting directions across the same scene."
+      "content": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — food styling and fresh vegetables",
+      "pro_tip": "ORGANIC CHAOS: Real food has natural imperfections — a leaf slightly wilted, sauce dripped asymmetrically, crumbs scattered randomly. AI food looks suspiciously art-directed with impossible uniformity."
     },
     {
       "id": "d1r05",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80",
-      "source": "human",
-      "attribution": "Real photograph — fresh vegetables and food styling",
-      "pro_tip": "ORGANIC CHAOS: Real food has natural imperfections — a leaf slightly wilted, sauce dripped asymmetrically, crumbs scattered randomly. AI food photography looks suspiciously art-directed."
+      "content": "https://images.unsplash.com/photo-1686191128892-3b37add4c844?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — surrealist composition",
+      "pro_tip": "PHYSICS VIOLATIONS: Check shadows and reflections. AI frequently places light sources inconsistently — shadows may point in conflicting directions, and reflections don't match the objects casting them."
     },
     {
       "id": "d1r06",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1696446701796-da61225697cc?w=800&q=80",
-      "source": "ai",
-      "attribution": "AI-generated — photorealistic portrait",
-      "pro_tip": "BOUNDARY ARTIFACTS: Zoom into where hair meets the background or skin meets fabric. AI creates subtle smearing, impossible blending, or haloing effects at these transitions."
+      "content": "https://images.unsplash.com/photo-1592478411213-61535f94e0ca?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — rain-soaked neon street scene",
+      "pro_tip": "WATER BEHAVIOR: Real rain on real surfaces creates complex, irregular reflections with natural distortion. AI renders water as either too perfect (mirror-like) or too uniform (repeated ripple patterns)."
     },
     {
       "id": "d1r07",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1519608487953-e999c86e7455?w=800&q=80",
-      "source": "human",
-      "attribution": "Real photograph — macro nature shot",
-      "pro_tip": "TEXTURE AT SCALE: Real textures are consistent when you zoom in — wood grain, leaf veins, fabric weave all hold up. AI textures often dissolve into meaningless noise at close inspection."
+      "content": "https://images.unsplash.com/photo-1696446701796-da61225697cc?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — photorealistic portrait",
+      "pro_tip": "BOUNDARY ARTIFACTS: Zoom into where hair meets background or skin meets fabric. AI creates subtle smearing, impossible blending, or haloing effects at these transition zones."
     },
     {
       "id": "d1r08",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1684487747720-1ba29cda82c8?w=800&q=80",
-      "source": "ai",
-      "attribution": "AI-generated — architectural visualization",
-      "pro_tip": "TEXT IS THE TELL: Any text, signage, or lettering in an AI image is almost always garbled. Look for nonsensical words, impossible letter forms, or characters that shift between styles."
+      "content": "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — laptop with screen glow in dark environment",
+      "pro_tip": "SCREEN LIGHT: Real screens cast uneven light that falls off naturally with distance and bounces differently off varied surfaces. AI often renders screen glow as a uniform wash of color."
     },
     {
       "id": "d1r09",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80",
-      "source": "human",
-      "attribution": "Real photograph — alpine mountain panorama",
-      "pro_tip": "SENSOR FINGERPRINT: Real photos have consistent noise patterns from the camera sensor. AI images have unnaturally clean skies next to hyper-detailed foregrounds — an impossible combination for real cameras."
+      "content": "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?auto=format&fit=crop&w=800&q=80",
+      "source": "ai",
+      "attribution": "AI-generated — fantasy environment",
+      "pro_tip": "REPETITION PATTERNS: Count similar elements — leaves, bricks, clouds. AI creates subtle copy-paste repetition that nature never produces. Real scenes have true randomness in every repeated element."
     },
     {
       "id": "d1r10",
       "type": "image",
-      "content": "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?w=800&q=80",
-      "source": "ai",
-      "attribution": "AI-generated — fantasy environment",
-      "pro_tip": "REPETITION PATTERNS: Count similar elements (leaves, bricks, clouds). AI creates subtle copy-paste repetition that nature never produces. Real scenes have true randomness in repeating elements."
+      "content": "https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80",
+      "source": "human",
+      "attribution": "Real photograph — retro tech and circuit boards",
+      "pro_tip": "MANUFACTURING DETAIL: Real electronics have consistent trace widths, solder joints with natural irregularity, and dust/wear marks. AI circuit boards often have traces that lead nowhere and components that don't exist."
     }
   ]
 }
