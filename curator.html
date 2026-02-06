@@ -17,6 +17,7 @@
     --green: #00ff9d;
     --red: #ff003c;
     --orange: #ff9500;
+    --yellow: #ffd600;
     --font-mono: 'Space Mono', monospace;
     --font-head: 'Orbitron', monospace;
   }
@@ -31,7 +32,6 @@
   h1 { font-family: var(--font-head); font-size: 1.5rem; color: var(--cyan); letter-spacing: 4px; margin-bottom: 4px; }
   .subtitle { color: var(--muted); font-size: .65rem; letter-spacing: 2px; margin-bottom: 24px; }
 
-  /* Panels */
   .panel {
     background: var(--surface); border: 1px solid var(--border);
     padding: 20px; margin-bottom: 20px; border-radius: 4px;
@@ -58,7 +58,6 @@
   .row { display: flex; gap: 12px; flex-wrap: wrap; }
   .row > div { flex: 1; min-width: 100px; }
 
-  /* Buttons */
   .btn {
     padding: 10px 20px; font-family: var(--font-head); font-size: .65rem;
     letter-spacing: 2px; cursor: pointer; border: none;
@@ -71,16 +70,17 @@
   .btn-orange { background: var(--orange); color: var(--bg); }
   .btn-orange:hover { filter: brightness(1.15); }
   .btn-red { background: var(--red); color: white; }
+  .btn-red:hover { filter: brightness(1.15); }
+  .btn-yellow { background: var(--yellow); color: var(--bg); }
+  .btn-yellow:hover { filter: brightness(1.15); }
   .btn-outline { background: transparent; color: var(--cyan); border: 1px solid var(--cyan); }
   .btn-outline:hover { background: rgba(0,229,255,.08); }
   .btn-sm { padding: 6px 14px; font-size: .55rem; }
   .btn:disabled { opacity: .35; cursor: not-allowed; }
 
-  /* Search */
   .search-row { display: flex; gap: 8px; margin-bottom: 10px; }
   .search-row input { flex: 1; }
 
-  /* Image grids */
   .img-grid {
     display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 10px; margin-top: 10px;
@@ -102,7 +102,6 @@
   }
   .img-card.selected .sel-badge { display: block; background: var(--green); color: var(--bg); }
 
-  /* Slot strips */
   .slot-strip { display: flex; gap: 8px; overflow-x: auto; padding: 8px 0; }
   .slot {
     flex-shrink: 0; width: 110px; height: 72px; position: relative;
@@ -124,7 +123,6 @@
   .slot-empty.human { border-color: rgba(0,255,157,.3); color: var(--green); }
   .slot-empty.ai { border-color: rgba(255,0,60,.3); color: var(--red); }
 
-  /* AI prompt cards */
   .ai-card {
     background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
     padding: 14px; margin-bottom: 10px;
@@ -142,17 +140,14 @@
   .ai-card .tip-row { margin-top: 8px; }
   .ai-card .tip-row input { font-size: .7rem; }
 
-  /* Status */
   .status { color: var(--muted); font-size: .65rem; padding: 4px 0; min-height: 20px; }
   .status.err { color: var(--red); }
   .status.ok { color: var(--green); }
 
-  /* Spinner */
   .spin { display: inline-block; width: 12px; height: 12px; border: 2px solid var(--muted);
     border-top-color: var(--cyan); border-radius: 50%; animation: sp .5s linear infinite; }
   @keyframes sp { to { transform: rotate(360deg); } }
 
-  /* Export */
   #json-out {
     width: 100%; height: 300px; padding: 12px;
     background: var(--bg); border: 1px solid var(--border);
@@ -164,6 +159,63 @@
   .counter .n { color: var(--cyan); }
 
   hr { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+
+  .preview-grid {
+    display: grid; grid-template-columns: repeat(5, 1fr);
+    gap: 10px; margin-top: 12px;
+  }
+  .preview-card {
+    position: relative; border-radius: 4px; overflow: hidden;
+    border: 2px solid var(--border); aspect-ratio: 4/3;
+  }
+  .preview-card img { width: 100%; height: 100%; object-fit: cover; }
+  .preview-card .round-num {
+    position: absolute; top: 4px; left: 4px;
+    background: rgba(0,0,0,.8); color: var(--cyan);
+    font-family: var(--font-head); font-size: .5rem;
+    padding: 2px 6px; border-radius: 2px; letter-spacing: 1px;
+  }
+  .preview-card .type-badge {
+    position: absolute; bottom: 4px; right: 4px;
+    font-family: var(--font-head); font-size: .45rem;
+    padding: 2px 6px; border-radius: 2px; letter-spacing: 1px;
+  }
+  .preview-card .type-badge.human { background: var(--green); color: var(--bg); }
+  .preview-card .type-badge.ai { background: var(--red); color: white; }
+
+  .days-list {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;
+  }
+  .day-chip {
+    padding: 6px 12px; background: var(--bg); border: 1px solid var(--border);
+    border-radius: 3px; font-size: .65rem; cursor: pointer; transition: all .15s;
+    color: var(--text); display: flex; align-items: center; gap: 6px;
+  }
+  .day-chip:hover { border-color: var(--cyan); background: rgba(0,229,255,.05); }
+  .day-chip.picked { border-color: var(--cyan); background: rgba(0,229,255,.12); color: var(--cyan); }
+  .day-chip .day-emoji { font-size: .8rem; }
+
+  .warning-box {
+    background: rgba(255,149,0,.08); border: 1px solid var(--orange);
+    border-radius: 4px; padding: 10px 14px; margin-top: 10px;
+    font-size: .65rem; color: var(--orange); display: none;
+  }
+  .warning-box.visible { display: block; }
+
+  .quality-bar {
+    display: flex; gap: 16px; margin-top: 12px; padding: 10px;
+    background: var(--bg); border-radius: 4px; flex-wrap: wrap;
+  }
+  .q-stat { text-align: center; }
+  .q-stat .q-label { font-size: .5rem; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+  .q-stat .q-val { font-family: var(--font-head); font-size: .8rem; margin-top: 2px; }
+  .q-stat .q-val.good { color: var(--green); }
+  .q-stat .q-val.warn { color: var(--orange); }
+  .q-stat .q-val.bad { color: var(--red); }
+
+  @media (max-width: 768px) {
+    .preview-grid { grid-template-columns: repeat(2, 1fr); }
+  }
 </style>
 </head>
 <body>
@@ -180,6 +232,18 @@
     <div><label>Category / Theme</label><input type="text" id="cfg-cat" placeholder="e.g. National Pizza Day"></div>
     <div style="max-width:70px"><label>Emoji</label><input type="text" id="cfg-emoji" placeholder="🍕"></div>
   </div>
+  <div class="row" style="margin-top:10px;">
+    <div><label>Subtitle (optional)</label><input type="text" id="cfg-subtitle" placeholder="e.g. Can you spot the fake slice?"></div>
+  </div>
+  <hr>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:10px;">
+    <button class="btn btn-yellow btn-sm" onclick="lookupDays()">📅 WHAT'S TODAY?</button>
+    <button class="btn btn-outline btn-sm" onclick="document.getElementById('import-file').click()">📂 IMPORT JSON</button>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(event)">
+    <span class="status" id="import-status"></span>
+  </div>
+  <div class="status" id="days-status"></div>
+  <div class="days-list" id="days-list"></div>
 </div>
 
 <!-- ═══ STEP 2: API KEYS ═══ -->
@@ -203,7 +267,7 @@
 <div class="panel">
   <h2><span class="step-num" style="background:var(--green);color:var(--bg)">3</span> <span style="color:var(--green)">REAL PHOTOS</span> — PICK 5 FROM UNSPLASH</h2>
   <div class="search-row">
-    <input type="text" id="us-query" placeholder="Search photos (e.g. football stadium crowd night)">
+    <input type="text" id="us-query" placeholder="Search photos (e.g. ice cream cone summer)">
     <button class="btn btn-green btn-sm" onclick="searchUnsplash()">SEARCH</button>
   </div>
   <div style="display:flex;justify-content:space-between;align-items:center;">
@@ -222,19 +286,40 @@
     Write a prompt for each, click Generate, pick the best result. You can generate multiple times per slot.
     You can also upload an image file instead (e.g. from Gemini web, Midjourney, etc).
   </p>
-  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">
-    <div class="status" id="ai-status-global"></div>
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:8px;">
+    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+      <button class="btn btn-yellow btn-sm" onclick="suggestPrompts()">✨ SUGGEST PROMPTS</button>
+      <button class="btn btn-orange btn-sm" onclick="generateAllAI()" id="gen-all-btn">🚀 GENERATE ALL</button>
+      <button class="btn btn-outline btn-sm" onclick="autoTips()">💡 AUTO TIPS</button>
+    </div>
     <div class="counter"><span class="n" id="ai-count">0</span>/5 selected</div>
   </div>
+  <div class="status" id="ai-status-global"></div>
   <label style="color:var(--red)">SELECTED</label>
   <div class="slot-strip" id="ai-strip"></div>
   <hr>
   <div id="ai-cards"></div>
 </div>
 
-<!-- ═══ STEP 5: EXPORT ═══ -->
+<!-- ═══ STEP 5: PREVIEW ═══ -->
 <div class="panel">
-  <h2><span class="step-num" style="background:var(--cyan);color:var(--bg)">5</span> EXPORT CHALLENGE</h2>
+  <h2><span class="step-num" style="background:var(--yellow);color:var(--bg)">5</span> CHALLENGE PREVIEW</h2>
+  <p style="color:var(--muted);font-size:.65rem;margin-bottom:12px;">
+    See the final 10 images in shuffled order, exactly as players will experience them. Check for patterns and difficulty balance.
+  </p>
+  <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:6px;">
+    <button class="btn btn-yellow btn-sm" onclick="renderPreview()">👁 PREVIEW</button>
+    <button class="btn btn-outline btn-sm" onclick="reshufflePreview()">🔀 RE-SHUFFLE</button>
+  </div>
+  <div class="status" id="preview-status"></div>
+  <div class="warning-box" id="pattern-warning"></div>
+  <div class="quality-bar" id="quality-bar" style="display:none;"></div>
+  <div class="preview-grid" id="preview-grid"></div>
+</div>
+
+<!-- ═══ STEP 6: EXPORT ═══ -->
+<div class="panel">
+  <h2><span class="step-num" style="background:var(--cyan);color:var(--bg)">6</span> EXPORT CHALLENGE</h2>
   <p style="color:var(--muted);font-size:.65rem;margin-bottom:12px;">
     Once you have 5 real + 5 AI images, generate the JSON. Then download everything — the JSON goes in
     <code style="color:var(--cyan)">challenges/</code> and AI images go in <code style="color:var(--cyan)">images/</code>.
@@ -252,41 +337,40 @@
 /* ═══════════════════════════════════════
    STATE
    ═══════════════════════════════════════ */
-const REAL = [null, null, null, null, null];    // unsplash photo objects
-const AI   = [null, null, null, null, null];    // { blob, dataUrl, prompt }
+const REAL = [null, null, null, null, null];
+const AI   = [null, null, null, null, null];
 let unsplashResults = [];
 
-// Default prompts (user edits these per challenge)
-const prompts = [
-  'A photorealistic image of a gold trophy on a podium with dramatic spotlight, dark background, award ceremony setting',
-  'A photorealistic image of a packed football stadium at night with bright floodlights and cheering crowd, wide angle shot',
-  'A photorealistic image of a red carpet event with photographers, velvet ropes, camera flashes at night',
-  'A photorealistic extreme close-up of a leather football on a grass field with morning dew, showing lace details',
-  'A photorealistic image of golden confetti falling over a celebration stage with spotlights and silhouettes cheering'
+const defaultPrompts = [
+  'A photorealistic photograph of [subject], natural lighting, shot on Canon EOS R5, 85mm lens',
+  'A photorealistic photograph of [subject], casual composition, slightly messy, everyday life, natural colors',
+  'A photorealistic close-up photograph of [subject], shallow depth of field, bokeh background, warm tones',
+  'A photorealistic photograph of [subject], overhead shot, flat lay style, clean but natural',
+  'A photorealistic photograph of [subject], outdoor natural light, golden hour, candid moment'
 ];
-const tips = [
-  'Check trophy details — AI often gets engravings and award shapes wrong.',
-  'Look at individual faces in the crowd — AI tends to blur them into uniform masses.',
-  'Examine the cameras and hands of photographers — AI struggles with complex hand positions.',
-  'The leather texture looks real, but check where the ball meets the grass — AI fumbles contact shadows.',
-  'Real confetti has varied shapes and sizes; AI confetti looks too uniform and repetitive.'
+const defaultTips = [
+  'Look for natural imperfections — real photos have dust, slight blur, and uneven lighting.',
+  'Check edges carefully — AI often produces halos or unnatural blending where objects meet.',
+  'Examine text and labels — AI struggles with readable, consistent lettering.',
+  'Look at reflections — real reflections match the environment, AI reflections are often random.',
+  'Check for symmetry — AI tends to make things too perfect and symmetrical.'
 ];
+
+let prompts = [...defaultPrompts];
+let tips = [...defaultTips];
 
 /* ═══════════════════════════════════════
    INIT
    ═══════════════════════════════════════ */
 window.addEventListener('DOMContentLoaded', () => {
-  // Restore saved API keys
   document.getElementById('key-unsplash').value = localStorage.getItem('braiain_key_unsplash') || '';
   document.getElementById('key-gemini').value = localStorage.getItem('braiain_key_gemini') || '';
 
-  // Auto-save keys on change
   document.getElementById('key-unsplash').addEventListener('input', e =>
     localStorage.setItem('braiain_key_unsplash', e.target.value.trim()));
   document.getElementById('key-gemini').addEventListener('input', e =>
     localStorage.setItem('braiain_key_gemini', e.target.value.trim()));
 
-  // Enter to search
   document.getElementById('us-query').addEventListener('keydown', e => {
     if (e.key === 'Enter') searchUnsplash();
   });
@@ -295,6 +379,115 @@ window.addEventListener('DOMContentLoaded', () => {
   renderAIStrip();
   renderAICards();
 });
+
+/* ═══════════════════════════════════════
+   IMPORT JSON
+   ═══════════════════════════════════════ */
+async function lookupDays() {
+  const key = document.getElementById('key-gemini').value.trim();
+  if (!key) return stat('days-status', 'Enter Google AI key in Step 2 first', 'err');
+
+  const date = document.getElementById('cfg-date').value;
+  if (!date) return stat('days-status', 'Pick a date first', 'err');
+
+  const d = new Date(date + 'T12:00:00');
+  const formatted = d.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' });
+
+  stat('days-status', `Looking up special days for ${formatted}…`);
+  document.getElementById('days-list').innerHTML = '';
+
+  try {
+    const resp = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text:
+            `What national days, international days, awareness days, food days, and fun/unofficial holidays fall on ${formatted}?
+
+Include things like "National Pizza Day", "World Emoji Day", "International Ice Cream for Breakfast Day", etc. Include both well-known and obscure ones. Also include any major events, cultural moments, or seasonal themes relevant to this date (e.g. Super Bowl weekend, Oscar season, back to school, etc).
+
+For each day, suggest a single emoji that represents it.
+
+Return as a JSON array of objects with "name" and "emoji" fields. Return ONLY the JSON array, no other text. Example:
+[{"name": "National Pizza Day", "emoji": "🍕"}, {"name": "International Read in the Bathtub Day", "emoji": "🛁"}]
+
+Aim for 10-20 results, prioritizing the most visually interesting and game-friendly themes (food, nature, sports, art, animals are great for image detection games).`
+          }], role: 'user' }]
+        })
+      }
+    );
+
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    // Parse JSON from response (handle markdown code blocks)
+    const jsonStr = text.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim();
+    const days = JSON.parse(jsonStr);
+
+    if (!Array.isArray(days) || days.length === 0) throw new Error('No days found');
+
+    const list = document.getElementById('days-list');
+    list.innerHTML = '';
+
+    days.forEach(day => {
+      const chip = document.createElement('div');
+      chip.className = 'day-chip';
+      chip.innerHTML = `<span class="day-emoji">${day.emoji || '📅'}</span>${day.name}`;
+      chip.onclick = () => {
+        // Fill category and emoji fields
+        document.getElementById('cfg-cat').value = day.name;
+        document.getElementById('cfg-emoji').value = day.emoji || '📅';
+        // Also set search query
+        document.getElementById('us-query').value = day.name.replace(/^(National|International|World)\s+/i, '').replace(/\s+Day$/i, '');
+        // Visual feedback
+        list.querySelectorAll('.day-chip').forEach(c => c.classList.remove('picked'));
+        chip.classList.add('picked');
+        stat('days-status', `Selected: ${day.name} — theme and search query updated!`, 'ok');
+      };
+      list.appendChild(chip);
+    });
+
+    stat('days-status', `Found ${days.length} days for ${formatted}. Click one to use as theme →`, 'ok');
+  } catch (e) {
+    stat('days-status', 'Lookup failed: ' + e.message, 'err');
+  }
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = ev => {
+    try {
+      const data = JSON.parse(ev.target.result);
+      document.getElementById('cfg-day').value = data.day_number || 1;
+      document.getElementById('cfg-date').value = data.date || '';
+      document.getElementById('cfg-cat').value = data.category || '';
+      document.getElementById('cfg-emoji').value = data.category_emoji || '';
+      document.getElementById('cfg-subtitle').value = data.category_subtitle || '';
+
+      let aiIdx = 0;
+      if (data.rounds) {
+        data.rounds.forEach(r => {
+          if (r.source === 'ai' && aiIdx < 5) {
+            tips[aiIdx] = r.pro_tip || defaultTips[aiIdx];
+            if (r._note) prompts[aiIdx] = r._note.replace('Prompt: ', '');
+            aiIdx++;
+          }
+        });
+      }
+      renderAICards();
+      stat('import-status', `Loaded day ${data.day_number} — "${data.category}". Re-select images, tips & prompts restored.`, 'ok');
+    } catch (e) {
+      stat('import-status', 'Invalid JSON: ' + e.message, 'err');
+    }
+  };
+  reader.readAsText(file);
+  event.target.value = '';
+}
 
 /* ═══════════════════════════════════════
    UNSPLASH — REAL PHOTOS
@@ -439,20 +632,17 @@ async function geminiGen(i) {
           const b64 = part.inlineData.data;
           const dataUrl = `data:${mime};base64,${b64}`;
 
-          // Make blob
           const bytes = atob(b64);
           const arr = new Uint8Array(bytes.length);
           for (let j = 0; j < bytes.length; j++) arr[j] = bytes.charCodeAt(j);
           const blob = new Blob([arr], { type: mime });
 
-          // Add preview thumbnail (append so user can gen multiple)
           const img = document.createElement('img');
           img.src = dataUrl;
           img.title = 'Click to select';
           img.onclick = () => pickAI(i, blob, dataUrl, prompt, img);
           prev.appendChild(img);
 
-          // Auto-select if slot empty
           if (!AI[i]) pickAI(i, blob, dataUrl, prompt, img);
           found = true;
         }
@@ -516,6 +706,326 @@ function renderAIStrip() {
 }
 
 /* ═══════════════════════════════════════
+   SUGGEST PROMPTS (via Gemini text)
+   ═══════════════════════════════════════ */
+async function suggestPrompts() {
+  const key = document.getElementById('key-gemini').value.trim();
+  if (!key) return stat('ai-status-global', 'Enter Google AI key in Step 2', 'err');
+
+  const theme = document.getElementById('cfg-cat').value.trim();
+  if (!theme) return stat('ai-status-global', 'Enter a theme in Step 1 first', 'err');
+
+  const realDescs = REAL.filter(Boolean).map((p, i) =>
+    `Real ${i+1}: ${p.alt_description || 'landscape photo'}`
+  ).join('\n');
+
+  const contextNote = realDescs
+    ? `\n\nThe real photos already selected are:\n${realDescs}\n\nMake the AI prompts match similar subjects and compositions so they're difficult to distinguish from the real photos.`
+    : '';
+
+  stat('ai-status-global', 'Asking Gemini for prompt suggestions…');
+
+  try {
+    const resp = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text:
+            `You are helping create a daily AI detection game challenge. The theme is: "${theme}".
+
+Generate exactly 5 photorealistic image prompts for an AI image generator. Each prompt should:
+- Start with "A photorealistic photograph of"
+- Describe a scene that fits the theme
+- Include camera/lighting details for realism (lens type, lighting condition)
+- Vary the subjects and compositions (close-up, wide shot, overhead, etc.)
+- Be designed to create images that could fool someone into thinking they're real photos
+${contextNote}
+
+Return ONLY the 5 prompts, one per line, numbered 1-5. No other text.`
+          }], role: 'user' }]
+        })
+      }
+    );
+
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    const lines = text.split('\n')
+      .map(l => l.replace(/^\d+[\.\)]\s*/, '').trim())
+      .filter(l => l.length > 20);
+
+    if (lines.length < 5) throw new Error('Unexpected response format — try again');
+
+    for (let i = 0; i < 5; i++) {
+      const el = document.getElementById(`prompt-${i}`);
+      if (el && lines[i]) el.value = lines[i];
+    }
+    stat('ai-status-global', 'Prompts filled! Review and edit, then Generate All.', 'ok');
+  } catch (e) {
+    stat('ai-status-global', 'Suggest failed: ' + e.message, 'err');
+  }
+}
+
+/* ═══════════════════════════════════════
+   GENERATE ALL AI IMAGES
+   ═══════════════════════════════════════ */
+async function generateAllAI() {
+  const key = document.getElementById('key-gemini').value.trim();
+  if (!key) return stat('ai-status-global', 'Enter Google AI key in Step 2', 'err');
+
+  const btn = document.getElementById('gen-all-btn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spin"></span> GENERATING…';
+
+  let successes = 0;
+  let failures = 0;
+
+  for (let i = 0; i < 5; i++) {
+    const prompt = document.getElementById(`prompt-${i}`).value.trim();
+    if (!prompt) { failures++; stat(`ai-st-${i}`, 'No prompt', 'err'); continue; }
+    if (AI[i]) { successes++; stat(`ai-st-${i}`, 'Already filled — skipped', 'ok'); continue; }
+
+    stat('ai-status-global', `Generating image ${i+1}/5…`);
+
+    try {
+      await geminiGen(i);
+      if (AI[i]) successes++;
+      else failures++;
+    } catch (e) {
+      failures++;
+    }
+
+    if (i < 4) await sleep(2000);
+  }
+
+  btn.disabled = false;
+  btn.innerHTML = '🚀 GENERATE ALL';
+  stat('ai-status-global',
+    `Done! ${successes} succeeded, ${failures} failed.${failures > 0 ? ' Retry failed ones individually.' : ''}`,
+    failures > 0 ? 'err' : 'ok');
+}
+
+/* ═══════════════════════════════════════
+   AUTO TIPS (via Gemini text)
+   ═══════════════════════════════════════ */
+async function autoTips() {
+  const key = document.getElementById('key-gemini').value.trim();
+  if (!key) return stat('ai-status-global', 'Enter Google AI key in Step 2', 'err');
+
+  const theme = document.getElementById('cfg-cat').value.trim();
+  const aiPrompts = [];
+  for (let i = 0; i < 5; i++) {
+    aiPrompts.push(document.getElementById(`prompt-${i}`).value.trim());
+  }
+  if (aiPrompts.every(p => !p)) return stat('ai-status-global', 'Fill in prompts first', 'err');
+
+  const realDescs = REAL.filter(Boolean).map((p, i) =>
+    `Real ${i+1}: ${p.alt_description || 'landscape photo'}`
+  ).join('\n');
+
+  stat('ai-status-global', 'Generating pro tips…');
+
+  try {
+    const resp = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text:
+            `You are writing "Pro Tips" for a daily game where players guess if images are real photos or AI-generated.
+
+Theme: "${theme || 'General'}"
+
+Here are 5 AI image prompts. For each, write a specific, educational pro tip that teaches players what to look for to identify it as AI-generated. Tips should:
+- Be specific to the subject matter (not generic)
+- Reference concrete visual tells (textures, physics, details)
+- Start with a CATEGORY in ALL CAPS followed by colon (e.g. "TEXTURE:", "PHYSICS:", "REFLECTIONS:", "HANDS:", "TEXT:")
+- Be 1-2 sentences, max 30 words
+- Teach something players can use in future rounds
+
+AI Image prompts:
+${aiPrompts.map((p, i) => `${i+1}. ${p}`).join('\n')}
+
+${realDescs ? `Here are the real photos:
+${realDescs}
+
+Also write 5 pro tips for the real photos. These should teach players what signals authenticity — natural imperfections, camera artifacts, lens effects, environmental details.
+Same format: CATEGORY in caps, 1-2 sentences.` : ''}
+
+Return exactly ${realDescs ? '10' : '5'} tips, numbered. ${realDescs ? 'Tips 1-5 are for AI images, tips 6-10 are for real photos.' : ''} No other text.`
+          }], role: 'user' }]
+        })
+      }
+    );
+
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
+
+    const lines = text.split('\n')
+      .map(l => l.replace(/^\d+[\.\)]\s*/, '').trim())
+      .filter(l => l.length > 15);
+
+    for (let i = 0; i < 5 && i < lines.length; i++) {
+      const el = document.getElementById(`tip-${i}`);
+      if (el && lines[i]) el.value = lines[i];
+    }
+
+    window._realTips = [];
+    for (let i = 5; i < 10 && i < lines.length; i++) {
+      window._realTips.push(lines[i]);
+    }
+
+    stat('ai-status-global',
+      `Tips generated! ${Math.min(lines.length, 5)} AI tips${window._realTips.length ? ' + ' + window._realTips.length + ' real photo tips' : ''} filled. Review and edit.`,
+      'ok');
+  } catch (e) {
+    stat('ai-status-global', 'Auto tips failed: ' + e.message, 'err');
+  }
+}
+
+/* ═══════════════════════════════════════
+   CHALLENGE PREVIEW
+   ═══════════════════════════════════════ */
+function buildShuffledItems() {
+  const rc = REAL.filter(Boolean).length;
+  const ac = AI.filter(Boolean).length;
+  if (rc < 5 || ac < 5) return null;
+
+  const items = [];
+  for (let i = 0; i < 5; i++) {
+    items.push({
+      source: 'human',
+      thumb: REAL[i].urls.small,
+      label: `Real ${i+1}: ${(REAL[i].alt_description || '').slice(0, 40)}`
+    });
+  }
+  for (let i = 0; i < 5; i++) {
+    items.push({
+      source: 'ai',
+      thumb: AI[i].dataUrl,
+      label: `AI ${i+1}`
+    });
+  }
+
+  for (let i = items.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [items[i], items[j]] = [items[j], items[i]];
+  }
+
+  return items;
+}
+
+function analyzePattern(items) {
+  const warnings = [];
+
+  let maxStreak = 1, curStreak = 1, streakType = items[0]?.source;
+  for (let i = 1; i < items.length; i++) {
+    if (items[i].source === items[i-1].source) {
+      curStreak++;
+      if (curStreak > maxStreak) {
+        maxStreak = curStreak;
+        streakType = items[i].source;
+      }
+    } else {
+      curStreak = 1;
+    }
+  }
+  if (maxStreak >= 3) {
+    warnings.push(`⚠️ Found ${maxStreak} ${streakType === 'ai' ? 'AI' : 'REAL'} images in a row — players might notice the pattern.`);
+  }
+
+  let alternating = true;
+  for (let i = 1; i < items.length; i++) {
+    if (items[i].source === items[i-1].source) { alternating = false; break; }
+  }
+  if (alternating) {
+    warnings.push('⚠️ Perfect alternating pattern (human-AI-human-AI...) — too predictable! Re-shuffle.');
+  }
+
+  const first3 = items.slice(0, 3).map(i => i.source);
+  const last3 = items.slice(-3).map(i => i.source);
+  if (first3.every(s => s === first3[0])) {
+    warnings.push(`⚠️ First 3 rounds are all ${first3[0] === 'ai' ? 'AI' : 'REAL'} — consider re-shuffling.`);
+  }
+  if (last3.every(s => s === last3[0])) {
+    warnings.push(`⚠️ Last 3 rounds are all ${last3[0] === 'ai' ? 'AI' : 'REAL'} — consider re-shuffling.`);
+  }
+
+  return warnings;
+}
+
+function renderPreview() {
+  const items = buildShuffledItems();
+  if (!items) return stat('preview-status', 'Need 5 real + 5 AI images first', 'err');
+
+  const grid = document.getElementById('preview-grid');
+  grid.innerHTML = '';
+
+  items.forEach((item, idx) => {
+    const card = document.createElement('div');
+    card.className = 'preview-card';
+    card.innerHTML = `
+      <img src="${item.thumb}">
+      <div class="round-num">R${idx+1}</div>
+      <div class="type-badge ${item.source === 'ai' ? 'ai' : 'human'}">${item.source === 'ai' ? 'AI' : 'REAL'}</div>`;
+    card.title = item.label;
+    grid.appendChild(card);
+  });
+
+  const warnings = analyzePattern(items);
+  const warnBox = document.getElementById('pattern-warning');
+  if (warnings.length > 0) {
+    warnBox.innerHTML = warnings.join('<br>');
+    warnBox.classList.add('visible');
+  } else {
+    warnBox.classList.remove('visible');
+  }
+
+  const qBar = document.getElementById('quality-bar');
+  qBar.style.display = 'flex';
+
+  const firstHalf = items.slice(0, 5);
+  const secondHalf = items.slice(5);
+  const aiFirst = firstHalf.filter(i => i.source === 'ai').length;
+  const aiSecond = secondHalf.filter(i => i.source === 'ai').length;
+
+  let maxS = 1, curS = 1;
+  for (let i = 1; i < items.length; i++) {
+    if (items[i].source === items[i-1].source) { curS++; if (curS > maxS) maxS = curS; }
+    else curS = 1;
+  }
+
+  const pattern = items.map(i => i.source === 'ai' ? 'A' : 'R').join('');
+
+  qBar.innerHTML = `
+    <div class="q-stat">
+      <div class="q-label">Pattern</div>
+      <div class="q-val" style="color:var(--cyan);font-size:.6rem;letter-spacing:2px;">${pattern}</div>
+    </div>
+    <div class="q-stat">
+      <div class="q-label">1st Half / 2nd Half</div>
+      <div class="q-val ${Math.abs(aiFirst - aiSecond) <= 1 ? 'good' : 'warn'}">${aiFirst}A+${5-aiFirst}R / ${aiSecond}A+${5-aiSecond}R</div>
+    </div>
+    <div class="q-stat">
+      <div class="q-label">Max Streak</div>
+      <div class="q-val ${maxS <= 2 ? 'good' : maxS <= 3 ? 'warn' : 'bad'}">${maxS} in a row</div>
+    </div>
+    <div class="q-stat">
+      <div class="q-label">Quality</div>
+      <div class="q-val ${warnings.length === 0 ? 'good' : 'warn'}">${warnings.length === 0 ? 'CLEAN ✓' : warnings.length + ' warning(s)'}</div>
+    </div>`;
+
+  stat('preview-status', 'Preview generated. Check pattern and balance above.', 'ok');
+}
+
+function reshufflePreview() { renderPreview(); }
+
+/* ═══════════════════════════════════════
    EXPORT
    ═══════════════════════════════════════ */
 function generateJSON() {
@@ -523,24 +1033,24 @@ function generateJSON() {
   const date = document.getElementById('cfg-date').value;
   const cat = document.getElementById('cfg-cat').value.trim();
   const emoji = document.getElementById('cfg-emoji').value.trim();
+  const subtitle = document.getElementById('cfg-subtitle').value.trim();
 
   const rc = REAL.filter(Boolean).length;
   const ac = AI.filter(Boolean).length;
   if (rc < 5 || ac < 5) return stat('export-status', `Need 5 real (${rc}) + 5 AI (${ac})`, 'err');
 
-  // Build 10 rounds — interleave real and AI in shuffled order
-  // Create array of 5 real + 5 AI, then shuffle
   const items = [];
 
   for (let i = 0; i < 5; i++) {
     const photo = REAL[i];
+    const realTip = (window._realTips && window._realTips[i])
+      || 'Natural imperfections like lens flare, slight blur, or uneven lighting are hallmarks of a real photograph.';
     items.push({
       source: 'human',
       content: `${photo.urls.raw}&w=800&h=600&fit=crop&q=80`,
       attribution: `Photo by ${photo.user.name} on Unsplash`,
       source_url: photo.links.html,
-      pro_tip: 'Natural imperfections like lens flare, slight blur, or uneven lighting are hallmarks of a real photograph.',
-      _slotLabel: `Real photo ${i+1}`
+      pro_tip: realTip,
     });
   }
 
@@ -552,19 +1062,56 @@ function generateJSON() {
       attribution: 'AI-generated — created with Google Gemini',
       pro_tip: document.getElementById(`tip-${i}`).value || tips[i],
       _prompt: document.getElementById(`prompt-${i}`).value,
-      _slotLabel: `AI image ${i+1}`,
       _ext: ext
     });
   }
 
-  // Shuffle
-  for (let i = items.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [items[i], items[j]] = [items[j], items[i]];
+  // Smart shuffle: try up to 20 times, pick the cleanest result
+  let bestShuffle = null;
+  let bestScore = -999;
+
+  for (let attempt = 0; attempt < 20; attempt++) {
+    const shuffled = [...items];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    let score = 10; // start perfect
+
+    // Penalize long streaks
+    let streak = 1;
+    for (let i = 1; i < shuffled.length; i++) {
+      if (shuffled[i].source === shuffled[i-1].source) {
+        streak++;
+        if (streak >= 3) score -= 3;
+        if (streak >= 4) score -= 5;
+      } else streak = 1;
+    }
+
+    // Penalize perfect alternation
+    let alt = true;
+    for (let i = 1; i < shuffled.length; i++) {
+      if (shuffled[i].source === shuffled[i-1].source) { alt = false; break; }
+    }
+    if (alt) score -= 10;
+
+    // Penalize unbalanced halves
+    const aiFirst = shuffled.slice(0, 5).filter(i => i.source === 'ai').length;
+    if (Math.abs(aiFirst - 2.5) > 1.5) score -= 2;
+
+    // Penalize first/last 3 being same type
+    if (shuffled.slice(0, 3).every(s => s.source === shuffled[0].source)) score -= 2;
+    if (shuffled.slice(-3).every(s => s.source === shuffled[9]?.source)) score -= 2;
+
+    if (score > bestScore) {
+      bestScore = score;
+      bestShuffle = shuffled;
+    }
+    if (score >= 9) break; // good enough
   }
 
-  // Build rounds
-  const rounds = items.map((item, idx) => {
+  const rounds = bestShuffle.map((item, idx) => {
     const r = {
       id: `d${day}r${idx + 1}`,
       type: 'image',
@@ -586,8 +1133,14 @@ function generateJSON() {
     rounds
   };
 
+  if (subtitle) challenge.category_subtitle = subtitle;
+
   document.getElementById('json-out').value = JSON.stringify(challenge, null, 2);
-  stat('export-status', `Done! ${rounds.length} rounds (${rc} real + ${ac} AI, shuffled). Now click DOWNLOAD ALL.`, 'ok');
+
+  const pattern = bestShuffle.map(i => i.source === 'ai' ? 'A' : 'R').join('');
+  stat('export-status',
+    `✓ ${rounds.length} rounds exported. Pattern: ${pattern} (score: ${bestScore}/10)`,
+    bestScore >= 7 ? 'ok' : 'err');
 }
 
 async function downloadAll() {
@@ -599,10 +1152,8 @@ async function downloadAll() {
 
   stat('export-status', 'Downloading files…');
 
-  // Download JSON
   dlBlob(new Blob([json], { type: 'application/json' }), `${date}.json`);
 
-  // Download each AI image
   for (let i = 0; i < 5; i++) {
     if (AI[i]) {
       const ext = AI[i].blob.type?.includes('png') ? 'png' : 'jpg';
