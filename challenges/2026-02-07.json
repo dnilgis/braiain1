@@ -1,108 +1,94 @@
 {
-  "day_number": 3,
+  "day_number": 4,
   "date": "2026-02-07",
-  "category": "The Tailgate",
-  "category_emoji": "🏈",
+  "category": "Super Bowl Eve",
+  "category_subtitle": "Seahawks vs Patriots Tomorrow \u2014 Get Your Snacks Ready!",
+  "category_emoji": "\ud83c\udf89",
   "rounds": [
     {
-      "id": "d3r01",
+      "id": "d4r1",
       "type": "image",
-      "content": "https://picsum.photos/id/338/800/600",
+      "content": "https://picsum.photos/id/292/800/600",
       "source": "human",
-      "attribution": "Real photograph — football fans in stadium crowd",
-      "pro_tip": "CROWD ENERGY: Real crowd photos have chaotic variety — different expressions, mid-motion blur, varied clothing. AI crowds often look like cloned figures with eerily similar poses.",
-      "credit_name": "Tim Gouw",
-      "source_url": "https://unsplash.com/photos/1K9T5YiZ2WU"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "FOOD IMPERFECTION: Real nachos and wings have grease stains, uneven sauce, and varied portion sizes. AI party food looks impossibly photogenic."
     },
     {
-      "id": "d3r02",
+      "id": "d4r2",
       "type": "image",
-      "content": "https://picsum.photos/id/338/800/600",
+      "content": "images/d4r2_ai_wing_platter.jpg",
       "source": "ai",
-      "attribution": "AI-generated — stylized sports atmosphere",
-      "pro_tip": "LIGHTING CONSISTENCY: Stadium lights create specific shadow patterns. In real photos, every shadow points back to identifiable light sources. AI often has shadows that contradict each other.",
-      "credit_name": "Midjourney via Unsplash",
-      "source_url": "https://unsplash.com/photos/U1gvhqVQ2kQ"
+      "attribution": "AI-generated \u2014 buffalo wing platter with celery and blue cheese (Flux)",
+      "pro_tip": "SAUCE PHYSICS: Real buffalo sauce pools, drips, and has varied thickness. AI sauce often looks like smooth orange paint uniformly applied.",
+      "_note": "Generate: 'photorealistic overhead shot of buffalo chicken wings platter with celery sticks, blue cheese dip, ranch, messy casual table setting'"
     },
     {
-      "id": "d3r03",
+      "id": "d4r3",
       "type": "image",
-      "content": "https://picsum.photos/id/0/800/600",
+      "content": "https://picsum.photos/id/431/800/600",
       "source": "human",
-      "attribution": "Real photograph — BBQ grill with smoke at outdoor party",
-      "pro_tip": "SMOKE BEHAVIOR: Real smoke is wispy, semi-transparent, and follows air currents unpredictably. AI smoke looks like soft cotton or a uniform gray cloud without natural turbulence.",
-      "credit_name": "Evan Wise",
-      "source_url": "https://unsplash.com/photos/BK49kkGSH6Y"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "GLASS REFLECTIONS: Real beer glasses reflect their environment \u2014 room lights, nearby objects. AI glass reflections are often random bright spots."
     },
     {
-      "id": "d3r04",
+      "id": "d4r4",
       "type": "image",
-      "content": "https://picsum.photos/id/240/800/600",
+      "content": "images/d4r4_ai_sports_bar.jpg",
       "source": "ai",
-      "attribution": "AI-generated — hyperreal outdoor gathering scene",
-      "pro_tip": "HAND CHECK: Zoom into any hands in the image. AI infamously struggles with finger count, knuckle placement, and natural hand poses. Real hands have visible veins, wrinkles, and varied skin tones.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ahi73ZN5P0Y"
+      "attribution": "AI-generated \u2014 packed sports bar with big screens showing football (Midjourney)",
+      "pro_tip": "SCREEN CONTENT: Look at what's on the TVs. AI often generates gibberish or impossible game imagery on screens \u2014 distorted scoreboards, melted players.",
+      "_note": "Generate: 'photorealistic crowded sports bar interior, multiple big screen TVs showing football, fans cheering, neon beer signs, warm lighting'"
     },
     {
-      "id": "d3r05",
+      "id": "d4r5",
       "type": "image",
-      "content": "https://picsum.photos/id/274/800/600",
+      "content": "https://picsum.photos/id/225/800/600",
       "source": "human",
-      "attribution": "Real photograph — hot dogs and game day food spread",
-      "pro_tip": "FOOD IMPERFECTION: Real game day food is messy — ketchup smears, uneven toppings, grease stains on paper plates. AI food styling is weirdly immaculate, like a catalogue shoot.",
-      "credit_name": "Ball Park Brand",
-      "source_url": "https://unsplash.com/photos/3DKqz0JrvFE"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "CONDENSATION: Real cold drinks show natural water droplet patterns. AI tends to make droplets too uniform or places them incorrectly."
     },
     {
-      "id": "d3r06",
+      "id": "d4r6",
       "type": "image",
-      "content": "https://picsum.photos/id/64/800/600",
+      "content": "images/d4r6_ai_tailgate.jpg",
       "source": "ai",
-      "attribution": "AI-generated — photorealistic portrait in outdoor setting",
-      "pro_tip": "SKIN PORES: Real skin at close range shows pores, fine hair, and natural color variation (redness around nose, darker under eyes). AI skin often looks like airbrushed plastic.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ai-portrait-gen"
+      "attribution": "AI-generated \u2014 tailgate party in stadium parking lot (DALL-E 3)",
+      "pro_tip": "LICENSE PLATES: Check license plates in parking scenes. AI generates random symbols that look vaguely like plates but never show real state formats.",
+      "_note": "Generate: 'photorealistic tailgate party, pickup trucks, portable grill smoking, folding chairs, coolers, football fans in jerseys, parking lot'"
     },
     {
-      "id": "d3r07",
+      "id": "d4r7",
       "type": "image",
-      "content": "https://picsum.photos/id/399/800/600",
+      "content": "https://picsum.photos/id/429/800/600",
       "source": "human",
-      "attribution": "Real photograph — parking lot tailgate setup with canopy",
-      "pro_tip": "BACKGROUND CLUTTER: Real tailgate scenes have messy, organic backgrounds — random cars, scattered coolers, tangled extension cords. AI over-tidies backgrounds or fills them with nonsensical objects.",
-      "credit_name": "Kampus Production",
-      "source_url": "https://unsplash.com/photos/outdoor-party"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "LABEL AUTHENTICITY: Real product labels are crisp with readable text and recognizable brands. AI labels are often the giveaway \u2014 blurry text, invented logos."
     },
     {
-      "id": "d3r08",
+      "id": "d4r8",
       "type": "image",
-      "content": "https://picsum.photos/id/274/800/600",
+      "content": "images/d4r8_ai_guacamole.jpg",
       "source": "ai",
-      "attribution": "AI-generated — dramatic sports venue atmosphere",
-      "pro_tip": "FLAG AND BANNER TEXT: Any text on banners, flags, or jerseys is a major tell. AI almost never renders readable text correctly — look for garbled letters or nonsense words.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ai-fantasy-landscape"
+      "attribution": "AI-generated \u2014 fresh guacamole with chips and game day spread (Flux)",
+      "pro_tip": "AVOCADO TEXTURE: Real guacamole has chunky, varied texture with visible onion bits and cilantro. AI guacamole is often too smooth and unnaturally green.",
+      "_note": "Generate: 'photorealistic guacamole bowl with tortilla chips, salsa, seven-layer dip, game day snack table spread, casual home setting'"
     },
     {
-      "id": "d3r09",
+      "id": "d4r9",
       "type": "image",
-      "content": "https://picsum.photos/id/64/800/600",
+      "content": "https://picsum.photos/id/365/800/600",
       "source": "human",
-      "attribution": "Real photograph — close-up of grilled food with char marks",
-      "pro_tip": "GRILL MARKS: Real char has irregular, organic patterns that follow the food's surface contours. AI grill marks tend to be perfectly parallel or geometrically uniform.",
-      "credit_name": "Eiliv Aceron",
-      "source_url": "https://unsplash.com/photos/ZuIDLSz3XLg"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "EDGE DETAIL: Real photos have clean, natural edges where objects meet. AI sometimes produces halos, smudging, or unnatural blending at object boundaries."
     },
     {
-      "id": "d3r10",
+      "id": "d4r10",
       "type": "image",
-      "content": "https://picsum.photos/id/167/800/600",
-      "source": "human",
-      "attribution": "Real photograph — evening outdoor scene with string lights",
-      "pro_tip": "STRING LIGHTS: Real bulbs have natural variation — some brighter, some dimmer, with realistic lens flare. AI string lights are often perfectly uniform with identical halos around each bulb.",
-      "credit_name": "Susan Yin",
-      "source_url": "https://unsplash.com/photos/2JIvboGLeho"
+      "content": "images/d4r10_ai_jersey_display.jpg",
+      "source": "ai",
+      "attribution": "AI-generated \u2014 football jerseys hanging in a row at shop (Midjourney)",
+      "pro_tip": "NUMBERS & LETTERS: Real jerseys have consistent fonts and proper numbers. AI jerseys often show distorted numbers, impossible player names, or inconsistent styling.",
+      "_note": "Generate: 'photorealistic row of NFL-style football jerseys hanging on rack in sports shop, various colors, numbered, folded below, retail display'"
     }
   ]
 }

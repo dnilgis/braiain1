@@ -1,108 +1,94 @@
 {
-  "day_number": 2,
+  "day_number": 3,
   "date": "2026-02-06",
-  "category": "Winter Olympics",
-  "category_emoji": "⛷️",
+  "category": "Winter Olympics Opening Ceremony",
+  "category_subtitle": "Milan Cortina 2026 \u2014 Let the Games Begin!",
+  "category_emoji": "\ud83c\udfc5",
   "rounds": [
     {
-      "id": "d2r01",
-      "type": "image",
-      "content": "https://picsum.photos/id/60/800/600",
-      "source": "human",
-      "attribution": "Real photograph — downhill skier in powder snow",
-      "pro_tip": "SNOW SPRAY: Real snow kicked up by skiers is chaotic — thousands of unique ice crystals catching light at random angles. AI snow spray tends to look like white fog or a uniform blur.",
-      "credit_name": "Maarten Duineveld",
-      "source_url": "https://unsplash.com/photos/pmfJcN7RGiw"
-    },
-    {
-      "id": "d2r02",
-      "type": "image",
-      "content": "https://picsum.photos/id/180/800/600",
-      "source": "ai",
-      "attribution": "AI-generated — stylized winter sports scene",
-      "pro_tip": "GEAR DETAILS: Real ski equipment has brand logos, buckle mechanisms, and wear marks. AI often creates generic equipment with suspiciously smooth surfaces and unreadable text on labels.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ai-winter-sports"
-    },
-    {
-      "id": "d2r03",
-      "type": "image",
-      "content": "https://picsum.photos/id/160/800/600",
-      "source": "human",
-      "attribution": "Real photograph — snowboarder mid-air trick",
-      "pro_tip": "BODY PHYSICS: In real action shots, the athlete's body shows natural tension — strained muscles, asymmetric posture from force. AI athletes often look posed, like mannequins frozen mid-flight.",
-      "credit_name": "Visit Almaty",
-      "source_url": "https://unsplash.com/photos/mWYLOmBxDAk"
-    },
-    {
-      "id": "d2r04",
-      "type": "image",
-      "content": "https://picsum.photos/id/237/800/600",
-      "source": "human",
-      "attribution": "Real photograph — alpine mountain panorama with snow",
-      "pro_tip": "SNOW TEXTURE: Real snow has complex layering — wind crust, powder pockets, ice patches, animal tracks. AI snow is often a uniform white blanket that looks like frosting.",
-      "credit_name": "Benjamin Voros",
-      "source_url": "https://unsplash.com/photos/phIFdC6lA4E"
-    },
-    {
-      "id": "d2r05",
-      "type": "image",
-      "content": "https://picsum.photos/id/64/800/600",
-      "source": "ai",
-      "attribution": "AI-generated — photorealistic winter portrait",
-      "pro_tip": "BREATH IN COLD AIR: Real photos in freezing conditions show visible breath, red noses, and fogged goggles. AI winter portraits often forget these environmental effects entirely.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ai-portrait-gen"
-    },
-    {
-      "id": "d2r06",
-      "type": "image",
-      "content": "https://picsum.photos/id/40/800/600",
-      "source": "human",
-      "attribution": "Real photograph — ice skating rink close-up",
-      "pro_tip": "ICE SURFACE: Real ice has visible scratches, chips, and uneven patches from skate blades. AI ice tends to look like glass — too smooth, too reflective, too perfect.",
-      "credit_name": "Matthew Fournier",
-      "source_url": "https://unsplash.com/photos/b5H5hTxXbKo"
-    },
-    {
-      "id": "d2r07",
-      "type": "image",
-      "content": "https://picsum.photos/id/240/800/600",
-      "source": "ai",
-      "attribution": "AI-generated — dramatic winter sports composition",
-      "pro_tip": "CROWD FACES: If there are spectators in the background, zoom in. AI generates faces that blur into smudges or have misaligned features. Real crowd shots show distinct, varied individuals.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ahi73ZN5P0Y"
-    },
-    {
-      "id": "d2r08",
-      "type": "image",
-      "content": "https://picsum.photos/id/292/800/600",
-      "source": "human",
-      "attribution": "Real photograph — cross-country skiing trail through forest",
-      "pro_tip": "TREE BRANCHES: Real winter trees have intricate, irregular branch patterns with varying snow accumulation. AI trees tend toward symmetrical branching with unnaturally even snow distribution.",
-      "credit_name": "Simon Berger",
-      "source_url": "https://unsplash.com/photos/aZjw7xI3QAA"
-    },
-    {
-      "id": "d2r09",
+      "id": "d3r1",
       "type": "image",
       "content": "https://picsum.photos/id/274/800/600",
-      "source": "ai",
-      "attribution": "AI-generated — fantasy winter landscape",
-      "pro_tip": "HORIZON LINE: In real mountain photos, the horizon has natural atmospheric haze and color gradients. AI often creates an abrupt transition between sky and mountains that looks like a backdrop.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ai-fantasy-landscape"
+      "source": "human",
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "SNOW TEXTURE: Real snow has complex crystalline structure with subtle blue shadows. AI snow often looks like smooth white paint or cotton."
     },
     {
-      "id": "d2r10",
+      "id": "d3r2",
       "type": "image",
-      "content": "https://picsum.photos/id/312/800/600",
+      "content": "images/d3r2_ai_olympic_rings.jpg",
+      "source": "ai",
+      "attribution": "AI-generated \u2014 Olympic rings monument in snowy mountain setting (Flux)",
+      "pro_tip": "GEOMETRIC PRECISION: The Olympic rings have exact proportions. AI often distorts them \u2014 uneven ring sizes, wrong overlap order, or incorrect colors.",
+      "_note": "Generate: 'photorealistic Olympic rings sculpture in snowy Italian Alps, Dolomites background, sunset light, winter atmosphere'"
+    },
+    {
+      "id": "d3r3",
+      "type": "image",
+      "content": "https://picsum.photos/id/325/800/600",
       "source": "human",
-      "attribution": "Real photograph — ski resort gondola against mountain backdrop",
-      "pro_tip": "CABLE AND WIRE: Real cables have consistent thickness, natural sag from gravity, and visible strands. AI frequently renders cables that change thickness, float impossibly, or merge into the background.",
-      "credit_name": "Jens Theeß",
-      "source_url": "https://unsplash.com/photos/4lsRwCqlm6c"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "ICE SURFACE: Real ice has natural scratches, embedded bubbles, and varied translucency. AI ice often looks like frosted glass with unrealistic clarity."
+    },
+    {
+      "id": "d3r4",
+      "type": "image",
+      "content": "images/d3r4_ai_figure_skater.jpg",
+      "source": "ai",
+      "attribution": "AI-generated \u2014 figure skater mid-spin on Olympic ice (Midjourney)",
+      "pro_tip": "BODY PROPORTIONS: Real athletes have natural body proportions even in dynamic poses. AI often elongates limbs, twists joints impossibly, or creates anatomical errors.",
+      "_note": "Generate: 'photorealistic figure skater mid-spin on ice rink, sparkly costume, ice spray, arena lights, Olympic rings visible'"
+    },
+    {
+      "id": "d3r5",
+      "type": "image",
+      "content": "https://picsum.photos/id/380/800/600",
+      "source": "human",
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "MOUNTAIN DETAIL: Real mountain photos show geological strata, erosion patterns, and varied vegetation. AI mountains are often too smooth or repetitively textured."
+    },
+    {
+      "id": "d3r6",
+      "type": "image",
+      "content": "images/d3r6_ai_ski_jump.jpg",
+      "source": "ai",
+      "attribution": "AI-generated \u2014 ski jumper in mid-air against blue sky (DALL-E 3)",
+      "pro_tip": "EQUIPMENT DETAILS: Real ski equipment has brand logos, specific bindings, and wear marks. AI gear tends to have blurry or invented brand names and physically impossible mechanisms.",
+      "_note": "Generate: 'photorealistic ski jumper in mid-air, blue sky, snowy mountain backdrop, Olympic venue, action shot, telephoto lens'"
+    },
+    {
+      "id": "d3r7",
+      "type": "image",
+      "content": "https://picsum.photos/id/400/800/600",
+      "source": "human",
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "LIGHTING CONSISTENCY: In real photos, all surfaces respond to the same light source. AI sometimes lights different parts of the scene from conflicting angles."
+    },
+    {
+      "id": "d3r8",
+      "type": "image",
+      "content": "images/d3r8_ai_torch_relay.jpg",
+      "source": "ai",
+      "attribution": "AI-generated \u2014 Olympic torch bearer running through Italian village (Flux)",
+      "pro_tip": "FIRE INTERACTION: Real torch flames interact with the runner's movement \u2014 trailing, flickering. AI flames often sit static on the torch like a sticker.",
+      "_note": "Generate: 'photorealistic Olympic torch bearer running through charming Italian village street, crowds cheering, evening light, torch flame bright'"
+    },
+    {
+      "id": "d3r9",
+      "type": "image",
+      "content": "https://picsum.photos/id/416/800/600",
+      "source": "human",
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "ATMOSPHERIC PERSPECTIVE: In real landscape photos, distant objects appear hazier and bluer due to atmosphere. AI sometimes renders distant mountains as sharp as foreground objects."
+    },
+    {
+      "id": "d3r10",
+      "type": "image",
+      "content": "images/d3r10_ai_medal_ceremony.jpg",
+      "source": "ai",
+      "attribution": "AI-generated \u2014 Olympic medal ceremony podium with flags (Midjourney)",
+      "pro_tip": "FLAGS & SYMBOLS: Real flags have correct proportions, colors, and designs. AI frequently generates flags with wrong stripe counts, invented symbols, or impossible folds.",
+      "_note": "Generate: 'photorealistic Olympic medal ceremony, three athletes on podium, national flags behind, gold silver bronze medals, indoor arena'"
     }
   ]
 }

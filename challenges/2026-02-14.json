@@ -1,15 +1,15 @@
 {
-  "day_number": 10,
+  "day_number": 11,
   "date": "2026-02-14",
   "category": "Valentine's Day",
-  "category_emoji": "💝",
+  "category_emoji": "\ud83d\udc9d",
   "rounds": [
     {
       "id": "d10r01",
       "type": "image",
       "content": "https://picsum.photos/id/403/800/600",
       "source": "human",
-      "attribution": "Real photograph — red roses bouquet close-up",
+      "attribution": "Real photograph \u2014 Unsplash",
       "pro_tip": "PETAL EDGES: Real rose petals have slightly irregular edges, natural browning or curling at tips, and visible veining when backlit. AI petals are often too uniform, like plastic flowers.",
       "credit_name": "Biel Morro",
       "source_url": "https://unsplash.com/photos/red-roses-bouquet"
@@ -19,8 +19,8 @@
       "type": "image",
       "content": "https://picsum.photos/id/338/800/600",
       "source": "ai",
-      "attribution": "AI-generated — romantic scene composition",
-      "pro_tip": "DEPTH LAYERING: Real photographs have natural depth cues — slightly soft backgrounds, accurate size scaling with distance. AI often creates a flat collage-like composition where depth feels staged.",
+      "attribution": "AI-generated image (placeholder)",
+      "pro_tip": "DEPTH LAYERING: Real photographs have natural depth cues \u2014 slightly soft backgrounds, accurate size scaling with distance. AI often creates a flat collage-like composition where depth feels staged.",
       "credit_name": "Midjourney via Unsplash",
       "source_url": "https://unsplash.com/photos/U1gvhqVQ2kQ"
     },
@@ -29,7 +29,7 @@
       "type": "image",
       "content": "https://picsum.photos/id/433/800/600",
       "source": "human",
-      "attribution": "Real photograph — box of assorted chocolates",
+      "attribution": "Real photograph \u2014 Unsplash",
       "pro_tip": "CHOCOLATE SHEEN: Real chocolate has a specific glossy sheen from tempering, with subtle fingerprint marks and varied reflections. AI chocolate often looks matte or has an impossible mirror-like shine.",
       "credit_name": "Tamas Pap",
       "source_url": "https://unsplash.com/photos/chocolate-box"
@@ -39,8 +39,8 @@
       "type": "image",
       "content": "https://picsum.photos/id/240/800/600",
       "source": "ai",
-      "attribution": "AI-generated — surreal romantic composition",
-      "pro_tip": "SYMMETRY OVERLOAD: AI loves bilateral symmetry in romantic scenes — perfectly matched candles, identically arranged flowers. Real romantic settings have charming imperfection and asymmetry.",
+      "attribution": "AI-generated image (placeholder)",
+      "pro_tip": "SYMMETRY OVERLOAD: AI loves bilateral symmetry in romantic scenes \u2014 perfectly matched candles, identically arranged flowers. Real romantic settings have charming imperfection and asymmetry.",
       "credit_name": "AI Generator via Unsplash",
       "source_url": "https://unsplash.com/photos/ahi73ZN5P0Y"
     },
@@ -49,7 +49,7 @@
       "type": "image",
       "content": "https://picsum.photos/id/444/800/600",
       "source": "human",
-      "attribution": "Real photograph — candlelit dinner table setting",
+      "attribution": "Real photograph \u2014 Unsplash",
       "pro_tip": "CANDLELIGHT: Real candle flames cast warm, flickering light that creates soft, shifting shadows. AI candlelight is often static and creates shadows that don't match the flame position.",
       "credit_name": "Sixteen Miles Out",
       "source_url": "https://unsplash.com/photos/candlelit-dinner"
@@ -59,8 +59,8 @@
       "type": "image",
       "content": "https://picsum.photos/id/64/800/600",
       "source": "ai",
-      "attribution": "AI-generated — photorealistic portrait in romantic lighting",
-      "pro_tip": "EARRINGS AND JEWELRY: Real jewelry has consistent metallic properties — reflection, refraction, shadow casting. AI jewelry often has impossible geometry, floating elements, or inconsistent material properties.",
+      "attribution": "AI-generated image (placeholder)",
+      "pro_tip": "EARRINGS AND JEWELRY: Real jewelry has consistent metallic properties \u2014 reflection, refraction, shadow casting. AI jewelry often has impossible geometry, floating elements, or inconsistent material properties.",
       "credit_name": "AI Generator via Unsplash",
       "source_url": "https://unsplash.com/photos/ai-portrait-gen"
     },
@@ -69,7 +69,7 @@
       "type": "image",
       "content": "https://picsum.photos/id/453/800/600",
       "source": "human",
-      "attribution": "Real photograph — heart-shaped bokeh lights at night",
+      "attribution": "Real photograph \u2014 Unsplash",
       "pro_tip": "BOKEH QUALITY: Real lens bokeh has characteristic shapes from the aperture blade count, with natural color fringing at edges. AI bokeh is often too perfectly circular with uniform brightness.",
       "credit_name": "Dayne Topkin",
       "source_url": "https://unsplash.com/photos/bokeh-hearts"
@@ -79,7 +79,7 @@
       "type": "image",
       "content": "https://picsum.photos/id/274/800/600",
       "source": "ai",
-      "attribution": "AI-generated — fantasy romantic landscape",
+      "attribution": "AI-generated image (placeholder)",
       "pro_tip": "COLOR GRADING: AI tends to over-saturate warm tones in romantic scenes, creating an Instagram-filter-on-steroids look. Real photos have more nuanced color temperature variation.",
       "credit_name": "AI Generator via Unsplash",
       "source_url": "https://unsplash.com/photos/ai-fantasy-landscape"
@@ -89,7 +89,7 @@
       "type": "image",
       "content": "https://picsum.photos/id/10/800/600",
       "source": "human",
-      "attribution": "Real photograph — champagne glasses with bubbles",
+      "attribution": "Real photograph \u2014 Unsplash",
       "pro_tip": "LIQUID BUBBLES: Real champagne bubbles form at nucleation points and rise in streams, varying in size. AI bubbles are often randomly scattered, uniform in size, and don't follow physics.",
       "credit_name": "Tristan Gassert",
       "source_url": "https://unsplash.com/photos/champagne-bubbles"
@@ -99,7 +99,7 @@
       "type": "image",
       "content": "https://picsum.photos/id/429/800/600",
       "source": "human",
-      "attribution": "Real photograph — robot holding a flower (the romantic machine)",
+      "attribution": "Real photograph \u2014 Unsplash",
       "pro_tip": "MECHANICAL MEETS ORGANIC: When real metal holds something organic like a flower, you see natural shadows, compression of the stem, and light interaction between materials. AI blends these unnaturally.",
       "credit_name": "Alex Knight",
       "source_url": "https://unsplash.com/photos/2EJCSULRwC8"

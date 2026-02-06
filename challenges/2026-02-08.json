@@ -1,108 +1,94 @@
 {
-  "day_number": 4,
+  "day_number": 5,
   "date": "2026-02-08",
-  "category": "The Big Game",
-  "category_emoji": "🏆",
+  "category": "Super Bowl Sunday",
+  "category_subtitle": "Super Bowl LX \u2014 Seahawks vs Patriots \u2014 Kickoff 6:30 ET",
+  "category_emoji": "\ud83c\udfdf\ufe0f",
   "rounds": [
     {
-      "id": "d4r01",
+      "id": "d5r1",
       "type": "image",
-      "content": "https://picsum.photos/id/250/800/600",
+      "content": "https://picsum.photos/id/356/800/600",
       "source": "human",
-      "attribution": "Real photograph — football player in action on field",
-      "pro_tip": "MOTION BLUR: Real action shots have directional motion blur on fast-moving limbs. AI freezes every part of the image with unnatural sharpness, or applies blur uniformly instead of directionally.",
-      "credit_name": "Keith Johnston",
-      "source_url": "https://unsplash.com/photos/I_QCuFBqcGo"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "GRASS PATTERNS: Real stadium turf shows mowing lines, cleat marks, and natural color variation. AI grass is often impossibly uniform or has repeating patterns."
     },
     {
-      "id": "d4r02",
+      "id": "d5r2",
       "type": "image",
-      "content": "https://picsum.photos/id/338/800/600",
+      "content": "images/d5r2_ai_halftime_stage.jpg",
       "source": "ai",
-      "attribution": "AI-generated — dramatic sports spectacle",
-      "pro_tip": "STADIUM GEOMETRY: Real stadiums have precise, engineered lines — yard markers, seat rows, structural beams. AI often warps these lines subtly, creating geometry that couldn't exist in physical space.",
-      "credit_name": "Midjourney via Unsplash",
-      "source_url": "https://unsplash.com/photos/U1gvhqVQ2kQ"
+      "attribution": "AI-generated \u2014 Super Bowl halftime stage with pyrotechnics (Flux)",
+      "pro_tip": "PYROTECHNICS: Real fireworks and stage pyro have random spark trails and smoke. AI pyrotechnics look like symmetrical star shapes or solid glowing blobs.",
+      "_note": "Generate: 'photorealistic Super Bowl halftime show stage, massive LED screens, pyrotechnics and fireworks, packed stadium, concert lighting, drone shot'"
     },
     {
-      "id": "d4r03",
+      "id": "d5r3",
       "type": "image",
-      "content": "https://picsum.photos/id/352/800/600",
+      "content": "https://picsum.photos/id/344/800/600",
       "source": "human",
-      "attribution": "Real photograph — football referee making a call",
-      "pro_tip": "UNIFORM DETAILS: Real referee uniforms have specific stripe patterns, consistent stitching, and proper badge placement. AI often gets stripe spacing wrong or creates impossible fabric folds.",
-      "credit_name": "Nathan Shively",
-      "source_url": "https://unsplash.com/photos/referee-football"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "CROWD INDIVIDUALITY: In real crowd shots, every face and body is unique. AI crowds often repeat the same 3-4 face templates with slight variations."
     },
     {
-      "id": "d4r04",
+      "id": "d5r4",
       "type": "image",
-      "content": "https://picsum.photos/id/240/800/600",
+      "content": "images/d5r4_ai_football_action.jpg",
       "source": "ai",
-      "attribution": "AI-generated — surreal halftime spectacle",
-      "pro_tip": "PYROTECHNICS: Real fireworks and stage effects have natural smoke dispersion, varied spark trajectories, and inconsistent brightness. AI pyrotechnics look too symmetrical and clean.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ahi73ZN5P0Y"
+      "attribution": "AI-generated \u2014 football players mid-tackle at the line of scrimmage (Midjourney)",
+      "pro_tip": "HANDS & GRIP: Look at how players grip the ball or each other. AI often generates physically impossible hand positions, extra fingers, or merged appendages.",
+      "_note": "Generate: 'photorealistic American football action shot, quarterback being tackled at line of scrimmage, mud and sweat, stadium background, telephoto lens'"
     },
     {
-      "id": "d4r05",
+      "id": "d5r5",
       "type": "image",
-      "content": "https://picsum.photos/id/119/800/600",
+      "content": "https://picsum.photos/id/399/800/600",
       "source": "human",
-      "attribution": "Real photograph — football on grass field close-up",
-      "pro_tip": "GRASS REALITY: Real grass has varied blade lengths, brown patches, divots, and natural color variation. AI grass is often a uniform green carpet that looks spray-painted.",
-      "credit_name": "Dave Adamson",
-      "source_url": "https://unsplash.com/photos/football-field"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "SCOREBOARD TEXT: Real scoreboards display coherent, formatted information. AI scoreboards show garbled numbers and nonsense team abbreviations."
     },
     {
-      "id": "d4r06",
+      "id": "d5r6",
       "type": "image",
-      "content": "https://picsum.photos/id/64/800/600",
+      "content": "images/d5r6_ai_lombardi.jpg",
       "source": "ai",
-      "attribution": "AI-generated — photorealistic sports portrait",
-      "pro_tip": "SWEAT AND DIRT: Real athletes mid-game have uneven sweat patterns, grass stains in random spots, and smudged face paint. AI keeps athletes suspiciously clean or applies dirt too uniformly.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ai-portrait-gen"
+      "attribution": "AI-generated \u2014 Vince Lombardi Trophy gleaming under spotlights (DALL-E 3)",
+      "pro_tip": "SILVER REFLECTIONS: The Lombardi Trophy's silver surface should reflect its real surroundings. AI metal often has generic environment map reflections that don't match the scene.",
+      "_note": "Generate: 'photorealistic Vince Lombardi Trophy on display pedestal, dramatic single spotlight, dark background, gleaming silver surface'"
     },
     {
-      "id": "d4r07",
+      "id": "d5r7",
       "type": "image",
-      "content": "https://picsum.photos/id/24/800/600",
+      "content": "https://picsum.photos/id/401/800/600",
       "source": "human",
-      "attribution": "Real photograph — packed stadium from upper deck view",
-      "pro_tip": "DEPTH OF FIELD: Real telephoto shots from upper decks have natural depth-of-field falloff. The far side of the stadium gets progressively softer. AI often keeps everything in sharp focus.",
-      "credit_name": "Tim Trad",
-      "source_url": "https://unsplash.com/photos/stadium-crowd"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "STADIUM ARCHITECTURE: Real stadiums have consistent structural elements \u2014 uniform seat rows, regular beam spacing. AI arenas sometimes have warped geometry."
     },
     {
-      "id": "d4r08",
+      "id": "d5r8",
       "type": "image",
-      "content": "https://picsum.photos/id/274/800/600",
+      "content": "images/d5r8_ai_watch_party.jpg",
       "source": "ai",
-      "attribution": "AI-generated — fantasy trophy scene",
-      "pro_tip": "METALLIC REFLECTIONS: Real trophies and metal objects reflect their actual surroundings — you can see distorted images of nearby objects. AI reflections are often generic brightness without real environmental detail.",
-      "credit_name": "AI Generator via Unsplash",
-      "source_url": "https://unsplash.com/photos/ai-fantasy-landscape"
+      "attribution": "AI-generated \u2014 Super Bowl watch party in living room with big TV (Flux)",
+      "pro_tip": "TV SCREEN CONTENT: Check what's on the screen. AI TVs often show blurry, nonsensical imagery that doesn't look like real broadcast footage.",
+      "_note": "Generate: 'photorealistic cozy living room Super Bowl watch party, big TV showing football game, snack table, friends on couch, team decorations'"
     },
     {
-      "id": "d4r09",
+      "id": "d5r9",
       "type": "image",
-      "content": "https://picsum.photos/id/175/800/600",
+      "content": "https://picsum.photos/id/412/800/600",
       "source": "human",
-      "attribution": "Real photograph — football helmet close-up with visor",
-      "pro_tip": "VISOR REFLECTIONS: Real helmet visors show distorted reflections of the surrounding environment — stadium lights, other players, sky. AI visors often show impossibly clean or inconsistent reflections.",
-      "credit_name": "Ben Hershey",
-      "source_url": "https://unsplash.com/photos/football-helmet"
+      "attribution": "Real photograph via Unsplash",
+      "pro_tip": "LIGHTING TEMPERATURE: Real indoor/outdoor transitions show warm vs cool light. AI sometimes applies a single color temperature to the entire scene regardless of light sources."
     },
     {
-      "id": "d4r10",
+      "id": "d5r10",
       "type": "image",
-      "content": "https://picsum.photos/id/164/800/600",
-      "source": "human",
-      "attribution": "Real photograph — retro scoreboard and stadium tech",
-      "pro_tip": "DIGITAL DISPLAYS: Real LED scoreboards have visible pixel grids, slight color banding, and viewing-angle variation. AI scoreboards often look like flat images pasted onto the scene.",
-      "credit_name": "Lorenzo Herrera",
-      "source_url": "https://unsplash.com/photos/p0j-mE6mGo4"
+      "content": "images/d5r10_ai_flyover.jpg",
+      "source": "ai",
+      "attribution": "AI-generated \u2014 military jet flyover above stadium during anthem (Midjourney)",
+      "pro_tip": "JET TRAILS: Real vapor trails are affected by wind and humidity. AI jet trails are often perfectly parallel lines that look painted in the sky.",
+      "_note": "Generate: 'photorealistic military fighter jet flyover above football stadium, blue sky, vapor trails, American flag waving below, dramatic angle'"
     }
   ]
 }

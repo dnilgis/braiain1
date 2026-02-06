@@ -1,88 +1,44 @@
 {
-  "day_number": 1,
-  "date": "2026-02-08",
-  "category": "Image Detection",
-  "category_emoji": "\ud83d\udc41\ufe0f",
-  "rounds": [
-    {
-      "id": "d1r01",
-      "type": "image",
-      "content": "https://picsum.photos/id/167/800/600",
-      "source": "human",
-      "attribution": "Real photograph \u2014 library interior with antique books",
-      "pro_tip": "DEPTH OF FIELD: Real cameras create natural bokeh with smooth focus falloff. Notice how foreground books are sharp while the background softly blurs \u2014 AI often struggles to replicate this consistent optical depth, producing either everything in focus or artificially uniform blur."
-    },
-    {
-      "id": "d1r02",
-      "type": "image",
-      "content": "https://picsum.photos/id/429/800/600",
-      "source": "human",
-      "attribution": "Real photograph \u2014 humanoid robot in studio",
-      "pro_tip": "MECHANICAL JOINTS: Real robots have visible seams, screws, and manufacturing marks. AI-generated robots often have impossibly smooth transitions between parts and joints that couldn't physically articulate."
-    },
-    {
-      "id": "d1r03",
-      "type": "image",
-      "content": "https://picsum.photos/id/338/800/600",
-      "source": "ai",
-      "attribution": "AI-generated \u2014 digital artwork created with Midjourney",
-      "pro_tip": "UNCANNY PERFECTION: This image has a 'too polished' quality. Real photos always have sensor noise, subtle motion blur, and optical imperfections. AI images are suspiciously pristine across the entire frame."
-    },
-    {
-      "id": "d1r04",
-      "type": "image",
-      "content": "https://picsum.photos/id/29/800/600",
-      "source": "human",
-      "attribution": "Real photograph \u2014 food styling and fresh vegetables",
-      "pro_tip": "ORGANIC CHAOS: Real food has natural imperfections \u2014 a leaf slightly wilted, sauce dripped asymmetrically, crumbs scattered randomly. AI food looks suspiciously art-directed with impossible uniformity."
-    },
-    {
-      "id": "d1r05",
-      "type": "image",
-      "content": "https://picsum.photos/id/399/800/600",
-      "source": "ai",
-      "attribution": "AI-generated \u2014 surrealist composition",
-      "pro_tip": "PHYSICS VIOLATIONS: Check shadows and reflections. AI frequently places light sources inconsistently \u2014 shadows may point in conflicting directions, and reflections don't match the objects casting them."
-    },
-    {
-      "id": "d1r06",
-      "type": "image",
-      "content": "https://picsum.photos/id/36/800/600",
-      "source": "human",
-      "attribution": "Real photograph \u2014 rain-soaked neon street scene",
-      "pro_tip": "WATER BEHAVIOR: Real rain on real surfaces creates complex, irregular reflections with natural distortion. AI renders water as either too perfect (mirror-like) or too uniform (repeated ripple patterns)."
-    },
-    {
-      "id": "d1r07",
-      "type": "image",
-      "content": "https://picsum.photos/id/64/800/600",
-      "source": "ai",
-      "attribution": "AI-generated \u2014 photorealistic portrait",
-      "pro_tip": "BOUNDARY ARTIFACTS: Zoom into where hair meets background or skin meets fabric. AI creates subtle smearing, impossible blending, or haloing effects at these transition zones."
-    },
-    {
-      "id": "d1r08",
-      "type": "image",
-      "content": "https://picsum.photos/id/122/800/600",
-      "source": "human",
-      "attribution": "Real photograph \u2014 laptop with screen glow in dark environment",
-      "pro_tip": "SCREEN LIGHT: Real screens cast uneven light that falls off naturally with distance and bounces differently off varied surfaces. AI often renders screen glow as a uniform wash of color."
-    },
-    {
-      "id": "d1r09",
-      "type": "image",
-      "content": "https://picsum.photos/id/274/800/600",
-      "source": "ai",
-      "attribution": "AI-generated \u2014 fantasy environment",
-      "pro_tip": "REPETITION PATTERNS: Count similar elements \u2014 leaves, bricks, clouds. AI creates subtle copy-paste repetition that nature never produces. Real scenes have true randomness in every repeated element."
-    },
-    {
-      "id": "d1r10",
-      "type": "image",
-      "content": "https://picsum.photos/id/164/800/600",
-      "source": "human",
-      "attribution": "Real photograph \u2014 retro tech and circuit boards",
-      "pro_tip": "MANUFACTURING DETAIL: Real electronics have consistent trace widths, solder joints with natural irregularity, and dust/wear marks. AI circuit boards often have traces that lead nowhere and components that don't exist."
-    }
-  ]
+  "2026-02-05": {
+    "day_number": 2,
+    "category": "NFL Honors Night",
+    "category_emoji": "\ud83c\udfc8",
+    "category_subtitle": "Super Bowl LX Week \u2014 Awards Night in San Francisco",
+    "challenge_file": "challenges/2026-02-05.json"
+  },
+  "2026-02-06": {
+    "day_number": 3,
+    "category": "Winter Olympics Opening Ceremony",
+    "category_emoji": "\ud83c\udfc5",
+    "category_subtitle": "Milan Cortina 2026 \u2014 Let the Games Begin!",
+    "challenge_file": "challenges/2026-02-06.json"
+  },
+  "2026-02-07": {
+    "day_number": 4,
+    "category": "Super Bowl Eve",
+    "category_emoji": "\ud83c\udf89",
+    "category_subtitle": "Seahawks vs Patriots Tomorrow \u2014 Get Your Snacks Ready!",
+    "challenge_file": "challenges/2026-02-07.json"
+  },
+  "2026-02-08": {
+    "day_number": 5,
+    "category": "Super Bowl Sunday",
+    "category_emoji": "\ud83c\udfdf\ufe0f",
+    "category_subtitle": "Super Bowl LX \u2014 Seahawks vs Patriots \u2014 Kickoff 6:30 ET",
+    "challenge_file": "challenges/2026-02-08.json"
+  },
+  "2026-02-09": {
+    "day_number": 6,
+    "category": "National Pizza Day",
+    "category_emoji": "\ud83c\udf55",
+    "category_subtitle": "Post-Super Bowl Recovery \u2014 It's Pizza Time!",
+    "challenge_file": "challenges/2026-02-09.json"
+  },
+  "2026-02-14": {
+    "day_number": 11,
+    "category": "Valentine's Day",
+    "category_emoji": "\u2764\ufe0f",
+    "category_subtitle": "Love Is in the Air \u2014 Can You Spot the Fakes?",
+    "challenge_file": "challenges/2026-02-14.json"
+  }
 }
