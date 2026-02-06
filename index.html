@@ -675,11 +675,11 @@ img{display:block;max-width:100%}
     <span class="sep">&middot;</span>
     <span>SYSTEM <a href="/404.html" class="breach-trigger">SECURE</a></span>
     <span class="sep">&middot;</span>
-    <a href="/cdn-cgi/l/email-protection#e98d8780858e809aa98e84888085c78a8684">a dnilgis project</a>
+    <a href="/cdn-cgi/l/email-protection#6c080205000b051f2c0b010d0500420f0301">a dnilgis project</a>
   </div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ══════════════════════════════════════
    VERSION & CACHE BUSTING
    ══════════════════════════════════════ */
@@ -851,14 +851,26 @@ async function boot() {
   const todayKey = getTodayKey();
   const played = localStorage.getItem('braiain_played_' + todayKey);
 
-  // Load daily data
+  // Load daily data (two-step: index → challenge file)
   status.textContent = '> LOADING DAILY CHALLENGE...';
   try {
-    const resp = await fetchWithTimeout('daily.json?v=' + APP_VERSION + '&t=' + BUILD_HASH, {}, 5000);
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    dailyData = await resp.json();
+    const indexResp = await fetchWithTimeout('daily.json?v=' + APP_VERSION + '&t=' + BUILD_HASH, {}, 5000);
+    if (!indexResp.ok) throw new Error('HTTP ' + indexResp.status);
+    const index = await indexResp.json();
+
+    // Look up today's entry in the index
+    const todayEntry = index[todayKey];
+    if (!todayEntry || !todayEntry.challenge_file) throw new Error('No entry for ' + todayKey);
+
+    // Fetch the actual challenge file with rounds
+    status.textContent = '> DOWNLOADING DAY ' + todayEntry.day_number + '...';
+    const chalResp = await fetchWithTimeout(todayEntry.challenge_file + '?v=' + APP_VERSION + '&t=' + BUILD_HASH, {}, 5000);
+    if (!chalResp.ok) throw new Error('Challenge HTTP ' + chalResp.status);
+    dailyData = await chalResp.json();
+
     status.textContent = '> DAY ' + dailyData.day_number + ' — ' + (dailyData.category || 'DETECTION').toUpperCase() + ' LOADED';
   } catch (e) {
+    console.warn('Daily load failed:', e.message);
     dailyData = FALLBACK;
     status.textContent = '> OFFLINE MODE — USING CACHED DATA';
   }
