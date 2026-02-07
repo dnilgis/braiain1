@@ -1186,7 +1186,6 @@ function loadRound() {
   revealPanel.style.display = 'none';
   choices.style.display = '';
   document.querySelectorAll('.choice-btn').forEach(b => b.disabled = false);
-  frame.classList.remove('scanning');
   frame.classList.add('loading');
 
   const gFill = document.getElementById('global-bar-fill');
@@ -1198,11 +1197,7 @@ function loadRound() {
 
   img.onload = () => {
     frame.classList.remove('loading');
-    frame.classList.add('scanning');
-    setTimeout(() => {
-      frame.classList.remove('scanning');
-      initMagnifier(img);
-    }, 1200);
+    initMagnifier(img);
   };
   img.onerror = () => {
     frame.classList.remove('loading');
