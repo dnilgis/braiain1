@@ -41,11 +41,11 @@
     "category_subtitle": "Rain, Snow, or AI — They Always Deliver",
     "challenge_file": "challenges/2026-02-10.json"
   },
-  "2026-02-14": {
-    "day_number": 11,
-    "category": "Valentine's Day",
-    "category_emoji": "❤️",
-    "category_subtitle": "Love Is in the Air — Can You Spot the Fakes?",
-    "challenge_file": "challenges/2026-02-14.json"
+  "2026-02-11": {
+    "day_number": 8,
+    "category": "Don't Cry Over Spilled Milk Day",
+    "category_emoji": "🥛",
+    "category_subtitle": "No Use Crying!",
+    "challenge_file": "challenges/2026-02-11.json"
   }
 }
