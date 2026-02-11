@@ -47,5 +47,12 @@
     "category_emoji": "🥛",
     "category_subtitle": "No Use Crying!",
     "challenge_file": "challenges/2026-02-11.json"
+  },
+  "2026-02-12": {
+    "day_number": 9,
+    "category": "Lincoln's Birthday",
+    "category_emoji": "🎩",
+    "category_subtitle": "Honoring the 16th President — Born on this Day in 1809",
+    "challenge_file": "challenges/2026-02-12.json"
   }
 }
