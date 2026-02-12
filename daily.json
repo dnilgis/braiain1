@@ -54,27 +54,27 @@
     "category_emoji": "🎩",
     "category_subtitle": "Honoring the 16th President — Born on this Day in 1809",
     "challenge_file": "challenges/2026-02-12.json"
-  }
+  },
     "2026-02-13": {
       "day_number": 10,
       "category": "National Cheddar Day",
       "category_emoji": "🧀",
       "category_subtitle": "National Cheddar Day Friday: Time to separate the sharp AI from the mild!",
       "challenge_file": "challenges/2026-02-13.json"
-  }
+  },
     "2026-02-14": {
       "day_number": 11,
       "category": "Valentine's Day",
       "category_emoji": "❤️",
       "category_subtitle": "Love at First Pixel: AI's Valentine Hunt!",
       "challenge_file": "challenges/2026-02-14.json"
-  }
+  },
     "2026-02-15": {
       "day_number": 12,
       "category": "National I Want Buttered Popcorn Day",
       "category_emoji": "🍿",
       "category_subtitle": "AI's got a buttery craving. Spot the popcorn or get popped!",
       "challenge_file": "challenges/2026-02-15.json"
-  }
+  },
 }
 
