@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://braiain.com/</loc>
-    <lastmod>2026-02-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
-    <image:image>
-      <image:loc>https://braiain.com/og-image.png</image:loc>
-      <image:title>BRAIAIN — Can You Spot the AI?</image:title>
-      <image:caption>Free daily AI detection game. 10 rounds — real photo or AI fake?</image:caption>
-    </image:image>
+  </url>
+  <url>
+    <loc>https://braiain.com/guide.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://braiain.com/faq.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>

@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /challenges/
-Disallow: /images/
 
 Sitemap: https://braiain.com/sitemap.xml
