@@ -1034,6 +1034,13 @@
       "category_emoji": "📜",
       "category_subtitle": "Prove your visual independence. Spot the AI.",
       "challenge_file": "challenges/2026-07-02.json"
+  },
+    "2026-07-03": {
+      "day_number": 150,
+      "category": "Holiday Countdown",
+      "category_emoji": "🎆",
+      "category_subtitle": "This holiday, declare independence from AI's visual tricks.",
+      "challenge_file": "challenges/2026-07-03.json"
   }
 }
 
