@@ -1048,6 +1048,13 @@
       "category_emoji": "🎆",
       "category_subtitle": "Declare your independence from AI-generated reality. Spot the fake!",
       "challenge_file": "challenges/2026-07-04.json"
+  },
+    "2026-07-05": {
+      "day_number": 152,
+      "category": "Sunday Recharge",
+      "category_emoji": "⛱️",
+      "category_subtitle": "Sunday's mission: Spot AI fakes, then back to napping.",
+      "challenge_file": "challenges/2026-07-05.json"
   }
 }
 
