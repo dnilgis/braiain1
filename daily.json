@@ -1041,6 +1041,13 @@
       "category_emoji": "🎆",
       "category_subtitle": "This holiday, declare independence from AI's visual tricks.",
       "challenge_file": "challenges/2026-07-03.json"
+  },
+    "2026-07-04": {
+      "day_number": 151,
+      "category": "Fourth of July",
+      "category_emoji": "🎆",
+      "category_subtitle": "Declare your independence from AI-generated reality. Spot the fake!",
+      "challenge_file": "challenges/2026-07-04.json"
   }
 }
 
